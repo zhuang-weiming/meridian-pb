@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HSBC Private Bank — 页面地图</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  .wrap { width: 100%; max-width: 900px; margin: 0 auto; color-scheme: light dark; font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif); color: var(--foreground, light-dark(#1a1a1a, #f2f2f2)); }
+  .hero { padding: 4px 0 14px; border-bottom: 1px solid var(--border, light-dark(#e3e4e8, #34363c)); }
+  .kicker { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #db0011; font-weight: 700; }
+  h1 { font-size: 23px; line-height: 1.25; margin: 6px 0 6px; font-weight: 750; letter-spacing: -.01em; }
+  .sub { font-size: 13px; color: var(--muted-foreground, light-dark(#5f6368, #a8adb5)); line-height: 1.55; margin: 0; max-width: 680px; }
+  .stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .stat { background: var(--card, light-dark(#f7f7f8, #1c1d20)); border: 1px solid var(--border, light-dark(#e3e4e8, #34363c)); border-radius: var(--radius, 8px); padding: 8px 11px; min-width: 104px; }
+  .stat b { display: block; font-size: 17px; line-height: 1.1; }
+  .stat span { font-size: 10px; color: var(--muted-foreground, light-dark(#5f6368, #a8adb5)); }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px 0 10px;  }
+  .tab { appearance: none; border: 1px solid var(--border, light-dark(#e3e4e8, #34363c)); background: var(--card, light-dark(#f7f7f8, #1c1d20)); color: var(--foreground, light-dark(#1a1a1a, #f2f2f2)); border-radius: 999px; padding: 7px 12px; font-size: 12px; cursor: pointer; font-weight: 600; }
+  .tab[aria-selected="true"] { background: #db0011; border-color: #db0011; color: #fff; }
+  .flow { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; font-size: 10.5px; color: var(--muted-foreground, light-dark(#5f6368, #a8adb5)); margin-bottom: 12px; line-height: 1.5; }
+  .flow b { color: var(--foreground, light-dark(#1a1a1a, #f2f2f2)); font-weight: 650; }
+  .flow .arrow { color: #db0011; }
+  .grid { display: grid; grid-template-columns: 236px minmax(0,1fr); gap: 12px; align-items: start; }
+  @media (max-width: 560px) {
+    .grid { grid-template-columns: 1fr; }
+    .rail { flex-direction: row; overflow-x: auto; gap: 5px; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+    .pagebtn { flex: 0 0 auto; padding: 6px 8px; border: 1px solid var(--border, #e3e4e8); }
+    .pagebtn code { flex: 0 0 auto; }
+    .pagebtn span { max-width: 118px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  }
+  .rail { display: flex; flex-direction: column; gap: 4px; }
+  .pagebtn { text-align: left; appearance: none; border: 1px solid transparent; background: transparent; color: var(--foreground, light-dark(#1a1a1a, #f2f2f2)); padding: 8px 9px; border-radius: 7px; cursor: pointer; display: flex; gap: 9px; align-items: baseline; font-size: 12px; line-height: 1.35; }
+  .pagebtn:hover { background: var(--card, light-dark(#f7f7f8, #1c1d20)); border-color: var(--border, light-dark(#e3e4e8, #34363c)); }
+  .pagebtn[aria-current="true"] { background: var(--card, light-dark(#f7f7f8, #1c1d20)); border-color: var(--border, light-dark(#e3e4e8, #34363c)); box-shadow: inset 3px 0 0 #db0011; }
+  .pagebtn code { font-family: var(--font-mono, ui-monospace, monospace); font-size: 10px; color: var(--muted-foreground, light-dark(#5f6368, #a8adb5)); flex: 0 0 44px; }
+  .detail { background: var(--card, light-dark(#f7f7f8, #1c1d20)); border: 1px solid var(--border, light-dark(#e3e4e8, #34363c)); border-radius: var(--radius, 10px); padding: 16px; min-height: 360px; }
+  .dhead { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; border-bottom: 1px solid var(--border, light-dark(#e3e4e8, #34363c)); padding-bottom: 9px; margin-bottom: 11px; }
+  .dhead h2 { font-size: 16px; margin: 0; line-height: 1.3; }
+  .dhead code { font-family: var(--font-mono, ui-monospace, monospace); font-size: 10.5px; color: #db0011; font-weight: 700; }
+  .goal { font-size: 12.5px; line-height: 1.6; margin: 0 0 12px; }
+  .label { font-size: 10px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted-foreground, light-dark(#5f6368, #a8adb5)); font-weight: 700; margin: 12px 0 6px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .chip { font-family: var(--font-mono, ui-monospace, monospace); font-size: 10.5px; border: 1px solid var(--border, light-dark(#e3e4e8, #34363c)); background: var(--background, light-dark(#ffffff, #131417)); padding: 3px 6px; border-radius: 5px; white-space: nowrap; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 520px) { .two { grid-template-columns: 1fr; } }
+  .guard { font-size: 11.5px; line-height: 1.55; border-left: 3px solid #db0011; padding: 7px 10px; background: color-mix(in srgb, #db0011 6%, transparent); border-radius: 0 6px 6px 0; }
+  .actions { display: flex; flex-wrap: wrap; gap: 5px; }
+  .act { font-size: 11px; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--border, light-dark(#e3e4e8, #34363c)); background: var(--background, light-dark(#ffffff, #131417)); }
+  .section { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border, light-dark(#e3e4e8, #34363c)); }
+  .section h3 { font-size: 13px; margin: 0 0 4px; }
+  .section p { font-size: 11.5px; color: var(--muted-foreground, light-dark(#5f6368, #a8adb5)); margin: 0 0 10px; line-height: 1.5; }
+  .tes { display: grid; gap: 8px; }
+  .tesrow { display: grid; grid-template-columns: 86px 1fr 46px; gap: 8px; align-items: center; font-size: 11.5px; }
+  .bar { height: 12px; background: color-mix(in srgb, var(--foreground, light-dark(#1a1a1a, #f2f2f2)) 8%, transparent); border-radius: 999px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; border-radius: 999px; }
+  .a > i { background: var(--chart-1, #2563eb); }
+  .b > i { background: var(--chart-2, #0d9488); }
+  .c > i { background: var(--chart-3, #d97706); }
+  .score { font-family: var(--font-mono, ui-monospace, monospace); text-align: right; font-weight: 700; }
+  .legend { font-size: 10.5px; color: var(--muted-foreground, light-dark(#5f6368, #a8adb5)); margin-top: 6px; line-height: 1.5; }
+  .journey { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  @media (max-width: 620px) { .journey { grid-template-columns: 1fr 1fr; } }
+  .jstep { border: 1px solid var(--border, light-dark(#e3e4e8, #34363c)); border-radius: 8px; padding: 8px; background: var(--background, light-dark(#ffffff, #131417)); }
+  .jstep b { font-size: 10px; color: #db0011; display: block; margin-bottom: 2px; }
+  .jstep span { font-size: 11px; line-height: 1.4; display: block; }
+  .foot { font-size: 10.5px; color: var(--muted-foreground, light-dark(#5f6368, #a8adb5)); line-height: 1.55; margin: 14px 0 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">HSBC Private Bank · 核心系统蓝图</div>
+    <h1>五个用例，一条工作流，48 个页面</h1>
+    <p class="sub">从"客户事件"到"可执行订单"，再到"量化证据""专家编排""Pre-IPO 全景"与"税务优化"。每页给出目标、关键字段与一条不可越过的红线。</p>
+    <div class="stats">
+      <div class="stat"><b>48</b><span>页面规格</span></div>
+      <div class="stat"><b>5</b><span>业务模块</span></div>
+      <div class="stat"><b>11</b><span>交易模板</span></div>
+      <div class="stat"><b>5</b><span>TES 维度</span></div>
+    </div>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="模块">
+    <button class="tab" role="tab" data-m="m1" aria-selected="true">M1 提案 → 订单</button>
+    <button class="tab" role="tab" data-m="m2" aria-selected="false">M2 量化实验室</button>
+    <button class="tab" role="tab" data-m="m3" aria-selected="false">M3 RM 副驾</button>
+    <button class="tab" role="tab" data-m="m4" aria-selected="false">M4 创始人全景</button>
+    <button class="tab" role="tab" data-m="m5" aria-selected="false">M5 税务优化</button>
+  </div>
+
+  <div id="flow" class="flow"></div>
+
+  <div class="grid">
+    <div id="rail" class="rail" role="tablist" aria-label="页面"></div>
+    <div id="detail" class="detail" aria-live="polite"></div>
+  </div>
+
+  <div class="section">
+    <h3>TES：同一目标，三条路径，五维取舍</h3>
+    <p>示例：1,000 万美元固收配置。TES 只在本次候选集内排序；绝对值（成本 bps、天数、税负）必须同时展示。</p>
+    <div class="tes">
+      <div class="tesrow"><span>A 美国国债阶梯</span><div class="bar a"><i style="width:75.4%"></i></div><span class="score">75.4</span></div>
+      <div class="tesrow"><span>B 爱尔兰 UCITS</span><div class="bar b"><i style="width:65.2%"></i></div><span class="score">65.2</span></div>
+      <div class="tesrow"><span>C Autocall 票据</span><div class="bar c"><i style="width:52%"></i></div><span class="score">52.0</span></div>
+    </div>
+    <div class="legend">A 胜在成本/时间/冲击，但美国遗产税是尾部风险；B 胜在税后与可执行性；C 只胜在无冲击与票息。结论不是三选一，而是 A 40% + B 50% + C 10%。</div>
+  </div>
+
+  <div class="section">
+    <h3>创始人旅程：从纸面财富到可消费的信托</h3>
+    <p>示例客户（假设情景）：Pre-IPO 股权 90 亿美元账面值 → 调整后 56.7 亿 → 可贷值 22.68 亿 → LTV 22%（委员会区间 10%–30%）→ 5 亿美元额度；估值 −40% 即触发追保；信托年度预算 500 万美元，直付供应商、全程可审计。</p>
+    <div class="journey">
+      <div class="jstep"><b>01 事件</b><span>公开信息雷达、准入、财富来源</span></div>
+      <div class="jstep"><b>02 资产</b><span>股权 intake、文件核验、独立估值</span></div>
+      <div class="jstep"><b>03 质押</b><span>托管、设押、授信、压力测试</span></div>
+      <div class="jstep"><b>04 变现</b><span>减持 / 质押 / 远期 / 交换基金</span></div>
+      <div class="jstep"><b>05 信托</b><span>设立、注入、预算、消费、治理</span></div>
+    </div>
+  </div>
+
+  <p class="foot">示例与数字均为演示假设，不构成投资、税务、法律建议；实际适用须由持牌机构出具书面意见。完整字段、流程与合规边界见同目录 Markdown 文档。</p>
+</div>
+
+<script>
+const DATA = {
+  m1: {
+    flow: ["<b>触发</b> 事件/请求","<b>约束</b> 目标可计算","<b>模板</b> 选交易方式","<b>生成</b> 三套方案","<b>执行层</b> 逐行蓝图","<b>打分</b> TES","<b>闸门</b> 四维校验","<b>签署</b> 客户版","<b>下单</b> 母单/子单","<b>复盘</b> TCA"],
+    pages: [
+      {id:"PB-100",name:"Proposal Inbox / Client 360",goal:"30 秒内判断今天先打哪个电话、为什么。",fields:["client_id","segment","trigger_type","days_to_event","priority_score","concentration_top1","liquid_assets","consent_flags"],actions:["创建提案","稍后提醒","转交","查看事件"],guard:"风险测评过期 → 禁止进入生成页；同一客户已有草稿 → 合并而非新建。"},
+      {id:"PB-110",name:"Objective & Constraints",goal:"把“稳健一点、留点现金”翻译成机器可执行的约束，并暴露冲突。",fields:["objective_type","horizon_months","liquidity_T0_T7_T90","max_drawdown","min_cash_reserve","max_single_issuer","tax_residency","client_category"],actions:["编译约束","查看冲突","最小让步集","客户确认"],guard:"无解时输出“放宽哪条最有效”，不得擅自放宽；客户书面同意后才可重算。"},
+      {id:"PB-120",name:"Template Gallery",goal:"让 RM 选“交易方式”，而不是被产品货架牵着走。",fields:["template_id","asset_class","jurisdictions","client_categories","min_ticket","liquidity","complexity_score","cost_range_bps"],actions:["选择","加入对比","查看条款","查看历史成本"],guard:"客户类别/法域不匹配 → 灰显并说明原因；不允许“先选再补合规”。"},
+      {id:"PB-130",name:"AI Proposal Composer",goal:"一次给出三套可执行方案，并解释“为什么是这套、什么情况下会换”。",fields:["objective_weights","legs[]","expected_return_range","all_in_cost_bps","time_to_invest_days","why_this","why_not","what_would_change","confidence"],actions:["重新生成","锁定","克隆","送入打分"],guard:"只能引用规则放行的产品；收益率/成本/税率必须来自计算服务，生成器不得自算。"},
+      {id:"PB-135",name:"Execution Blueprint",goal:"把选定方案翻译成每一行都能下单的蓝图，并防止执行层偷偷改变提案层。",fields:["blueprint_id","proposal_id","line_no","template_id","instrument_id","action","quantity","venue","order_type","timing","cost_est_bps","funding_account","proposal_economics_delta","requires_reproposal"],actions:["生成蓝图","逐行编辑","校验","冻结"],guard:"无模板/无资金/无适当性 → 阻断；成本 +20bps 或权重 +2pp → 回到提案层。"},
+      {id:"PB-140",name:"Efficiency Scorecard",goal:"把“哪个更好”变成可讨论的取舍，而不是立场。",fields:["cost_bps","tax_drag_bps","time_to_cash_days","impact_bps","ease_score","tes","rank","data_quality","sensitivity"],actions:["调整权重","下钻明细","标记持平","填写 override 理由"],guard:"数据质量低 → 仅供讨论，不得直接进入客户签署；前两名差 < 2 分标“实质持平”。"},
+      {id:"PB-150",name:"Pre-trade Simulator",goal:"下单前先看“成交后世界长什么样”。",fields:["expected_fill_price","slippage_range_bps","cash_flow","post_trade_weights","liquidity_buckets_after","tax_lots_consumed","margin_impact","stress_results"],actions:["重跑","调整执行参数","比较情景","生成预警"],guard:"T0 现金流为负 → 必须指定融资或缩减规模；行情延迟 > 15 分钟 → 标黄。"},
+      {id:"PB-160",name:"Suitability & Compliance Gate",goal:"在客户看到之前，把所有“不能做”的理由说清楚。",fields:["check_id","rule_id","severity","message","evidence_ref","override_allowed","approver_id","conditions"],actions:["提交审批","附条件通过","退回修改","终止"],guard:"BLOCK 不可覆盖，系统不提供“强制通过”按钮；WARN 需指定审批人与到期日。"},
+      {id:"PB-170",name:"Client Pack & E-sign",goal:"客户看到的那一版，必须是 RM 签字的那一版。",fields:["proposal_version","documents[]","disclosure_version","personalization","esign_status","signatory","signature_timestamp","audit_certificate"],actions:["预览","发送","客户提问","归档"],guard:"文档数字与提案快照不一致 → 禁止发送；拒签记录原因码，不自动重发。"},
+      {id:"PB-180",name:"Order Plan & Blotter",goal:"把已签提案翻译成可执行、可监控、可追责的订单。",fields:["parent_order_id","instrument_id","side","quantity","execution_strategy","participation_cap","benchmark","funding_account","status"],actions:["拆分","路由","暂停","撤单"],guard:"资金不足/超限/限制名单 → 阻断；部分成交超时按策略处理，不得静默改价。"},
+      {id:"PB-190",name:"Post-trade & TCA",goal:"把“实际发生了什么”回写给下一次提案。",fields:["implementation_shortfall_bps","slippage_vs_estimate_bps","commission","taxes_paid","fx_cost_bps","settlement_status","tax_lot_update","template_calibration"],actions:["生成成本报告","发起复盘","更新模板基准","关闭"],guard:"偏差 > 15% → 自动复盘；交收失败升级 Ops，不重复扣款。"}
+    ]
+  },
+  m2: {
+    flow: ["<b>问题</b> 可检验假设","<b>IPS</b> 硬约束","<b>配置</b> SAA/TAA","<b>压力</b> 什么会疼","<b>回测</b> 含成本含税","<b>影响</b> 交易后是谁","<b>交付</b> RM 决定"],
+    pages: [
+      {id:"PB-200",name:"Quant Home / Question Builder",goal:"把“客户想稳一点”变成“如果股跌 30%，回撤是否超过 15%”。",fields:["study_id","client_question","hypothesis","decision_to_make","study_mode","benchmark","data_asof"],actions:["开始研究","套用模板","查看历史"],guard:"假设为空 → 不允许进入配置；禁止“先算再看”。"},
+      {id:"PB-210",name:"IPS & Policy Bands",goal:"政策区间是硬约束，不是“参考”。",fields:["risk_profile","risk_capacity","vol_target","max_drawdown","liquidity_buckets","policy_bands[]","single_issuer_limit","review_date"],actions:["重评","对比当前","签字","导出"],guard:"风险承受 < 风险意愿 → 取低者；IPS 过期 → 只读。"},
+      {id:"PB-220",name:"Allocation Studio",goal:"在约束内找到“最不坏”的配置，而不是“最优”的配置。",fields:["method","cma_version","expected_return","expected_vol","weights[]","policy_band_check","turnover_est","constraints_binding","confidence"],actions:["稳健/基准/进取","锁定","比较","送入压力"],guard:"越界 → 阻断；无可行解 → 输出“最小让步集”，不擅自放宽。"},
+      {id:"PB-230",name:"Stress Test Lab",goal:"回答“最疼会疼到哪里”，而不是“最坏会怎样”。",fields:["scenario_type","scenario_name","portfolio_pnl","max_drawdown","var_95","cvar_95","liquidity_after","margin_call_est","correlation_assumption"],actions:["选情景","反向压力","导出","推 RM"],guard:"相关性假设未说明 → 标黄；情景不相关 → 提示“不适用”，不硬套。"},
+      {id:"PB-240",name:"Backtest Lab",goal:"回答“历史上一直这么做会怎样；这个答案有多可靠”。",fields:["strategy_rule","universe","period","cost_model","tax_model","cagr","sharpe","max_drawdown","oos_sharpe","deflated_sharpe","turnover","survivorship_flag"],actions:["运行","参数扫描","样本外","发布"],guard:"无成本/税/样本外 → 不得用于客户材料；OOS 与样本内差异 > 50% → 标红过拟合。"},
+      {id:"PB-250",name:"Trade Impact Analyzer",goal:"把“这笔交易”放回组合，回答“交易后我是谁”。",fields:["before_after_weights","factor_exposure_delta","region_sector_delta","concentration_delta","liquidity_delta","all_in_cost","tax_cost","stress_delta","verdict"],actions:["对比","重跑","回到配置","送入决策卡"],guard:"交易后越界 → 阻断；改善收益但压力变差 → 标“取舍”，不自动推荐。"},
+      {id:"PB-260",name:"RM Decision Card & Delivery",goal:"把 20 页分析压缩成 RM 能在客户面前讲的 1 页，并决定怎么给。",fields:["recommendation","three_options","key_evidence","what_would_change","risks","assumptions","confidence","delivery_mode","rm_decision","rm_rationale"],actions:["完整交付","摘要交付","仅内部","记录理由"],guard:"不采纳但无理由 → 阻断；客户拒收 → 记录，不重复推送。"}
+    ]
+  },
+  m3: {
+    flow: ["<b>NBA</b> 今天打给谁","<b>融资</b> 缺多少/怎么还","<b>税务</b> 义务/情景/转介","<b>法律</b> 事项/文件/转介","<b>服务匹配</b> 家族需求","<b>邀请</b> 客户只看到结果","<b>专家</b> 同一案子"],
+    pages: [
+      {id:"PB-300",name:"RM Home / Next Best Action",goal:"今天最值得打的一个电话，以及一句话理由。",fields:["client_id","event_type","opportunity","priority_score","estimated_value","next_action","consent_flags"],actions:["打开","稍后","转交","查看 360"],guard:"只显示授权/公开信息；不得展示 MNPI 线索。"},
+      {id:"PB-310",name:"Financing Cockpit",goal:"缺多少、什么时候缺、能借多少、怎么还。",fields:["purpose","amount_needed","need_date","cashflow_12m[]","funding_gap","existing_facilities[]","assets_available[]","options[]","recommendation"],actions:["生成方案","调整假设","转介融资顾问","补材料"],guard:"现金流缺口不得用“预计上涨”填补；必须列还款来源。"},
+      {id:"PB-320",name:"Facility Structuring",goal:"把额度、抵押、契约、追保放在一张桌子上。",fields:["facility_type","collateral[]","haircut","lendable_value","ltv","pricing","covenants[]","margin_ladder","stress_results","conditions_precedent[]"],actions:["压力测试","生成 term sheet","提交审批","放款"],guard:"LTV 超政策 → 阻断；未做压力测试 → 不得提交审批。"},
+      {id:"PB-330",name:"Tax Cockpit",goal:"识别事项、算情景、转介持牌税务师——不出税务意见。",fields:["residency","domicile","entities[]","obligations[]","events[]","scenario","risk_flags[]","referral","disclaimer_version"],actions:["更新画像","生成情景","转介","设置提醒"],guard:"居民身份缺失 → 不得生成情景；所有输出带“非税务意见”。"},
+      {id:"PB-340",name:"Legal Cockpit",goal:"把法律事项变成清单、时限与对的人。",fields:["matter_type","jurisdictions[]","facts","documents[]","deadline","risk_level","bank_boundary","specialist","conflict_check","referral_status"],actions:["建事项","补文件","利益冲突筛查","转介"],guard:"冲突检查未过 → 不得转介；诉讼/监管调查 → 立即升级合规。"},
+      {id:"PB-350",name:"服务 / 邀请",goal:"家族不同成员看到 HSBC 筛选并邀请的服务；没有价格、评分或采购步骤。",fields:["invitation_id","program_id","title","category","provider","date_range","location","audience","inclusions","seats","acceptance","feedback"],actions:["接受","拒绝","反馈"],guard:"客户不支付；只见邀请/项目/交付方；不显示价格、评分、招标/比价。"},
+      {id:"PB-360",name:"Service Operations（后台）",goal:"后台采购/RFP/合同/SLA；不在客户邀请页展示。",fields:["rfp_id","category","scope","budget_range","evaluation_weights","shortlist[]","bids[]","quality_score","compliance_score","price_score","award","contract_ref","sla","performance"],actions:["发 RFP","评标","定标","续约"],guard:"后台流程；客户页面不显示采购；专业服务禁止付费买排名。"},
+      {id:"PB-370",name:"Specialist Connect / Case Workspace",goal:"把 RM、专家、客户、受托人拉进同一个有 SLA 的案子。",fields:["case_id","participants[]","scope","fees","consent","timeline[]","documents[]","tasks[]","sla_status","outcome","nps"],actions:["建案","分配","升级","结案"],guard:"超时自动升级；vendor 端看不到持仓/账户/交易明细。"}
+    ]
+  },
+  m4: {
+    flow: ["<b>事件</b> 公开雷达","<b>准入</b> KYC/SoW","<b>资产</b> intake","<b>估值</b> 独立委员会/LTV","<b>质押</b> 托管/授信/40%触发","<b>变现</b> 卖/押/远期","<b>信托</b> 注入","<b>消费</b> 预算/直付/税务台账","<b>监控</b> 覆盖/复盘"],
+    pages: [
+      {id:"PB-400",name:"Founder Event Radar",goal:"上市、解禁、质押、税率——谁先动，谁负责。",fields:["event_type","event_date","source","impact_score","opportunity","owner","next_action","status"],actions:["认领","触达","转交","关闭"],guard:"只使用公开/授权信息；投行项目信息不得进入。"},
+      {id:"PB-410",name:"Pre-IPO Asset Intake",goal:"把“纸面财富”变成可管理、可估值、可质押的资产。",fields:["instrument_type","shares","ownership_pct","holding_entity","entity_chain[]","rights[]","restrictions[]","pledge_status","source_of_wealth_ref"],actions:["录入","穿透","文件核验","送估值"],guard:"未穿透最终受益所有人 → 阻断；文件缺失 → 只能初评。"},
+      {id:"PB-420",name:"Valuation & Haircut",goal:"估值不是拍脑袋，是方法、折扣与敏感性的组合。",fields:["method_primary","last_round_post_money","valuation_range","dlom","minority_discount","adjusted_value","collateral_haircut","lendable_value","sensitivity"],actions:["交叉验证","敏感性","审批","季度更新"],guard:"无独立估值/折扣依据 → 不得用于授信；估值下调触发重算。"},
+      {id:"PB-425",name:"Independent Valuation Panel",goal:"把 Pre-IPO 估值从系统配置变成独立机构 + 委员会判断，LTV 10%–30%。",fields:["panel_ref","valuer_id","method","dlom","minority_discount","adjusted_value","lendable_value","ltv_range","ltv_recommended","drop_trigger","dissent[]","next_review"],actions:["立项","选任估值师","挑战","决议"],guard:"LTV 超 10%–30% → 回委员会；估值报告 > 6 个月 → 不得新增放款；RM 不参与决策。"},
+      {id:"PB-430",name:"Custody & Pledge",goal:"股权怎么托管、怎么设押、怎么在不失去投票权的前提下融资。",fields:["custodian","shares_custodied","voting_rights","pledged_shares","pledge_pct","security_agreement_ref","board_consent_ref","release_conditions[]","facility_id"],actions:["托管","设押","登记","解除"],guard:"未取得董事会同意/超可质押股数 → 阻断。"},
+      {id:"PB-440",name:"Monetization Planner",goal:"卖、押、远期、交换基金——比税后，不比口号。",fields:["target_liquidity","options[]","gross_proceeds","tax_cost","net_proceeds","cost_of_carry","dilution","control_impact","market_impact","recommendation"],actions:["比较","压力","选方案","执行"],guard:"必须含税后与追保压力；不得只比毛收入。"},
+      {id:"PB-445",name:"Pledge vs Sell",goal:"同样拿到 C 现金：比税后终端财富、盈亏平衡、−40% 下行，而不是只比税率。",fields:["tax_residency","tax_rate","cash_need","expected_return","borrowing_rate","ltv","interest_coverage","sell_tax","sell_terminal","pledge_terminal","breakeven_return","recommendation"],actions:["测算","情景","出决策卡","披露"],guard:"LTV > 30% / 利息覆盖 < 1.5× / −40% 无法补仓 → 不建议质押；不得写“质押免税”。"},
+      {id:"PB-450",name:"Trust Structuring",goal:"在“能消费”与“能保护”之间，由律师画出边界。",fields:["trust_type","jurisdiction","trustee","settlor","protector","beneficiaries[]","reserved_powers[]","assets_to_inject[]","tax_on_injection","creditor_protection"],actions:["选型","当事人","税务测算","法律意见"],guard:"委托人保留过度控制 → 保护弱化；不得承诺“信托避税”。"},
+      {id:"PB-460",name:"Trust Budget & Consumption",goal:"让信托从“锁住的钱”变成“能花的口袋”，且每笔可审计。",fields:["budget_year","total_budget","categories[]","beneficiary_alloc","distribution_policy","approval_matrix","payment_method","payee_kyc","supporting_docs[]","audit_ref"],actions:["编预算","审批","直付","审计"],guard:"不做现金；供应商过 KYC/制裁/关联方；预算外单独审批。"},
+      {id:"PB-465",name:"Distribution Tax Ledger",goal:"回答：这笔钱从哪一层出来、谁申报、与 21 号公告 20% 怎么对应。",fields:["distribution_id","event_type","source_layer","taxable_person","tax_base","tax_rate","tax_due","tax_paid","tax_credit","tax_reserve","filing_form","advisor_opinion_ref","status"],actions:["分类","税务意见","审批","申报"],guard:"无来源层/无完税计提/无估值/无意见 → 不得付款；分配时校验税额抵扣。"},
+      {id:"PB-470",name:"Monitoring & Reporting",goal:"覆盖率、估值、分配、合规——一页看清。",fields:["coverage_ratio","ltv_current","thresholds","valuation_date","distribution_ytd","budget_used","compliance_flags[]","report_ref"],actions:["预警","追保","报告","复盘"],guard:"跌破预警线 → T+1 通知 RM + 风控；估值缺失 → 冻结新增。"},
+      {id:"PB-480",name:"Family Governance",goal:"宪章、受益人、二代、慈善——把“传下去”变成可执行。",fields:["charter_ref","family_members[]","beneficiary_rules","education_plan","philanthropy","next_gen_program","decision_forum","review_cycle"],actions:["年度复盘","修订","教育计划","慈善"],guard:"受益人规则与信托契约冲突 → 以契约与律师意见为准。"}
+    ]
+  },
+  m5: {
+    flow: ["<b>触发</b> 交易/年结","<b>画像</b> 居民/实体/账户","<b>基线</b> 不优化交多少","<b>杠杆</b> 身份/簿记/实体","<b>情景</b> 税后现金/成本","<b>校验</b> 反避税红灯","<b>意见</b> 持牌顾问","<b>决策</b> RM 审核","<b>交付</b> 实施/复盘"],
+    pages: [
+      {id:"PB-500",name:"Tax Optimization Home",goal:"这笔交易为什么现在要做税务优化？范围、法域、预算、顾问。",fields:["case_id","trigger_type","transaction_amount","scope_jurisdictions[]","complexity","advisor_panel[]","target_tax_outcome","status"],actions:["建案","定范围","选顾问","推进"],guard:"目标不能写“零税”；必须写“合法优化 + 可申报”。"},
+      {id:"PB-510",name:"Tax Profile & Nexus Map",goal:"谁是纳税人、住哪、资产/实体/账户在哪——四者不是一回事。",fields:["residency[]","domicile","days_by_jurisdiction","entities[]","accounts[]","assets[]","income_flows[]","treaties[]","filings[]","consent_ref"],actions:["录入","穿透","校验","授权顾问"],guard:"居民身份/天数/实体未穿透 → 不得进入测算；数据需客户授权。"},
+      {id:"PB-520",name:"Baseline Tax Map",goal:"不做优化时，每个事件交什么税、什么时候交、谁申报。",fields:["event_id","taxpayer","tax_type","tax_base","rate","timing","withholding","filing_form","cash_tax","effective_rate"],actions:["生成","核对","标注假设","送杠杆"],guard:"基线不含优化；假设必须可见；跨境需税务师确认。"},
+      {id:"PB-530",name:"Lever Library",goal:"十条杠杆：身份/簿记/实体/交易/工具/时点/拆分/条约/信托/融资。",fields:["lever_id","category","description","jurisdictions[]","fit","expected_impact","cost","risk","evidence_required[]","advisor_required","red_flags[]"],actions:["筛选","加入情景","标记红旗","删除"],guard:"“拆分”必须填商业目的/独立方/文档；否则不得选。"},
+      {id:"PB-540",name:"Booking & Entity Comparator",goal:"香港/新加坡/开曼/卢森堡…账户与实体怎么选，不是“开曼=免税”。",fields:["booking_centre","entity_type","tax_residence","treaty_access","cfo_flag","substance","crs_reportable","banking_access","cost","reputation","score"],actions:["比较","加权","查看依据","送情景"],guard:"开曼/BVI 不得标“避税”；无实质/无受益所有权 → 淘汰。"},
+      {id:"PB-550",name:"Scenario Comparator",goal:"基线 + 三套方案：税后现金、有效税率、成本、风险、可辩护性。",fields:["scenario_id","levers[]","gross_income","tax_cost","after_tax_cash","effective_rate","implementation_cost","annual_cost","net_benefit","liquidity","control","risk_rating","score","rank"],actions:["测算","调参","排名","出决策卡"],guard:"可辩护性低于阈值 → 淘汰，不参与排名；不得只按税率排序。"},
+      {id:"PB-560",name:"Substance & Anti-Avoidance Check",goal:"GAAR/PPT/CFC/实质/受益所有权/7 号/21 号/CRS——红灯即停。",fields:["gaar","ppt","cfo","economic_substance","beneficial_ownership","transfer_pricing","indirect_transfer_7","trust_21","crs_fatca","red_flags[]","result"],actions:["校验","补证","合规复核","终止"],guard:"红灯 → REJECT；不得进入顾问/RM；合规与税务师双签。"},
+      {id:"PB-570",name:"Advisor Review & RM Decision",goal:"持牌意见 + RM 决策；RM 审核后交付，AI 不签。",fields:["advisor_id","jurisdiction","scope","opinion","opinion_ref","fees","conflict_check","rm_decision","rm_rationale","client_suitability","conditions[]"],actions:["送顾问","收意见","RM 决策","附条件"],guard:"无书面意见 → 不交付；RM 不采纳需写理由；顾问利益冲突需回避。"},
+      {id:"PB-580",name:"Client Delivery & Implementation",goal:"客户包、披露、开户/设实体/交易/申报——每一步有负责人。",fields:["pack_id","scenario_id","disclosures","client_decision","esign_ref","implementation_tasks[]","owner","timeline","documents[]","status"],actions:["生成客户包","签署","派任务","跟踪"],guard:"不得承诺税负；披露含假设/风险/非意见；实施需顾问/律师。"},
+      {id:"PB-590",name:"Annual Review & Monitoring",goal:"法规变化、天数、申报、结构、下一年动作。",fields:["review_year","law_changes[]","residency_days","structure_changes[]","tax_filings[]","tax_paid","effective_rate","next_actions[]","review_date"],actions:["复盘","重算","更新","提醒"],guard:"法规变化/身份变化 → 重跑反避税；年度复盘 100%。"}
+    ]
+  }
+};
+
+let current = "m1", currentPage = 0;
+
+function renderFlow() {
+  const f = document.getElementById("flow");
+  f.innerHTML = DATA[current].flow.map((x,i)=> x + (i<DATA[current].flow.length-1 ? ' <span class="arrow">→</span> ' : '')).join("");
+}
+
+function renderRail() {
+  const rail = document.getElementById("rail");
+  rail.innerHTML = "";
+  DATA[current].pages.forEach((p,i)=>{
+    const b = document.createElement("button");
+    b.className = "pagebtn";
+    b.setAttribute("aria-current", i===currentPage ? "true" : "false");
+    b.innerHTML = "<code>"+p.id+"</code><span>"+p.name+"</span>";
+    b.onclick = ()=>{ currentPage=i; renderRail(); renderDetail(); };
+    rail.appendChild(b);
+  });
+}
+
+function renderDetail() {
+  const p = DATA[current].pages[currentPage];
+  document.getElementById("detail").innerHTML =
+    '<div class="dhead"><h2>'+p.name+'</h2><code>'+p.id+'</code></div>'+
+    '<p class="goal">'+p.goal+'</p>'+
+    '<div class="label">关键字段</div><div class="chips">'+p.fields.map(f=>'<span class="chip">'+f+'</span>').join("")+'</div>'+
+    '<div class="two" style="margin-top:12px"><div><div class="label">主要动作</div><div class="actions">'+p.actions.map(a=>'<span class="act">'+a+'</span>').join("")+'</div></div>'+
+    '<div><div class="label">系统护栏</div><div class="guard">'+p.guard+'</div></div></div>';
+}
+
+document.querySelectorAll(".tab").forEach(t=>{
+  t.onclick = ()=>{
+    document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected","false"));
+    t.setAttribute("aria-selected","true");
+    current = t.dataset.m; currentPage = 0;
+    renderFlow(); renderRail(); renderDetail();
+  };
+});
+
+renderFlow(); renderRail(); renderDetail();
+</script>
+</body>
+</html>

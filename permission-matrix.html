@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HSBC Private Bank — 权限矩阵</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0}
+  .w{width:100%;max-width:900px;margin:0 auto;font-family:var(--font-sans,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif);color:var(--foreground,light-dark(#1a1a1a,#f2f2f2));color-scheme:light dark}
+  .k{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#db0011;font-weight:700}
+  h1{font-size:22px;line-height:1.25;margin:6px 0 5px;font-weight:750;letter-spacing:-.01em}
+  .sub{font-size:12.5px;line-height:1.55;color:var(--muted-foreground,light-dark(#5f6368,#a8adb5));margin:0;max-width:720px}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin:13px 0 12px}
+  .chip{appearance:none;border:1px solid var(--border,light-dark(#e3e4e8,#34363c));background:var(--card,light-dark(#f7f7f8,#1c1d20));color:var(--foreground,light-dark(#1a1a1a,#f2f2f2));border-radius:999px;padding:6px 10px;font-size:11px;cursor:pointer;font-weight:600}
+  .chip[aria-pressed="true"]{background:#db0011;border-color:#db0011;color:#fff}
+  .panel{display:grid;grid-template-columns:1.15fr .85fr;gap:10px;margin-bottom:12px}
+  @media(max-width:640px){.panel{grid-template-columns:1fr}}
+  .box{border:1px solid var(--border,light-dark(#e3e4e8,#34363c));border-radius:var(--radius,10px);padding:12px;background:var(--card,light-dark(#f7f7f8,#1c1d20))}
+  .box h3{font-size:12px;margin:0 0 5px}
+  .box p{font-size:11px;line-height:1.5;color:var(--muted-foreground,light-dark(#5f6368,#a8adb5));margin:0 0 8px}
+  .kv{display:grid;grid-template-columns:70px 1fr;gap:5px;font-size:11px;line-height:1.45;margin:3px 0}
+  .kv b{color:var(--muted-foreground,light-dark(#5f6368,#a8adb5));font-weight:600}
+  .ok{color:var(--success,#0d9488);font-weight:700}
+  .no{color:var(--destructive,#db0011);font-weight:700}
+  .scroll{overflow-x:auto;border:1px solid var(--border,light-dark(#e3e4e8,#34363c));border-radius:var(--radius,10px)}
+  table{width:100%;border-collapse:collapse;font-size:10.5px;min-width:720px}
+  th,td{border-bottom:1px solid var(--border,light-dark(#e3e4e8,#34363c));padding:6px 7px;text-align:left;white-space:nowrap}
+  th{background:color-mix(in srgb,var(--foreground,light-dark(#1a1a1a,#f2f2f2)) 6%,transparent);font-weight:700;position:sticky;top:0}
+  td.f{color:var(--success,#0d9488);font-weight:700}
+  td.m{color:var(--warning,#b45309);font-weight:700}
+  td.a{color:var(--info,#2563eb);font-weight:700}
+  td.r{color:var(--muted-foreground,light-dark(#5f6368,#a8adb5));font-weight:700}
+  td.n{color:var(--border,light-dark(#c0c4cc,#4a4d55))}
+  .legend{font-size:10px;color:var(--muted-foreground,light-dark(#5f6368,#a8adb5));margin:7px 0 0;line-height:1.5}
+  .sec{margin-top:16px;padding-top:13px;border-top:1px solid var(--border,light-dark(#e3e4e8,#34363c))}
+  .sec h3{font-size:12.5px;margin:0 0 4px}
+  .sec p{font-size:11px;color:var(--muted-foreground,light-dark(#5f6368,#a8adb5));margin:0 0 8px;line-height:1.5}
+  .rules{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+  @media(max-width:640px){.rules{grid-template-columns:1fr}}
+  .rule{border-left:3px solid #db0011;background:color-mix(in srgb,#db0011 6%,transparent);padding:7px 9px;border-radius:0 6px 6px 0;font-size:10.5px;line-height:1.45}
+  .rule b{display:block;margin-bottom:2px}
+  .foot{font-size:10px;color:var(--muted-foreground,light-dark(#5f6368,#a8adb5));line-height:1.5;margin:13px 0 4px}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="k">HSBC Private Bank · Launch Gate</div>
+  <h1>权限矩阵：角色 × 页面 × 字段 × 动作</h1>
+  <p class="sub">页面决定"能做什么"，权限决定"谁可以做、看到什么、做到什么程度"。下面这张矩阵不过，相关功能不上线。点角色查看边界。</p>
+
+  <div class="chips" id="roles"></div>
+
+  <div class="panel">
+    <div class="box" id="roleCard"></div>
+    <div class="box">
+      <h3>字段敏感级</h3>
+      <p>默认掩码；S3/S5 需单独授权；S4 需跨墙审批；AI 永不接触 S3/S4/S5。</p>
+      <div class="kv"><b>S0 公开</b><span>招股书、公告、榜单</span></div>
+      <div class="kv"><b>S1 内部</b><span>产品、模板</span></div>
+      <div class="kv"><b>S2 机密</b><span>姓名、地址、持仓</span></div>
+      <div class="kv"><b>S3 受限</b><span>税号、护照、账号、契约</span></div>
+      <div class="kv"><b>S4 MNPI</b><span>投行项目、并购、再融资</span></div>
+      <div class="kv"><b>S5 敏感</b><span>健康、婚姻、子女、宗教</span></div>
+    </div>
+  </div>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>页面组</th><th>CL</th><th>RM</th><th>TH</th><th>IC</th><th>CR</th><th>CO</th><th>OP</th><th>TL</th><th>TS</th><th>VE</th><th>AU</th><th>AI</th></tr></thead>
+      <tbody id="matrix"></tbody>
+    </table>
+  </div>
+  <p class="legend">F 全量（范围内） · M 掩码 · A 仅汇总 · R 只读全量 · C 案件范围 · L 白名单 · — 无权限。行级范围：RM 自己客户；TH 团队；Trustee 信托；Vendor RFP/合同；Client 本人/授权家庭。</p>
+
+  <div class="sec">
+    <h3>十个必须通过的越权测试</h3>
+    <p>上线前全部通过；任一失败，功能不上线。</p>
+    <div class="rules">
+      <div class="rule"><b>01 跨 RM</b>RM A 访问 RM B 客户 → 403 + 日志。</div>
+      <div class="rule"><b>02 税号</b>RM 看税号 → 只显示后 4 位。</div>
+      <div class="rule"><b>03 合规解密</b>CO 解密 → 允许，写解密日志。</div>
+      <div class="rule"><b>04 Vendor 越界</b>看客户姓名/持仓 → 拒绝，只看 cohort。</div>
+      <div class="rule"><b>05 投标隔离</b>看其他 vendor 报价 → 拒绝。</div>
+      <div class="rule"><b>06 IC 字段</b>看持仓 → 允许；税号 → 不可见。</div>
+      <div class="rule"><b>07 Credit 边界</b>看信托分配 → 拒绝。</div>
+      <div class="rule"><b>08 Trustee 边界</b>看客户个人账户 → 拒绝。</div>
+      <div class="rule"><b>09 AI 白名单</b>检索 MNPI/健康/税号 → 拒绝 + 日志。</div>
+      <div class="rule"><b>10 Auditor</b>导出证据包 → 允许只读；不能审批/编辑。</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h3>三条职责分离（SoD）</h3>
+    <p>权限不仅是"能不能看"，更是"能不能一个人做完"。</p>
+    <div class="rules">
+      <div class="rule"><b>提案 ≠ 审批</b>创建人不能是 T1/T2 最终审批人。</div>
+      <div class="rule"><b>授信 ≠ 关系</b>RM 不能批自己客户的额度；估值人不能批授信。</div>
+      <div class="rule"><b>决议 ≠ 付款</b>受托人分配决议与银行付款复核分开。</div>
+    </div>
+  </div>
+
+  <p class="foot">完整矩阵（37 页 × 14 角色 × 字段组 × 动作）见 <b>08_permission_matrix.md</b>；示例与阈值需按属地监管与内部政策校准。</p>
+</div>
+
+<script>
+const ROLES = {
+  RM:  {short:"客户经理",name:"RM 客户经理", scope:"自己名下客户", can:"提案、客户 360、量化、融资/税务/法律驾驶舱、创始人工作台", cant:"税号仅掩码；健康/家庭仅必要；不看 MNPI；不批自己客户授信", test:"RM A 访问 RM B 客户 → 403"},
+  IC:  {short:"投资顾问",name:"IC 投资顾问", scope:"被指派客户", can:"配置、压力、回测、提案签字", cant:"不看税号/健康；不释放订单；不改执行参数", test:"IC 看持仓允许，税号不可见"},
+  TH:  {short:"团队主管",name:"Team Head", scope:"团队汇总", can:"团队看板、额度内审批", cant:"默认只看汇总；明细需 need-to-know；不看信托分配", test:"TH 看团队 AUM 允许，看单客户税号拒绝"},
+  CR:  {short:"授信风险",name:"Credit / Risk", scope:"融资/抵押客户", can:"抵押、LTV、额度、压力、追保", cant:"不看信托分配/税务；不改提案", test:"Credit 看信托分配 → 拒绝"},
+  CO:  {short:"合规",name:"Compliance", scope:"全量只读", can:"规则、审批、调查、解密、冻结", cant:"不改订单/提案；不进入分成；MNPI 仍需跨墙", test:"CO 可读全量，但不能编辑订单"},
+  OP:  {short:"运营",name:"Operations", scope:"账户/订单/支付", can:"开户、结算、支付、对账", cant:"不做投资建议；不看税务意见；不改提案实质", test:"OP 看支付凭证允许，看税务意见拒绝"},
+  TL:  {short:"税务法律",name:"Tax/Legal", scope:"案件", can:"案件文件、意见、底稿", cant:"不看持仓/其他客户；不直接营销", test:"TL 看案件合同允许，看组合拒绝"},
+  TS:  {short:"受托人",name:"Trustee", scope:"信托", can:"信托资产、分配、申报、受益人", cant:"不看客户个人账户；不受 settlor 单方指令", test:"Trustee 看个人账户 → 拒绝"},
+  VE:  {short:"供应商",name:"Vendor", scope:"RFP/合同", can:"投标、交付、开票、看 cohort 规模", cant:"不看客户姓名/持仓/其他投标；不直接营销", test:"Vendor 看客户姓名 → 拒绝"},
+  CL:  {short:"客户",name:"Client", scope:"本人/授权家庭", can:"提案、邀请、信托报告、自己的分配", cant:"不看内部笔记/其他客户/其他受益人金额", test:"受益人只看自己的分配"},
+  AU:  {short:"审计",name:"Auditor", scope:"审计范围", can:"证据包只读、导出（水印）", cant:"不审批、不编辑、不删除", test:"Auditor 导出允许，审批拒绝"},
+  AI:  {short:"AI",name:"AI 服务账号", scope:"白名单", can:"S0/S1/S2 授权子集、生成草稿", cant:"S3/S4/S5、导出、签字、下单", test:"AI 检索 MNPI/税号 → 拒绝 + 日志"}
+};
+
+const MATRIX = [
+  ["M1 提案（11 页）","—","F","A","F","M","R","M","—","—","—","R","L"],
+  ["M2 量化（7 页）","—","F","A","F","M","R","—","—","—","—","R","L"],
+  ["M3 融资/税务/法律（8 页）","—","F","A","M","M","R","M","C","C","C","R","L"],
+  ["M4 创始人（11 页）","—","F","A","M","F","R","M","C","F","—","R","L"],
+  ["规则/权限/审计","—","—","—","—","—","F","—","—","—","—","R","—"]
+];
+const CODES = {F:"f",M:"m",A:"a",R:"r",L:"m","—":"n"};
+
+function renderRoles(){
+  const box=document.getElementById("roles");
+  Object.keys(ROLES).forEach((k,i)=>{
+    const b=document.createElement("button");
+    b.className="chip"; b.textContent=ROLES[k].short;
+    b.setAttribute("aria-pressed", i===0 ? "true":"false");
+    b.onclick=()=>{
+      document.querySelectorAll("#roles .chip").forEach(x=>x.setAttribute("aria-pressed","false"));
+      b.setAttribute("aria-pressed","true"); renderCard(k);
+    };
+    box.appendChild(b);
+  });
+  renderCard("RM");
+}
+
+function renderCard(k){
+  const r=ROLES[k];
+  document.getElementById("roleCard").innerHTML =
+    '<h3>'+r.name+'</h3><p>范围：'+r.scope+'</p>'+
+    '<div class="kv"><b>可做</b><span class="ok">'+r.can+'</span></div>'+
+    '<div class="kv"><b>不可做</b><span class="no">'+r.cant+'</span></div>'+
+    '<div class="kv"><b>必测</b><span>'+r.test+'</span></div>';
+}
+
+function renderMatrix(){
+  const tb=document.getElementById("matrix");
+  MATRIX.forEach(row=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML = '<td><b>'+row[0]+'</b></td>' + row.slice(1).map(v=>'<td class="'+CODES[v]+'">'+v+'</td>').join("");
+    tb.appendChild(tr);
+  });
+}
+renderRoles(); renderMatrix();
+</script>
+</body>
+</html>
