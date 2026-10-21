@@ -20,6 +20,8 @@ const PAGES = [
   { id: "m2-backtest", mod: "M2", title: "回测实验室", sub: "含成本、含税、含样本外", icon: "08", roles: ["RM", "IC", "TH", "Compliance"] },
   { id: "m2-decision", mod: "M2", title: "RM 决策卡", sub: "RM 决定怎么讲、讲多少", icon: "09", roles: ["RM", "IC", "TH", "Compliance"] },
 
+  { id: "m3-family", mod: "M3", title: "家庭工作台", sub: "客户与家庭：关系、目标、授权、可执行事项", icon: "FH", roles: ["RM", "IC", "TH", "Compliance"] },
+  { id: "m3-cases", mod: "M3", title: "案件工作台", sub: "融资、税务、信托、服务的统一任务视图", icon: "CW", roles: ["RM", "IC", "TH", "Compliance", "Credit", "Trustee"] },
   { id: "m3-financing", mod: "M3", title: "融资驾驶舱", sub: "缺多少、能借多少、怎么还", icon: "10", roles: ["RM", "IC", "TH", "Credit", "Compliance"] },
   { id: "m3-taxlegal", mod: "M3", title: "税务 / 法律驾驶舱", sub: "义务日历、情景、持牌转介", icon: "11", roles: ["RM", "IC", "TH", "Compliance", "Trustee"] },
   { id: "m3-hub", mod: "M3", title: "服务 / 邀请", sub: "家族服务与邀请：客户不支付、不签约", icon: "12", roles: ["RM", "IC", "TH", "Compliance"] },
@@ -108,7 +110,7 @@ RENDER["m1-dashboard"] = () => {
           <div><div class="tiny muted">税务居民</div><div class="strong">${c.taxResidency}</div></div>
           <div><div class="tiny muted">实体</div><div class="strong">${c.entity}</div></div>
           <div><div class="tiny muted">税号</div><div class="strong mono">${taxId}</div></div>
-          <div><div class="tiny muted">家庭</div><div class="strong">${c.family}</div></div>
+          <div><div class="tiny muted">${UI.term("家庭", "Household")}</div><div class="strong">${c.family}</div></div>
         </div>
         <div class="divider"></div>
         <div class="tiny muted" style="margin-bottom:5px">账户（${c.accounts.length}）</div>
@@ -143,13 +145,67 @@ RENDER["m1-dashboard"] = () => {
 RENDER["m1-proposal"] = () => {
   const c = App.client();
   const p = DB.proposals;
-  const gen = App.state.proposal.generated;
+  const f = p.funding;
+  const a = DB.aladdin;
+  const variant = App.aladdinVariant();
+  const status = variant.status;
+  const reviewReject = status === "REJECT";
+  const selectedBlocked = App.proposalBlocked();
   const sel = App.state.proposal.selected;
-  const cards = p.options.map(o => {
+  const aladdinOption = p.aladdinOption;
+  const gen = App.state.proposal.generated;
+
+  const objectiveFormCard = `<div class="card"><div class="card-head"><div><h2>目标</h2><p>用区间，不用单点；流动性按 T+0/7/90 拆。</p></div></div><div class="card-body">
+    <div class="form-grid">
+      ${UI.field({ label: "目标类型", type: "select", value: "流动性 + 分散", options: ["流动性 + 分散", "收益", "增长", "对冲", "传承"] })}
+      ${UI.field({ label: "投资金额", value: "20,000,000", suffix: "USD" })}
+      ${UI.field({ label: "期限", value: "24", suffix: "个月" })}
+      ${UI.field({ label: "目标回报（区间）", value: "4.5% – 5.5%" })}
+      ${UI.field({ label: "T+0 现金", value: "500,000", suffix: "USD" })}
+      ${UI.field({ label: "T+7 现金", value: "1,000,000", suffix: "USD" })}
+      ${UI.field({ label: "T+90 现金", value: "2,000,000", suffix: "USD" })}
+      ${UI.field({ label: "最大回撤", value: "10", suffix: "%" })}
+    </div>
+  </div></div>`;
+
+  const fundingCard = `<div class="card" style="margin-top:10px"><div class="card-head"><div><h2>资金与权利结构</h2><p>出资 ≠ 持有 ≠ 受益 ≠ 风险承担；为子女准备资金，不意味着订单属于子女账户。</p></div></div><div class="card-body">
+    <div class="form-grid">
+      ${UI.field({ label: "资金来源", type: "select", value: f.source, options: ["已上市股票减持 + 到期现金", "现金", "质押", "分红", "其他"] })}
+      ${UI.field({ label: "出资方", value: f.payer })}
+      ${UI.field({ label: "持有人 / 账户主体", value: f.holder, help: "订单必须落在持有人账户；受益人不是账户持有人时，需单独授权。" })}
+      ${UI.field({ label: "受益人", value: f.beneficiary, help: UI.term("受益人 ≠ 账户持有人", "Trust Beneficiary") })}
+      ${UI.field({ label: "风险承担人", value: f.riskBearer })}
+      ${UI.field({ label: "决策人", value: f.decisionMaker })}
+      ${UI.field({ label: "授权记录", value: f.consentRef, disabled: true })}
+      ${UI.field({ label: "订单账户", value: f.account, disabled: true })}
+    </div>
+    <div class="note blue" style="margin-top:8px">${f.note}</div>
+  </div></div>`;
+
+  const constraintsCard = `<div class="card" style="margin-top:10px"><div class="card-head"><div><h2>约束</h2><p>硬约束会阻断生成；软约束会提示。</p></div></div><div class="card-body">
+    <div class="form-grid">
+      ${UI.field({ label: "权益上限", value: "50", suffix: "%" })}
+      ${UI.field({ label: "单一发行人上限", value: "15", suffix: "%" })}
+      ${UI.field({ label: "最低现金留存", value: "8", suffix: "%" })}
+      ${UI.field({ label: "非美元上限", value: "25", suffix: "%" })}
+      ${UI.field({ label: "久期区间", value: "4.0–5.0", suffix: "年" })}
+      ${UI.field({ label: "杠杆", type: "select", value: "不允许", options: ["不允许", "允许（LTV ≤ 25%）"] })}
+      ${UI.field({ label: "衍生品", type: "select", value: "不允许", options: ["不允许", "仅对冲"] })}
+      ${UI.field({ label: "税务居民", type: "select", value: c.taxResidency, options: ["中国内地", "香港", "新加坡", "美国", "其他"] })}
+    </div>
+    <div class="note" style="margin-top:9px"><b>约束编译器：</b>“留点现金” → 12 个月支出 = 8% 最低现金；“别太集中” → 单一发行人 ≤ 15%。每条都可修改，但需客户确认。</div>
+  </div></div>`;
+
+  const templatesCard = `<div class="card" style="margin-top:10px"><div class="card-head"><div><h2>模板</h2><p>选交易方式，不是选产品。</p></div></div><div class="card-body">
+    <div class="row">${DB.templates.slice(0, 6).map(t => `<span class="pill ${t.id === "FI-LADDER-01" ? "red" : "gray"}">${t.id} · ${t.name}</span>`).join("")}</div>
+    <div class="tiny muted" style="margin-top:7px">已选 4 个模板：FI-LADDER-01、FD-UCITS-01、EQ-CASH-01、CASH。每个模板都有必填字段、成本项、税务处理与审批矩阵。</div>
+  </div></div>`;
+
+  const aiCards = p.options.map(o => {
     const tes = App.tes(o.subs);
     return `<div class="card" style="border-color:${sel === o.id ? "#fda4af" : "var(--line)"};box-shadow:${sel === o.id ? "0 0 0 3px #fff1f2" : "var(--shadow)"}">
       <div class="card-head">
-        <div><div class="row"><span class="pill ${o.tag === "推荐" ? "red" : o.tag === "稳健" ? "blue" : "amber"}">${o.tag}</span><span class="tiny muted">${o.id}</span></div>
+        <div><div class="row"><span class="pill ${o.tag === "推荐" ? "red" : o.tag === "稳健" ? "blue" : "amber"}">${o.tag}</span><span class="pill gray">AI 参考</span><span class="tiny muted">${o.id}</span></div>
           <h2 style="margin-top:5px">${o.name}</h2><p>${o.thesis}</p></div>
         <div class="spacer"></div>
         <div style="text-align:right"><div class="tiny muted">TES</div><div class="strong" style="font-size:19px">${tes}</div></div>
@@ -178,84 +234,184 @@ RENDER["m1-proposal"] = () => {
     </div>`;
   }).join("");
 
+  const statusTone = reviewReject ? "red" : status === "WARN" ? "amber" : "green";
+  const statusText = reviewReject
+    ? "REJECT — Aladdin 提案与目标 / 约束不一致，不能进入执行"
+    : status === "WARN"
+      ? "WARN — Aladdin 提案可通过，但需附条件"
+      : "PASS — Aladdin 提案与目标 / 约束一致";
+  const statusNote = reviewReject
+    ? "这不是 WARN：至少一项硬约束被击穿。请退回 Aladdin 重跑，或在下方选择 AI 参考方案并记录理由。"
+    : status === "WARN"
+      ? "可通过，但需在合规闸门附条件（美国税务顾问意见）。"
+      : "可进入执行；仍建议在合规闸门复核披露与适当性。";
+
+  const reviewRows = variant.checks.map(k => [
+    `<span class="strong">${k.name}</span><span class="sub mono">${k.id}</span>`,
+    k.rule, `<span class="strong">${k.actual}</span>`,
+    UI.pill(k.result, k.result === "PASS" ? "green" : k.result === "WARN" ? "amber" : "red"),
+    `<span class="small">${k.note}</span>`, `<span class="mono tiny">${k.evidence}</span>`
+  ]);
+
+  const targetBy = {};
+  variant.rows.forEach(r => { targetBy[r.asset] = (targetBy[r.asset] || 0) + r.target; });
+  const currentBy = {};
+  a.current.forEach(r => { currentBy[r.asset] = (currentBy[r.asset] || 0) + r.w; });
+  const assetOrder = ["Single Stock (legacy)", "Global Equity", "Investment Grade Bonds", "Gold", "Cash", "Private Equity"];
+  const targetRows = assetOrder.map(name => {
+    const cur = currentBy[name] || 0;
+    const tgt = targetBy[name] || 0;
+    const band = variant.bands[name] || [0, 100];
+    const out = tgt < band[0] || tgt > band[1];
+    const delta = tgt - cur;
+    const isExit = name === "Single Stock (legacy)";
+    const statusLabel = isExit ? "退出" : out ? "越界" : Math.abs(delta) >= 5 ? "大幅调整" : "在区间";
+    const tone = isExit ? "amber" : out ? "red" : Math.abs(delta) >= 5 ? "amber" : "green";
+    return [name, `<span class="num">${cur}%</span>`, `<span class="num strong">${tgt}%</span>`, `${band[0]}–${band[1]}%`, `<span class="num ${delta < 0 ? "red" : "green"}">${delta > 0 ? "+" : ""}${delta}pp</span>`, UI.pill(statusLabel, tone)];
+  });
+
+  const header = `<div class="grid-4" style="gap:8px">
+    ${UI.stat("Portfolio", a.portfolio, "Aladdin 组合", "")}
+    ${UI.stat("Business Partner", a.businessPartner, "客户", "")}
+    ${UI.stat("Container", a.container, "账户 / 容器", "")}
+    ${UI.stat("IPS / Mandate", `${a.ips} · ${a.mandate}`, "政策与授权", "")}
+    ${UI.stat("Base Ccy", a.baseCcy, "基准币种", "")}
+    ${UI.stat("As of", variant.asOf, "Aladdin run", "")}
+    ${UI.stat("Run ID", variant.runId, "CSV 版本", "")}
+    ${UI.stat("AI 审阅", status, statusText, statusTone)}
+  </div>`;
+
+  const objectiveCard = `<div class="card"><div class="card-head"><div><h2>给 Aladdin 的目标</h2><p>文字目标 + 明确策略 / 取向；Aladdin 据此生成 SAA/TAA。</p></div><div class="spacer"></div>${UI.pill("已发送", "green")}</div>
+    <div class="card-body">
+      <div class="note blue" style="margin-bottom:8px">${UI.esc(a.objective)}</div>
+      <div class="row">${a.constraints.map(x => `<span class="pill gray">${x.id} · ${x.label}</span>`).join("")}</div>
+      <div class="divider"></div>
+      <div class="grid-2" style="gap:8px">
+        <div><div class="tiny muted">目标发送</div><div class="strong">${a.asOf}</div></div>
+        <div><div class="tiny muted">Aladdin Run</div><div class="strong mono">${variant.runId}</div></div>
+      </div>
+      <button class="btn sm" style="margin-top:8px" data-action="toast" data-msg="目标已重新发送给 Aladdin（demo）">重新发送给 Aladdin</button>
+    </div></div>`;
+
+  const csvCard = `<div class="card"><div class="card-head"><div><h2>Aladdin Proposal CSV</h2><p>BlackRock Aladdin 输出；本项目只接收 CSV，不接 Aladdin UI。</p></div><div class="spacer"></div>${UI.pill(variant.asOf, "gray")}${UI.pill(`${variant.rows.length} 行`, "green")}</div>
+    <div class="card-body">
+      <div class="code-block" style="max-height:220px;overflow:auto">${UI.esc(variant.csv)}</div>
+      <div class="divider"></div>
+      ${UI.table(["资产", "子类", "目标", "区间", "Benchmark", "工具", "Ccy", "久期"], variant.rows.map(r => [
+        `<span class="strong">${r.asset}</span>`, r.sub, `<span class="num strong">${r.target}%</span>`, `${r.min}–${r.max}%`, `<span class="small">${r.benchmark}</span>`, `<span class="small">${r.instrument}</span>`, r.ccy, r.duration + "y"
+      ]), { compact: true })}
+      <div class="row" style="margin-top:8px"><button class="btn sm" data-action="import-aladdin-csv">重新导入 CSV</button><span class="tiny muted">CSV 是唯一输入；AI 不改写 Aladdin 输出。</span></div>
+    </div></div>`;
+
+  const reviewCard = `<div class="card" style="margin-top:10px"><div class="card-head"><div><h2>AI 审阅：Aladdin 提案 vs 目标 / 约束</h2><p>AI 只做核对与解释，不改写 Aladdin 的 SAA/TAA。</p></div><div class="spacer"></div>${UI.pill(status, statusTone)}</div>
+    <div class="card-body">
+      <div class="note ${reviewReject ? "" : status === "WARN" ? "amber" : "green"}"><b>${statusText}</b><br>${statusNote}</div>
+      <div style="margin-top:8px">${UI.table(["检查", "目标 / 规则", "Aladdin 实际", "结果", "说明", "证据"], reviewRows, { compact: true })}</div>
+      <div class="note blue" style="margin-top:8px"><b>AI 结论：</b>${variant.summary}</div>
+      ${reviewReject && sel !== "P-ALADDIN" ? `<div class="note amber" style="margin-top:8px"><b>当前选择：</b>${sel}（AI 参考）。Aladdin 被 REJECT；继续将按 AI 参考方案执行，需 RM 记录理由。</div>` : ""}
+      <div class="row" style="margin-top:8px">
+        <button class="btn ${reviewReject ? "" : "primary"}" data-action="select-proposal" data-id="P-ALADDIN" ${reviewReject ? "disabled" : ""}>${reviewReject ? "REJECT：不可采用" : sel === "P-ALADDIN" ? "已采用 Aladdin 提案" : "采用 Aladdin 提案"}</button>
+        <button class="btn" data-action="toast" data-msg="已退回 Aladdin；请修改目标或重新优化（demo）">退回 Aladdin</button>
+        <button class="btn sm" data-action="aladdin-variant" data-id="${variant.id === "aligned" ? "conflict" : "aligned"}">${variant.id === "aligned" ? "载入不一致示例" : "载入一致示例"}</button>
+        <span class="tiny muted" style="margin-left:auto">REJECT 是硬阻断；WARN 需附条件。</span>
+      </div>
+    </div></div>`;
+
+  const aladdinProposalCard = `<div class="card" style="margin-top:10px"><div class="card-head"><div><div class="row"><span class="pill red">Aladdin 推荐</span><span class="tiny muted">${variant.runId}</span></div><h2 style="margin-top:5px">${aladdinOption.name}</h2><p>${reviewReject ? "Aladdin 本次输出与目标 / 约束不一致；不能采用，请退回 Aladdin 或选择 AI 参考方案。" : aladdinOption.thesis}</p></div><div class="spacer"></div>${UI.pill(reviewReject ? "REJECT · 不可用" : sel === "P-ALADDIN" ? "已选择" : "待选择", reviewReject ? "red" : sel === "P-ALADDIN" ? "green" : "gray")}</div>
+    <div class="card-body tight">
+      ${header}
+      <div class="divider"></div>
+      ${UI.table(["资产", "当前", "Aladdin 目标", "政策区间", "变化", "状态"], targetRows, { compact: true })}
+      <div class="row" style="margin-top:9px">
+        <button class="btn ${sel === "P-ALADDIN" ? "primary" : ""}" data-action="select-proposal" data-id="P-ALADDIN" ${reviewReject ? "disabled" : ""}>${reviewReject ? "REJECT：不可采用" : sel === "P-ALADDIN" ? "已采用" : "采用 Aladdin 提案"}</button>
+        <button class="btn sm" data-action="continue-proposal" ${selectedBlocked ? "disabled" : ""}>查看执行蓝图</button>
+        <span class="tiny muted" style="margin-left:auto">SAA/TAA 来自 Aladdin；执行层只做落地，不改目标。</span>
+      </div>
+    </div></div>`;
+
+  const aiSection = `<div class="card" style="margin-top:10px"><div class="card-head"><div><div class="row"><span class="pill purple">AI 参考</span><span class="tiny muted">不替代 Aladdin SAA/TAA</span></div><h2 style="margin-top:5px">AI 参考方案</h2><p>保留为备选；若采用，需 RM 记录理由并重新走合规。</p></div><div class="spacer"></div><button class="btn sm" data-action="generate-proposals">${gen ? "重新生成" : "生成 AI 参考"}</button></div>
+    <div class="card-body">${aiCards}</div></div>`;
+
+  const tesCard = `<div class="card" style="margin-top:10px"><div class="card-head"><div><h2>TES 比较（仅 AI 参考之间）</h2><p>Aladdin 提案不参与 TES 排名；TES 只辅助 AI 备选比较。</p></div></div><div class="card-body">
+    ${UI.bars(p.options.map(o => ({ label: o.name, value: App.tes(o.subs), display: App.tes(o.subs), color: o.id === "P-A" ? "var(--red)" : o.id === "P-B" ? "var(--blue)" : "var(--amber)" })), 100)}
+    <div class="tiny muted" style="margin-top:6px">A 胜在成本/时间/冲击；B 胜在可执行性；C 只在票息与无冲击上占优。建议组合而不是三选一。</div>
+    <div class="note amber" style="margin-top:7px"><b>实质持平：</b>P-A 86.9 vs P-B 86.4，差 0.5 < 2。TES 只辅助比较，不自动决定推荐；请由 RM 记录选择理由。</div>
+  </div></div>`;
+
+  const details = `<details class="card" style="margin-top:10px"><summary style="padding:12px 14px;cursor:pointer;font-weight:700">目标、资金结构与模板（已发送给 Aladdin）</summary><div class="card-body">
+    <div class="grid-2">
+      <div>${objectiveFormCard}</div>
+      <div>${fundingCard}${constraintsCard}${templatesCard}</div>
+    </div>
+  </div></details>`;
+
   return UI.pageHead({
-    crumb: `<b>M1</b> · Proposal Studio · 提案层`,
+    crumb: `<b>M1</b> · Proposal Studio · Aladdin 提案`,
     title: "提案工作室",
-    sub: `${c.name} · 目标与约束先锁定，AI 只在模板与产品池允许的范围内生成三套可执行方案。`,
-    actions: `<button class="btn" data-action="go" data-page="m1-dashboard">返回收件箱</button>
-      <button class="btn primary" data-action="generate-proposals">${gen ? "重新生成" : "生成三套方案"}</button>`
+    sub: `${c.name} · SAA/TAA 来自 BlackRock Aladdin；AI 对照目标 / 约束审阅。Aladdin 推荐在上，AI 参考在下。`,
+    actions: `${UI.pill(`Aladdin ${variant.runId}`, "blue")}${UI.pill(`Aladdin ${status}`, statusTone)}
+      <button class="btn" data-action="run-aladdin-review">运行 AI 审阅</button>
+      <button class="btn primary" data-action="continue-proposal" ${selectedBlocked ? "disabled" : ""}>送合规闸门</button>`
   }) + `
   <div class="stepper">
-    <span class="step done"><b>1</b> 目标</span><span class="step done"><b>2</b> 约束</span><span class="step done"><b>3</b> 模板</span>
-    <span class="step ${gen ? "done" : "on"}"><b>4</b> 生成</span><span class="step"><b>5</b> TES</span><span class="step"><b>6</b> 合规</span><span class="step"><b>7</b> 签署</span>
+    <span class="step done"><b>1</b> 目标</span>
+    <span class="step done"><b>2</b> Aladdin CSV</span>
+    <span class="step ${reviewReject ? "on" : "done"}"><b>3</b> AI 审阅</span>
+    <span class="step ${sel ? "done" : "on"}"><b>4</b> 选择</span>
+    <span class="step"><b>5</b> 合规</span>
+    <span class="step"><b>6</b> 签署</span>
   </div>
-  <div class="grid-1-2">
-    <div>
-      <div class="card"><div class="card-head"><div><h2>目标</h2><p>用区间，不用单点；流动性按 T+0/7/90 拆。</p></div></div><div class="card-body">
-        <div class="form-grid">
-          ${UI.field({ label: "目标类型", type: "select", value: "流动性 + 分散", options: ["流动性 + 分散", "收益", "增长", "对冲", "传承"] })}
-          ${UI.field({ label: "投资金额", value: "20,000,000", suffix: "USD" })}
-          ${UI.field({ label: "期限", value: "24", suffix: "个月" })}
-          ${UI.field({ label: "目标回报（区间）", value: "4.5% – 5.5%" })}
-          ${UI.field({ label: "T+0 现金", value: "500,000", suffix: "USD" })}
-          ${UI.field({ label: "T+7 现金", value: "1,000,000", suffix: "USD" })}
-          ${UI.field({ label: "T+90 现金", value: "2,000,000", suffix: "USD" })}
-          ${UI.field({ label: "最大回撤", value: "10", suffix: "%" })}
-        </div>
-      </div></div>
-      <div class="card"><div class="card-head"><div><h2>约束</h2><p>硬约束会阻断生成；软约束会提示。</p></div></div><div class="card-body">
-        <div class="form-grid">
-          ${UI.field({ label: "单一发行人上限", value: "15", suffix: "%" })}
-          ${UI.field({ label: "最低现金留存", value: "8", suffix: "%" })}
-          ${UI.field({ label: "杠杆", type: "select", value: "不允许", options: ["不允许", "允许（LTV ≤ 25%）"] })}
-          ${UI.field({ label: "衍生品", type: "select", value: "不允许", options: ["不允许", "仅对冲"] })}
-          ${UI.field({ label: "税务居民", type: "select", value: c.taxResidency, options: ["中国内地", "香港", "新加坡", "美国", "其他"] })}
-          ${UI.field({ label: "客户类别", type: "select", value: "专业投资者", options: ["专业投资者", "零售", "机构"] })}
-          ${UI.field({ label: "ESG", type: "select", value: "无", options: ["无", "排除", "优先", "影响力"] })}
-          ${UI.field({ label: "限制名单", value: "已检查 · 未命中", disabled: true, help: "R-WALL-001 / 2026-10-20" })}
-        </div>
-        <div class="note" style="margin-top:9px"><b>约束编译器：</b>“留点现金” → 12 个月支出 = 8% 最低现金；“别太集中” → 单一发行人 ≤ 15%。每条都可修改，但需客户确认。</div>
-      </div></div>
-      <div class="card"><div class="card-head"><div><h2>模板</h2><p>选交易方式，不是选产品。</p></div></div><div class="card-body">
-        <div class="row">${DB.templates.slice(0, 6).map(t => `<span class="pill ${t.id === "FI-LADDER-01" ? "red" : "gray"}">${t.id} · ${t.name}</span>`).join("")}</div>
-        <div class="tiny muted" style="margin-top:7px">已选 4 个模板：FI-LADDER-01、FD-UCITS-01、EQ-CASH-01、CASH。每个模板都有必填字段、成本项、税务处理与审批矩阵。</div>
-      </div></div>
-    </div>
-    <div>
-      ${gen ? cards : `<div class="card"><div class="empty" style="padding:42px 24px">
-        <div class="strong" style="font-size:14px;color:var(--ink)">还没有生成方案</div>
-        <div class="small muted" style="margin:6px auto 12px;max-width:360px">AI 将从 12,480 个可用工具中，按“成本 25 / 税后 20 / 时间 20 / 冲击 20 / 易用 15”生成三套可执行方案。所有数字来自计算服务，不由模型生成。</div>
-        <button class="btn primary" data-action="generate-proposals">生成三套方案</button>
-      </div></div>`}
-      ${gen ? `<div class="card"><div class="card-head"><div><h2>TES 比较</h2><p>只在本次候选集内排序；绝对值同时展示。</p></div></div><div class="card-body">
-        ${UI.bars(p.options.map(o => ({ label: o.name, value: App.tes(o.subs), display: App.tes(o.subs), color: o.id === "P-A" ? "var(--red)" : o.id === "P-B" ? "var(--blue)" : "var(--amber)" })), 100)}
-        <div class="tiny muted" style="margin-top:6px">A 胜在成本/时间/冲击；B 胜在可执行性；C 只在票息与无冲击上占优。建议组合而不是三选一。</div>
-      </div></div>` : ""}
-    </div>
-  </div>`;
+  <div class="grid-2-1">
+    ${objectiveCard}
+    ${csvCard}
+  </div>
+  ${reviewCard}
+  ${aladdinProposalCard}
+  ${aiSection}
+  ${tesCard}
+  ${details}
+  `;
 };
 
 RENDER["m1-execution"] = () => {
+  if (App.proposalBlocked()) {
+    return UI.pageHead({
+      crumb: `<b>M1</b> · Proposal Studio · 执行层`,
+      title: "执行蓝图",
+      sub: "Aladdin 提案被 AI REJECT，不能进入执行。",
+      actions: `<button class="btn primary" data-action="go" data-page="m1-proposal">回到提案工作室</button>`
+    }) + `<div class="card"><div class="empty" style="padding:36px 24px">
+      <div class="strong" style="font-size:14px;color:var(--red)">REJECT — Aladdin 提案与目标 / 约束不一致</div>
+      <div class="small muted" style="margin:6px auto 12px;max-width:440px">不能生成执行蓝图。请退回 Aladdin 重跑，或在提案页选择 AI 参考方案。</div>
+      <button class="btn primary" data-action="go" data-page="m1-proposal">回到提案工作室</button>
+    </div></div>`;
+  }
   const sel = App.state.proposal.selected || "P-A";
-  const lines = DB.execution;
+  const lines = App.executionLines();
+  const draft = App.isExecutionDraft();
+  const v = App.currentVersion();
   const total = lines.reduce((a, l) => a + l.amt, 0);
   const wcost = total ? lines.reduce((a, l) => a + l.amt * l.cost, 0) / total : 0;
+  const templated = lines.filter(l => l.tpl && l.tpl !== "—").length;
   return UI.pageHead({
     crumb: `<b>M1</b> · Proposal Studio · 执行层`,
     title: "执行蓝图",
-    sub: `已选 ${sel}。每一行都必须有模板、标的、资金账户与适当性记录；行级变化超阈值会回到提案层。`,
-    actions: `<button class="btn" data-action="toast" data-msg="交易前模拟已运行：预计滑点 6.4 bps，现金流 T+0 为 −$17.6m">运行交易前模拟</button>
+    sub: `已选 ${sel} · 提案 v${v}。每一行都必须有模板、标的、资金账户与适当性记录；行级变化超阈值会回到提案层。`,
+    actions: `${UI.pill(draft ? "草案 · 待交易台确认" : `${sel === "P-ALADDIN" ? "Aladdin 快照" : "P-A 快照"} · v${v}`, draft ? "amber" : "blue")}
+      <button class="btn" data-action="toast" data-msg="交易前模拟已运行：预计滑点 6.4 bps，现金流 T+0 为 −$17.6m">运行交易前模拟</button>
       <button class="btn primary" data-action="go" data-page="m1-compliance">送合规闸门</button>`
   }) + `
   <div class="grid-4">
     ${UI.stat("组合金额", UI.money(total), lines.length + " 行", "")}
     ${UI.stat("预估全口径成本", wcost.toFixed(1) + " bps", "含佣金/点差/冲击/基金 OCF", "green")}
-    ${UI.stat("相对提案层偏差", "0.0%", "成本 +0.1 bps", "green")}
-    ${UI.stat("资金状态", "已校验", "T+0 缺口 $0", "green")}
+    ${UI.stat("相对提案层偏差", draft ? "待确认" : "0.0%", draft ? "草案未锁定" : "成本 +0.1 bps", draft ? "amber" : "green")}
+    ${UI.stat("资金状态", draft ? "待校验" : "已校验", draft ? "草案需交易台确认" : "T+0 缺口 $0", draft ? "amber" : "green")}
   </div>
-  <div class="note green" style="margin-top:10px"><b>完整性通过：</b>6/6 行有模板；6/6 行有资金账户；0 行触发 re-proposal；0 行命中限制名单。成本 +0.1 bps、权重偏离 0.0pp，均在阈值内。</div>
+  ${draft ? `<div class="note amber" style="margin-top:10px"><b>草案：</b>${sel} 的逐行蓝图由提案腿生成；数量、venue、限价、税基待交易台确认。当前 demo 只有 P-A 提供完整执行快照。</div>` : ""}
+  <div class="note ${templated === lines.length ? "green" : "amber"}" style="margin-top:10px"><b>完整性检查：</b>${templated}/${lines.length} 行有模板；${lines.length}/${lines.length} 行有资金账户；0 行触发 re-proposal；0 行命中限制名单。${draft ? "草案成本/权重待交易台确认。" : "成本 +0.1 bps、权重偏离 0.0pp，均在阈值内。"}</div>
+  <div class="note blue" style="margin-top:10px"><b>层级：</b>SAA/TAA（提案层）→ 执行蓝图（工具/模板层，${lines.length} 行）→ 订单计划（${draft ? "待交易台确认" : "10 个母单 / 16 个子单"}）→ TCA。订单与 TCA 页展示实际拆单。</div>
   <div class="card" style="margin-top:10px">
-    <div class="card-head"><div><h2>逐行蓝图</h2><p>点击任意行查看完整字段（TIF、结算、税基、适当性、审批）。</p></div><div class="spacer"></div><span class="pill blue">版本 v3</span></div>
+    <div class="card-head"><div><h2>逐行蓝图</h2><p>点击任意行查看完整字段（TIF、结算、税基、适当性、审批）。</p></div><div class="spacer"></div><span class="pill ${draft ? "amber" : "blue"}">${draft ? "草案" : "版本"} v${v}</span></div>
     ${UI.table([
       "#", "模板", "标的 / ISIN", "动作", "数量", "金额", "权重", "venue", "类型", "限价", "时点", "成本 bps（首年/年化）", "税基", "资金", "状态"
     ], lines.map(l => [
@@ -266,33 +422,67 @@ RENDER["m1-execution"] = () => {
       l.venue, l.type, l.limit, l.timing, `<span class="num">${l.cost} bps</span>`, l.taxLot, `<span class="mono">${l.funding}</span>`,
       UI.pill(l.status, l.status === "Ready" ? "green" : "amber")
     ]), { compact: true })}
-    <div class="card-foot"><span class="tiny muted">行级变更规则：成本 +20bps / 权重 +2pp / 风险等级上升 → 回到提案层。</span><div style="flex:1"></div><button class="btn sm" data-action="toast" data-msg="已保存执行蓝图 v3.1">保存</button></div>
+    <div class="card-foot"><span class="tiny muted">行级变更规则：成本 +20bps / 权重 +2pp / 风险等级上升 → 回到提案层。</span><div style="flex:1"></div><button class="btn sm" data-action="toast" data-msg="已保存执行蓝图 v${v}">保存</button></div>
   </div>
   <div class="grid-3" style="margin-top:10px">
-    <div class="card"><div class="card-body"><div class="tiny muted">提案层 → 执行层</div><div class="strong" style="margin:4px 0">没有偏离，只有落地</div><div class="small muted">选 A 后，执行层把 38% 债券阶梯拆成 3 行；UCITS 42% 拆成 1 行；黄金 8% 与现金 12% 各 1 行。</div></div></div>
-    <div class="card"><div class="card-body"><div class="tiny muted">成本</div><div class="strong" style="margin:4px 0">${wcost.toFixed(1)} bps</div><div class="small muted">佣金 3.1 / 点差 4.2 / 冲击 3.6 / 托管 1.5 / 基金 OCF 8.7。与提案层 21.0 bps 偏差 +0.1。</div></div></div>
-    <div class="card"><div class="card-body"><div class="tiny muted">审批</div><div class="strong" style="margin:4px 0">RM → IC → Compliance</div><div class="small muted">T2 双人复核；美国遗产税 WARN 需 Compliance 附条件通过。</div></div></div>
+    <div class="card"><div class="card-body"><div class="tiny muted">提案层 → 执行层</div><div class="strong" style="margin:4px 0">${draft ? "草案：按提案腿展开" : "没有偏离，只有落地"}</div><div class="small muted">${draft ? `选 ${sel} 后，执行层按提案腿生成 ${lines.length} 行草案；数量、venue、限价、税基待交易台确认。` : sel === "P-ALADDIN" ? "Aladdin 提案：38% 债券阶梯拆成 6 个梯级；42% 全球综合债 UCITS 拆成 2 个基金订阅；黄金 8% 与现金 12% 各 1 行。下单时再拆成 10 个母单 / 16 个子单。" : "选 A 后，执行层把 38% 债券阶梯拆成 6 个梯级；UCITS 42% 拆成 2 个基金订阅；黄金 8% 与现金 12% 各 1 行。下单时再拆成 10 个母单 / 16 个子单。"}</div></div></div>
+    <div class="card"><div class="card-body"><div class="tiny muted">成本</div><div class="strong" style="margin:4px 0">${wcost.toFixed(1)} bps</div><div class="small muted">${draft ? "按提案层成本估算；佣金/点差/冲击/OCF 未拆分。" : "佣金 3.1 / 点差 4.2 / 冲击 3.6 / 托管 1.5 / 基金 OCF 8.7。与提案层 21.0 bps 偏差 +0.1。"}</div></div></div>
+    <div class="card"><div class="card-body"><div class="tiny muted">审批</div><div class="strong" style="margin:4px 0">RM → IC → Compliance</div><div class="small muted">${draft ? `${sel} 的合规快照未生成；demo 仅提供 P-A 的 10 项检查。` : "T2 双人复核；美国遗产税 WARN 需 Compliance 附条件通过。"}</div></div></div>
   </div>`;
 };
 
 RENDER["m1-compliance"] = () => {
-  const s = App.state.compliance;
+  if (App.proposalBlocked()) {
+    return UI.pageHead({
+      crumb: `<b>M1</b> · Proposal Studio · 合规闸门`,
+      title: "合规闸门",
+      sub: "Aladdin 提案被 AI REJECT，不能进入合规 / 执行。",
+      actions: `<button class="btn primary" data-action="go" data-page="m1-proposal">回到提案工作室</button>`
+    }) + `<div class="card"><div class="empty" style="padding:36px 24px">
+      <div class="strong" style="font-size:14px;color:var(--red)">REJECT — Aladdin 提案与目标 / 约束不一致</div>
+      <div class="small muted" style="margin:6px auto 12px;max-width:440px">合规闸门不接收 REJECT 的 Aladdin 提案。请退回 Aladdin 重跑，或在提案页选择 AI 参考方案。</div>
+      <button class="btn primary" data-action="go" data-page="m1-proposal">回到提案工作室</button>
+    </div></div>`;
+  }
+  const s = App.state.compliance || {};
+  const v = App.currentVersion();
+  const p = App.currentProposal();
+  const approved = !!s.approved && s.approvedVersion === v;
+  const signed = !!s.esign && s.signedVersion === v;
+  const ready = App.orderReady();
+  const snapshotReady = App.complianceSnapshotReady();
   const warn = DB.checks.filter(x => x.sev === "WARN").length;
   const pass = DB.checks.filter(x => x.sev === "PASS").length;
-  const approved = s.approved;
-  return UI.pageHead({
+  const head = UI.pageHead({
     crumb: `<b>M1</b> · Proposal Studio · 合规闸门`,
     title: "合规闸门",
     sub: "四维规则在生成阶段就约束输出；BLOCK 不可覆盖，WARN 需指定审批人并附条件。",
-    actions: `<button class="btn" data-action="toast" data-msg="已导出检查底稿（PDF）">导出底稿</button>
-      <button class="btn primary" data-action="create-order" ${approved ? "" : "disabled"}>创建订单</button>`
-  }) + `
+    actions: `${UI.pill(`提案 ${p.id} · v${v}`, "blue")}
+      <button class="btn" data-action="toast" data-msg="已导出检查底稿（PDF）">导出底稿</button>
+      <button class="btn primary" data-action="create-order" ${ready ? "" : "disabled"} title="${ready ? "创建订单" : "需同时满足：审批、电子签、同一版本"}">创建订单</button>`
+  });
+  if (!snapshotReady) {
+    return head + `<div class="card"><div class="empty" style="padding:36px 24px">
+      <div class="strong" style="font-size:14px;color:var(--ink)">${p.id} 的合规快照尚未生成</div>
+      <div class="small muted" style="margin:6px auto 12px;max-width:440px">demo 目前只提供 P-A 的完整合规快照。切换到 P-B / P-C 后，原审批与签署会失效；请回到 P-A 演示下单链路。</div>
+      <button class="btn primary" data-action="select-proposal" data-id="P-A">切换回 P-A</button>
+    </div></div>`;
+  }
+  return head + `
   <div class="grid-4">
     ${UI.stat("检查项", DB.checks.length, "10 项", "")}
     ${UI.stat("PASS", pass, "无阻断", "green")}
     ${UI.stat("WARN", warn, "需附条件审批", "amber")}
     ${UI.stat("BLOCK", 0, "无", "green")}
   </div>
+  <div class="card" style="margin-top:10px"><div class="card-head"><div><h2>放行条件</h2><p>三项必须同时满足；任一变化即失效。</p></div></div><div class="card-body">
+    <div class="release-grid">
+      <div class="release-item">${UI.pill(approved ? "已通过" : "待审批", approved ? "green" : "amber")}<div class="small strong" style="margin-top:4px">WARN 附条件审批</div><div class="tiny muted">v${v}</div></div>
+      <div class="release-item">${UI.pill(signed ? "已签署" : "待客户", signed ? "green" : "amber")}<div class="small strong" style="margin-top:4px">客户电子签署</div><div class="tiny muted">v${v}</div></div>
+      <div class="release-item">${UI.pill(approved && signed ? "版本一致" : "未锁定", approved && signed ? "green" : "gray")}<div class="small strong" style="margin-top:4px">提案版本</div><div class="tiny muted">当前 v${v}</div></div>
+    </div>
+    ${ready ? `<div class="note green" style="margin-top:8px">已满足放行条件，可创建订单。</div>` : `<div class="note amber" style="margin-top:8px">${!approved ? "先完成 WARN 附条件审批。" : !signed ? "等待客户电子签署。" : "提案版本已变化，审批/签署已失效。"}</div>`}
+  </div></div>
   <div class="grid-2-1" style="margin-top:10px">
     <div class="card">
       <div class="card-head"><div><h2>检查结果</h2><p>规则版本 2026.10.3 · 输入快照已锁定</p></div><div class="spacer"></div>${approved ? UI.pill("已附条件通过", "green") : UI.pill("待审批", "amber")}</div>
@@ -301,19 +491,20 @@ RENDER["m1-compliance"] = () => {
         UI.pill(k.sev, k.sev === "PASS" ? "green" : k.sev === "WARN" ? "amber" : "red"),
         `<span class="mono">${k.rule}</span>`, `<span class="small">${k.msg}</span>`,
         `<span class="mono tiny">${k.evidence}</span>`,
-        k.sev === "WARN" && !approved ? `<button class="btn sm" data-action="approve-warn">附条件通过</button>` : `<span class="tiny muted">—</span>`
+        k.sev === "WARN" ? (approved ? `<span class="tiny green">已通过 v${v}</span>` : `<button class="btn sm" data-action="approve-warn">附条件通过</button>`) : `<span class="tiny muted">—</span>`
       ]), { compact: true })}
     </div>
     <div>
       <div class="card"><div class="card-head"><div><h2>审批链</h2></div></div><div class="card-body">
         <div class="timeline">
-          <div class="tl-item"><div class="when">09:04</div><div class="what">RM 提交提案 v3</div><div class="who">Alex Chan</div></div>
+          <div class="tl-item"><div class="when">09:04</div><div class="what">RM 提交提案 v${v}</div><div class="who">Alex Chan</div></div>
           <div class="tl-item"><div class="when">09:06</div><div class="what">IC 复核配置与假设</div><div class="who">Grace Lin · 已签</div></div>
-          <div class="tl-item"><div class="when">09:08</div><div class="what">${approved ? "Compliance 附条件通过" : "Compliance 待审批"}</div><div class="who">${approved ? "David Wong · 条件：美国税务顾问意见" : "David Wong"}</div></div>
-          <div class="tl-item"><div class="when">—</div><div class="what">客户电子签署</div><div class="who">${approved ? "待客户" : "未开始"}</div></div>
+          <div class="tl-item"><div class="when">09:08</div><div class="what">${approved ? "Compliance 附条件通过" : "Compliance 待审批"}</div><div class="who">${approved ? `Compliance · v${v} · 条件：美国税务顾问意见` : "Compliance"}</div></div>
+          <div class="tl-item"><div class="when">${signed ? "09:12" : "—"}</div><div class="what">客户电子签署</div><div class="who">${signed ? `Client · 已签署 v${v}` : approved ? "待客户" : "未开始"}</div></div>
         </div>
         <div class="divider"></div>
-        <button class="btn" style="width:100%" data-action="esign">客户电子签署</button>
+        <button class="btn" style="width:100%" data-action="esign" ${signed ? "disabled" : ""}>${signed ? `已签署 v${v}` : `客户电子签署 v${v}`}</button>
+        <div class="tiny muted" style="margin-top:6px">demo 由当前操作者模拟客户签署；生产环境应由 Client 角色/客户设备完成。</div>
       </div></div>
       <div class="card"><div class="card-body">
         <div class="tiny muted">附条件</div>
@@ -326,54 +517,110 @@ RENDER["m1-compliance"] = () => {
 };
 
 RENDER["m1-orders"] = () => {
-  const filled = DB.orders.filter(o => o.status === "Filled").length;
-  const total = DB.orders.length;
+  const parents = DB.orders;
+  const children = DB.childOrders || [];
+  const tradedParents = parents.filter(o => o.strategy !== "TIME DEPOSIT");
+  const tradedQty = tradedParents.reduce((a, o) => a + o.qty, 0);
+  const tradedFilled = tradedParents.reduce((a, o) => a + o.filled, 0);
+  const fillRate = tradedQty ? tradedFilled / tradedQty * 100 : 0;
+  const filledCount = parents.filter(o => o.status === "Filled").length;
+  const partialCount = parents.filter(o => o.status === "Partial").length;
+  const childPartial = children.filter(o => o.status === "Partial").length;
+  const ready = App.orderReady();
+  const blocked = App.proposalBlocked();
   return UI.pageHead({
     crumb: `<b>M1</b> · Proposal Studio · 订单`,
     title: "订单与 TCA",
-    sub: "母单拆子单，成交后回写成本、税基与模板基准。",
-    actions: `<button class="btn" data-action="toast" data-msg="TCA 已生成：IS 8.4 bps，优于预估 10 bps">生成 TCA</button>
+    sub: "执行蓝图是工具/模板层；落到订单层会拆成多个母单与子单，再按 venue、币种、交收与 tax lot 分别执行。",
+    actions: `${UI.pill(`提案 ${App.state.proposal.selected || "P-A"} · v${App.currentVersion()}`, "blue")}
+      <button class="btn" data-action="toast" data-msg="TCA 已生成：IS 8.4 bps，优于预估 10 bps">生成 TCA</button>
       <button class="btn" data-action="toast" data-msg="客户成本报告已生成（watermarked PDF）">导出成本报告</button>`
   }) + `
+  ${ready ? "" : `<div class="note amber" style="margin-top:10px"><b>demo 提示：</b>当前未满足放行条件（审批 / 签署 / 同一版本 / P-A 快照）；本页仍展示订单与 TCA，生产环境会阻断。</div>`}
+  ${blocked ? `<div class="note" style="margin-top:10px"><b>REJECT：</b>当前 Aladdin 提案被 AI REJECT；以下为历史订单演示，不代表本提案可执行。</div>` : ""}
   <div class="grid-4">
-    ${UI.stat("母单", total, filled + " 已成交", "")}
-    ${UI.stat("成交率", Math.round(filled / total * 100) + "%", "1 笔部分成交", "amber")}
-    ${UI.stat("Implementation Shortfall", "8.4 bps", "预估 10.0 bps", "green")}
-    ${UI.stat("交易成本", "$24,800", "12.4 bps × $20m", "")}
+    ${UI.stat("母单 / 子单", parents.length + " / " + children.length, filledCount + " 个母单已完成", "")}
+    ${UI.stat("成交率", fillRate.toFixed(2) + "%", `${partialCount} 笔母单 / ${childPartial} 笔子单部分成交`, "amber")}
+    ${UI.stat("Implementation Shortfall", DB.tca.is + " bps", "预估 10.0 bps", "green")}
+    ${UI.stat("交易成本", "$24,800", "12.4 bps × $20m（不含 OCF）", "")}
   </div>
+  <div class="note blue" style="margin-top:10px"><b>订单层级：</b>SAA/TAA → 执行蓝图 ${DB.execution.length} 行 → ${parents.length} 个母单 / ${children.length} 个子单 → TCA。产品名称为示例；ISIN/CUSIP 仅用于演示，实际以发行文件/交易确认书为准。</div>
   <div class="card" style="margin-top:10px">
-    <div class="card-head"><div><h2>订单簿</h2><p>基准：ARRIVAL / VWAP；执行策略：TWAP / POV 20%。</p></div><div class="spacer"></div>${UI.pill("执行中", "blue")}</div>
-    ${UI.table(["母单", "标的", "方向", "数量", "已成交", "均价", "基准", "滑点", "进度", "状态"], DB.orders.map(o => [
-      `<span class="mono">${o.id}</span>`, `<span class="strong">${o.inst}</span>`, o.side,
+    <div class="card-head"><div><h2>母单</h2><p>按执行蓝图逐行建单；RFQ / SUBSCRIBE / LIMIT / TIME DEPOSIT 分开。</p></div><div class="spacer"></div>${UI.pill(`${filledCount} 完成 / ${partialCount} 部分`, partialCount ? "amber" : "green")}</div>
+    ${UI.table(["母单", "标的", "方向", "数量", "已成交", "均价", "基准", "滑点", "场所 / 策略", "交收", "状态"], parents.map(o => [
+      `<span class="mono">${o.id}</span>`,
+      `<span class="strong">${o.inst}</span>`,
+      o.side,
       `<span class="num">${UI.num(o.qty)}</span>`, `<span class="num">${UI.num(o.filled)}</span>`,
       `<span class="num">${o.avg.toFixed(2)}</span>`, `<span class="num">${o.bench.toFixed(2)}</span>`,
       `<span class="num ${o.slip > 3 ? "amber" : "green"}">${o.slip.toFixed(1)} bps</span>`,
-      `<div style="min-width:80px"><div class="progress ${o.status === "Partial" ? "red" : ""}"><i style="width:${Math.round(o.filled / o.qty * 100)}%"></i></div></div>`,
+      `<span class="small">${o.venue}</span><span class="sub mono">${o.strategy}</span>`,
+      o.settle,
       UI.pill(o.status, o.status === "Filled" ? "green" : "amber")
     ]), { compact: true })}
+  </div>
+  <div class="card" style="margin-top:10px">
+    <div class="card-head"><div><h2>子单 / 成交</h2><p>母单按 venue、RFQ 对手方、基金 dealing 窗口与交收日拆成子单。</p></div><div class="spacer"></div><span class="pill amber">${childPartial} 笔部分成交</span></div>
+    ${UI.table(["子单", "母单", "场所", "类型", "数量", "已成交", "均价", "滑点", "时间", "状态"], children.map(c => {
+      const p = parents.find(x => x.id === c.parent);
+      return [
+        `<span class="mono">${c.id}</span>`, `<span class="mono">${c.parent}</span>`, c.venue,
+        p ? p.strategy : "—",
+        `<span class="num">${UI.num(c.qty)}</span>`, `<span class="num">${UI.num(c.filled)}</span>`,
+        `<span class="num">${c.avg.toFixed(2)}</span>`,
+        `<span class="num ${c.slip > 3 ? "amber" : "green"}">${c.slip.toFixed(1)} bps</span>`,
+        `<span class="mono tiny">${c.time}</span>`,
+        UI.pill(c.status, c.status === "Filled" ? "green" : "amber")
+      ];
+    }), { compact: true })}
   </div>
   <div class="grid-2" style="margin-top:10px">
     <div class="card"><div class="card-head"><div><h2>成本瀑布</h2></div></div><div class="card-body">
       ${UI.bars([
-        { label: "佣金", value: 31, display: "3.1 bps", color: "var(--blue)" },
-        { label: "点差", value: 42, display: "4.2 bps", color: "var(--purple)" },
-        { label: "冲击", value: 36, display: "3.6 bps", color: "var(--amber)" },
-        { label: "托管/平台", value: 15, display: "1.5 bps", color: "var(--green)" }
+        { label: "佣金", value: 31, display: DB.tca.commission.toFixed(1) + " bps", color: "var(--blue)" },
+        { label: "点差", value: 42, display: DB.tca.spread.toFixed(1) + " bps", color: "var(--purple)" },
+        { label: "冲击", value: 36, display: DB.tca.impact.toFixed(1) + " bps", color: "var(--amber)" },
+        { label: "托管/平台", value: 15, display: DB.tca.custody.toFixed(1) + " bps", color: "var(--green)" }
       ], 60)}
-      <div class="divider"></div><div class="row between"><span class="small muted">交易成本（不含基金 OCF）</span><span class="strong">12.4 bps</span></div>
+      <div class="divider"></div><div class="row between"><span class="small muted">交易成本（不含基金 OCF）</span><span class="strong">${DB.tca.transactionCost.toFixed(1)} bps</span></div>
+      <div class="row between"><span class="small muted">基金 OCF</span><span class="strong">${DB.tca.fundOcf.toFixed(1)} bps</span></div>
+      <div class="row between"><span class="small muted">全口径（含 OCF）</span><span class="strong">${DB.tca.allIn.toFixed(1)} bps</span></div>
+      <div class="tiny muted" style="margin-top:4px">21.1 bps × $20m ≈ $42.2k（含基金 OCF）</div>
     </div></div>
-    <div class="card"><div class="card-head"><div><h2>回写模板</h2><p>实际成本 vs 提案预估。</p></div></div><div class="card-body">
+    <div class="card"><div class="card-head"><div><h2>交收 / 资金 / 回写</h2><p>交收状态、资金使用与 TCA 回写模板。</p></div></div><div class="card-body">
+      <div class="grid-2" style="gap:8px">
+        <div><div class="tiny muted">交收</div><div class="strong">${DB.tca.settled} 已完成 / ${DB.tca.pending} 待交收</div></div>
+        <div><div class="tiny muted">失败</div><div class="strong">${DB.tca.failed} 笔</div></div>
+        <div><div class="tiny muted">已用资金</div><div class="strong">${UI.money(DB.tca.cashUsed)}</div></div>
+        <div><div class="tiny muted">剩余现金</div><div class="strong">${UI.money(DB.tca.cashResidual)}</div></div>
+      </div>
+      <div class="divider"></div>
       ${UI.table(["模板", "预估", "实际", "偏差"], [
         ["FI-LADDER-01", "4.0 bps", "4.4 bps", `<span class="amber">+0.4</span>`],
         ["FD-UCITS-01", "42.0 bps", "41.2 bps", `<span class="green">−0.8</span>`],
-        ["EQ-CASH-01", "25.0 bps", "27.1 bps", `<span class="amber">+2.1</span>`]
+        ["EQ-CASH-01", "25.0 bps", "27.1 bps", `<span class="amber">+2.1</span>`],
+        ["CASH-01", "0.0 bps", "0.0 bps", `<span class="green">0.0</span>`]
       ], { compact: true })}
-      <div class="tiny muted" style="margin-top:6px">偏差 >15% 自动创建复盘任务；本次未触发。</div>
+      <div class="tiny muted" style="margin-top:6px">偏差 >15% 自动创建复盘任务；本次未触发。TCA 回写模板与下一次提案。</div>
     </div></div>
   </div>`;
 };
 
 /* ───────── M2 ───────── */
+
+const M2_STEPS = [
+  ["m2-allocation", "配置"],
+  ["m2-stress", "压力"],
+  ["m2-backtest", "回测"],
+  ["m2-decision", "决策"]
+];
+
+const m2Nav = (active) => {
+  const idx = M2_STEPS.findIndex(([id]) => id === active);
+  return `<div class="stepper" style="margin-bottom:10px">${M2_STEPS.map(([id, label], i) =>
+    `<a class="step ${i < idx ? "done" : i === idx ? "on" : ""}" href="#/${id}" data-action="go" data-page="${id}"><b>${i + 1}</b>${label}</a>`
+  ).join("")}</div>`;
+};
 
 RENDER["m2-allocation"] = () => {
   const a = DB.allocation;
@@ -382,8 +629,10 @@ RENDER["m2-allocation"] = () => {
     title: "配置工作室",
     sub: "IPS 政策区间是硬约束；优化器只找可行解，不承诺最优。",
     actions: `<button class="btn" data-action="toast" data-msg="已按 25% 换手上限再做一次约束求解">再平衡</button>
+      <button class="btn" data-action="go" data-page="m2-backtest">打开回测实验室</button>
       <button class="btn primary" data-action="go" data-page="m2-stress">运行压力测试</button>`
   }) + `
+  ${m2Nav("m2-allocation")}
   <div class="grid-4">
     ${UI.stat("预期年化", UI.pct(a.expected), "10 年 CMA v2026.10", "")}
     ${UI.stat("年化波动", UI.pct(a.vol), "目标 ≤ 10%", "green")}
@@ -434,17 +683,21 @@ RENDER["m2-stress"] = () => {
     crumb: `<b>M2</b> · Quant Lab · 压力`,
     title: "压力测试",
     sub: "回答“最疼会疼到哪里”，而不是“最坏会怎样”。相关性在危机中上升。",
-    actions: `<button class="btn" data-action="toast" data-msg="已运行全部 6 个情景（异步，耗时 3.2s）">运行全部</button>
+    actions: `${UI.pill("演示数据 · 非实时", "amber")}
+      <button class="btn" data-action="toast" data-msg="已运行全部 6 个情景（异步，耗时 3.2s）">运行全部</button>
+      <button class="btn" data-action="go" data-page="m2-backtest">查看回测</button>
       <button class="btn primary" data-action="go" data-page="m2-decision">生成决策卡</button>`
   }) + `
+  ${m2Nav("m2-stress")}
   <div class="grid-4">
     ${UI.stat("组合损益", UI.pct(s.pnl), s.name, s.pnl < -15 ? "red" : "amber")}
     ${UI.stat("最大回撤", UI.pct(s.dd), "情景内", "amber")}
     ${UI.stat("T+7 可动用", s.t7 + "%", s.t7 < 10 ? "低于 10% 下限" : "高于下限", s.t7 < 10 ? "red" : "green")}
     ${UI.stat("追保估算", s.margin ? UI.money(s.margin) : "0", s.margin ? "需补保证金" : "无", s.margin ? "red" : "green")}
   </div>
+  <div class="note amber" style="margin-top:10px"><b>演示：</b>以下 P&L / 回撤 / T+7 / 追保为静态情景数据；未接压力引擎，成本与税未建模。</div>
   <div class="grid-2-1" style="margin-top:10px">
-    <div class="card"><div class="card-head"><div><h2>情景对比</h2><p>点击切换；所有情景含成本与税。</p></div></div><div class="card-body">
+    <div class="card"><div class="card-head"><div><h2>情景对比</h2><p>点击切换；情景为演示，成本/税未建模。</p></div></div><div class="card-body">
       ${UI.bars(DB.stress.map(x => ({ label: x.name, value: Math.abs(x.pnl), display: UI.pct(x.pnl), color: x.id === active ? "var(--red)" : "var(--amber)" })), 25)}
       <div class="divider"></div>
       ${UI.table(["情景", "损益", "回撤", "T+7", "追保", "说明"], DB.stress.map(x => [
@@ -472,41 +725,48 @@ RENDER["m2-stress"] = () => {
 RENDER["m2-backtest"] = () => {
   const b = DB.backtest;
   const inc = App.state.includeCosts;
-  const cagr = inc ? b.cagrCost : b.cagr;
-  const sharpe = inc ? b.sharpeCost : b.sharpe;
-  const pts = inc ? b.points.map((v, i) => i === 0 ? 100 : 100 + (v - 100) * .86) : b.points;
+  const grossPoints = b.points;
+  const netPoints = App.backtestSeries(true);
+  const gross = App.backtestMetrics(grossPoints);
+  const net = App.backtestMetrics(netPoints);
+  const m = inc ? net : gross;
+  const pts = inc ? netPoints : grossPoints;
   return UI.pageHead({
     crumb: `<b>M2</b> · Quant Lab · 回测`,
     title: "回测实验室",
-    sub: "策略规则可复述；含成本、含税、含样本外；不把回测当预测。",
-    actions: `<div class="btn-group"><button class="${inc ? "on" : ""}" data-action="set-cost" data-id="1">含成本</button><button class="${inc ? "" : "on"}" data-action="set-cost" data-id="0">理论值</button></div>
+    sub: "策略规则可复述；含成本（简化）、含样本外；不把回测当预测。",
+    actions: `${UI.pill("演示 · 曲线与指标同源", "amber")}<button class="btn" data-action="go" data-page="m2-allocation">调整配置</button><div class="btn-group"><button class="${inc ? "on" : ""}" data-action="set-cost" data-id="1">含成本</button><button class="${inc ? "" : "on"}" data-action="set-cost" data-id="0">理论值</button></div>
       <button class="btn primary" data-action="go" data-page="m2-decision">生成决策卡</button>`
   }) + `
+  ${m2Nav("m2-backtest")}
   <div class="grid-4">
-    ${UI.stat("CAGR", UI.pct(cagr), inc ? "含成本/税" : "不含成本", "")}
-    ${UI.stat("Sharpe", sharpe.toFixed(2), "OOS " + b.oos.toFixed(2), "")}
-    ${UI.stat("最大回撤", UI.pct(b.dd), "2018–2026", "amber")}
+    ${UI.stat("CAGR", UI.pct(m.cagr), inc ? "净（含成本）" : "毛（不含成本）", "")}
+    ${UI.stat("Sharpe", m.sharpe.toFixed(2), "OOS " + b.oos.toFixed(2) + " · rf " + (b.rf * 100).toFixed(1) + "%", "")}
+    ${UI.stat("最大回撤", UI.pct(m.dd), "2018–2026", "amber")}
     ${UI.stat("Deflated Sharpe", b.deflated.toFixed(2), "多重检验调整", "amber")}
   </div>
   <div class="card" style="margin-top:10px"><div class="card-head"><div><h2>净值曲线</h2><p>60/40 + 10% 黄金 + 5% 趋势 overlay；季度再平衡。</p></div><div class="spacer"></div>${UI.pill(inc ? "含成本" : "理论值", inc ? "green" : "amber")}</div>
     <div class="card-body chart">
-      ${UI.lineChart([{ name: "组合", color: "var(--red)", points: pts }], { height: 230, min: 80, max: 180, xLabels: ["2018", "2020", "2022", "2024", "2026"] })}
+      ${UI.lineChart([{ name: inc ? "净" : "毛", color: "var(--red)", points: pts }], { height: 230, min: 80, max: 190, xLabels: ["2018", "2020", "2022", "2024", "2026"] })}
+      <div class="tiny muted" style="margin-top:6px">曲线与指标同源：CAGR、年化波动、最大回撤、Sharpe 均由所选序列计算；含成本 = 毛序列扣除 ${(b.costDrag * 10000).toFixed(0)} bps/年成本；回测不是收益预测。</div>
     </div>
   </div>
   <div class="grid-2" style="margin-top:10px">
-    <div class="card"><div class="card-head"><div><h2>指标</h2></div></div><div class="card-body">
-      ${UI.table(["指标", "样本内", "样本外", "门槛"], [
-        ["CAGR", UI.pct(cagr), UI.pct(cagr - 1.1), "≥ 5%"],
-        ["Sharpe", sharpe.toFixed(2), b.oos.toFixed(2), "≥ 0.4"],
-        ["Max DD", UI.pct(b.dd), "−16.8%", "≥ −20%"],
+    <div class="card"><div class="card-head"><div><h2>指标</h2><p>毛 / 净两列同源；不是“设计值 + 另一条曲线”。</p></div></div><div class="card-body">
+      ${UI.table(["指标", "毛（不含成本）", "净（含成本）", "门槛"], [
+        ["CAGR", UI.pct(gross.cagr), UI.pct(net.cagr), "≥ 5%"],
+        ["Sharpe", gross.sharpe.toFixed(2), net.sharpe.toFixed(2), "≥ 0.4"],
+        ["年化波动", UI.pct(gross.vol), UI.pct(net.vol), "—"],
+        ["Max DD", UI.pct(gross.dd), UI.pct(net.dd), "≥ −20%"],
         ["Turnover", b.turnover + "%", "—", "≤ 30%"],
         ["Hit rate", b.hit + "%", "—", "—"]
       ], { compact: true })}
     </div></div>
     <div class="card"><div class="card-head"><div><h2>局限与红旗</h2></div></div><div class="card-body">
-      <div class="note amber"><b>过拟合检查：</b>参数扫描 24 组，Deflated Sharpe 0.43；样本外 Sharpe 0.51，低于样本内 0.65，但未崩坏。</div>
+      <div class="note amber"><b>过拟合检查：</b>参数扫描 24 组，Deflated Sharpe 0.43；样本内毛 Sharpe 0.65、净 0.48；OOS 0.51，未崩坏。</div>
       <div class="note" style="margin-top:7px"><b>数据：</b>PIT 财务/指数成分；退市标的保留；价格口径 split-adjusted；缺失值不 forward-fill。</div>
-      <div class="tiny muted" style="margin-top:7px">容量估算：按 20% ADV，策略容量约 $180m；超过后冲击成本非线性上升。</div>
+      <div class="tiny muted" style="margin-top:7px">样本期 ${b.period}；${b.points.length} 个季度点；Sharpe 按样本期平均无风险利率 ${(b.rf * 100).toFixed(1)}% 计算。</div>
+      <div class="tiny muted" style="margin-top:4px">容量估算：按 20% ADV，策略容量约 $180m；超过后冲击成本非线性上升。</div>
     </div></div>
   </div>`;
 };
@@ -517,9 +777,11 @@ RENDER["m2-decision"] = () => {
     crumb: `<b>M2</b> · Quant Lab · 决策卡`,
     title: "RM 决策卡",
     sub: "把 20 页分析压缩成 RM 能在客户面前讲的 1 页；RM 决定怎么交付。",
-    actions: `<button class="btn" data-action="toast" data-msg="已生成客户版 PDF（watermarked）">生成客户版</button>
+    actions: `<button class="btn" data-action="go" data-page="m2-allocation">回到配置</button>
+      <button class="btn" data-action="toast" data-msg="已生成客户版 PDF（watermarked）">生成客户版</button>
       <button class="btn primary" data-action="save-decision">保存决策</button>`
   }) + `
+  ${m2Nav("m2-decision")}
   <div class="grid-2-1">
     <div class="card"><div class="card-head"><div><h2>客户问题</h2><p>“我不想卖太多股票，但需要分散，还要留现金。”— 陈志远，2026-10-20</p></div></div><div class="card-body">
       <div class="note green"><b>建议：</b>用 3 年把单一股票从 42% 降到 30%；每年减持不超过 7%；减持资金进入“债券阶梯 + 全球基金”；同时用 Lombard 覆盖前 18 个月流动性，避免在低点卖。</div>

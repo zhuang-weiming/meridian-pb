@@ -297,6 +297,7 @@
 
   RENDER["m5-delivery"] = () => {
     const s = t.scenarios.find(x => x.id === (App.state.taxScenario || "A")) || t.scenarios[1];
+    const blocked = s.result === "REJECT";
     return UI.pageHead({
       crumb: `<b>M5</b> · Tax Optimization · 交付`,
       title: "客户交付 / 实施",
@@ -304,6 +305,7 @@
       actions: `<button class="btn" data-action="toast" data-msg="客户包已发送（watermarked PDF + App）">发送客户</button>
         <button class="btn primary" data-action="esign-tax">客户电子签署</button>`
     }) + `
+      ${blocked ? `<div class="note amber" style="margin-top:10px"><b>demo 提示：</b>当前方案为 REJECT；本页仍展示客户交付/实施，生产环境会阻断。</div>` : ""}
       <div class="grid-2-1">
         <div class="card"><div class="card-head"><div><h2>客户包</h2><p>${s.name} · ${s.result}</p></div></div><div class="card-body">
           <div class="grid-4" style="gap:6px">

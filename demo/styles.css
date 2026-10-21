@@ -342,3 +342,13 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 11.5px; }
 /* Collapsible navigation */
 .app.nav-collapsed .sidebar { display: none; }
 .app.nav-collapsed .main { max-width: none; }
+
+/* Family workspace / dictionary / release conditions */
+.term { border-bottom: 1px dotted var(--muted-2); cursor: help; white-space: nowrap; }
+.term-mark { display: inline-flex; align-items: center; justify-content: center; width: 10px; height: 10px; margin-left: 2px; border-radius: 50%; background: var(--soft-2); color: var(--muted); font-size: 8px; font-weight: 700; vertical-align: 1px; }
+.goal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.goal-card { border: 1px solid var(--line); border-radius: 9px; padding: 10px 11px; background: var(--soft); }
+.goal-card .grid-2 { gap: 5px 10px; }
+.release-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.release-item { border: 1px solid var(--line); border-radius: 8px; padding: 8px 9px; background: var(--soft); }
+@media (max-width: 700px) { .goal-grid, .release-grid { grid-template-columns: 1fr; } }

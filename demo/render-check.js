@@ -9,16 +9,28 @@ for (const f of ["data.js", "ui.js", "pages.js", "pages2.js", "pages3.js"]) {
 }
 
 const baseState = {
-  role: "RM", clientId: "C-7701", proposal: { generated: true, selected: "P-A" },
-  compliance: { approved: true }, stressScenario: "eq", includeCosts: true,
-  decision: "adopt", facilityStress: "base", hubView: "client", serviceFilter: "全部",
+  role: "RM", clientId: "C-7701", proposal: { generated: true, selected: "P-A", version: 3 },
+  compliance: { approved: true, approvedVersion: 3, esign: true, signedVersion: 3 }, stressScenario: "eq", includeCosts: true,
+  decision: "adopt", facilityStress: "base", hubView: "client", serviceFilter: "全部", caseFilter: "all",
   valuationLtv: 22, pledge: { V: 100000000, B: 1000000, t: 20, C: 25000000, i: 6.5, n: 5, r: 8, d: 0 },
   trustTab: "structure", m3tab: "tax", taxScenario: "A", taxLevers: ["L3"], clientTab: "proposal"
 };
 global.App = {
   state: { ...baseState },
   client() { return DB.clients.find(c => c.id === App.state.clientId) || DB.clients[0]; },
+  household() { const c = App.client(); return DB.households.find(h => h.id === c.householdId) || null; },
+  aladdinVariant() { return DB.aladdin.variants.aligned; },
+  aladdinStatus() { return "WARN"; },
+  proposalBlocked() { return false; },
   founder() { return DB.clients.find(c => c.id === "C-88421"); },
+  currentProposal() { return DB.proposals.options.find(o => o.id === (App.state.proposal.selected || "P-A")) || DB.proposals.options[0]; },
+  currentVersion() { return App.state.proposal.version || 3; },
+  executionLines() { return DB.execution; },
+  isExecutionDraft() { return false; },
+  complianceSnapshotReady() { return true; },
+  orderReady() { return true; },
+  backtestSeries() { return DB.backtest.points; },
+  backtestMetrics() { return { cagr: 6.8, vol: 5.6, sharpe: 0.65, dd: -14.2 }; },
   tes() { return 80; },
   pledgeCalc() {
     return { tax: 1, sellAmt: 1, interest: 1, breakeven: .01, downsideGap: 1, sellAt8: 1, pledgeAt8: 1,

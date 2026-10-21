@@ -3,7 +3,7 @@ const DB = {
   asOf: "2026-10-20 09:00 HKT",
   clients: [
     {
-      id: "C-1001", name: "陈志远", short: "陈先生", segment: "T2 高净值", rm: "Alex Chan",
+      id: "C-1001", householdId: "H-1001", name: "陈志远", short: "陈先生", segment: "T2 高净值", rm: "Alex Chan",
       booking: ["香港", "新加坡"], totalWealth: 28000000, liquid: 6200000, liabilities: 0,
       concentration: 0.42, risk: "平衡", riskExpiry: "2026-12-31", taxResidency: "中国内地",
       entity: "个人 + 香港公司", family: "配偶 + 1 名子女", since: "2021",
@@ -15,7 +15,7 @@ const DB = {
       ]
     },
     {
-      id: "C-88421", name: "林哲（示例）", short: "林先生", segment: "T1 超高净值", rm: "Alex Chan",
+      id: "C-88421", householdId: "H-88421", name: "林哲（示例）", short: "林先生", segment: "T1 超高净值", rm: "Alex Chan",
       booking: ["香港", "新加坡"], totalWealth: 9250000000, liquid: 52000000, liabilities: 0,
       concentration: 0.96, risk: "进取", riskExpiry: "2026-12-31", taxResidency: "中国内地",
       entity: "BVI 控股 + 香港信托", family: "配偶 + 2 名子女", since: "2019",
@@ -26,7 +26,7 @@ const DB = {
       ]
     },
     {
-      id: "C-2002", name: "王女士", short: "王女士", segment: "T3 富裕", rm: "Mia Wong",
+      id: "C-2002", householdId: "H-2002", name: "王女士", short: "王女士", segment: "T3 富裕", rm: "Mia Wong",
       booking: ["香港"], totalWealth: 12000000, liquid: 4500000, liabilities: 1200000,
       concentration: 0.18, risk: "稳健", riskExpiry: "2027-03-31", taxResidency: "香港",
       entity: "个人", family: "配偶 + 2 名子女", since: "2023",
@@ -37,7 +37,7 @@ const DB = {
       ]
     },
     {
-      id: "C-7701", name: "何启明（示例）", short: "何先生", segment: "T1 超高净值", rm: "Alex Chan",
+      id: "C-7701", householdId: "H-7701", name: "何启明（示例）", short: "何先生", segment: "T1 超高净值", rm: "Alex Chan",
       booking: ["香港", "新加坡"], totalWealth: 1200000000, liquid: 90000000, liabilities: 0,
       concentration: 0.38, risk: "平衡", riskExpiry: "2027-06-30", taxResidency: "香港",
       entity: "BVI 控股 + 香港家办 + 香港信托", family: "配偶 + 2 名子女 + 母亲", since: "2016",
@@ -55,6 +55,104 @@ const DB = {
         { id: "BVI-7703", centre: "BVI", type: "基金账户", ccy: "USD", value: 30000000 }
       ]
     }
+  ],
+
+  households: [
+    { id: "H-1001", name: "陈氏家庭", primaryClientId: "C-1001", rm: "Alex Chan", booking: ["香港", "新加坡"], reportingCurrency: "USD", consentRef: "CONSENT-H-1001-01", note: "跨境工作家庭；未成年子女教育目标。" },
+    { id: "H-7701", name: "何氏家族", primaryClientId: "C-7701", rm: "Alex Chan", booking: ["香港", "新加坡"], reportingCurrency: "HKD", consentRef: "CONSENT-H-7701-01", note: "三代家庭；创始人、配偶、两名成年子女、母亲。" },
+    { id: "H-88421", name: "林氏家庭", primaryClientId: "C-88421", rm: "Alex Chan", booking: ["香港", "新加坡"], reportingCurrency: "USD", consentRef: "CONSENT-H-88421-01", note: "Pre-IPO 创始人；配偶与两名未成年子女。" },
+    { id: "H-2002", name: "王氏家庭", primaryClientId: "C-2002", rm: "Mia Wong", booking: ["香港"], reportingCurrency: "HKD", consentRef: "CONSENT-H-2002-01", note: "香港本地家庭；两名子女。" }
+  ],
+
+  persons: [
+    { id: "P-1001-01", householdId: "H-1001", name: "陈志远", role: "主客户", age: 42, isClient: true, clientId: "C-1001", residency: "中国内地", serviceMarket: "香港 / 新加坡", accountHolder: true, authorization: "本人" },
+    { id: "P-1001-02", householdId: "H-1001", name: "周敏", role: "配偶", age: 40, isClient: false, residency: "中国内地", serviceMarket: "香港", accountHolder: true, authorization: "家庭授权" },
+    { id: "P-1001-03", householdId: "H-1001", name: "陈雨桐", role: "女儿（未成年）", age: 12, isClient: false, residency: "中国内地", serviceMarket: "香港 / 英国", accountHolder: false, authorization: "监护人授权" },
+    { id: "P-7701-01", householdId: "H-7701", name: "何启明", role: "创始人 / 主客户", age: 62, isClient: true, clientId: "C-7701", residency: "香港", serviceMarket: "香港 / 新加坡", accountHolder: true, authorization: "本人" },
+    { id: "P-7701-02", householdId: "H-7701", name: "陈雅仪", role: "配偶", age: 59, isClient: false, residency: "香港", serviceMarket: "香港", accountHolder: true, authorization: "家庭授权" },
+    { id: "P-7701-03", householdId: "H-7701", name: "何俊轩", role: "长子（成年）", age: 28, isClient: false, residency: "香港", serviceMarket: "香港 / 新加坡", accountHolder: false, authorization: "待本人确认" },
+    { id: "P-7701-04", householdId: "H-7701", name: "何语晴", role: "次女（成年）", age: 25, isClient: false, residency: "香港", serviceMarket: "香港 / 新加坡", accountHolder: false, authorization: "待本人确认" },
+    { id: "P-7701-05", householdId: "H-7701", name: "李淑贞", role: "母亲", age: 86, isClient: false, residency: "香港", serviceMarket: "香港", accountHolder: false, authorization: "家庭授权" },
+    { id: "P-88421-01", householdId: "H-88421", name: "林哲", role: "创始人 / 主客户", age: 47, isClient: true, clientId: "C-88421", residency: "中国内地", serviceMarket: "香港 / 新加坡", accountHolder: true, authorization: "本人" },
+    { id: "P-88421-02", householdId: "H-88421", name: "叶青", role: "配偶", age: 45, isClient: false, residency: "中国内地", serviceMarket: "香港", accountHolder: true, authorization: "家庭授权" },
+    { id: "P-88421-03", householdId: "H-88421", name: "林一", role: "长子（未成年）", age: 14, isClient: false, residency: "中国内地", serviceMarket: "香港 / 英国", accountHolder: false, authorization: "监护人授权" },
+    { id: "P-88421-04", householdId: "H-88421", name: "林二", role: "次女（未成年）", age: 11, isClient: false, residency: "中国内地", serviceMarket: "香港 / 英国", accountHolder: false, authorization: "监护人授权" },
+    { id: "P-2002-01", householdId: "H-2002", name: "王女士", role: "主客户", age: 46, isClient: true, clientId: "C-2002", residency: "香港", serviceMarket: "香港", accountHolder: true, authorization: "本人" },
+    { id: "P-2002-02", householdId: "H-2002", name: "李先生", role: "配偶", age: 48, isClient: false, residency: "香港", serviceMarket: "香港", accountHolder: true, authorization: "家庭授权" },
+    { id: "P-2002-03", householdId: "H-2002", name: "李同学（长子）", role: "长子（未成年）", age: 15, isClient: false, residency: "香港", serviceMarket: "香港 / 英国", accountHolder: false, authorization: "监护人授权" },
+    { id: "P-2002-04", householdId: "H-2002", name: "李同学（次女）", role: "次女（未成年）", age: 10, isClient: false, residency: "香港", serviceMarket: "香港", accountHolder: false, authorization: "监护人授权" }
+  ],
+
+  relationships: [
+    { id: "R-1001-01", householdId: "H-1001", from: "P-1001-01", to: "P-1001-02", type: "配偶", effectiveFrom: "2012-05-20", effectiveTo: null, verified: "已核验", evidence: "结婚证明（已归档）", consent: "家庭授权" },
+    { id: "R-1001-02", householdId: "H-1001", from: "P-1001-01", to: "P-1001-03", type: "父女（未成年）", effectiveFrom: "2014-03-08", effectiveTo: null, verified: "已核验", evidence: "出生证明 + 监护关系", consent: "监护人授权" },
+    { id: "R-1001-03", householdId: "H-1001", from: "P-1001-02", to: "P-1001-03", type: "母女（未成年）", effectiveFrom: "2014-03-08", effectiveTo: null, verified: "已核验", evidence: "出生证明 + 监护关系", consent: "监护人授权" },
+    { id: "R-7701-01", householdId: "H-7701", from: "P-7701-01", to: "P-7701-02", type: "配偶", effectiveFrom: "1993-11-06", effectiveTo: null, verified: "已核验", evidence: "结婚证明（已归档）", consent: "家庭授权" },
+    { id: "R-7701-02", householdId: "H-7701", from: "P-7701-01", to: "P-7701-03", type: "父子（成年）", effectiveFrom: "1998-04-12", effectiveTo: null, verified: "已核验", evidence: "出生证明", consent: "待本人确认" },
+    { id: "R-7701-03", householdId: "H-7701", from: "P-7701-01", to: "P-7701-04", type: "父女（成年）", effectiveFrom: "2001-09-23", effectiveTo: null, verified: "已核验", evidence: "出生证明", consent: "待本人确认" },
+    { id: "R-7701-04", householdId: "H-7701", from: "P-7701-01", to: "P-7701-05", type: "母子", effectiveFrom: "1940-02-15", effectiveTo: null, verified: "已核验", evidence: "出生证明（历史档案）", consent: "家庭授权" },
+    { id: "R-88421-01", householdId: "H-88421", from: "P-88421-01", to: "P-88421-02", type: "配偶", effectiveFrom: "2008-10-01", effectiveTo: null, verified: "已核验", evidence: "结婚证明（已归档）", consent: "家庭授权" },
+    { id: "R-88421-02", householdId: "H-88421", from: "P-88421-01", to: "P-88421-03", type: "父子（未成年）", effectiveFrom: "2012-06-18", effectiveTo: null, verified: "已核验", evidence: "出生证明 + 监护关系", consent: "监护人授权" },
+    { id: "R-88421-03", householdId: "H-88421", from: "P-88421-01", to: "P-88421-04", type: "父女（未成年）", effectiveFrom: "2015-02-11", effectiveTo: null, verified: "已核验", evidence: "出生证明 + 监护关系", consent: "监护人授权" },
+    { id: "R-2002-01", householdId: "H-2002", from: "P-2002-01", to: "P-2002-02", type: "配偶", effectiveFrom: "2004-12-12", effectiveTo: null, verified: "已核验", evidence: "结婚证明（已归档）", consent: "家庭授权" },
+    { id: "R-2002-02", householdId: "H-2002", from: "P-2002-01", to: "P-2002-03", type: "母子（未成年）", effectiveFrom: "2011-08-30", effectiveTo: null, verified: "已核验", evidence: "出生证明 + 监护关系", consent: "监护人授权" },
+    { id: "R-2002-03", householdId: "H-2002", from: "P-2002-01", to: "P-2002-04", type: "母女（未成年）", effectiveFrom: "2016-05-04", effectiveTo: null, verified: "已核验", evidence: "出生证明 + 监护关系", consent: "监护人授权" }
+  ],
+
+  consents: [
+    { id: "CONSENT-H-1001-01", householdId: "H-1001", personId: "P-1001-01", purpose: "未成年子女教育规划", scope: "教育目标、支出计划、学校申请；不含投资账户", status: "已授权（监护人）", grantedAt: "2026-02-10", expiresAt: "2027-02-09", evidenceRef: "CONSENT-2026-0210" },
+    { id: "CONSENT-H-1001-02", householdId: "H-1001", personId: "P-1001-02", purpose: "家庭信息共享", scope: "家庭目标与教育支出；不含投资明细", status: "已授权", grantedAt: "2026-02-10", expiresAt: "2027-02-09", evidenceRef: "CONSENT-2026-0211" },
+    { id: "CONSENT-H-1001-03", householdId: "H-1001", personId: "P-1001-03", purpose: "教育规划（监护人代行）", scope: "教育目标、学校申请；不含投资账户", status: "已授权（监护人）", grantedAt: "2026-02-10", expiresAt: "2027-02-09", evidenceRef: "CONSENT-2026-0212" },
+    { id: "CONSENT-H-7701-01", householdId: "H-7701", personId: "P-7701-01", purpose: "家庭服务与信息共享", scope: "本人 + 配偶 + 受抚养成员", status: "已授权", grantedAt: "2026-01-15", expiresAt: "2027-01-14", evidenceRef: "CONSENT-2026-0115" },
+    { id: "CONSENT-H-7701-02", householdId: "H-7701", personId: "P-7701-03", purpose: "服务邀请与反馈分享", scope: "仅邀请；反馈需本人再次确认", status: "待本人确认", grantedAt: null, expiresAt: null, evidenceRef: "—" },
+    { id: "CONSENT-H-7701-03", householdId: "H-7701", personId: "P-7701-04", purpose: "教育/服务邀请", scope: "仅邀请；不共享资产与投资信息", status: "待本人确认", grantedAt: null, expiresAt: null, evidenceRef: "—" },
+    { id: "CONSENT-H-7701-04", householdId: "H-7701", personId: "P-7701-05", purpose: "健康养老服务", scope: "健康/养老事项；不含资产信息", status: "已授权（家庭）", grantedAt: "2026-01-15", expiresAt: "2027-01-14", evidenceRef: "CONSENT-2026-0116" },
+    { id: "CONSENT-H-7701-05", householdId: "H-7701", personId: "P-7701-02", purpose: "家庭信息共享", scope: "家庭目标与服务邀请；不含投资明细", status: "已授权（家庭）", grantedAt: "2026-01-15", expiresAt: "2027-01-14", evidenceRef: "CONSENT-2026-0117" },
+    { id: "CONSENT-H-88421-01", householdId: "H-88421", personId: "P-88421-01", purpose: "家庭服务与传承", scope: "本人 + 配偶 + 未成年子女", status: "已授权", grantedAt: "2026-03-01", expiresAt: "2027-02-28", evidenceRef: "CONSENT-2026-0301" },
+    { id: "CONSENT-H-88421-02", householdId: "H-88421", personId: "P-88421-03", purpose: "教育规划（监护人代行）", scope: "教育目标、学校申请；不含投资账户", status: "已授权（监护人）", grantedAt: "2026-03-01", expiresAt: "2027-02-28", evidenceRef: "CONSENT-2026-0302" },
+    { id: "CONSENT-H-88421-03", householdId: "H-88421", personId: "P-88421-04", purpose: "教育规划（监护人代行）", scope: "教育目标、学校申请；不含投资账户", status: "已授权（监护人）", grantedAt: "2026-03-01", expiresAt: "2027-02-28", evidenceRef: "CONSENT-2026-0303" },
+    { id: "CONSENT-H-88421-04", householdId: "H-88421", personId: "P-88421-02", purpose: "家庭信息共享", scope: "家庭目标与服务邀请；不含投资明细", status: "已授权（家庭）", grantedAt: "2026-03-01", expiresAt: "2027-02-28", evidenceRef: "CONSENT-2026-0304" },
+    { id: "CONSENT-H-2002-01", householdId: "H-2002", personId: "P-2002-01", purpose: "未成年子女教育规划", scope: "教育目标与支出；不含投资账户", status: "已授权（监护人）", grantedAt: "2026-04-12", expiresAt: "2027-04-11", evidenceRef: "CONSENT-2026-0412" },
+    { id: "CONSENT-H-2002-02", householdId: "H-2002", personId: "P-2002-03", purpose: "教育规划（监护人代行）", scope: "教育目标与支出；不含投资账户", status: "已授权（监护人）", grantedAt: "2026-04-12", expiresAt: "2027-04-11", evidenceRef: "CONSENT-2026-0413" },
+    { id: "CONSENT-H-2002-03", householdId: "H-2002", personId: "P-2002-04", purpose: "教育规划（监护人代行）", scope: "教育目标与支出；不含投资账户", status: "已授权（监护人）", grantedAt: "2026-04-12", expiresAt: "2027-04-11", evidenceRef: "CONSENT-2026-0414" },
+    { id: "CONSENT-H-2002-04", householdId: "H-2002", personId: "P-2002-02", purpose: "家庭信息共享", scope: "家庭目标与服务邀请；不含投资明细", status: "已授权（家庭）", grantedAt: "2026-04-12", expiresAt: "2027-04-11", evidenceRef: "CONSENT-2026-0415" }
+  ],
+
+  familyGoals: [
+    { id: "FG-1001-01", householdId: "H-1001", title: "女儿英国/香港教育资金", category: "教育", ownerPersonId: "P-1001-01", beneficiaryPersonIds: ["P-1001-03"], fundingPartyIds: ["P-1001-01"], decisionMakerId: "P-1001-01", decisionMaker: "陈志远 + 配偶", targetAmount: 1500000, currency: "USD", targetDate: "2030-09-01", priority: "高", flexibility: "中", visibilityScope: "父母 + RM", fundingCommitmentStatus: "未设专户", status: "待确认", gap: "未设教育专户；年度支出未锁定", caseId: "CASE-1001-EDU" },
+    { id: "FG-7701-01", householdId: "H-7701", title: "2027 年 3 月税负流动性", category: "流动性 / 税务", ownerPersonId: "P-7701-01", beneficiaryPersonIds: ["P-7701-01", "P-7701-02", "P-7701-03", "P-7701-04", "P-7701-05"], fundingPartyIds: ["P-7701-01"], decisionMakerId: "P-7701-01", decisionMaker: "何启明", targetAmount: 10000000, currency: "USD", targetDate: "2027-03-15", priority: "高", flexibility: "低", visibilityScope: "核心家庭成员", fundingCommitmentStatus: "已安排 80%", status: "进行中", gap: "约 200 万美元缺口；依赖质押/减持", caseId: "CASE-7701-LIQ" },
+    { id: "FG-7701-02", householdId: "H-7701", title: "次女何语晴教育资金", category: "教育", ownerPersonId: "P-7701-04", beneficiaryPersonIds: ["P-7701-04"], fundingPartyIds: ["P-7701-01"], decisionMakerId: "P-7701-04", decisionMaker: "何语晴本人", targetAmount: 1200000, currency: "USD", targetDate: "2028-09-01", priority: "中", flexibility: "中", visibilityScope: "本人 + 出资人", fundingCommitmentStatus: "意向", status: "待本人确认", gap: "本人授权与教育专户未设", caseId: "CASE-7701-EDU" },
+    { id: "FG-7701-03", householdId: "H-7701", title: "长子何俊轩独立参与财富管理", category: "成年子女独立", ownerPersonId: "P-7701-03", beneficiaryPersonIds: ["P-7701-03"], fundingPartyIds: ["P-7701-01"], decisionMakerId: "P-7701-03", decisionMaker: "何俊轩本人", targetAmount: 5000000, currency: "USD", targetDate: "2027-06-30", priority: "中", flexibility: "高", visibilityScope: "本人 + 出资人", fundingCommitmentStatus: "未承诺", status: "待授权", gap: "本人同意与授权缺失；家长不得代决策", caseId: "CASE-7701-NEXT" },
+    { id: "FG-7701-04", householdId: "H-7701", title: "家族治理与传承", category: "传承", ownerPersonId: "P-7701-01", beneficiaryPersonIds: ["P-7701-01", "P-7701-02", "P-7701-03", "P-7701-04", "P-7701-05"], fundingPartyIds: ["P-7701-01"], decisionMakerId: "P-7701-01", decisionMaker: "何启明 + 家族委员会", targetAmount: null, currency: "HKD", targetDate: "2027-12-31", priority: "高", flexibility: "低", visibilityScope: "家族成员", fundingCommitmentStatus: "进行中", status: "进行中", gap: "家族宪章与决策规则待定", caseId: "CASE-7701-GOV" },
+    { id: "FG-88421-01", householdId: "H-88421", title: "Pre-IPO 流动性与集中度", category: "流动性", ownerPersonId: "P-88421-01", beneficiaryPersonIds: ["P-88421-01", "P-88421-02", "P-88421-03", "P-88421-04"], fundingPartyIds: ["P-88421-01"], decisionMakerId: "P-88421-01", decisionMaker: "林哲", targetAmount: 500000000, currency: "USD", targetDate: "2028-03-31", priority: "高", flexibility: "低", visibilityScope: "核心家庭成员", fundingCommitmentStatus: "未安排", status: "进行中", gap: "估值/锁定期/授信未定", caseId: "CASE-88421-LIQ" },
+    { id: "FG-88421-02", householdId: "H-88421", title: "子女教育与信托预算", category: "教育 / 传承", ownerPersonId: "P-88421-01", beneficiaryPersonIds: ["P-88421-03", "P-88421-04"], fundingPartyIds: ["P-88421-01"], decisionMakerId: "P-88421-01", decisionMaker: "林哲 + 配偶", targetAmount: 2000000, currency: "USD", targetDate: "2032-09-01", priority: "中", flexibility: "中", visibilityScope: "父母 + 受托人", fundingCommitmentStatus: "未安排", status: "待确认", gap: "信托/教育专户未设", caseId: "CASE-88421-EDU" },
+    { id: "FG-2002-01", householdId: "H-2002", title: "两名子女教育资金", category: "教育", ownerPersonId: "P-2002-01", beneficiaryPersonIds: ["P-2002-03", "P-2002-04"], fundingPartyIds: ["P-2002-01", "P-2002-02"], decisionMakerId: "P-2002-01", decisionMaker: "王女士 + 配偶", targetAmount: 800000, currency: "USD", targetDate: "2031-09-01", priority: "中", flexibility: "中", visibilityScope: "父母 + RM", fundingCommitmentStatus: "未设专户", status: "待确认", gap: "教育专户与年度预算未设", caseId: "CASE-2002-EDU" }
+  ],
+
+  cases: [
+    { id: "CASE-1001-EDU", householdId: "H-1001", title: "女儿教育资金专户与年度预算", module: "M3 / M4", type: "教育 / 授权", owner: "Alex Chan", dependencies: "监护人授权 / 学校录取 / 年度预算", due: "2027-06-30", deliverable: "教育资金专户 + 年度预算表", clientTodo: "确认学校与年度支出", status: "进行中", priority: "P1", goalId: "FG-1001-01", link: "m3-family", linkLabel: "打开家庭目标" },
+    { id: "CASE-7701-LIQ", householdId: "H-7701", title: "2027 年 3 月税负流动性", module: "M3", type: "融资", owner: "Alex Chan", dependencies: "抵押品估值 / 授信预审 / 税务测算", due: "2027-02-15", deliverable: "Term sheet + 授信批复", clientTodo: "确认抵押品与授权", status: "进行中", priority: "P0", goalId: "FG-7701-01", link: "m3-financing", linkLabel: "打开融资驾驶舱" },
+    { id: "CASE-7701-TAX", householdId: "H-7701", title: "家办 FIHV 与印花税复核", module: "M5", type: "税务", owner: "HSBC PB Tax", dependencies: "税务画像 / 实质文件 / 反避税", due: "2027-01-31", deliverable: "内部税务意见 + 申报清单", clientTodo: "补齐香港实质文件", status: "等待客户", priority: "P1", goalId: "FG-7701-01", link: "m5-intake", linkLabel: "打开税务案件" },
+    { id: "CASE-7701-EDU", householdId: "H-7701", title: "何语晴教育资金与授权", module: "M3 / M4", type: "教育 / 授权", owner: "Alex Chan", dependencies: "本人同意 / 出资人确认 / 专户", due: "2027-03-31", deliverable: "教育资金方案 + 授权记录", clientTodo: "何语晴本人确认", status: "等待客户", priority: "P2", goalId: "FG-7701-02", link: "m3-family", linkLabel: "打开家庭目标" },
+    { id: "CASE-7701-NEXT", householdId: "H-7701", title: "何俊轩独立账户与二代课程", module: "M3", type: "服务 / 授权", owner: "Alex Chan", dependencies: "本人同意 / 适当性 / 课程名额", due: "2027-05-01", deliverable: "邀请 + 独立授权", clientTodo: "本人确认参加与分享范围", status: "待授权", priority: "P2", goalId: "FG-7701-03", link: "m3-hub", linkLabel: "打开服务邀请" },
+    { id: "CASE-7701-GOV", householdId: "H-7701", title: "家族宪章与治理工作坊", module: "M3 / M4", type: "治理 / 传承", owner: "HSBC PB Family Advisory", dependencies: "家族成员时间 / 宪章草案", due: "2027-12-31", deliverable: "家族宪章草案 + 决策规则", clientTodo: "确认参加工作坊的成员", status: "等待内部", priority: "P1", goalId: "FG-7701-04", link: "m3-family", linkLabel: "打开家庭目标" },
+    { id: "CASE-88421-LIQ", householdId: "H-88421", title: "Pre-IPO 质押与流动性", module: "M4", type: "融资 / 估值", owner: "Alex Chan", dependencies: "独立估值 / 委员会 / 授信", due: "2027-12-31", deliverable: "估值决议 + Term sheet", clientTodo: "提供股权文件", status: "进行中", priority: "P0", goalId: "FG-88421-01", link: "m4-valuation", linkLabel: "打开估值委员会" },
+    { id: "CASE-88421-EDU", householdId: "H-88421", title: "子女教育与信托预算", module: "M4", type: "信托 / 教育", owner: "HSBC TFS", dependencies: "信托契约 / 预算 / 税务意见", due: "2028-06-30", deliverable: "信托预算 + 教育分配规则", clientTodo: "确认受益人与预算", status: "等待内部", priority: "P2", goalId: "FG-88421-02", link: "m4-trust", linkLabel: "打开信托预算" },
+    { id: "CASE-2002-EDU", householdId: "H-2002", title: "两名子女教育资金", module: "M3 / M4", type: "教育", owner: "Mia Wong", dependencies: "学校录取 / 年度预算", due: "2028-09-01", deliverable: "教育资金方案", clientTodo: "确认学校与年度支出", status: "进行中", priority: "P2", goalId: "FG-2002-01", link: "m3-family", linkLabel: "打开家庭目标" }
+  ],
+
+  dictionary: [
+    { term: "Lombard", en: "Lombard / securities-backed lending", definition: "以客户持有的上市股票、债券、基金作抵押的现金贷款；看抵押品、LTV、追保线。", avoid: "不要与 SLB（证券借贷）合并。" },
+    { term: "SLB", en: "Securities Lending & Borrowing", definition: "借券/融券：借入或借出证券，收借券费、担保品、召回风险；不是现金贷款。", avoid: "不要把 Lombard 写成 SLB。" },
+    { term: "Household", en: "Household", definition: "家庭关系与服务视图：成员、关系、目标、授权；不是法律主体。", avoid: "法律主体用 Client / Person / Legal Entity / Trust。" },
+    { term: "Beneficial Owner", en: "Beneficial Owner (BO)", definition: "最终拥有或控制客户/资产的自然人；用于 KYC、CRS、受益所有权披露。", avoid: "不要与信托受益人/收款人混用。" },
+    { term: "Trust Beneficiary", en: "Trust Beneficiary", definition: "信托契约下可接受分配的人/类别；不等于账户持有人或收款人。", avoid: "不要把受益人写成 Payee。" },
+    { term: "Payee", en: "Payee", definition: "实际收到款项的收款人（学校、医院、房东、供应商等）。", avoid: "Payee ≠ 受益人 ≠ 纳税人。" },
+    { term: "LTV", en: "Loan-to-Value", definition: "额度 ÷ 可贷值（本 demo 口径）；不是额度 ÷ 抵押市值。", avoid: "写清分母；M3 与 M4 的适用范围不同。" },
+    { term: "Haircut", en: "Haircut", definition: "抵押品市值到可贷值的折扣；可贷值 = 抵押市值 × (1 − haircut)。", avoid: "不要与 LTV 混用。" },
+    { term: "Lendable Value", en: "Lendable Value", definition: "银行按抵押品类型、折扣、估值日计算的可贷价值。", avoid: "不是市值，也不是授信额度。" },
+    { term: "Client / Person / BP / Account", en: "Client / Person / Business Partner / Account", definition: "客户关系、自然人、法律主体/业务伙伴、账户是四个对象；一个 client_id 不能代表全部。", avoid: "不要用 client_id 代替 person_id / entity_id / account_id。" },
+    { term: "Taxpayer", en: "Taxpayer", definition: "对某笔税负有申报/缴纳义务的主体；可能是个人、受托人、受益人或其他实体。", avoid: "Taxpayer ≠ Payee ≠ Beneficiary。" }
   ],
 
   events: [
@@ -79,13 +177,24 @@ const DB = {
 
   proposals: {
     objective: "未来 24 个月需要 1,000 万美元流动性；降低单一股票集中度；税后收益优先。",
+    funding: {
+      source: "已上市股票减持 + 到期现金",
+      payer: "陈志远（个人）",
+      holder: "陈志远（个人）· HK-0091 / HK-0092",
+      beneficiary: "陈志远及家庭（配偶 + 1 名子女）",
+      riskBearer: "陈志远（个人）",
+      decisionMaker: "陈志远",
+      account: "HK-0091 / HK-0092",
+      consentRef: "CONSENT-H-1001-01",
+      note: "出资 ≠ 持有 ≠ 受益 ≠ 风险承担。为子女准备资金，不意味着订单属于子女账户；若受益人不是账户持有人，需单独授权与适当性记录。"
+    },
     generated: false,
     options: [
       {
         id: "P-A", name: "核心债券阶梯 + 货币基金", tag: "推荐",
-        thesis: "用 6 档投资级债券锁定 4.3%–4.8% 到期收益率，保留 12 个月现金。",
+        thesis: "用 6 档美国国债搭建阶梯，锁定 4.3%–4.8% 到期收益率，保留 12 个月现金。",
         legs: [
-          { t: "FI-LADDER-01", i: "UST 2Y / 5Y / 10Y", a: "BUY", w: 38, amt: 7600000 },
+          { t: "FI-LADDER-01", i: "UST 2Y / 3Y / 5Y / 7Y / 10Y / 30Y", a: "BUY", w: 38, amt: 7600000 },
           { t: "FD-UCITS-01", i: "IE00B4L5Y983", a: "SUBSCRIBE", w: 42, amt: 8400000 },
           { t: "EQ-CASH-01", i: "Gold ETC", a: "BUY", w: 8, amt: 1600000 },
           { t: "—", i: "USD Cash", a: "HOLD", w: 12, amt: 2400000 }
@@ -131,16 +240,145 @@ const DB = {
         change: "若客户不能接受本金风险或 5 年锁定，降为 0–10%。",
         confidence: "中"
       }
-    ]
+    ],
+    aladdinOption: {
+      id: "P-ALADDIN", name: "Aladdin SAA/TAA · 债券阶梯 + 流动性", tag: "Aladdin 推荐",
+      thesis: "BlackRock Aladdin 输出的 SAA/TAA：38% 美国国债阶梯、42% 全球综合债 UCITS、8% 黄金、12% 现金；与目标/约束一致。",
+      legs: [
+        { t: "FI-LADDER-01", i: "UST 2Y / 3Y / 5Y / 7Y / 10Y / 30Y", a: "BUY", w: 38, amt: 7600000 },
+        { t: "FD-UCITS-01", i: "iShares Core Global Aggregate Bond UCITS ETF", a: "SUBSCRIBE", w: 42, amt: 8400000 },
+        { t: "EQ-CASH-01", i: "iShares Physical Gold ETC", a: "BUY", w: 8, amt: 1600000 },
+        { t: "CASH-01", i: "USD Cash — 1M Time Deposit (HSBC)", a: "HOLD", w: 12, amt: 2400000 }
+      ],
+      metrics: { cost: 21, tax: 8, time: 2, impact: 3, ease: 88 },
+      subs: { cost: 85, tax: 82, time: 92, impact: 88, ease: 88 },
+      exp: "4.6%–5.2%", vol: "6.8%", dd: "−9.4%", liquidity: "T+7 18%",
+      why: "Aladdin 的 SAA/TAA 与目标一致：债券 80%、黄金 8%、现金 12%；单一发行人、现金下限、非美元与久期均在约束内。",
+      not: "美国国债的遗产税暴露；需美国税务顾问书面意见。",
+      change: "若 Aladdin 再平衡输出偏离目标 >2pp，退回 Aladdin 重跑。",
+      confidence: "高", source: "Aladdin"
+    }
+  },
+
+  aladdin: {
+    runId: "ALADDIN-2026-10-20-0840",
+    asOf: "2026-10-20 08:40 HKT",
+    portfolio: "P-2026-000123",
+    businessPartner: "陈志远",
+    container: "HK-0091 / HK-0092",
+    ips: "IPS-2026-03",
+    mandate: "Balanced Growth & Liquidity",
+    baseCcy: "USD",
+    objective: "未来 24 个月需要 1,000 万美元流动性；降低单一股票集中度；税后收益优先。约束：权益 ≤ 50%；单一发行人 ≤ 15%；现金 ≥ 8%；非美元 ≤ 25%；组合久期 4.0–5.0 年；不允许杠杆/衍生品；美国 situs 资产需税务顾问意见。",
+    constraints: [
+      { id: "C-01", label: "权益 ≤ 50%" },
+      { id: "C-02", label: "单一发行人 ≤ 15%" },
+      { id: "C-03", label: "现金 ≥ 8%" },
+      { id: "C-04", label: "非美元 ≤ 25%" },
+      { id: "C-05", label: "久期 4.0–5.0 年" },
+      { id: "C-06", label: "不允许杠杆 / 衍生品" }
+    ],
+    current: [
+      { asset: "Single Stock (legacy)", w: 42 },
+      { asset: "Global Equity", w: 20 },
+      { asset: "Investment Grade Bonds", w: 18 },
+      { asset: "Gold", w: 6 },
+      { asset: "Cash", w: 14 }
+    ],
+    variants: {
+      aligned: {
+        id: "aligned",
+        label: "Aladdin CSV · 一致版本",
+        runId: "ALADDIN-2026-10-20-0840",
+        asOf: "2026-10-20 08:40 HKT",
+        status: "WARN",
+        duration: 4.3,
+        nonUsd: 20,
+        bands: {
+          "Single Stock (legacy)": [0, 0],
+          "Global Equity": [0, 50],
+          "Investment Grade Bonds": [30, 85],
+          "Gold": [0, 10],
+          "Cash": [8, 20],
+          "Private Equity": [0, 15]
+        },
+        csv: `asset_class,sub_class,target_weight,min_weight,max_weight,benchmark,instrument,currency,duration,top_issuer,top_issuer_weight,non_usd_weight
+Investment Grade Bonds,US Treasury Ladder,38,30,45,Bloomberg US Treasury,UST 2Y-30Y,USD,4.1,US Treasury,12,0
+Investment Grade Bonds,Global Aggregate Bond,42,30,50,Bloomberg Global Aggregate,iShares Core Global Aggregate Bond UCITS ETF,USD,4.5,US Treasury,0,20
+Gold,Physical Gold,8,0,10,LBMA Gold,iShares Physical Gold ETC,USD,0,-,0,0
+Cash,USD Cash / 1M T-Bill,12,8,20,ICE BofA 1M T-Bill,USD Cash / 1M Time Deposit,USD,0.1,US Treasury,0,0
+`,
+        rows: [
+          { asset: "Investment Grade Bonds", sub: "US Treasury Ladder", target: 38, min: 30, max: 45, benchmark: "Bloomberg US Treasury", instrument: "UST 2Y–30Y（6 档）", ccy: "USD", duration: 4.1, topIssuer: "US Treasury", topIssuerWeight: 12, nonUsd: 0 },
+          { asset: "Investment Grade Bonds", sub: "Global Aggregate Bond", target: 42, min: 30, max: 50, benchmark: "Bloomberg Global Aggregate", instrument: "iShares Core Global Aggregate Bond UCITS ETF", ccy: "USD", duration: 4.5, topIssuer: "US Treasury", topIssuerWeight: 0, nonUsd: 20 },
+          { asset: "Gold", sub: "Physical Gold", target: 8, min: 0, max: 10, benchmark: "LBMA Gold", instrument: "iShares Physical Gold ETC", ccy: "USD", duration: 0, topIssuer: "—", topIssuerWeight: 0, nonUsd: 0 },
+          { asset: "Cash", sub: "USD Cash / 1M T-Bill", target: 12, min: 8, max: 20, benchmark: "ICE BofA 1M T-Bill", instrument: "USD Cash / 1M Time Deposit", ccy: "USD", duration: 0.1, topIssuer: "US Treasury", topIssuerWeight: 0, nonUsd: 0 }
+        ],
+        checks: [
+          { id: "OBJ-01", name: "权益上限", rule: "权益 ≤ 50%", actual: "0%", result: "PASS", note: "Aladdin 输出与流动性 + 分散目标一致。", evidence: "ALADDIN-CSV-0840 · row 1–4" },
+          { id: "CON-01", name: "单一发行人", rule: "≤ 15%", actual: "US Treasury 12%", result: "PASS", note: "最大单一发行人 12%，低于 15%。", evidence: "ALADDIN-CSV-0840 · top_issuer_weight" },
+          { id: "LIQ-01", name: "最低现金", rule: "≥ 8%", actual: "12%", result: "PASS", note: "现金 12% 覆盖 T+7 流动性。", evidence: "ALADDIN-CSV-0840 · cash" },
+          { id: "CCY-01", name: "非美元上限", rule: "≤ 25%", actual: "20%", result: "PASS", note: "非美元 20%，低于 25%。", evidence: "ALADDIN-CSV-0840 · non_usd_weight" },
+          { id: "DUR-01", name: "久期区间", rule: "4.0–5.0 年", actual: "4.3 年", result: "PASS", note: "久期 4.3 年，在区间内。", evidence: "ALADDIN-CSV-0840 · duration" },
+          { id: "TAX-01", name: "美国遗产税", rule: "需附条件", actual: "US Treasury 12%", result: "WARN", note: "美国 situs 资产；需美国税务顾问书面意见。", evidence: "R-US-002" }
+        ],
+        summary: "Aladdin 提案在权益、单一发行人、现金、非美元、久期约束内；美国国债 12% 触发遗产税 WARN，可作为附条件提案。"
+      },
+      conflict: {
+        id: "conflict",
+        label: "Aladdin CSV · 不一致版本",
+        runId: "ALADDIN-2026-10-20-0905",
+        asOf: "2026-10-20 09:05 HKT",
+        status: "REJECT",
+        duration: 5.8,
+        nonUsd: 30,
+        bands: {
+          "Single Stock (legacy)": [0, 0],
+          "Global Equity": [0, 50],
+          "Investment Grade Bonds": [30, 85],
+          "Gold": [0, 10],
+          "Cash": [8, 20],
+          "Private Equity": [0, 15]
+        },
+        csv: `asset_class,sub_class,target_weight,min_weight,max_weight,benchmark,instrument,currency,duration,top_issuer,top_issuer_weight,non_usd_weight
+Global Equity,Global Equity UCITS,55,20,50,MSCI World,iShares Core MSCI World UCITS ETF,USD,0,-,0,30
+Investment Grade Bonds,US Treasury Ladder,25,30,45,Bloomberg US Treasury,UST 2Y-30Y,USD,6.2,US Treasury,22,0
+Gold,Physical Gold,8,0,10,LBMA Gold,iShares Physical Gold ETC,USD,0,-,0,0
+Cash,USD Cash,2,8,20,ICE BofA 1M T-Bill,USD Cash,USD,0.1,US Treasury,0,0
+Private Equity,PE Fund,10,0,15,Cambridge PE,HSBC Global Private Equity Fund,USD,0,-,0,0
+`,
+        rows: [
+          { asset: "Global Equity", sub: "Global Equity UCITS", target: 55, min: 20, max: 50, benchmark: "MSCI World", instrument: "iShares Core MSCI World UCITS ETF", ccy: "USD", duration: 0, topIssuer: "—", topIssuerWeight: 0, nonUsd: 30 },
+          { asset: "Investment Grade Bonds", sub: "US Treasury Ladder", target: 25, min: 30, max: 45, benchmark: "Bloomberg US Treasury", instrument: "UST 2Y–30Y", ccy: "USD", duration: 6.2, topIssuer: "US Treasury", topIssuerWeight: 22, nonUsd: 0 },
+          { asset: "Gold", sub: "Physical Gold", target: 8, min: 0, max: 10, benchmark: "LBMA Gold", instrument: "iShares Physical Gold ETC", ccy: "USD", duration: 0, topIssuer: "—", topIssuerWeight: 0, nonUsd: 0 },
+          { asset: "Cash", sub: "USD Cash", target: 2, min: 8, max: 20, benchmark: "ICE BofA 1M T-Bill", instrument: "USD Cash", ccy: "USD", duration: 0.1, topIssuer: "US Treasury", topIssuerWeight: 0, nonUsd: 0 },
+          { asset: "Private Equity", sub: "PE Fund", target: 10, min: 0, max: 15, benchmark: "Cambridge PE", instrument: "HSBC Global Private Equity Fund", ccy: "USD", duration: 0, topIssuer: "—", topIssuerWeight: 0, nonUsd: 0 }
+        ],
+        checks: [
+          { id: "OBJ-01", name: "权益上限", rule: "权益 ≤ 50%", actual: "55%", result: "REJECT", note: "超过目标上限 5pp；与流动性 + 分散目标不一致。", evidence: "ALADDIN-CSV-0905 · row 1" },
+          { id: "CON-01", name: "单一发行人", rule: "≤ 15%", actual: "US Treasury 22%", result: "REJECT", note: "单一发行人 22%，超过 15%。", evidence: "ALADDIN-CSV-0905 · top_issuer_weight" },
+          { id: "CON-02", name: "债券配置下限", rule: "30%–85%", actual: "25%", result: "REJECT", note: "债券 25%，低于 30% 下限。", evidence: "ALADDIN-CSV-0905 · row 2" },
+          { id: "LIQ-01", name: "最低现金", rule: "≥ 8%", actual: "2%", result: "REJECT", note: "现金 2%，无法覆盖 T+7 流动性。", evidence: "ALADDIN-CSV-0905 · cash" },
+          { id: "CCY-01", name: "非美元上限", rule: "≤ 25%", actual: "30%", result: "REJECT", note: "非美元 30%，超过 25%。", evidence: "ALADDIN-CSV-0905 · non_usd_weight" },
+          { id: "DUR-01", name: "久期区间", rule: "4.0–5.0 年", actual: "5.8 年", result: "WARN", note: "久期 5.8 年，高于区间；利率上行敏感。", evidence: "ALADDIN-CSV-0905 · duration" },
+          { id: "TAX-01", name: "美国遗产税", rule: "需附条件", actual: "US Treasury 22%", result: "WARN", note: "美国 situs 资产；需美国税务顾问书面意见。", evidence: "R-US-002" }
+        ],
+        summary: "Aladdin 提案与目标不一致：权益 55% > 50%，单一发行人 22% > 15%，债券 25% < 30%，现金 2% < 8%，非美元 30% > 25%。REJECT，不能进入执行。"
+      }
+    }
   },
 
   execution: [
-    { no: 1, tpl: "FI-LADDER-01", inst: "UST 2Y 4.00% 2028", isin: "US912828Z123", act: "BUY", qty: "30,000", amt: 3000000, w: 15, venue: "OTC", type: "LIMIT", limit: "99.85", timing: "T+0", cost: 3, taxLot: "New", funding: "HK-0091", status: "Ready" },
-    { no: 2, tpl: "FI-LADDER-01", inst: "UST 5Y 4.25% 2031", isin: "US91282CJL45", act: "BUY", qty: "28,000", amt: 3000000, w: 15, venue: "OTC", type: "LIMIT", limit: "99.62", timing: "T+0", cost: 4, taxLot: "New", funding: "HK-0091", status: "Ready" },
-    { no: 3, tpl: "FI-LADDER-01", inst: "UST 10Y 4.00% 2036", isin: "US912810TM12", act: "BUY", qty: "16,000", amt: 1600000, w: 8, venue: "OTC", type: "LIMIT", limit: "98.90", timing: "T+0", cost: 5, taxLot: "New", funding: "HK-0091", status: "Ready" },
-    { no: 4, tpl: "FD-UCITS-01", inst: "iShares Core Global Aggregate Bond", isin: "IE00B4L5Y983", act: "SUBSCRIBE", qty: "86,000", amt: 8400000, w: 42, venue: "Primary", type: "ISSUE", limit: "—", timing: "T+1", cost: 42, taxLot: "Avg cost", funding: "HK-0092", status: "Ready" },
-    { no: 5, tpl: "EQ-CASH-01", inst: "iShares Physical Gold ETC", isin: "IE00B4ND3602", act: "BUY", qty: "45,000", amt: 1600000, w: 8, venue: "LSE", type: "LIMIT", limit: "35.72", timing: "T+0", cost: 25, taxLot: "FIFO", funding: "HK-0092", status: "Ready" },
-    { no: 6, tpl: "CASH-01", inst: "USD Cash", isin: "—", act: "HOLD", qty: "—", amt: 2400000, w: 12, venue: "—", type: "—", limit: "—", timing: "T+0", cost: 0, taxLot: "—", funding: "HK-0092", status: "Ready" }
+    { no: 1, tpl: "FI-LADDER-01", inst: "US Treasury 4.000% 11/15/2028", isin: "CUSIP 91282CAB1（示例）", act: "BUY", qty: "16,000", amt: 1600000, w: 8, venue: "Tradeweb / HSBC OTC", type: "RFQ", limit: "99.85", timing: "T+0", cost: 3, taxLot: "New", funding: "HK-0091", status: "Ready" },
+    { no: 2, tpl: "FI-LADDER-01", inst: "US Treasury 4.125% 11/15/2029", isin: "CUSIP 91282CAD7（示例）", act: "BUY", qty: "12,000", amt: 1200000, w: 6, venue: "Tradeweb / HSBC OTC", type: "RFQ", limit: "99.40", timing: "T+0", cost: 4, taxLot: "New", funding: "HK-0091", status: "Ready" },
+    { no: 3, tpl: "FI-LADDER-01", inst: "US Treasury 4.250% 11/15/2031", isin: "CUSIP 91282CAF2（示例）", act: "BUY", qty: "14,000", amt: 1400000, w: 7, venue: "Tradeweb / HSBC OTC", type: "RFQ", limit: "99.62", timing: "T+0", cost: 4, taxLot: "New", funding: "HK-0091", status: "Ready" },
+    { no: 4, tpl: "FI-LADDER-01", inst: "US Treasury 4.000% 11/15/2033", isin: "CUSIP 91282CAH8（示例）", act: "BUY", qty: "12,000", amt: 1200000, w: 6, venue: "Bloomberg RFQ", type: "RFQ", limit: "98.95", timing: "T+0", cost: 5, taxLot: "New", funding: "HK-0091", status: "Ready" },
+    { no: 5, tpl: "FI-LADDER-01", inst: "US Treasury 4.000% 11/15/2036", isin: "CUSIP 91282CAK1（示例）", act: "BUY", qty: "12,000", amt: 1200000, w: 6, venue: "Tradeweb / HSBC OTC", type: "RFQ", limit: "98.90", timing: "T+0", cost: 5, taxLot: "New", funding: "HK-0091", status: "Ready" },
+    { no: 6, tpl: "FI-LADDER-01", inst: "US Treasury 4.250% 11/15/2056", isin: "CUSIP 91282CAM7（示例）", act: "BUY", qty: "10,000", amt: 1000000, w: 5, venue: "HSBC OTC", type: "RFQ", limit: "97.80", timing: "T+0", cost: 6, taxLot: "New", funding: "HK-0091", status: "Ready" },
+    { no: 7, tpl: "FD-UCITS-01", inst: "iShares Core Global Aggregate Bond UCITS ETF", isin: "IE00B4L5Y983", act: "SUBSCRIBE", qty: "600,000", amt: 6000000, w: 30, venue: "Primary / HSBC Fund Dealing", type: "SUBSCRIBE", limit: "—", timing: "T+1", cost: 45, taxLot: "Avg cost", funding: "HK-0092", status: "Ready" },
+    { no: 8, tpl: "FD-UCITS-01", inst: "HSBC Global Short Duration Bond Fund", isin: "ISIN 示例（HSBC GIF）", act: "SUBSCRIBE", qty: "240,000", amt: 2400000, w: 12, venue: "Primary / HSBC Fund Dealing", type: "SUBSCRIBE", limit: "—", timing: "T+1", cost: 30, taxLot: "Avg cost", funding: "HK-0092", status: "Ready" },
+    { no: 9, tpl: "EQ-CASH-01", inst: "iShares Physical Gold ETC", isin: "IE00B4ND3602", act: "BUY", qty: "44,800", amt: 1600000, w: 8, venue: "LSE / HSBC OTC", type: "LIMIT", limit: "35.72", timing: "T+0", cost: 29, taxLot: "FIFO", funding: "HK-0092", status: "Ready" },
+    { no: 10, tpl: "CASH-01", inst: "USD Cash — 1M Time Deposit (HSBC)", isin: "—", act: "TIME DEPOSIT", qty: "2,400,000", amt: 2400000, w: 12, venue: "HSBC Treasury", type: "TIME DEPOSIT", limit: "—", timing: "T+0", cost: 0, taxLot: "—", funding: "HK-0092", status: "Ready" }
   ],
 
   checks: [
@@ -157,16 +395,46 @@ const DB = {
   ],
 
   orders: [
-    { id: "PO-2026-001", inst: "UST 2Y 4.00% 2028", side: "BUY", qty: 30000, filled: 30000, avg: 99.86, bench: 99.85, slip: 1.0, status: "Filled" },
-    { id: "PO-2026-002", inst: "UST 5Y 4.25% 2031", side: "BUY", qty: 28000, filled: 28000, avg: 99.60, bench: 99.62, slip: 2.0, status: "Filled" },
-    { id: "PO-2026-003", inst: "UST 10Y 4.00% 2036", side: "BUY", qty: 16000, filled: 9600, avg: 98.92, bench: 98.90, slip: 2.0, status: "Partial" },
-    { id: "PO-2026-004", inst: "Global Aggregate Bond UCITS", side: "SUBSCRIBE", qty: 86000, filled: 86000, avg: 100.00, bench: 100.00, slip: 0.0, status: "Filled" },
-    { id: "PO-2026-005", inst: "Physical Gold ETC", side: "BUY", qty: 45000, filled: 45000, avg: 35.74, bench: 35.72, slip: 5.6, status: "Filled" }
+    { id: "PO-2026-001", inst: "US Treasury 4.000% 11/15/2028", side: "BUY", qty: 16000, filled: 16000, avg: 99.86, bench: 99.85, slip: 1.0, status: "Filled", venue: "Tradeweb / HSBC OTC", strategy: "RFQ", settle: "T+1", ccy: "USD" },
+    { id: "PO-2026-002", inst: "US Treasury 4.125% 11/15/2029", side: "BUY", qty: 12000, filled: 12000, avg: 99.42, bench: 99.40, slip: 2.0, status: "Filled", venue: "Tradeweb / HSBC OTC", strategy: "RFQ", settle: "T+1", ccy: "USD" },
+    { id: "PO-2026-003", inst: "US Treasury 4.250% 11/15/2031", side: "BUY", qty: 14000, filled: 13000, avg: 99.60, bench: 99.62, slip: 2.0, status: "Partial", venue: "Tradeweb / HSBC OTC", strategy: "RFQ", settle: "T+1", ccy: "USD" },
+    { id: "PO-2026-004", inst: "US Treasury 4.000% 11/15/2033", side: "BUY", qty: 12000, filled: 12000, avg: 98.97, bench: 98.95, slip: 2.0, status: "Filled", venue: "Bloomberg RFQ", strategy: "RFQ", settle: "T+1", ccy: "USD" },
+    { id: "PO-2026-005", inst: "US Treasury 4.000% 11/15/2036", side: "BUY", qty: 12000, filled: 12000, avg: 98.92, bench: 98.90, slip: 2.0, status: "Filled", venue: "Tradeweb / HSBC OTC", strategy: "RFQ", settle: "T+1", ccy: "USD" },
+    { id: "PO-2026-006", inst: "US Treasury 4.250% 11/15/2056", side: "BUY", qty: 10000, filled: 10000, avg: 97.84, bench: 97.80, slip: 4.0, status: "Filled", venue: "HSBC OTC", strategy: "RFQ", settle: "T+1", ccy: "USD" },
+    { id: "PO-2026-007", inst: "iShares Core Global Aggregate Bond UCITS ETF", side: "SUBSCRIBE", qty: 600000, filled: 600000, avg: 10.00, bench: 10.00, slip: 0.0, status: "Filled", venue: "Primary / HSBC Fund Dealing", strategy: "SUBSCRIBE", settle: "T+2", ccy: "USD" },
+    { id: "PO-2026-008", inst: "HSBC Global Short Duration Bond Fund", side: "SUBSCRIBE", qty: 240000, filled: 240000, avg: 10.00, bench: 10.00, slip: 0.0, status: "Filled", venue: "Primary / HSBC Fund Dealing", strategy: "SUBSCRIBE", settle: "T+2", ccy: "USD" },
+    { id: "PO-2026-009", inst: "iShares Physical Gold ETC", side: "BUY", qty: 44800, filled: 44800, avg: 35.74, bench: 35.72, slip: 5.6, status: "Filled", venue: "LSE / HSBC OTC", strategy: "LIMIT", settle: "T+2", ccy: "USD" },
+    { id: "PO-2026-010", inst: "USD Cash — 1M Time Deposit (HSBC)", side: "TIME DEPOSIT", qty: 2400000, filled: 2400000, avg: 1.00, bench: 1.00, slip: 0.0, status: "Filled", venue: "HSBC Treasury", strategy: "TIME DEPOSIT", settle: "T+0", ccy: "USD" }
   ],
+
+  childOrders: [
+    { id: "CO-2026-001", parent: "PO-2026-001", venue: "Tradeweb RFQ", qty: 10000, filled: 10000, avg: 99.86, slip: 1.0, time: "09:31:12", status: "Filled" },
+    { id: "CO-2026-002", parent: "PO-2026-001", venue: "HSBC OTC", qty: 6000, filled: 6000, avg: 99.87, slip: 1.2, time: "09:31:40", status: "Filled" },
+    { id: "CO-2026-003", parent: "PO-2026-002", venue: "Tradeweb RFQ", qty: 8000, filled: 8000, avg: 99.41, slip: 1.8, time: "09:33:05", status: "Filled" },
+    { id: "CO-2026-004", parent: "PO-2026-002", venue: "HSBC OTC", qty: 4000, filled: 4000, avg: 99.43, slip: 2.2, time: "09:33:31", status: "Filled" },
+    { id: "CO-2026-005", parent: "PO-2026-003", venue: "Tradeweb RFQ", qty: 8000, filled: 8000, avg: 99.59, slip: 1.7, time: "09:35:10", status: "Filled" },
+    { id: "CO-2026-006", parent: "PO-2026-003", venue: "HSBC OTC", qty: 6000, filled: 5000, avg: 99.62, slip: 2.4, time: "09:35:44", status: "Partial" },
+    { id: "CO-2026-007", parent: "PO-2026-004", venue: "Bloomberg RFQ", qty: 12000, filled: 12000, avg: 98.97, slip: 2.0, time: "09:37:20", status: "Filled" },
+    { id: "CO-2026-008", parent: "PO-2026-005", venue: "Tradeweb RFQ", qty: 7000, filled: 7000, avg: 98.91, slip: 1.8, time: "09:39:02", status: "Filled" },
+    { id: "CO-2026-009", parent: "PO-2026-005", venue: "HSBC OTC", qty: 5000, filled: 5000, avg: 98.93, slip: 2.2, time: "09:39:28", status: "Filled" },
+    { id: "CO-2026-010", parent: "PO-2026-006", venue: "HSBC OTC", qty: 10000, filled: 10000, avg: 97.84, slip: 4.0, time: "09:41:15", status: "Filled" },
+    { id: "CO-2026-011", parent: "PO-2026-007", venue: "HSBC Fund Dealing", qty: 400000, filled: 400000, avg: 10.00, slip: 0.0, time: "10:02:00", status: "Filled" },
+    { id: "CO-2026-012", parent: "PO-2026-007", venue: "HSBC Fund Dealing", qty: 200000, filled: 200000, avg: 10.00, slip: 0.0, time: "10:04:00", status: "Filled" },
+    { id: "CO-2026-013", parent: "PO-2026-008", venue: "HSBC Fund Dealing", qty: 240000, filled: 240000, avg: 10.00, slip: 0.0, time: "10:06:00", status: "Filled" },
+    { id: "CO-2026-014", parent: "PO-2026-009", venue: "LSE", qty: 30000, filled: 30000, avg: 35.73, slip: 3.2, time: "10:12:18", status: "Filled" },
+    { id: "CO-2026-015", parent: "PO-2026-009", venue: "HSBC OTC", qty: 14800, filled: 14800, avg: 35.76, slip: 11.2, time: "10:13:02", status: "Filled" },
+    { id: "CO-2026-016", parent: "PO-2026-010", venue: "HSBC Treasury", qty: 2400000, filled: 2400000, avg: 1.00, slip: 0.0, time: "10:20:00", status: "Filled" }
+  ],
+
+  tca: {
+    is: 8.4, commission: 3.1, spread: 4.2, impact: 3.6, custody: 1.5,
+    transactionCost: 12.4, fundOcf: 8.7, allIn: 21.1,
+    cashUsed: 20000000, cashResidual: 0, settled: 15, pending: 1, failed: 0
+  },
 
   allocation: {
     total: 20000000,
-    expected: 6.4, vol: 9.2, dd: -18.5, sharpe: 0.58, yield: 3.1,
+    expected: 6.4, vol: 9.2, dd: -18.5, sharpe: 0.35, yield: 3.1,
     buckets: [
       { name: "现金及货币基金", w: 8, min: 5, max: 15, color: "#98a2b3" },
       { name: "投资级债券", w: 35, min: 25, max: 45, color: "#175cd3" },
@@ -187,9 +455,11 @@ const DB = {
   ],
 
   backtest: {
-    cagr: 6.8, vol: 8.9, sharpe: 0.65, dd: -14.2, oos: 0.51, deflated: 0.43, turnover: 28, hit: 56,
-    cagrCost: 5.9, sharpeCost: 0.55,
-    points: [100, 102, 101, 104, 106, 105, 109, 112, 111, 115, 118, 117, 121, 124, 123, 128, 131, 130, 135, 139, 138, 143, 147, 146, 151, 155, 154, 160, 164, 163, 169]
+    years: 8.75, periodsPerYear: 4, rf: 0.032, costDrag: 0.009,
+    period: "2018-01 – 2026-10",
+    cagr: 6.8, vol: 5.6, sharpe: 0.65, dd: -14.2, oos: 0.51, deflated: 0.43, turnover: 28, hit: 56,
+    cagrCost: 5.9, volCost: 5.6, sharpeCost: 0.48, ddCost: -15.0,
+    points: [100, 103, 105, 104, 107, 110, 112, 115, 113, 109, 118, 124, 128, 132, 136, 140, 134, 128, 122, 120.1, 124, 128, 132, 136, 140, 144, 148, 152, 156, 160, 164, 167.5, 171.5, 175.2, 177.8]
   },
 
   financing: {
@@ -203,11 +473,11 @@ const DB = {
       { m: "M12", inflow: 1800000, outflow: 800000, net: 1000000, cum: -4900000 }
     ],
     options: [
-      { name: "Lombard / SLB", amount: 10000000, cost: "6.1% / 年", tax: 0, time: "2–4 周", ltv: "上限 45%", risk: "追保", rec: true },
+      { name: "Lombard（证券质押融资）", amount: 10000000, cost: "6.1% / 年", tax: 0, time: "2–4 周", ltv: "上限 45%", risk: "追保", rec: true },
       { name: "卖出股票", amount: 10000000, cost: "—", tax: 1800000, time: "T+2", ltv: "—", risk: "卖在低点", rec: false },
       { name: "住宅按揭", amount: 8000000, cost: "4.2% / 年", tax: 0, time: "4–8 周", ltv: "60%", risk: "额度不足", rec: false }
     ],
-    facility: { amount: 12000000, drawn: 10000000, rate: 6.1, tenor: "24 个月", collateral: 60000000, haircut: 55, lendable: 27000000, ltv: 37, coverage: 270, warning: 250, call: 200, forced: 175 }
+    facility: { amount: 12000000, drawn: 10000000, rate: 6.1, tenor: "24 个月", collateral: 60000000, haircut: 55, lendable: 27000000, ltv: 37, coverage: 270, warning: 250, call: 200, forced: 175, valuationDate: "2026-10-18", valuationSource: "HSBC 抵押品估值服务", ltvBasis: "已用额度 ÷ 可贷值" }
   },
 
   vendors: [
@@ -234,6 +504,7 @@ const DB = {
     lastRound: 30000000000, stake: 0.30, gross: 9000000000, dlom: 0.30, minority: 0.10,
     adjusted: 5670000000, haircut: 0.60, lendable: 2268000000, ltv: 0.22, facility: 500000000,
     coverage: 4.54, trigger: 0.40, votes: { approve: 4, dissent: 0 },
+    valuationDate: "2026-10-18", valuationSource: "独立估值机构 + 估值委员会",
     methods: [
       { name: "最近一轮融资", value: 9000000000, weight: 50, note: "2026-06，投后 300 亿美元" },
       { name: "可比公司 EV/Sales", value: 7800000000, weight: 30, note: "12–18x；同业中位数" },
@@ -257,11 +528,11 @@ const DB = {
       { cat: "安全", amt: 300000, pay: "直付服务商" }
     ],
     taxRows: [
-      { id: "D-001", item: "住房", amt: 1800000, layer: "C2 当年已税", person: "受益人/受托人", due: 0, credit: 360000, filing: "年度汇总", status: "已支付" },
-      { id: "D-002", item: "车辆", amt: 400000, layer: "C2 当年已税", person: "受益人", due: 0, credit: 80000, filing: "年度汇总", status: "已支付" },
-      { id: "D-003", item: "学费", amt: 900000, layer: "C2 当年已税", person: "受益人", due: 0, credit: 180000, filing: "年度汇总", status: "已支付" },
-      { id: "D-004", item: "宴会", amt: 400000, layer: "C2 当年已税", person: "受益人/宾客", due: 0, credit: 80000, filing: "待确认", status: "待意见" },
-      { id: "D-005", item: "旅行", amt: 700000, layer: "C2 当年已税", person: "受益人", due: 0, credit: 140000, filing: "年度汇总", status: "已支付" }
+      { id: "D-001", item: "住房", amt: 1800000, layer: "C2 当年已税", payee: "房东 / 物业", person: "受益人/受托人", due: 0, credit: 360000, filing: "年度汇总", status: "已支付" },
+      { id: "D-002", item: "车辆", amt: 400000, layer: "C2 当年已税", payee: "经销商", person: "受益人", due: 0, credit: 80000, filing: "年度汇总", status: "已支付" },
+      { id: "D-003", item: "学费", amt: 900000, layer: "C2 当年已税", payee: "学校", person: "受益人", due: 0, credit: 180000, filing: "年度汇总", status: "已支付" },
+      { id: "D-004", item: "宴会", amt: 400000, layer: "C2 当年已税", payee: "场地方", person: "受益人/宾客", due: 0, credit: 80000, filing: "待确认", status: "待意见" },
+      { id: "D-005", item: "旅行", amt: 700000, layer: "C2 当年已税", payee: "酒店 / 运营商", person: "受益人", due: 0, credit: 140000, filing: "年度汇总", status: "已支付" }
     ],
     reserve: { min: 2400000, target: 3200000, actual: 4000000, policy: "max(契约 10%; 12M 税负; 3M 预算; 贷款缓冲; 压力)" }
   },
@@ -280,10 +551,10 @@ const DB = {
       { cat: "安全", amt: 300000, pay: "直付服务商" }
     ],
     taxRows: [
-      { id: "H-001", item: "住房", amt: 1800000, layer: "C2 当年已税", person: "受益人/受托人", due: 0, credit: 360000, filing: "年度汇总", status: "已支付" },
-      { id: "H-002", item: "家庭照护", amt: 900000, layer: "C2 当年已税", person: "受益人", due: 0, credit: 180000, filing: "年度汇总", status: "已支付" },
-      { id: "H-003", item: "旅行", amt: 700000, layer: "C2 当年已税", person: "受益人", due: 0, credit: 140000, filing: "年度汇总", status: "已支付" },
-      { id: "H-004", item: "慈善", amt: 400000, layer: "C2 当年已税", person: "受托人", due: 0, credit: 80000, filing: "年度汇总", status: "已支付" }
+      { id: "H-001", item: "住房", amt: 1800000, layer: "C2 当年已税", payee: "房东 / 物业", person: "受益人/受托人", due: 0, credit: 360000, filing: "年度汇总", status: "已支付" },
+      { id: "H-002", item: "家庭照护", amt: 900000, layer: "C2 当年已税", payee: "医院 / 学校", person: "受益人", due: 0, credit: 180000, filing: "年度汇总", status: "已支付" },
+      { id: "H-003", item: "旅行", amt: 700000, layer: "C2 当年已税", payee: "酒店 / 运营商", person: "受益人", due: 0, credit: 140000, filing: "年度汇总", status: "已支付" },
+      { id: "H-004", item: "慈善", amt: 400000, layer: "C2 当年已税", payee: "基金会", person: "受托人", due: 0, credit: 80000, filing: "年度汇总", status: "已支付" }
     ],
     reserve: { min: 2400000, target: 3200000, actual: 4200000, policy: "max(契约 10%; 12M 税负; 3M 预算; 贷款缓冲; 压力)" }
   },
@@ -355,7 +626,7 @@ const DB = {
     { t: "09:02", who: "Alex Chan (RM)", what: "创建提案 P-2026-000123", ref: "P-2026-000123" },
     { t: "09:04", who: "AI Proposal Composer", what: "生成 3 套方案（model v3.2）", ref: "AI-2026-1020-01" },
     { t: "09:06", who: "Alex Chan (RM)", what: "选择方案 A / 锁定版本 v3", ref: "P-2026-000123" },
-    { t: "09:08", who: "Compliance", what: "美国遗产税 WARN 附条件通过", ref: "CHK-TAX-002" },
-    { t: "09:12", who: "Client", what: "电子签署提案 v3", ref: "ESIGN-2026-0912" }
+    { t: "09:08", who: "Compliance", what: "预审：1 个 WARN 待附条件", ref: "CHK-TAX-002" },
+    { t: "09:12", who: "Client", what: "电子签署待完成", ref: "ESIGN-PENDING" }
   ]
 };

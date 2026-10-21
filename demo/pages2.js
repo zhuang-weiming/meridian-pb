@@ -4,6 +4,145 @@
 
   /* ───────── M3 ───────── */
 
+  const personById = (id) => DB.persons.find(p => p.id === id);
+  const consentFor = (householdId, personId) => DB.consents.find(c => c.householdId === householdId && c.personId === personId);
+  const peopleNames = (ids) => (ids || []).map(id => personById(id)).filter(Boolean).map(p => p.name).join("、") || "—";
+
+  RENDER["m3-family"] = () => {
+    const c = App.client();
+    const h = App.household();
+    if (!h) {
+      return UI.pageHead({
+        crumb: `<b>M3</b> · RM Copilot · 家庭工作台`,
+        title: "家庭工作台",
+        sub: "当前客户尚未建立 Household 视图。"
+      }) + `<div class="card"><div class="empty">该客户没有家庭视图；demo 仅为陈志远、何启明、林哲、王女士提供示例。</div></div>`;
+    }
+    const persons = DB.persons.filter(p => p.householdId === h.id);
+    const rels = DB.relationships.filter(r => r.householdId === h.id);
+    const goals = DB.familyGoals.filter(g => g.householdId === h.id);
+    const cases = DB.cases.filter(x => x.householdId === h.id);
+    const consents = DB.consents.filter(x => x.householdId === h.id);
+    const pending = consents.filter(x => !x.status.startsWith("已授权"));
+    const activeGoals = goals.filter(g => g.status === "进行中").length;
+    const openCases = cases.filter(x => x.status !== "已完成").length;
+    return UI.pageHead({
+      crumb: `<b>M3</b> · RM Copilot · 家庭工作台`,
+      title: `${h.name} · 家庭工作台`,
+      sub: "客户与家庭：当前服务对象、关系与核实、家庭目标、授权缺口和可执行事项。默认示例为何启明家族（4 个目标）；可用顶部 Client 切换其他家庭。",
+      actions: `<button class="btn" data-action="dictionary">业务词典</button>
+        ${App.state.role === "RM" ? `<button class="btn primary" data-action="family-goal-new">新增家庭目标</button>` : UI.pill("只读", "gray")}`
+    }) + `
+    <div class="grid-4">
+      ${UI.stat("家庭成员", persons.length, "含主客户与受抚养成员", "")}
+      ${UI.stat("家庭目标", goals.length, activeGoals + " 个进行中", activeGoals ? "green" : "")}
+      ${UI.stat("待授权", pending.length, "本人/监护人确认", pending.length ? "amber" : "green")}
+      ${UI.stat("进行中案件", openCases, "跨 M3/M4/M5", "")}
+    </div>
+    <div class="note blue" style="margin-top:10px"><b>${UI.term("Household", "Household")}</b>：家庭关系与服务视图，不是法律主体；账户持有人 ≠ 受益人 ≠ 决策人。法律主体仍用 Client / Person / Legal Entity / Trust。</div>
+    <div class="grid-2-1" style="margin-top:10px">
+      <div class="card"><div class="card-head"><div><h2>家庭关系与服务授权</h2><p>关系有效期、核实状态与同意状态分开看。</p></div></div>
+        ${UI.table(["成员", "关系", "年龄", "服务市场", "账户持有人", "授权 / 同意", "关系核验"], persons.map(p => {
+          const con = consentFor(h.id, p.id);
+          const rel = rels.find(r => r.from === p.id || r.to === p.id);
+          return [
+            `<span class="strong">${p.name}</span><span class="sub">${p.role}</span>`,
+            p.isClient ? "主客户" : rel ? rel.type : "—",
+            p.age,
+            p.serviceMarket,
+            p.accountHolder ? `<span class="pill green">是</span>` : `<span class="pill gray">否</span>`,
+            con ? UI.pill(con.status, con.status.startsWith("已授权") ? "green" : "amber") : `<span class="pill gray">未记录</span>`,
+            rel ? UI.pill(rel.verified, rel.verified === "已核验" ? "green" : "amber") : "—"
+          ];
+        }), { compact: true })}
+      </div>
+      <div class="card"><div class="card-head"><div><h2>当前服务对象</h2><p>不是“家长代理全家”。</p></div></div><div class="card-body">
+        <div class="grid-2" style="gap:8px">
+          <div><div class="tiny muted">主客户</div><div class="strong">${c.name}</div></div>
+          <div><div class="tiny muted">Household</div><div class="strong mono">${h.id}</div></div>
+          <div><div class="tiny muted">负责 RM</div><div class="strong">${h.rm}</div></div>
+          <div><div class="tiny muted">簿记中心</div><div class="strong">${h.booking.join(" / ")}</div></div>
+          <div><div class="tiny muted">报告币种</div><div class="strong">${h.reportingCurrency}</div></div>
+          <div><div class="tiny muted">同意记录</div><div class="strong mono">${h.consentRef}</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="small muted">${h.note}</div>
+        <div class="note amber" style="margin-top:8px"><b>授权缺口：</b>${pending.length ? pending.map(x => `${(personById(x.personId) || {}).name || x.personId} · ${x.purpose}`).join("；") : "无"}</div>
+      </div></div>
+    </div>
+    <div class="card" style="margin-top:10px"><div class="card-head"><div><h2>家庭目标</h2><p>先确认谁提出、谁受益、谁出资、谁决定；目标不是产品。</p></div><div class="spacer"></div><span class="pill blue">${goals.length} 个</span></div><div class="card-body">
+      <div class="goal-grid">${goals.map(g => {
+        const owner = personById(g.ownerPersonId);
+        const decider = personById(g.decisionMakerId);
+        const gc = DB.cases.find(x => x.id === g.caseId);
+        return `<div class="goal-card">
+          <div class="row between"><div><div class="tiny muted">${g.id} · ${g.category}</div><div class="strong" style="font-size:12.5px">${g.title}</div></div>${UI.pill(g.status, g.status === "进行中" ? "green" : g.status.includes("待") ? "amber" : "gray")}</div>
+          <div class="grid-2" style="margin-top:7px;gap:5px 10px">
+            <div><div class="tiny muted">目标金额</div><div class="strong">${g.targetAmount ? UI.money(g.targetAmount) : "—"}</div></div>
+            <div><div class="tiny muted">目标日期</div><div class="strong">${g.targetDate}</div></div>
+            <div><div class="tiny muted">提出人</div><div class="strong">${owner ? owner.name : "—"}</div></div>
+            <div><div class="tiny muted">受益人</div><div class="strong">${peopleNames(g.beneficiaryPersonIds)}</div></div>
+            <div><div class="tiny muted">出资方</div><div class="strong">${peopleNames(g.fundingPartyIds)}</div></div>
+            <div><div class="tiny muted">决策人</div><div class="strong">${g.decisionMaker || (decider ? decider.name : "—")}</div></div>
+          </div>
+          <div class="row" style="margin-top:7px"><span class="pill gray">优先级 ${g.priority}</span><span class="pill gray">可调整 ${g.flexibility}</span><span class="pill gray">${g.visibilityScope}</span></div>
+          <div class="tiny muted" style="margin-top:6px">缺口：${g.gap}</div>
+          <div class="row" style="margin-top:7px"><span class="pill ${g.fundingCommitmentStatus.includes("已安排") ? "green" : "amber"}">出资：${g.fundingCommitmentStatus}</span>${g.caseId ? `<button class="btn sm" data-action="case-detail" data-id="${g.caseId}">查看关联案件</button>` : `<span class="tiny muted">尚未建案</span>`}${gc && gc.link ? `<button class="btn sm primary" data-action="go" data-page="${gc.link}">${gc.linkLabel}</button>` : ""}</div>
+        </div>`;
+      }).join("")}</div>
+    </div></div>
+    <div class="card" style="margin-top:10px"><div class="card-head"><div><h2>可执行事项</h2><p>目标缺口、待确认事项、专业任务、授权缺口。</p></div><div class="spacer"></div><button class="btn sm" data-action="go" data-page="m3-cases">打开案件工作台</button></div>
+      ${UI.table(["案件", "模块", "负责人", "依赖", "期限", "交付物", "客户待办", "状态"], cases.map(x => [
+        `<span class="strong">${x.title}</span><span class="sub mono">${x.id}</span>`,
+        x.module, x.owner, `<span class="small">${x.dependencies}</span>`, x.due,
+        `<span class="small">${x.deliverable}</span>`, `<span class="small">${x.clientTodo}</span>`,
+        UI.pill(x.status, x.status === "进行中" ? "blue" : x.status.includes("等待") ? "amber" : "gray")
+      ]), { compact: true })}
+    </div>`;
+  };
+
+  RENDER["m3-cases"] = () => {
+    const h = App.household();
+    const all = h ? DB.cases.filter(x => x.householdId === h.id) : DB.cases;
+    const filter = App.state.caseFilter || "all";
+    const cases = filter === "all" ? all : all.filter(x => x.module.includes(filter));
+    const today = DB.asOf.slice(0, 10);
+    const overdue = cases.filter(x => x.due < today && x.status !== "已完成").length;
+    const waitingClient = cases.filter(x => x.status.includes("客户") || x.status.includes("授权")).length;
+    const waitingInternal = cases.filter(x => x.status.includes("内部")).length;
+    return UI.pageHead({
+      crumb: `<b>M3</b> · RM Copilot · 案件工作台`,
+      title: "案件工作台",
+      sub: "融资、税务、信托、服务不再各自建案；统一显示负责人、依赖、期限、交付物与客户待办。",
+      actions: `<button class="btn" data-action="dictionary">业务词典</button>
+        <button class="btn primary" data-action="go" data-page="m3-family">回到家庭工作台</button>`
+    }) + `
+    <div class="grid-4">
+      ${UI.stat("案件", cases.length, h ? h.name : "全部", "")}
+      ${UI.stat("逾期", overdue, "按 demo 基准日", overdue ? "red" : "green")}
+      ${UI.stat("等待客户", waitingClient, "授权/资料/确认", waitingClient ? "amber" : "green")}
+      ${UI.stat("等待内部", waitingInternal, "专业团队/委员会", waitingInternal ? "amber" : "green")}
+    </div>
+    <div class="tabs" style="margin-top:10px">
+      ${[["all", "全部"], ["M3", "M3 服务/融资"], ["M4", "M4 创始人/信托"], ["M5", "M5 税务"]].map(([id, label]) => `<button class="tab ${filter === id ? "on" : ""}" data-action="case-filter" data-id="${id}">${label}</button>`).join("")}
+    </div>
+    <div class="card" style="margin-top:10px"><div class="card-head"><div><h2>任务视图</h2><p>一个案件可以跨 M3/M4/M5；以目标和交付物组织，而不是以系统模块组织。</p></div></div>
+      ${UI.table(["案件", "模块", "类型", "关联目标", "负责人", "依赖", "期限", "交付物", "客户待办", "状态", "优先级", "入口", ""], cases.map(x => {
+        const g = DB.familyGoals.find(y => y.id === x.goalId);
+        return [
+          `<span class="strong">${x.title}</span><span class="sub mono">${x.id}</span>`,
+          x.module, x.type, g ? `<span class="small">${g.title}</span>` : "—",
+          x.owner, `<span class="small">${x.dependencies}</span>`, x.due,
+          `<span class="small">${x.deliverable}</span>`, `<span class="small">${x.clientTodo}</span>`,
+          UI.pill(x.status, x.status === "进行中" ? "blue" : x.status.includes("等待") ? "amber" : "gray"),
+          x.priority,
+          x.link ? `<button class="btn sm primary" data-action="go" data-page="${x.link}">${x.linkLabel || "打开"}</button>` : `<span class="tiny muted">—</span>`,
+          `<button class="btn sm" data-action="case-detail" data-id="${x.id}">查看</button>`
+        ];
+      }), { compact: true })}
+    </div>`;
+  };
+
   RENDER["m3-financing"] = () => {
     const f = DB.financing;
     const stress = App.state.facilityStress || "base";
@@ -21,7 +160,7 @@
     }) + `
     <div class="grid-4">
       ${UI.stat("资金缺口", UI.money(f.need), f.needDate, "red")}
-      ${UI.stat("推荐方案", "Lombard 1,000 万", "6.1% / 年 · 2–4 周", "green")}
+      ${UI.stat("推荐方案", `${UI.term("Lombard", "Lombard")} 1,000 万`, "6.1% / 年 · 2–4 周", "green")}
       ${UI.stat("抵押覆盖率", Math.round(cov) + "%", "预警 250% / 追保 200%", tone)}
       ${UI.stat("年度利息", UI.money(f.need * .061), "仅付息 · 24 个月", "")}
     </div>
@@ -38,16 +177,16 @@
           `<span class="${o.rec ? "strong red" : ""}">${o.name}</span>`, UI.money(o.amount), o.cost,
           o.tax ? UI.money(o.tax) : "—", o.time, o.ltv, `<span class="tiny muted">${o.risk}</span>`
         ]), { compact: true })}
-        <div class="note green" style="margin-top:8px"><b>推荐：</b>Lombard 1,000 万；LTV 上限 45%，实际 37%；先质押、后减持，保留上涨期权。</div>
+        <div class="note green" style="margin-top:8px"><b>推荐：</b>Lombard 1,000 万；LTV 上限 45%，实际 37%（已用额度 ÷ 可贷值）；先质押、后减持，保留上涨期权。</div>
       </div></div>
     </div>
     <div class="grid-2" style="margin-top:10px">
-      <div class="card"><div class="card-head"><div><h2>额度结构</h2><p>抵押品：上市股票 + 债券；折扣 55%。</p></div><div class="spacer"></div>
+      <div class="card"><div class="card-head"><div><h2>额度结构</h2><p>抵押品：上市股票 + 债券；Haircut（抵押折扣）55%；估值日 ${f.facility.valuationDate}。</p></div><div class="spacer"></div>
         <div class="btn-group"><button class="${stress === "base" ? "on" : ""}" data-action="facility-stress" data-id="base">基准</button><button class="${stress === "-30" ? "on" : ""}" data-action="facility-stress" data-id="-30">−30%</button><button class="${stress === "-50" ? "on" : ""}" data-action="facility-stress" data-id="-50">−50%</button></div>
       </div><div class="card-body">
         <div class="grid-2" style="gap:8px">
           <div><div class="tiny muted">抵押市值</div><div class="strong">${UI.money(coll)}</div></div>
-          <div><div class="tiny muted">可贷值（55% 折扣）</div><div class="strong">${UI.money(lend)}</div></div>
+          <div><div class="tiny muted">${UI.term("可贷值（Lendable Value）", "Lendable Value")}（55% 折扣）</div><div class="strong">${UI.money(lend)}</div></div>
           <div><div class="tiny muted">已用额度</div><div class="strong">${UI.money(f.facility.drawn)}</div></div>
           <div><div class="tiny muted">覆盖率（可贷值/已用）</div><div class="strong ${tone}">${Math.round(cov)}%</div></div>
         </div>
@@ -66,11 +205,13 @@
           ["已用", UI.money(f.facility.drawn)],
           ["利率", f.facility.rate + "% / 年"],
           ["期限", f.facility.tenor],
-          ["抵押折扣", f.facility.haircut + "%"],
-          ["LTV（对可贷值）", f.facility.ltv + "%"],
+          ["Haircut（抵押折扣）", f.facility.haircut + "%"],
+          ["LTV（已用额度 ÷ 可贷值）", f.facility.ltv + "%"],
+          ["估值日", f.facility.valuationDate],
+          ["估值来源", f.facility.valuationSource],
           ["契约", "维持覆盖率 ≥ 200%；不得新增质押；控制权不变"]
         ], { compact: true })}
-        <div class="tiny muted" style="margin-top:6px">定价为演示值；实际以授信政策与抵押品为准。</div>
+        <div class="tiny muted" style="margin-top:6px">定价为演示值；LTV 分母是可贷值，不是抵押市值。实际以授信政策与抵押品为准。</div>
       </div></div>
     </div>`;
   };
@@ -154,10 +295,11 @@
         <div><div class="tiny muted">标签</div><div class="row">${s.tags.map(t => `<span class="pill gray">${t}</span>`).join("")}</div></div>
       </div>
       <div class="divider"></div>
-      <div class="row">
-        <button class="btn primary sm" data-action="toast" data-msg="已接受邀请：${s.title}">接受邀请</button>
-        <button class="btn sm" data-action="toast" data-msg="已记录：暂不参加">暂不参加</button>
-        <button class="btn ghost sm" data-action="toast" data-msg="反馈已记录（demo）">反馈</button>
+      <div class="row" style="margin-top:2px"><span class="pill gray">邀请对象：${s.who}</span><span class="pill amber">发送前需本人/监护人同意</span></div>
+      <div class="row" style="margin-top:7px">
+        ${App.state.role === "RM" ? `<button class="btn primary sm" data-action="invite-service" data-id="${s.id}">发送邀请</button>
+        <button class="btn sm" data-action="toast" data-msg="已记录：暂不邀请">暂不邀请</button>
+        <button class="btn ghost sm" data-action="toast" data-msg="反馈已记录（demo）">反馈</button>` : `<span class="tiny muted">只读：由 RM 发起邀请/记录反馈</span>`}
         <span class="tiny muted" style="margin-left:auto">客户不支付 · 不显示价格/评分</span>
       </div>
     </div>
@@ -191,25 +333,32 @@
     const cats = ["全部", ...Array.from(new Set(DB.services.map(s => s.cat)))];
     const filter = App.state.serviceFilter || "全部";
     const list = filter === "全部" ? DB.services : DB.services.filter(s => s.cat === filter);
-    const family = [
-      { role: "创始人", age: 62, need: "控制权 / 传承" },
-      { role: "配偶", age: 59, need: "风险 / 慈善" },
-      { role: "长子", age: 28, need: "接班 / 创业" },
-      { role: "次女", age: 25, need: "教育 / 影响力" },
-      { role: "母亲", age: 86, need: "健康 / 养老" }
-    ];
+    const h = App.household();
+    const persons = h ? DB.persons.filter(p => p.householdId === h.id) : [];
+    const family = persons.map(p => {
+      const goal = DB.familyGoals.find(g => g.householdId === h.id && g.ownerPersonId === p.id);
+      const con = DB.consents.find(c => c.householdId === h.id && c.personId === p.id);
+      return { name: p.name, role: p.role, age: p.age, need: goal ? goal.category : "待确认", auth: con ? con.status : "未记录" };
+    });
     return UI.pageHead({
       crumb: `<b>M3</b> · RM Copilot · 服务 / 邀请`,
       title: "服务 / 邀请",
       sub: "示例家族：何启明（示例）· 仅由香港/新加坡团队邀请；客户不支付、不签约；只看邀请、项目、交付方。",
-      actions: `<button class="btn" data-action="toast" data-msg="邀请清单已导出（watermarked PDF）">导出邀请</button>`
+      actions: `<button class="btn" data-action="dictionary">业务词典</button>
+        <button class="btn" data-action="toast" data-msg="邀请清单已导出（watermarked PDF）">导出邀请</button>`
     }) + `
       <div class="card"><div class="card-body">
-        <div class="row between"><div><div class="tiny muted">同一家族，五种需求</div><div class="strong">不要只服务一个决策者</div></div><span class="pill purple">Family lens</span></div>
+        <div class="row between"><div><div class="tiny muted">同一家族，不同需求</div><div class="strong">不要只服务一个决策者</div></div><span class="pill purple">Family lens</span></div>
         <div class="grid-4" style="margin-top:8px">
-          ${family.map(f => `<div class="stat"><div class="stat-label">${f.role} · ${f.age}</div><div class="stat-value sm">${f.need}</div><div class="stat-sub">不同风险 / 不同目标</div></div>`).join("")}
+          ${family.map(f => `<div class="stat"><div class="stat-label">${f.name} · ${f.age}</div><div class="stat-value sm">${f.role}</div><div class="stat-sub">${f.need} · ${f.auth}</div></div>`).join("")}
         </div>
       </div></div>
+      <div class="card" style="margin-top:10px"><div class="card-head"><div><h2>邀请与同意</h2><p>家长可以表达资助意愿，但成年子女自行决定是否参加、是否分享反馈。</p></div></div>
+        ${UI.table(["成员", "关系", "同意状态", "可分享范围", "证据"], persons.map(p => {
+          const con = DB.consents.find(c => c.householdId === h.id && c.personId === p.id);
+          return [`<span class="strong">${p.name}</span><span class="sub">${p.role}</span>`, p.authorization, con ? UI.pill(con.status, con.status.startsWith("已授权") ? "green" : "amber") : "—", con ? con.scope : "—", con ? con.evidenceRef : "—"];
+        }), { compact: true })}
+      </div>
       <div class="tabs" style="margin-top:10px">
         ${cats.map(c => `<button class="tab ${filter === c ? "on" : ""}" data-action="service-filter" data-id="${c}">${c}</button>`).join("")}
       </div>
@@ -246,11 +395,11 @@
     <div class="grid-4">
       ${UI.stat("股权账面值", UI.money(DB.valuation.gross), "30% × $30bn", "")}
       ${UI.stat("调整后价值", UI.money(DB.valuation.adjusted), "DLOM 30% + 少数 10%", "")}
-      ${UI.stat("可贷值", UI.money(DB.valuation.lendable), "折扣 60%", "")}
+      ${UI.stat("可贷值", UI.money(DB.valuation.lendable), "Haircut 60% · 估值日 " + DB.valuation.valuationDate, "")}
       ${UI.stat("审批额度（目标）", UI.money(DB.valuation.facility), "按 22% LTV 计算 " + UI.money(DB.valuation.lendable * 22 / 100), "green")}
     </div>
     <div class="grid-2-1" style="margin-top:10px">
-      <div class="card"><div class="card-head"><div><h2>持股结构</h2><p>穿透至最终受益所有人；质押/信托前必须完成。</p></div></div><div class="card-body">
+      <div class="card"><div class="card-head"><div><h2>持股结构</h2><p>穿透至 ${UI.term("最终受益所有人（BO）", "Beneficial Owner")}；质押/信托前必须完成。</p></div></div><div class="card-body">
         <div class="code-block">林哲（中国税务居民）
   └─ 100%  BVI Holdco（持股平台）
         └─ 30%  DeepThink（开曼）
@@ -279,7 +428,7 @@
     </div>
     <div class="grid-3" style="margin-top:10px">
       <div class="card"><div class="card-body"><div class="tiny muted">估值</div><div class="strong" style="margin:4px 0">$5.67bn 调整后</div><div class="small muted">最近一轮 50% / 可比 30% / DCF 20%；委员会 4:0 通过。</div><button class="btn sm" style="margin-top:7px" data-action="go" data-page="m4-valuation">查看决议</button></div></div>
-      <div class="card"><div class="card-body"><div class="tiny muted">流动性</div><div class="strong" style="margin:4px 0">$500m 额度</div><div class="small muted">LTV 22%（对可贷值）；−40% 触发追保；利息 6.5%。</div><button class="btn sm" style="margin-top:7px" data-action="go" data-page="m4-pledge">押 or 卖</button></div></div>
+      <div class="card"><div class="card-body"><div class="tiny muted">流动性</div><div class="strong" style="margin:4px 0">$500m 额度</div><div class="small muted">LTV 22%（额度 ÷ 可贷值）；−40% 触发追保；利息 6.5%。</div><button class="btn sm" style="margin-top:7px" data-action="go" data-page="m4-pledge">押 or 卖</button></div></div>
       <div class="card"><div class="card-body"><div class="tiny muted">传承</div><div class="strong" style="margin:4px 0">香港全权信托</div><div class="small muted">预算 $5m/年；注入税约 $90m；税务台账 C1–C6。</div><button class="btn sm" style="margin-top:7px" data-action="go" data-page="m4-trust">信托与消费</button></div></div>
     </div>`;
   };
@@ -299,8 +448,8 @@
     <div class="grid-4">
       ${UI.stat("账面值", UI.money(v.gross), "30% × $30bn", "")}
       ${UI.stat("调整后价值", UI.money(v.adjusted), "DLOM 30% + 少数 10%", "")}
-      ${UI.stat("可贷值", UI.money(v.lendable), "折扣 60%", "")}
-      ${UI.stat("建议 LTV（对可贷值）", ltv + "%", "区间 10%–30%", "green")}
+      ${UI.stat("可贷值", UI.money(v.lendable), "Haircut 60% · 估值日 " + v.valuationDate, "")}
+      ${UI.stat("建议 LTV（额度 ÷ 可贷值）", ltv + "%", "区间 10%–30%", "green")}
     </div>
     <div class="grid-1-2" style="margin-top:10px">
       <div class="card"><div class="card-head"><div><h2>估值输入</h2><p>独立估值机构 + 委员会挑战。</p></div></div><div class="card-body">
@@ -327,11 +476,12 @@
         <div class="tiny muted" style="margin-bottom:4px">估值方法</div>
         ${UI.table(["方法", "价值", "权重"], v.methods.map(m => [m.name, `<span class="num">${UI.money(m.value)}</span>`, m.weight + "%"]), { compact: true })}
         <div class="note" style="margin-top:8px"><b>40% 触发：</b>估值较发放日下跌 40% → 无论覆盖率如何，触发追保/补充担保谈判。写入 Term Sheet 与授信批复。</div>
+        <div class="note blue" style="margin-top:8px"><b>口径：</b>${UI.term("Haircut", "Haircut")} 60% → 可贷值 = 调整后价值 × 40%；${UI.term("LTV", "LTV")} = 额度 ÷ 可贷值；估值日 ${v.valuationDate}；估值有效期 6 个月。</div>
       </div></div>
     </div>
     <div class="grid-2" style="margin-top:10px">
       <div class="card"><div class="card-head"><div><h2>LTV 敏感性</h2></div></div>
-        ${UI.table(["LTV（对可贷值）", "额度", "覆盖率（可贷值/额度）", "适用"], [10, 15, 20, 22, 30].map(x => {
+        ${UI.table(["LTV（额度 ÷ 可贷值）", "额度", "覆盖率（可贷值/额度）", "适用"], [10, 15, 20, 22, 30].map(x => {
           const f = v.lendable * x / 100; const cv = v.lendable / f;
           return [`<b>${x}%</b>`, `<span class="num">${UI.money(f)}</span>`, cv.toFixed(2) + "x", x === ltv ? `<span class="red">当前</span>` : x <= 15 ? "保守" : x >= 30 ? "上限" : "稳健"];
         }), { compact: true })}
@@ -440,7 +590,7 @@
             <div><div class="tiny muted">受托人</div><div class="strong">${t.trustee}</div></div>
             <div><div class="tiny muted">保护人</div><div class="strong">${t.protector}</div></div>
             <div><div class="tiny muted">委托人</div><div class="strong">${t.settlor}</div></div>
-            <div><div class="tiny muted">受益人</div><div class="strong">${t.beneficiaries}</div></div>
+            <div><div class="tiny muted">${UI.term("受益人（Trust Beneficiary）", "Trust Beneficiary")}</div><div class="strong">${t.beneficiaries}</div></div>
             <div><div class="tiny muted">保留权力</div><div class="strong">${t.reserved}</div></div>
             <div><div class="tiny muted">注入</div><div class="strong">${UI.money(t.injection)}</div></div>
           </div>
@@ -475,11 +625,12 @@
         </div></div>
       </div>` : `
       <div class="card"><div class="card-head"><div><h2>分配税务台账</h2><p>来源层 C1–C6；谁申报、税额抵扣、申报状态。</p></div><div class="spacer"></div><button class="btn sm" data-action="add-distribution">新增分配</button></div>
-        ${UI.table(["ID", "项目", "金额", "来源层", "申报人", "税额", "抵扣", "申报", "状态"], t.taxRows.map(r => [
-          `<span class="mono">${r.id}</span>`, r.item, `<span class="num">${UI.money(r.amt)}</span>`, r.layer, r.person,
+        ${UI.table(["ID", "项目", "金额", "来源层", "收款人（Payee）", "申报人 / 纳税人", "税额", "抵扣", "申报", "状态"], t.taxRows.map(r => [
+          `<span class="mono">${r.id}</span>`, r.item, `<span class="num">${UI.money(r.amt)}</span>`, r.layer, r.payee || "—", r.person,
           `<span class="num">${r.due ? UI.money(r.due) : "0"}</span>`, `<span class="num">${r.credit ? UI.money(r.credit) : "—"}</span>`,
           r.filing, UI.pill(r.status, r.status === "已支付" ? "green" : r.status === "待意见" ? "amber" : "blue")
         ]), { compact: true })}
+        <div class="tiny muted" style="margin-top:6px">${UI.term("受益人", "Trust Beneficiary")} ≠ ${UI.term("收款人", "Payee")} ≠ ${UI.term("纳税人", "Taxpayer")}；三者必须分别记录。</div>
       </div>
       <div class="grid-2" style="margin-top:10px">
         <div class="card"><div class="card-head"><div><h2>来源层</h2></div></div><div class="card-body">

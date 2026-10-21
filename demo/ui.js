@@ -14,6 +14,11 @@ const UI = (() => {
   const pct = (n, d = 1) => (n == null ? "—" : Number(n).toFixed(d) + "%");
   const bps = (n) => (n == null ? "—" : Number(n).toFixed(1) + " bps");
   const pill = (text, tone = "gray") => `<span class="pill ${tone}"><span class="dot"></span>${esc(text)}</span>`;
+  const term = (label, key, text) => {
+    const d = (typeof DB !== "undefined" && DB.dictionary) ? DB.dictionary.find(x => x.term === key) : null;
+    const tip = text || (d ? `${d.en}：${d.definition}` : "");
+    return `<span class="term" title="${esc(tip)}">${label}<span class="term-mark">?</span></span>`;
+  };
   const stat = (label, value, sub = "", tone = "") => `
     <div class="stat">
       <div class="stat-label">${esc(label)}</div>
@@ -131,6 +136,7 @@ const UI = (() => {
   const drawer = (title, body, foot = "") => {
     const d = document.getElementById("drawer");
     if (!d) return;
+    closeModal();
     d.querySelector(".drawer-head h3").textContent = title;
     d.querySelector(".drawer-body").innerHTML = body;
     d.querySelector(".drawer-foot").innerHTML = foot;
@@ -144,6 +150,7 @@ const UI = (() => {
   const modal = (title, body, foot = "") => {
     const m = document.getElementById("modal");
     if (!m) return;
+    closeDrawer();
     m.querySelector(".modal-head h3").textContent = title;
     m.querySelector(".modal-body").innerHTML = body;
     m.querySelector(".modal-foot").innerHTML = foot;
@@ -155,5 +162,5 @@ const UI = (() => {
     document.getElementById("scrim")?.classList.remove("on");
   };
 
-  return { esc, num, money, moneyFull, pct, bps, pill, stat, table, field, pageHead, donut, bars, lineChart, toast, drawer, closeDrawer, modal, closeModal };
+  return { esc, num, money, moneyFull, pct, bps, pill, term, stat, table, field, pageHead, donut, bars, lineChart, toast, drawer, closeDrawer, modal, closeModal };
 })();
