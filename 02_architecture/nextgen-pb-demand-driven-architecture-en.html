@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HSBC Next-Generation Private Bank Core System: A Demand-Driven Functional Architecture (v1.1)</title>
+<title>HSBC Next-Generation Private Bank Core System: A Demand-Driven Functional Architecture (v1.2)</title>
 <style>
 :root{
   --ink:#1a1a17; --ink2:#4a4840; --mut:#8a877d;
@@ -96,12 +96,12 @@ li{margin:4px 0}
 
 <header>
 <h1>HSBC Next-Generation Private Bank Core System: A Demand-Driven Functional Architecture</h1>
-<div class="sub">Deriving 18 modules, willingness to pay, and build sequence from 17 client pain points</div>
+<div class="sub">Deriving 18 modules, willingness to pay, and the Avaloq replacement boundary from 17 client pain points</div>
 <div class="meta">
-  <span><b>Version</b> v1.1</span>
+  <span><b>Version</b> v1.2</span>
   <span><b>Date</b> 2026-10-22</span>
   <span><b>Demand basis</b> nextgen-pb-real-people-cases v3.2 (17 personas)</span>
-  <span><b>Capability benchmark</b> nextgen-pb-unique-capabilities (Avaloq / Aladdin)</span>
+  <span><b>Capability benchmark</b> §6 of this version (Avaloq / Aladdin / Addepar)</span>
   <span><b>External cross-check</b> 16 institutional reports (see §0.5)</span>
   <span><b>Chinese</b> <a href="nextgen-pb-demand-driven-architecture.html">中文版</a></span>
   <span><b>Nature</b> Internal architecture proposal, not marketing material</span>
@@ -112,14 +112,14 @@ li{margin:4px 0}
 <b>This document answers three questions, not one.</b><br>
 <b>First, why do clients feel pain?</b> Starting from the words and failure scenarios of 17 personas, we distil eight Jobs.<br>
 <b>Second, which pain will clients pay for?</b> We distinguish “paid by the client”, “paid through credit or trading”, “paid by the bank”, and “pure infrastructure”. <b>Need intensity is not the same as willingness to pay.</b><br>
-<b>Third, what should the system look like, and what do we build first?</b> 18 modules, 7 layers, 4 payment tiers, and 3 build waves.<br>
-<b>What we do not do:</b> repeat the vendor feature comparison of the earlier “Unique Capabilities” paper; restate the 17 cases; or produce market sizing without evidence. Scores are <b>ordinal</b> (1–5), for sequencing, not for pricing.
+<b>Third, what should the system look like?</b> 18 modules, 7 layers and 4 payment tiers.<br>
+<b>What we do not do:</b> restate the 17 cases, or produce market sizing without evidence. §6 is not a feature checklist but a replacement test against the incumbent, Avaloq. Scores are <b>ordinal</b> (1–5), for sequencing, not for pricing.
 </div>
 
 <h2>§0 How to read this: why start from pain, not from competitors</h2>
 
 <h3>0.1 The earlier version was competitor-first; this one is demand-first</h3>
-<p class="lead">The earlier <i>Unique Capabilities</i> paper asked first: what does Avaloq have, what does Aladdin have, what can HSBC build? It answered <b>“can we win?”</b> This version asks first: at which moments will the 17 clients pay, why do they switch banks, why do they stay? It answers <b>“is it worth building, what do we build first, and who pays?”</b></p>
+<p class="lead">The earlier <i>Unique Capabilities</i> paper asked first: what does Avaloq have, what does Aladdin have, what can HSBC build? It answered <b>“can we win?”</b> This version asks first: at which moments will the 17 clients pay, why do they switch banks, why do they stay? It answers <b>“is it worth building, and who pays?”</b></p>
 <div class="note"><b>Both questions matter, but the order cannot be reversed.</b> Start with competitors and you get a feature comparison table. Start with pain and you get a value chain. <b>A feature table tells you where you can differentiate; a value chain tells you whether that differentiation can be charged for.</b></div>
 
 <h3>0.2 Three judgments</h3>
@@ -141,23 +141,23 @@ li{margin:4px 0}
 
 <h3>0.4 One thread</h3>
 <div class="shadow">
-<p class="story"><b>17 personas → 8 Jobs → 18 modules → 4 payment tiers → 3 build waves.</b><br>
+<p class="story"><b>17 personas → 8 Jobs → 18 modules → 4 payment tiers.</b><br>
 The point of this thread is not “doing more”, but <b>turning the four moments clients will pay most for — identity change, authority change, liquidity change, structure change — into deliverable services</b>; every other module exists to make those four moments deliverable.</p>
 </div>
 
-<h2>§0.5 Three external endorsements (new in v1.1)</h2>
+<h2>§0.5 Three external endorsements</h2>
 <p class="lead">In October 2026 we cross-checked 16 institutional reports against this architecture; this version puts three passages that can be quoted verbatim into the body. Sources and page numbers appear in the table in this section, and terminology is aligned with the reports.</p>
 
 <div class="tw"><table>
 <tr><th style="width:19%">Architecture judgment</th><th style="width:38%">External source text</th><th style="width:17%">Source</th><th>Where it lands in this document</th></tr>
-<tr><td><b>Move from product provider to <i>system architect</i>: family governance, ownership and control mechanisms, and cross-border tax and legal navigation are first-class capabilities</b></td><td class="quote">“Move from product providers to <b>system architects</b>. The most forward-looking wealth managers are helping families build the structures intergenerational wealth requires—<b>ownership and control mechanisms</b> suited to the family's situation, <b>cross-border tax and legal navigation</b>, and <b>governance frameworks</b>…”</td><td class="cite">BCG, <i>Global Wealth Report 2026</i>, p.19</td><td>Principle 1 (§4.1); Cluster 1 and Cluster 3 (§6.2); L4 (§4.4)</td></tr>
+<tr><td><b>Move from product provider to <i>system architect</i>: family governance, ownership and control mechanisms, and cross-border tax and legal navigation are first-class capabilities</b></td><td class="quote">“Move from product providers to <b>system architects</b>. The most forward-looking wealth managers are helping families build the structures intergenerational wealth requires—<b>ownership and control mechanisms</b> suited to the family's situation, <b>cross-border tax and legal navigation</b>, and <b>governance frameworks</b>…”</td><td class="cite">BCG, <i>Global Wealth Report 2026</i>, p.19</td><td>Principle 1 (§4.1); §6 replacement boundary; L4 (§4.4)</td></tr>
 <tr><td><b>The entrepreneur proposition is an end-to-end package — financing, alternatives, family office services, tax planning — not a point product</b></td><td class="quote">「端到端定制化解决方案包……融资产品线、专属另类投资产品、家族办公室服务和税务规划」<br><i>(our translation: “End-to-end customised solution packages… a financing product line, exclusive alternative investment products, family office services and tax planning.”)</i></td><td class="cite">McKinsey, <i>China Financial Services CEO Quarterly</i>, Spring 2021, p.80</td><td>The combination logic of the six revenue modules (§5); T1 bundling (§3.2)</td></tr>
-<tr><td><b>Agentic AI is still in the pilot phase: build AI with humans in the loop and the data foundation first</b></td><td class="quote">“Adoption score: 3 — <b>Piloting</b>. Many organizations are testing the functionality and viability of agentic AI with small-scale prototypes.”<br>Also: “the <b>AI-first</b> organization is no longer aspirational. It's a <b>mandate</b>.”</td><td class="cite">McKinsey, <i>Technology Trends Outlook 2026</i>, p.27; BCG 2026, p.21</td><td>Principle 7 (§4.1); M18 posture (§4.3); Wave 2 (§7.1)</td></tr>
+<tr><td><b>Agentic AI is still in the pilot phase: build AI with humans in the loop and the data foundation first</b></td><td class="quote">“Adoption score: 3 — <b>Piloting</b>. Many organizations are testing the functionality and viability of agentic AI with small-scale prototypes.”<br>Also: “the <b>AI-first</b> organization is no longer aspirational. It's a <b>mandate</b>.”</td><td class="cite">McKinsey, <i>Technology Trends Outlook 2026</i>, p.27; BCG 2026, p.21</td><td>Principle 7 (§4.1); M18 posture (§4.3)</td></tr>
 </table></div>
 <p class="src">Quotes have been checked against the source reports; page numbers follow the PDF page order. This version keeps two English terms exactly as the reports use them: <b>system architects</b> (rather than a loose paraphrase such as “operating-model designers”) and <b>liquidity solutions</b> (the set of tools comprising secondaries, continuation vehicles and NAV lending, rather than a generic “liquidity plan”).</p>
 
 <div class="note"><b>Terminology alignment (v1.1):</b> wherever the difference from the reports is wording only, this version adopts the report vocabulary — <b>system architects</b>, <b>cross-border tax and legal navigation</b>, <b>liquidity solutions</b>, <b>AI-first</b>, <b>structurally underserved</b> (the sub-US$5m segment), and <b>decoupled data layer</b> (the M17 layering).<br>
-<b>Substantive disagreements not yet resolved</b> (left unchanged in this version, pending decision): whether to record client-held crypto assets on the read side of M07; whether to add a wealth-retail entry point in Hong Kong; whether to add a mainland mid-market case; whether to move mid-market M02/M03 to T2 bundling. 〔Decision list C5–C8, recorded inline in this document〕</div>
+<b>Substantive disagreements not yet resolved</b> (left unchanged in this version, pending decision): whether to add a wealth-retail entry point in Hong Kong; whether to add a mainland mid-market case; whether to move mid-market pricing to T2 bundling. Digital assets/crypto are decided as <b>out of scope for now (read side included)</b>; see §6.3. 〔Decision list C5–C7, recorded inline in this document〕</div>
 
 <h2>§1 Seventeen clients, eight Jobs</h2>
 <p class="lead">Strip away industry and personality differences from the 17 cases, and eight recurring Jobs remain. Each Job maps to a client quote, a group of personas, today's substitute, and the cost of failure.</p>
@@ -270,7 +270,7 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <tr><td>4</td><td><b>Buy commodities, build differentiation</b></td><td>Risk analytics, held-away aggregation, digital assets and generic Copilots are bought or partnered; family/authority/private equity/obligations are built.</td><td>Building an Aladdin or Addepar substitute.</td></tr>
 <tr><td>5</td><td><b>Rules are data, not code</b></td><td>Tax, disclosure, trading windows and trust clauses are configured by “jurisdiction × version × effective date”; a change does not require a release.</td><td>Hard-coding tax rates in stored procedures; shipping a release every time the law changes.</td></tr>
 <tr><td>6</td><td><b>Visibility within consent</b></td><td>One family view, different scopes for different members; privacy, residency and cross-border transfer handled by design.</td><td>“A family should see everything.”</td></tr>
-<tr><td>7</td><td><b>Humans in the loop + AI-first process</b></td><td><b>AI-first is a process-level mandate</b>, not “build a large model”. AI retrieves, drafts, checks and monitors; recommendations and decisions remain with the RM/IC/trustee. Agentic AI is still in the pilot phase (Adoption score 3 — Piloting), so M18 sits in Wave 2 and depends on M16/M17. <span class="cite">〔McKinsey Technology Trends 2026 p.27; BCG 2026 p.21〕</span></td><td>Letting AI advise clients directly on tax or investments; promising AI capacity before the data foundation exists.</td></tr>
+<tr><td>7</td><td><b>Humans in the loop + AI-first process</b></td><td><b>AI-first is a process-level mandate</b>, not “build a large model”. AI retrieves, drafts, checks and monitors; recommendations and decisions remain with the RM/IC/trustee. Agentic AI is still in the pilot phase (Adoption score 3 — Piloting), so M18 is P2 and depends on M16/M17. <span class="cite">〔McKinsey Technology Trends 2026 p.27; BCG 2026 p.21〕</span></td><td>Letting AI advise clients directly on tax or investments; promising AI capacity before the data foundation exists.</td></tr>
 </table></div>
 
 <h3>4.2 Architecture diagram</h3>
@@ -278,7 +278,7 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <div class="arch-row arch-exp">
 <div class="arch-label">Experience</div>
 <div class="arch-cells">
-<div class="acell"><b>X1 Client/family portal</b><span>Assets, goals, authority, documents</span></div>
+<div class="acell"><b>X1 Client/family portal</b><span>Assets, family goals, long-term cash flow, authority, documents</span></div>
 <div class="acell"><b>X2 RM/advisor desktop</b><span>360, cases, pre-trade checks, next action</span></div>
 <div class="acell"><b>X3 Family office console</b><span>Multi-entity, consolidated reporting, governance</span></div>
 <div class="acell"><b>X4 External advisor portal</b><span>Lawyer/accountant/trustee collaboration</span></div>
@@ -289,7 +289,7 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <div class="arch-label">L1 Client &amp; family</div>
 <div class="arch-cells">
 <div class="acell"><b>M01 Client/family master data</b><span>People, roles, relationships, KYC</span></div>
-<div class="acell"><b>M02 Family graph &amp; governance</b><span>Branches, charter, council, next generation</span></div>
+<div class="acell"><b>M02 Family graph &amp; governance</b><span>Branches, charter, council, next generation, family goals</span></div>
 <div class="acell"><b>M03 Consent/authority/disputes</b><span>Five roles, four rights, subject switching</span></div>
 </div>
 </div>
@@ -309,7 +309,7 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <div class="arch-cells">
 <div class="acell"><b>M08 Portfolio &amp; IBOR</b><span>Multi-custody, performance, attribution</span></div>
 <div class="acell"><b>M09 Trading/execution/pre-trade</b><span>OMS, windows, suitability, allocation</span></div>
-<div class="acell"><b>M10 Credit &amp; liquidity</b><span>Lombard, mortgages, seller loans, capital commitments</span></div>
+<div class="acell"><b>M10 Credit &amp; liquidity</b><span>Lombard, mortgages, seller loans, capital commitments, decumulation</span></div>
 <div class="acell"><b>M11 Payments &amp; FX</b><span>Multi-currency, cross-border, settlement</span></div>
 </div>
 </div>
@@ -353,7 +353,7 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <div class="tw"><table>
 <tr><th style="width:4%">#</th><th style="width:16%">Module</th><th style="width:22%">Core capability</th><th style="width:10%">Key personas</th><th style="width:7%">Job</th><th style="width:4%">N</th><th style="width:4%">W</th><th style="width:9%">Payer</th><th style="width:11%">Price lever</th><th style="width:5%">Priority</th><th>Posture</th></tr>
 <tr><td>M01</td><td><b>Client/family master data</b></td><td>Person, family, roles, relationships, KYC/consent</td><td>All</td><td>J1/J3/J8</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Retention/cost</td><td>P0</td><td>Build</td></tr>
-<tr><td>M02</td><td><b>Family graph &amp; governance</b></td><td>Branches, charter, council, next generation, philanthropy</td><td>4,5,6,10,17</td><td>J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>Client</td><td>Advisory/FO fee</td><td>P1</td><td>Build</td></tr>
+<tr><td>M02</td><td><b>Family graph &amp; governance</b></td><td>Branches, charter, council, next generation, philanthropy, family goals (education/retirement/philanthropy) as a four-party object</td><td>4,5,6,10,17</td><td>J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>Client</td><td>Advisory/FO fee</td><td>P1</td><td>Build</td></tr>
 <tr><td>M03</td><td><b>Consent/authority/disputes</b></td><td>Five roles, four rights, guardianship, disputes, subject switching</td><td>4,5,8,11,17</td><td>J2/J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>Client/bank</td><td>Advisory/retention</td><td>P1</td><td>Build</td></tr>
 <tr><td>M04</td><td><b>Entities &amp; structure chart</b></td><td>Trust/fund/holding/SPV, hierarchy, passive NFE</td><td>3,4,5,6,7,8,10,11,17</td><td>J4/J7</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>Client/bank</td><td>Bundled advisory</td><td>P1</td><td>Build</td></tr>
 <tr><td>M05</td><td><b>Ownership &amp; rights</b></td><td>Economic/voting/dispositive, look-through, dual AUM</td><td>4,10,16,17</td><td>J1/J4/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>Client</td><td>Advisory/tax</td><td>P1</td><td>Build</td></tr>
@@ -361,10 +361,10 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <tr><td>M07</td><td><b>Asset/liability registry</b></td><td>Securities, property, art, private shares, debt</td><td>All</td><td>J1</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Cost</td><td>P0</td><td>Build + partner</td></tr>
 <tr><td>M08</td><td><b>Portfolio &amp; IBOR</b></td><td>Multi-custody, performance, attribution, positions</td><td>All</td><td>J1/J8</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Table stakes</td><td>P0</td><td>Buy/partner</td></tr>
 <tr><td>M09</td><td><b>Trading/execution/pre-trade</b></td><td>OMS, windows, suitability, allocation</td><td>1,2,3,5,12,13,16</td><td>J2</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Product spread</td><td>P0</td><td>Buy/partner</td></tr>
-<tr><td>M10</td><td><b>Credit &amp; liquidity</b></td><td>Lombard, mortgages, seller loans, capital commitments</td><td>12,13,14,15,16,17</td><td>J5</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>Client</td><td>Spread/arrangement</td><td>P1</td><td>Build + partner</td></tr>
+<tr><td>M10</td><td><b>Credit &amp; liquidity</b></td><td>Lombard, mortgages, seller loans, capital commitments, retirement/decumulation cash flow</td><td>12,13,14,15,16,17</td><td>J5</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>Client</td><td>Spread/arrangement</td><td>P1</td><td>Build + partner</td></tr>
 <tr><td>M11</td><td><b>Payments &amp; FX</b></td><td>Multi-currency, cross-border, settlement</td><td>All</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>Client/bank</td><td>FX spread</td><td>P0</td><td>Buy/partner</td></tr>
 <tr><td>M12</td><td><b>Multi-jurisdiction identity state</b></td><td>Tax/immigration/securities/sanctions, as-of</td><td>2,4,6,7,8,9,10,17</td><td>J4</td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td>Bank/client</td><td>Retention</td><td>P1</td><td>Build</td></tr>
-<tr><td>M13</td><td><b>Tax computation &amp; filing</b></td><td>Withholding, relief, CRS/FATCA, filing</td><td>2,4,6,7,8,9,10,17</td><td>J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>Client</td><td>Tax coordination fee</td><td>P1</td><td>Build (CN/HK first)</td></tr>
+<tr><td>M13</td><td><b>Tax computation &amp; filing</b></td><td>Global jurisdiction rule packs, withholding/relief, CRS/FATCA, filing, pension/social-security treaties</td><td>2,4,6,7,8,9,10,17</td><td>J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>Client</td><td>Tax coordination fee</td><td>P1</td><td>Build (global engine + per-jurisdiction rule packs)</td></tr>
 <tr><td>M14</td><td><b>Obligations/disclosure/reporting</b></td><td>Exchange, regulator, trust, court, deadlines</td><td>1,3,5,8,9,11,16,17</td><td>J2/J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Compliance cost</td><td>P0</td><td>Build</td></tr>
 <tr><td>M15</td><td><b>Cases &amp; workflow</b></td><td>Cross-module, dependencies, SLA, ownership</td><td>All</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Productivity</td><td>P0</td><td>Build</td></tr>
 <tr><td>M16</td><td><b>Documents/contracts/evidence</b></td><td>Version, chain of effect, e-sign, as-of, audit</td><td>4,5,8,11,16,17</td><td>J7</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Risk cost</td><td>P0</td><td>Build</td></tr>
@@ -372,12 +372,14 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <tr><td>M18</td><td><b>AI Copilot &amp; advisor oversight</b></td><td>Retrieval, drafting, QA, citation traceability (AI-first process; model/platform bought)</td><td>All</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>Bank</td><td>Productivity/compliance</td><td>P2</td><td>Partner platform + build the differentiator</td></tr>
 </table></div>
 
+<p class="src">Note: <b>client segments are not modules.</b> “Women”, “next generation” and “entrepreneurs” are service-design and channel cuts, not system modules; the system supplies objects (independent client, beneficiary, decision-maker) and permissions, while the segment value proposition is carried by X1/X2 and the service design in §5. Likewise, “family structure, next generation, education, retirement and philanthropy in one view” is a <b>client outcome</b> delivered jointly by M02 + M10 + X1, not a nineteenth module.</p>
+
 <h3>4.4 What each of the seven layers solves</h3>
 <div class="two">
 <div class="shadow"><b>L1 Client and family</b><br>Answers “who is the client, who is this family, who has authority”. <b>Without this layer, every structure, asset and tax object downstream hangs off the wrong subject.</b></div>
 <div class="shadow"><b>L2 Structures, ownership and assets</b><br>Answers “which entity holds the money, who owns which rights, what those rights are worth”. <b>This is the dividing line between private banking and retail banking.</b></div>
 <div class="shadow"><b>L3 Products and liquidity</b><br>Answers “how to invest, trade, borrow and pay”. <b>Mostly table stakes: buy or partner, do not build.</b></div>
-<div class="shadow"><b>L4 Tax, regulatory and obligations</b><br>Answers “which jurisdiction, which day, which rulebook, what falls due”. <b>The only product-level differentiator in the earlier assessment, and the defensive core of this architecture.</b> The industry phrasing is BCG's <b>cross-border tax and legal navigation</b> — clients want navigability across tax and legal regimes, not a tax opinion. <span class="cite">〔BCG 2026 p.19〕</span></div>
+<div class="shadow"><b>L4 Tax, regulatory and obligations</b><br>Answers “which jurisdiction, which day, which rulebook, what falls due”. <b>The defensive core of this architecture.</b> The industry phrasing is BCG's <b>cross-border tax and legal navigation</b> — clients want navigability across tax and legal regimes, not a tax opinion. <span class="cite">〔BCG 2026 p.19〕</span></div>
 <div class="shadow"><b>L5 Operations and evidence</b><br>Answers “who does it, how far it has got, how it is proven”. <b>Generates no revenue, but determines whether revenue modules are accepted by regulators and clients.</b></div>
 <div class="shadow"><b>L6 Data, AI and integration</b><br>Answers “where facts come from, how they are reused, how the RM moves faster”. <b>The foundation for scale and cost-to-serve.</b></div>
 </div>
@@ -387,12 +389,12 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 
 <div class="tw"><table>
 <tr><th style="width:12%">Module</th><th style="width:24%">Pain evidence (from the 17 personas)</th><th style="width:22%">What it does</th><th style="width:20%">Payment logic</th><th>Build / dependency / risk</th></tr>
-<tr><td><b>M02 Family graph &amp; governance</b></td><td>Li Ka-shing's third generation walks into a branch and the system cannot find them; two RMs each know half of Robert Kuok's family; the He family has no family charter.</td><td>Family graph (blood, in-law, cousins, key people), three sets of boundaries (blood/economic/governance), family charter, council, next-generation education, philanthropy.</td><td><b>Client pays</b>: family office retainer, governance workshops, succession project fees; anchored to lawyers, accountants, family offices.</td><td>Build; depends on M01/M03; risks are family politics, privacy, cross-border data.</td></tr>
+<tr><td><b>M02 Family graph &amp; governance</b></td><td>Li Ka-shing's third generation walks into a branch and the system cannot find them; two RMs each know half of Robert Kuok's family; the He family has no family charter.</td><td>Family graph (blood, in-law, cousins, key people), three sets of boundaries (blood/economic/governance), family charter, council, next-generation education, philanthropy, and family goals as a four-party object (proposer/beneficiary/funder/decision-maker).</td><td><b>Client pays</b>: family office retainer, governance workshops, succession project fees; anchored to lawyers, accountants, family offices.</td><td>Build; depends on M01/M03; risks are family politics, privacy, cross-border data.</td></tr>
 <tr><td><b>M03 Consent/authority/disputes</b></td><td>On the day after Cheng Yu-tung's CEO resignation, the system still shows yesterday's authority; MAF's three “family decisions”; the He wife becomes principal client for the first time.</td><td>Five roles (client/account holder/beneficiary/decision-maker/guardian), four rights (information sharing/decision agency/guardianship/benefit), dispute states, subject switching.</td><td><b>Client pays</b>: bundled into advisory/trust fees; the bank pays to “avoid acting on unauthorised instructions”.</td><td>Build; depends on M01/M16; risks are legal effect, jurisdictional differences, and taking a position in a dispute.</td></tr>
 <tr><td><b>M05 Ownership &amp; rights</b></td><td>Premji's 67% no longer belongs to the family, yet AUM still counts it; Li Ka-shing's economic, voting and dispositive rights are separated; Liang Wenfeng's private shares.</td><td>Model economic/voting/dispositive rights asset by asset; look-through; dual AUM (beneficial/control); beneficiary classes.</td><td><b>Client pays</b>: advisory/tax/trust fees; clients pay to know “what do I actually own”.</td><td>Build; depends on M04/M07; risks are data availability, valuation, interpretation of trust deeds.</td></tr>
 <tr><td><b>M06 Private equity &amp; pre-IPO</b></td><td>Liang Wenfeng's US$46bn is paper wealth he cannot spend; Guy has no market price; half of Sarah's £114m is conditional.</td><td>Private-equity valuation (multiple methods), pledge, lock-up/IPO window, use-of-proceeds management, seller loans, contingent consideration; access to <b>secondaries / continuation vehicles</b> as monetisation channels.</td><td><b>Client pays</b>: credit spread + arrangement fee; <b>W5, the highest value per client</b>.</td><td>Build + valuation partner; depends on M05/M10/M12; risks are valuation governance, concentration, regulatory approvals.</td></tr>
-<tr><td><b>M10 Credit &amp; liquidity</b></td><td>Guy's seller loan; Vardy's orphan equity; Neame's thin market; the He family's tax gap.</td><td>Lombard, mortgages, structured credit, capital commitments, seller loans, margin calls and stress testing; plus access to and pricing of <b>liquidity solutions</b> (secondaries / continuation vehicles / NAV lending).</td><td><b>Client pays</b>: credit spread, arrangement fee, commitment fee; W5.</td><td>Build the credit engine + partner the balance sheet; depends on M06/M07/M16; risks are collateral, margin calls, cross-border enforcement.</td></tr>
-<tr><td><b>M13 Tax computation &amp; filing</b></td><td>Mittal still has a 10-year UK tail after leaving; Poonawalla's one house sits under four regimes; Zhou Qunfei's A/H dividends fall under two rulebooks; Li Xiting faces four securities regimes.</td><td>Multi-jurisdiction rule library, withholding/relief, CRS/FATCA, filing outputs, as-of replay; <b>computation and coordination only, never a tax opinion</b>.</td><td><b>Client pays</b>: tax coordination fee/bundled advisory; W4; but clients often think the bank “should do it”, so it must be bundled.</td><td>Build (CN/HK first); depends on M12/M14; risks are rule maintenance, liability boundary, regulatory licensing.</td></tr>
+<tr><td><b>M10 Credit &amp; liquidity</b></td><td>Guy's seller loan; Vardy's orphan equity; Neame's thin market; the He family's tax gap.</td><td>Lombard, mortgages, structured credit, capital commitments, seller loans, margin calls and stress testing; plus access to and pricing of <b>liquidity solutions</b> (secondaries / continuation vehicles / NAV lending), and long-term retirement/decumulation cash flow.</td><td><b>Client pays</b>: credit spread, arrangement fee, commitment fee; W5.</td><td>Build the credit engine + partner the balance sheet; depends on M06/M07/M16; risks are collateral, margin calls, cross-border enforcement.</td></tr>
+<tr><td><b>M13 Tax computation &amp; filing</b></td><td>Mittal still has a 10-year UK tail after leaving; Poonawalla's one house sits under four regimes; Zhou Qunfei's A/H dividends fall under two rulebooks; Li Xiting faces four securities regimes.</td><td>Global multi-jurisdiction rule library (engine built once, jurisdictions added as rule packs), withholding/relief, CRS/FATCA, filing outputs, pension/social-security treaties, as-of replay; <b>computation and coordination only, never a tax opinion</b>.</td><td><b>Client pays</b>: tax coordination fee/bundled advisory; W4; but clients often think the bank “should do it”, so it must be bundled.</td><td>Build (global engine + per-jurisdiction rule packs); depends on M12/M14; risks are rule maintenance, liability boundary, regulatory licensing.</td></tr>
 </table></div>
 
 <div class="note"><b>What the six have in common:</b> each occurs at a moment when <b>the client must decide and the cost of getting it wrong is high</b>. Clients are not paying for a feature; they are paying for <b>someone to get this right on their behalf and be able to prove it</b>. This is also why T1 modules must ship alongside T3 evidence/data modules: <b>without evidence, a paid service becomes indefensible advice.</b></div>
@@ -418,93 +420,65 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 
 <div class="verdict"><b>Revenue modules are the front office; T2/T3/T4 are the back office.</b> Without the back office, the front office can only be delivered by hand and cannot scale; with only the back office, the system becomes an expensive reporting tool. <b>The key is not choosing front or back, but ensuring that every fee the front office earns leaves provable evidence in the back office.</b></div>
 
-<h2>§6 Comparison with the earlier <i>Unique Capabilities</i> paper: one correction, two reinforcements, three concessions</h2>
+<h2>§6 Boundaries with Avaloq / Aladdin / Addepar: why Avaloq has to be replaced</h2>
 
-<h3>6.1 The earlier conclusion</h3>
-<div class="shadow">
-<p class="story">The earlier conclusion was: <b>the only product-level capability that “Avaloq does not have, Aladdin does not have, and HSBC can build” is one item — a cross-jurisdiction client engine (identity/tax-residency/CRS-FATCA state machine + multi-jurisdiction tax computation and filing).</b> The other three are non-product capabilities: falsifiable correctness infrastructure, advisor-oversight AI, and proprietary interfaces. On feature count, there is no win.</p>
-</div>
+<p class="lead">This project did not start as “a new layer on top of Avaloq”; it started as <b>a replacement for Avaloq</b>. So this section is not a feature checklist. It answers three questions: what Avaloq structurally lacks across the eight Jobs; what counts as “replaced”; and whether Aladdin / Addepar are components on this path or substitutes for it.</p>
 
-<h3>6.2 What the demand evidence corrects: not one item, but three differentiation clusters</h3>
-<p class="lead">The earlier paper judged at the <b>product feature layer</b>: does Avaloq have this field, does Aladdin have this module. The demand evidence judges at the <b>client Job layer</b>: at which moment will the client pay, and at which moment is there no substitute. The two conclusions are not identical.</p>
+<h3>6.1 Avaloq's structural limit: account-centric, not family-centric</h3>
+<p class="lead">Avaloq is a mature core banking and wealth platform: accounting, settlement, regulatory reporting and tax-table engineering are assets to inherit, not rewrite. But across the eight Jobs raised by the 17 personas, its data model makes three things impossible — not “not built yet”, but <b>not buildable on the existing primary key</b>.</p>
 <div class="tw"><table>
-<tr><th style="width:18%">Differentiation cluster</th><th style="width:20%">Modules</th><th style="width:20%">Identified by the earlier paper?</th><th>Demand evidence</th></tr>
-<tr><td><b>Cluster 1: family / authority / ownership</b></td><td>M02, M03, M05</td><td><span class="tag t-weak">Not identified as unique</span></td><td>Li Ka-shing's third generation, Cheng Yu-tung's authority, the MAF dispute, Premji's three rights, the He wife — <b>clients will pay an advisory fee for “who has authority, who benefits, who decides”</b>.</td></tr>
-<tr><td><b>Cluster 2: private equity / liquidity</b></td><td>M06, M10</td><td><span class="tag t-part">Partially identified</span> (Lombard treated as a commodity)</td><td>Liang Wenfeng, Guy, Sarah, Vardy, Neame — <b>turning “paper into spendable” in pre-IPO/unlisted/thin markets is the single highest-WTP point</b>.</td></tr>
-<tr><td><b>Cluster 3: cross-jurisdiction identity / tax</b></td><td>M12, M13</td><td><span class="tag t-pub">Identified as the only one</span></td><td>Mittal, Poonawalla, Zhou Qunfei, Li Xiting — <b>the strongest defence, but not the highest WTP; it is a retention/compliance module, not a premium module</b>.</td></tr>
+<tr><th style="width:13%">Dimension</th><th style="width:33%">Avaloq's approach (source/document evidence)</th><th style="width:29%">Why it is not enough</th><th>Consequence</th></tr>
+<tr><td><b>Subject</b></td><td>Centred on <code>OBJ_BP</code> (business partner) + <code>OBJ_REL</code> (relationship) + contract/account. Families, trusts and family offices can be created as BPs, and authority can be expressed through relationships (<code>doc/04_business_domains/pillar_1_wealth_client_master/01_CLIENT_CONTRACT_ACCOUNT.md</code>).</td><td>The “person—family—entity—asset—right—obligation” graph has to be decomposed into fields and relationship records; family charters, councils, beneficiary classes and the five roles/four rights have no first-class expression. Answering “who had authority on that day” means stitching together several relationship tables plus external documents.</td><td>J3 Belong, J6 Transmit and J2 Act are delivered by people and documents; the system cannot produce a replayable answer.</td></tr>
+<tr><td><b>Tax</b></td><td>The <code>TAX2_EVT</code> event-driven tax engine + tri-factor nexus + EasyTax external filing is the right pattern; coverage is stacked as country tax tables: DE 644 / FR 201 / UK 94 / US 45 / CH 9 / SG 5, <b>CN 2 / HK 0</b> (<code>doc/04_business_domains/pillar_6_compliance_regulatory/01_TAXATION_FRAMEWORK.md</code>).</td><td>HSBC PB's two home markets are exactly the gap: zero coverage in Hong Kong and two tables in mainland China. Serving global clients needs engine-level extension — global jurisdictions, pension/social-security treaties, shadow obligations after migration — not a few more tables.</td><td>J4 Comply starts from zero in CN/HK, and the change lands inside Avaloq's tax-table structure.</td></tr>
+<tr><td><b>Obligations &amp; evidence</b></td><td>Events, audit logs, regulatory reporting and document archiving exist; document version chains, as-of replay and client-facing conclusions sit in surrounding systems.</td><td>“The obligation object (who, when, under which document, whose responsibility)” is not first-class; the system can prove “it happened”, but not directly answer “on what basis”.</td><td>J7 Prove still means assembling emails and PDFs by hand; paid T1 services lack defensible evidence.</td></tr>
+<tr><td><b>Private equity &amp; liquidity</b></td><td>Lombard is a commoditised standard loan; unlisted valuation, lock-up/IPO windows, use-of-proceeds management, seller loans, contingent consideration and secondaries/continuation vehicles are not in the model.</td><td>J5 (the highest willingness to pay) is about “cash without selling the shares”, which requires valuation, pledge, tax, use of proceeds and exit routes to move together on one object.</td><td>J5 Liquify has no landing point and degrades to “sell shares” or “personal borrowing”.</td></tr>
+<tr><td><b>Moments of change</b></td><td>States and events exist, but there is no process object for “before/during/after a booking-centre migration + shadow obligation list”; authority switches, incapacity/death and dispute states rely on parameters and manual process.</td><td>All four paid moments (identity/authority/liquidity/structure change) need a complete answer at one point in time, while Avaloq's answer is stitched together across systems and dates.</td><td>J2/J6 run on project teams; every migration becomes a manual reconciliation round.</td></tr>
 </table></div>
 
-<div class="warn"><b>This does not mean the earlier paper was wrong; it means its definition of “unique” was too narrow.</b> It defined “unique” as “a product feature the vendors do not have”; the demand evidence defines it as “a moment at which the client has no substitute and will pay”. <b>By the former, only Cluster 3; by the latter, Clusters 1 and 2 are worth more.</b><br>
-<b>One clarification (v1.1): Cluster 1 is not a blank inside HSBC.</b> HSBC already has Family Office Advisory and Family Advisory functions (see the acknowledgements and succession chapter of the 2025 Global Entrepreneurial Wealth Report). The increment here is not “inventing it”, but <b>turning advisory delivery into a priced, reusable, auditable system object</b> — otherwise it scales only linearly with individual advisers' time. <span class="cite">〔HSBC Global Entrepreneurial Wealth Report 2025 p.27–32〕</span></div>
+<div class="warn"><b>Conclusion: this is not a gap that a few more modules can close; it is a gap in the primary key and the semantic layer.</b> Layer anything on top of Avaloq as the base and the result is still an “account-centric core plus a ring of satellites” — exactly the system the 17 personas keep failing on.</div>
 
-<h3>6.3 One correction, two reinforcements, three concessions</h3>
-<div class="tw"><table>
-<tr><th style="width:10%">Verdict</th><th style="width:24%">Earlier claim</th><th style="width:30%">Demand evidence</th><th>New conclusion</th></tr>
-<tr><td><span class="tag t-part">Correction</span></td><td>Only one product-level differentiator: cross-jurisdiction + tax</td><td>Family/authority/ownership and private equity/liquidity are also differentiators, with higher WTP</td><td><b>Three differentiation clusters</b>; tax is the defensive core, family/liquidity the revenue core.</td></tr>
-<tr><td><span class="tag t-pub">Reinforce</span></td><td>Falsifiable-correctness infrastructure is “discipline you cannot buy”</td><td>Murdoch's document versions, Cheng's authority, Mittal's shadow period all demand as-of/evidence</td><td>Upgraded to <b>M16/M17</b>, a delivery precondition for every T1 module.</td></tr>
-<tr><td><span class="tag t-pub">Reinforce</span></td><td>Advisor-oversight AI is a gap neither vendor fills</td><td>It is bank-side WTP, not client-side WTP; clients will not pay to “supervise the RM”</td><td>Kept as <b>M18</b> (T4), proven by productivity/compliance KPIs, kept out of the client value proposition.</td></tr>
-<tr><td><span class="tag t-risk">Concede</span></td><td>Do not challenge Aladdin on risk analytics</td><td>Clients will not switch bank for “another risk engine”</td><td><b>M08 buy/partner</b>; no factor models or scenario libraries.</td></tr>
-<tr><td><span class="tag t-risk">Concede</span></td><td>Do not challenge Addepar on held-away aggregation</td><td>Clients want “to see”, not “the bank to build an aggregator”</td><td><b>M07 partner feeds</b>; build only assets tied to obligations/rights, not full aggregation.</td></tr>
-<tr><td><span class="tag t-risk">Concede</span></td><td>Digital assets/crypto is not an HSBC strength</td><td>None of the 17 personas would switch private bank for “crypto”</td><td><b>Do not build</b>; if needed, buy something like the Avaloq Crypto Assets Platform.</td></tr>
-</table></div>
-
-<h3>6.4 Boundaries with Avaloq / Aladdin / Addepar</h3>
-<div class="tw"><table>
-<tr><th style="width:16%">Capability</th><th style="width:18%">Avaloq</th><th style="width:18%">Aladdin</th><th style="width:18%">Addepar</th><th>HSBC posture</th></tr>
-<tr><td>Core accounting/IBOR</td><td><span class="tag t-pub">Strong</span></td><td><span class="tag t-weak">None</span></td><td><span class="tag t-part">Strong aggregation</span></td><td>Migrate/reuse; M08 buy/partner, do not rebuild</td></tr>
-<tr><td>Risk/portfolio analytics</td><td><span class="tag t-part">Medium</span></td><td><span class="tag t-pub">Strong</span></td><td><span class="tag t-pub">Strong</span></td><td>Buy/retain Aladdin; do not build</td></tr>
-<tr><td>Held-away aggregation/look-through</td><td><span class="tag t-part">Medium</span></td><td><span class="tag t-pub">Strong</span></td><td><span class="tag t-pub">Strongest</span></td><td>Partner feeds; M07 only for obligation-related assets</td></tr>
-<tr><td>Multi-jurisdiction tax computation/filing</td><td><span class="tag t-weak">Thin (CN 2/HK 0)</span></td><td><span class="tag t-weak">Optimisation only</span></td><td><span class="tag t-weak">None</span></td><td><b>Build M13 (CN/HK first)</b>; this is the defensive core</td></tr>
-<tr><td>Family/authority/ownership graph</td><td><span class="tag t-part">Field-level</span></td><td><span class="tag t-weak">None</span></td><td><span class="tag t-part">Household-level</span></td><td><b>Build M02/M03/M05</b>; this is the revenue core</td></tr>
-<tr><td>Private equity/pre-IPO pledge</td><td><span class="tag t-part">Lombard commodity</span></td><td><span class="tag t-weak">None</span></td><td><span class="tag t-weak">None</span></td><td><b>Build M06 + valuation partner</b>; this is the highest WTP</td></tr>
-<tr><td>Digital assets</td><td><span class="tag t-pub">Strong (production since 2022)</span></td><td><span class="tag t-weak">—</span></td><td><span class="tag t-weak">—</span></td><td>Do not build; buy if needed</td></tr>
-</table></div>
-<p class="src">Note: the capability and tax-coverage judgments for Avaloq / Aladdin / Addepar (CN 2 / HK 0) follow the earlier <i>Unique Capabilities</i> paper and have not been re-verified with the vendors in this version; verify against the latest vendor product documentation before any external citation.</p>
-
-<div class="verdict"><b>The earlier “only one differentiator” conclusion holds at the vendor-feature layer; it does not hold at the client-payment layer.</b> Clients will not switch bank for “another tax engine”, but they will pay for “cash without selling the shares”, “if I am incapacitated, my wife knows who decides”, and “my family structure will not be recorded wrongly”. <b>The task of the architecture is to turn these three sentences into deliverable, provable modules.</b></div>
-
-<h2>§7 Build sequence: three waves and a Minimum Lovable Core</h2>
-
-<h3>7.1 Principles for sequencing</h3>
+<h3>6.2 The replacement test: with Avaloq switched off, can the eight Jobs still be delivered?</h3>
+<p class="lead">“Replacement” is not a win on a feature comparison table; it is an acceptance line: <b>Avaloq remains only a data source and parallel ledger, and is switched off after the dual-run period; on that day the eight Jobs are still delivered.</b> Four preconditions:</p>
 <ul>
-<li><b>Build the foundation for “moments of change” first</b>: authority, structure, ownership, private equity, identity, tax and evidence — these seven decide whether the client stays at the critical moment.</li>
-<li><b>Integrate commodity modules; do not build them</b>: IBOR, trading, payments and risk analytics should reuse what exists or a partner; do not rewrite.</li>
-<li><b>Every wave must independently deliver one client outcome</b>: not “finish a layer”, but “let one type of client complete one thing”.</li>
-<li><b>Evidence and the data platform come first</b>: without M16/M17, the T1 modules cannot prove anything to a regulator or a client.</li>
+<li><b>Change the primary key</b>: the account is no longer the key — person, family, entity, asset, right and obligation are; an account is just one carrier of an asset.</li>
+<li><b>Replayable conclusions</b>: for any historical date, “who had authority, what was owed, under which document” can be reconstructed (as-of).</li>
+<li><b>Tax is an engine plus rule packs</b>: the global engine is built once and a new jurisdiction is a new rule pack, not a release; CN/HK are the first packs, not the scope boundary.</li>
+<li><b>Migration with an exit</b>: migrate by account, authority, right and obligation, reconcile each category, and define explicit exit criteria for the dual-run period.</li>
 </ul>
-
 <div class="tw"><table>
-<tr><th style="width:10%">Wave</th><th style="width:16%">Theme</th><th style="width:34%">Build / integrate</th><th style="width:20%">Client outcome</th><th>Dependencies</th></tr>
-<tr><td><b>Wave 1</b><br>0–12 months</td><td><b>Trust and liquidity core</b></td><td><b>Build:</b> M01 client/family, M03 authority, M04 entities, M05 ownership, M06 private equity, M10 credit, M12 identity, M13 tax (CN/HK), M14 obligations, M16 evidence, M17 data.<br><b>Integrate:</b> M08 IBOR, M09 trading, M11 payments.<br><b>Pilot:</b> M02 family governance (3–5 families).</td><td>“I know who has authority, what I own, whether I can get cash without selling shares, and what I must do in each of my two jurisdictions.”</td><td>M16/M17 must precede M05/M06/M13; M01/M03 must precede M02.</td></tr>
-<tr><td><b>Wave 2</b><br>12–24 months</td><td><b>Family and scale</b></td><td><b>Build:</b> full M02 family governance, M07 assets/liabilities, M15 cases, M18 AI/oversight.<br><b>Integrate:</b> advanced M09/M11 capabilities, external valuation/trustee/tax partners.</td><td>“My family structure, next generation, education, retirement and philanthropy can all be served in one view.”</td><td>M02 depends on M01/M03/M04/M05; M18 depends on M16/M17.</td></tr>
-<tr><td><b>Wave 3</b><br>24–36 months</td><td><b>Experience and ecosystem</b></td><td><b>Build:</b> X1 client/family portal, X3 family office console, X4 external advisor portal.<br><b>Partner:</b> Aladdin/Addepar-type analytics, digital assets (if required), external service network.</td><td>“Client, RM, lawyer, accountant and trustee can collaborate on one case, each seeing only what they should.”</td><td>X1/X3/X4 depend on M03 consent scopes and the M16 evidence chain.</td></tr>
+<tr><th style="width:7%">Job</th><th style="width:21%">Acceptance with Avaloq switched off</th><th style="width:18%">Owning modules</th><th>Acceptance evidence</th></tr>
+<tr><td><b>J1</b> See</td><td>Three layers of wealth (paper/pledgeable/spendable) and dual AUM agree on one screen</td><td>M05 / M07 / M08</td><td>Every total in the three views traces back to positions and rights records</td></tr>
+<tr><td><b>J2</b> Act</td><td>Any instruction returns “can it move + basis + blocking reason”</td><td>M09 / M12 / M14 / M16</td><td>Pre-trade conclusions cite window, lock-up, authority and sanctions rule versions line by line</td></tr>
+<tr><td><b>J3</b> Belong</td><td>Family graph complete; beneficiary classes and minor/unborn cases traceable</td><td>M01 / M02 / M03</td><td>Any beneficiary can be traced back from the family graph to trust deed clauses</td></tr>
+<tr><td><b>J4</b> Comply</td><td>Any jurisdiction, any date: tax conclusion replayable and filing producible</td><td>M12 / M13 / M14</td><td>As-of replay matches current computation; filing pack deliverable</td></tr>
+<tr><td><b>J5</b> Liquify</td><td>Valuation, pledge, use of proceeds, tax and exit routes work together in one case</td><td>M06 / M10</td><td>Full evidence chain from valuation to drawdown on a pre-IPO pledge</td></tr>
+<tr><td><b>J6</b> Transmit</td><td>Authority switch effective T+0; dispute state visible; no reliance on RM memory</td><td>M02 / M03 / M16</td><td>Permission snapshot on the day of incapacity/death can be replayed</td></tr>
+<tr><td><b>J7</b> Prove</td><td>Any conclusion outputs “fact + obligation/due date + owner + evidence”</td><td>M16 / M17</td><td>The four-part answer can be shown directly to client or regulator</td></tr>
+<tr><td><b>J8</b> Serve</td><td>Cases, SLAs and owners visible; nothing resets when an RM leaves</td><td>M15 / M17 / M18</td><td>Client issue closure rate does not fall in the 30 days after handover</td></tr>
 </table></div>
 
-<h3>7.2 Minimum Lovable Core</h3>
-<div class="shadow">
-<p class="story">If we could do only one thing, do this: <b>give a cross-border family an executable, provable answer at the two moments of “authority change + liquidity change”.</b></p>
-<ul>
-<li><b>Input:</b> six family members, two jurisdictions, three entities, one private-equity position, one tax liability falling due.</li>
-<li><b>Output:</b> who has authority to instruct; which assets are pledgeable/spendable; what obligations fall due in the next 90 days; the basis and owner for each answer.</li>
-<li><b>Minimum module set:</b> M01 + M03 + M04 + M05 + M06 + M10 + M12 + M13 (CN/HK) + M14 + M16 + M17.</li>
-<li><b>Not doing:</b> full risk analytics, full held-away aggregation, digital assets, a generic AI assistant, an omnichannel portal.</li>
-</ul>
-<p class="story"><b>Once this core exists, M02 (family governance), M07 (assets), M15 (cases) and M18 (AI) become meaningful; otherwise they are just more expensive reports.</b></p>
-</div>
-
-<h3>7.3 What we explicitly do not build</h3>
+<h3>6.3 Aladdin / Addepar are components, not substitutes</h3>
+<p class="lead">The three vendors are not on the same layer: Avaloq is the core to be replaced; Aladdin is a commodity for risk and portfolio analytics; Addepar is a commodity for held-away aggregation and household reporting. The latter two are buy/partner, and rebuilding them is duplicated investment.</p>
 <div class="tw"><table>
-<tr><th style="width:26%">Do not build</th><th style="width:30%">Why</th><th>Substitute</th></tr>
-<tr><td>In-house risk analytics/factor models</td><td>Aladdin has a 30-year flywheel; clients will not switch bank for “another risk engine”</td><td>Retain/buy Aladdin; existing HSBC integration consumed by M08</td></tr>
-<tr><td>Full held-away aggregator</td><td>Addepar has 500+ feeds and $8tn+; building it repeats investment</td><td>Partner feeds; M07 only covers obligation/rights-related assets</td></tr>
-<tr><td>Digital-asset/crypto trading platform</td><td>Avaloq has run it in production since 2022; none of the 17 personas would switch private bank for it</td><td>Buy if required</td></tr>
-<tr><td>Generic LLM Copilot</td><td>Agent Connect / JPM Coach are already productised; building the same thing is 2027's industry baseline</td><td>Buy the platform; build only the differentiator — citation traceability + advisor oversight</td></tr>
-<tr><td>Mass-market onboarding</td><td>Not private banking; dilutes service density</td><td>Group retail/wealth platform</td></tr>
+<tr><th style="width:15%">Capability</th><th style="width:15%">Avaloq</th><th style="width:13%">Aladdin</th><th style="width:13%">Addepar</th><th>HSBC posture</th></tr>
+<tr><td>Core accounting / settlement / IBOR</td><td><span class="tag t-pub">Strong</span></td><td><span class="tag t-weak">None</span></td><td><span class="tag t-part">Strong aggregation</span></td><td><b>Migration source and parallel ledger</b>; M08 does not rewrite the accounting core</td></tr>
+<tr><td>Risk / portfolio analytics</td><td><span class="tag t-part">Medium</span></td><td><span class="tag t-pub">Strong</span></td><td><span class="tag t-pub">Strong</span></td><td>Buy/retain Aladdin; <b>do not build</b> factor models or scenario libraries</td></tr>
+<tr><td>Held-away aggregation / look-through</td><td><span class="tag t-part">Medium</span></td><td><span class="tag t-pub">Strong</span></td><td><span class="tag t-pub">Strongest</span></td><td>Partner feeds; M07 only for obligation/rights-related assets, <b>not a full aggregator</b></td></tr>
+<tr><td>Multi-jurisdiction tax computation / filing</td><td><span class="tag t-weak">Thin (CN 2 / HK 0)</span></td><td><span class="tag t-weak">Optimisation only</span></td><td><span class="tag t-weak">None</span></td><td><b>Build M13 as a global engine + per-jurisdiction packs</b>; the first reason to replace</td></tr>
+<tr><td>Family / authority / ownership graph</td><td><span class="tag t-part">Field-level</span></td><td><span class="tag t-weak">None</span></td><td><span class="tag t-part">Household-level</span></td><td><b>Build M02/M03/M05</b>; the second reason to replace, and the revenue core</td></tr>
+<tr><td>Private equity / pre-IPO pledge</td><td><span class="tag t-part">Lombard commodity</span></td><td><span class="tag t-weak">None</span></td><td><span class="tag t-weak">None</span></td><td><b>Build M06 + valuation partner</b>; the highest willingness to pay</td></tr>
+<tr><td>Obligations / evidence / as-of</td><td><span class="tag t-part">Surrounding systems</span></td><td><span class="tag t-weak">None</span></td><td><span class="tag t-weak">Reporting-level</span></td><td><b>Build M14/M16/M17</b>; the evidence precondition for charging T1 fees</td></tr>
+<tr><td>Digital assets / crypto</td><td><span class="tag t-pub">Strong (production since 2022)</span></td><td><span class="tag t-weak">—</span></td><td><span class="tag t-weak">—</span></td><td><b>Out of scope for now (read side included)</b>; buy if required</td></tr>
+<tr><td>Generic LLM Copilot</td><td><span class="tag t-weak">—</span></td><td><span class="tag t-weak">—</span></td><td><span class="tag t-weak">—</span></td><td>Buy the platform; build only the differentiator — citation traceability + advisor oversight</td></tr>
+<tr><td>Mass-market onboarding</td><td><span class="tag t-part">Yes</span></td><td><span class="tag t-weak">—</span></td><td><span class="tag t-weak">—</span></td><td><b>Do not build</b>; not private banking, and it dilutes service density</td></tr>
 </table></div>
+<p class="src">Note: the Avaloq tax-coverage figures (CN 2 / HK 0; DE 644 / FR 201 / UK 94 / US 45 / CH 9 / SG 5) and the data-model judgment come from source/document evidence in this repository (<code>avaloq/doc/04_business_domains/</code>); Aladdin / Addepar are public-capability judgments. Verify against the latest vendor product documentation before any external citation.</p>
 
-<h2>§8 Business case: how each module earns and saves money</h2>
+<div class="verdict"><b>Avaloq's strengths — accounting, settlement, tax-table engineering — are exactly where clients do not pay; the five moments where clients do pay (authority, family, private equity, tax coordination, evidence) sit outside its primary key.</b> So “replacing Avaloq” is not rewriting an accounting system; it is <b>taking the account off the primary key</b> and returning it to its place as an asset carrier.</div>
 
-<h3>8.1 Value bridge</h3>
+<h2>§7 Business case: how each module earns and saves money</h2>
+
+<h3>7.1 Value bridge</h3>
 <div class="tw"><table>
 <tr><th style="width:16%">Value lever</th><th style="width:22%">Modules</th><th style="width:20%">KPI</th><th style="width:22%">Assumption (to be validated)</th><th>Validation method</th></tr>
 <tr><td><b>Advisory/family office fee</b></td><td>M02, M03, M05, M13</td><td>Annual fee per family, attach rate, retention</td><td>Clients will pay 10–30% of what they pay external lawyers/accountants for “governance + coordination + proof”</td><td>10–15 family interviews; compare existing external adviser bills</td></tr>
@@ -516,13 +490,13 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 </table></div>
 <p class="src"><b>All figures above are illustrative assumptions, not forecasts or quotes.</b> A formal business case must replace them with HSBC's internal client distribution, AUM, credit spreads, RM hours and attrition data.</p>
 
-<h3>8.2 How revenue modules fund cost modules</h3>
+<h3>7.2 How revenue modules fund cost modules</h3>
 <div class="shadow">
 <p class="story"><b>A simplified value flow:</b> credit spread from M06/M10 + advisory/coordination fees from M02/M03/M05/M13 → cover the cost of M01/M07/M08/M09/M11/M14/M15/M16/M17 → what remains is the return on the system. <b>Build only the T3 cost modules and the system becomes a more expensive back office; build only the T1 revenue modules and delivery stays manual and cannot scale.</b></p>
 <p class="story"><b>Therefore budget should not be cut by “module” but by “client outcome”:</b> “let a pre-IPO founder complete a liquidity arrangement without selling shares” requires seven modules — M05+M06+M10+M12+M13+M16+M17. Budgeting M06 alone cannot deliver it.</p>
 </div>
 
-<h3>8.3 Pricing approach (to be validated with clients)</h3>
+<h3>7.3 Pricing approach (to be validated with clients)</h3>
 <div class="tw"><table>
 <tr><th style="width:19%">Service</th><th style="width:22%">Pricing method</th><th style="width:20%">Illustrative magnitude (not a quote)</th><th style="width:18%">Anchor</th><th>Risk</th></tr>
 <tr><td>Family governance/succession project</td><td>Annual retainer or project fee</td><td>US$50k–250k / year / family, or 5–15bps</td><td>Lawyers/family advisers/independent family offices</td><td>The client will ask “how are you different from my lawyer”; answer with “execution + record + proof”</td></tr>
@@ -532,36 +506,7 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 </table></div>
 <p class="src">These ranges are <b>illustrative assumptions</b> for discussing the order of magnitude of willingness to pay; they are not HSBC's actual pricing or credit policy and must be replaced with internal pricing, credit committee and client interviews.</p>
 
-<h2>§9 Risks and validation: what would overturn this architecture</h2>
-
-<h3>9.1 Five categories of risk</h3>
-<div class="tw"><table>
-<tr><th style="width:16%">Risk</th><th style="width:34%">Manifestation</th><th>Mitigation</th></tr>
-<tr><td><b>Demand risk</b></td><td>Clients say it is “important” but will not pay; or they only need it after something goes wrong</td><td>Interview on willingness to pay, not satisfaction; sell 3–5 pilots before building in full</td></tr>
-<tr><td><b>Build risk</b></td><td>Family/authority/ownership semantics are so complex that the build turns into a consulting project</td><td>Lock 3 jurisdictions, 10 families and 5 event types first; accept on “executable + provable”</td></tr>
-<tr><td><b>Regulatory risk</b></td><td>Tax computation is read as a tax opinion; cross-border data/privacy breaches</td><td>Computation/coordination only, no opinion; PIA; clause-by-clause legal sign-off by jurisdiction</td></tr>
-<tr><td><b>Data risk</b></td><td>Private-equity valuations unreliable; family data incomplete; consent scopes wrong</td><td>Valuation committee; data-quality KPIs; minimum-visible-by-default consent</td></tr>
-<tr><td><b>Competitive risk</b></td><td>Avaloq Mosaic Tax Engine ships with CN/HK coverage; Aladdin/Addepar move down-market</td><td>Use the window to make family/authority/private equity a relationship moat, not just tax</td></tr>
-</table></div>
-
-<h3>9.2 Validation required before launch</h3>
-<ol>
-<li><b>10–15 client interviews</b>: at least 3 clients per T1 module; ask “what did you last pay for this, and to whom”, not “do you think it matters”.</li>
-<li><b>5 RM/PA workshops</b>: walk real cases through authority change/liquidity change/structure change; record what the system lacks and what people compensate for.</li>
-<li><b>Clause-by-clause tax/legal acceptance in 3 jurisdictions</b>: CN/HK/SG first; UK/CH/AE in phase two.</li>
-<li><b>3–5 pilot families</b>: at least one pre-IPO, one family business and one cross-border family; deliver one provable outcome within 90 days.</li>
-<li><b>Cost-to-serve baseline</b>: measure current RM/PA hours, reconciliation breaks and error rates before discussing ROI.</li>
-</ol>
-
-<h3>9.3 When this architecture should be overturned</h3>
-<ul>
-<li>If client interviews show that willingness to pay for T1 modules is lower than for T3 (clients will not pay a premium for governance/liquidity), the revenue model must be rewritten.</li>
-<li>If Avaloq Mosaic delivers usable CN/HK tax coverage within 12 months, M13's uniqueness is downgraded and the architecture should shift to M02/M03/M06.</li>
-<li>If HSBC internal data show that 80% of clients are below US$5m — the segment BCG calls <b>structurally underserved</b> — the module priorities in §4 must shift down and T1 “family governance” must give way to “low-cost service”.</li>
-<li>If regulators determine that private-share pledge is impermissible or too capital-intensive, the M06/M10 revenue assumption fails.</li>
-</ul>
-
-<h2>§10 Conclusion: the architecture in one sentence</h2>
+<h2>§8 Conclusion: the architecture in one sentence</h2>
 
 <div class="verdict"><b>The HSBC next-generation Private Bank Core System is not a “better account system” but a “family operating system”: it knows who you are, what you own, who has authority to decide, what must happen next, and how to prove it.</b><br>
 Three engines: <b>liquidity</b> (M06/M10), <b>continuity</b> (M02/M03/M05), <b>compliance</b> (M12/M13/M14/M16).<br>
@@ -569,7 +514,6 @@ Three ways to be paid: <b>clients pay for outcomes</b> (advisory/credit/tax coor
 
 <p class="story"><b>The final answer to “how much is each module needed, and how much will clients pay”:</b> the most needed are authority, compliance, evidence and data consistency; the most paid-for are liquidity, family governance, tax coordination and private equity. They are not the same list. <b>The value of the architecture is that it builds the six modules clients will pay most for on top of the twelve modules they need most but cannot be charged for.</b></p>
 
-<p class="story">If the question is “what do we build first”, the answer is: <b>build the chain of authority + structure + ownership + private equity + identity + tax + evidence, so that a cross-border family gets an executable, provable answer at the three moments of incapacity, IPO and migration.</b> Everything else: buy where possible, partner where possible, do not build.</p>
 
 <h2>Appendix A: Module index</h2>
 <div class="tw"><table>
@@ -609,8 +553,8 @@ Three ways to be paid: <b>clients pay for outcomes</b> (advisory/credit/tax coor
 <div class="foot">
 <b>Basis:</b> <a href="../01_personas/nextgen-pb-real-people-cases.html">nextgen-pb-real-people-cases v3.2</a> (17 personas, 53 tables); <i>Unique Capabilities: HSBC Next-Generation PB System vs Avaloq and Aladdin</i> v1.0; cross-check of 16 institutional reports (BCG <i>Global Wealth Report 2026</i>, McKinsey <i>China Financial Services CEO Quarterly</i> Spring 2021, McKinsey <i>Technology Trends Outlook 2026</i>, HSBC <i>Global Entrepreneurial Wealth Report 2025</i>, and others; sources and page numbers in §0.5); public capabilities of Avaloq Mosaic / Aladdin Wealth / Addepar; HSBC private banking public positioning.<br>
 <b>Nature:</b> internal architecture proposal; not tax, legal or investment advice. All amounts, ratios and scores are ordinal/illustrative and must be validated through client interviews, RM workshops and tax/legal review.<br>
-<b>Version:</b> v1.1 · 2026-10-22 · companion to the 17-persona scenario set v3.2. This version adds §0.5 external endorsements and aligns terminology with the reports. Chinese version: <a href="nextgen-pb-demand-driven-architecture.html">nextgen-pb-demand-driven-architecture.html</a>.<br>
-<b>Change log (v1.0 → v1.1):</b> added three verbatim citations (BCG p.19 <i>system architects</i>; McKinsey p.80 end-to-end entrepreneur package; McKinsey Tech Trends p.27 agentic AI in the pilot phase); adopted the report vocabulary <b>system architects / cross-border tax and legal navigation / liquidity solutions / AI-first / structurally underserved / decoupled data layer</b>; reframed Cluster 1 from a “blank space” to the productisation of an existing capability; added <b>liquidity solutions</b> to M06/M10; changed Principle 7 to “humans in the loop + AI-first process”. Substantive disagreements (C5–C8) are unchanged and await decision.
+<b>Version:</b> v1.2 · 2026-10-22 · companion to the 17-persona scenario set v3.2. This version rewrites §6 as the Avaloq replacement boundary (including acceptance across the eight Jobs) and removes the earlier comparison, build-sequence and risk sections. Chinese version: <a href="nextgen-pb-demand-driven-architecture.html">nextgen-pb-demand-driven-architecture.html</a>.<br>
+<b>Change log (v1.1 → v1.2):</b> §6 rewritten from “comparison with the earlier assessment” to “why Avaloq has to be replaced”, with source-level evidence (primary key, tax coverage CN 2 / HK 0) and acceptance criteria for switching Avaloq off across the eight Jobs; removed the earlier §6.1–6.3 (recap of the earlier conclusion / three differentiation clusters / one correction, two reinforcements, three concessions), §7 (build waves and Minimum Lovable Core) and §9 (risks and validation), deferred to the next stage; M13 changed to “global engine + per-jurisdiction rule packs” rather than CN/HK only; M02 adds the four-party family-goal object and M10 adds retirement/decumulation cash flow; added a boundary note that client segments are not modules.
 </div>
 
 

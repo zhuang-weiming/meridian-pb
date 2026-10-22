@@ -1,12 +1,12 @@
-# 07_architecture — 需求驱动的 HSBC 下一代 Private Bank 功能架构
+# 02_architecture — 需求驱动的 HSBC 下一代 Private Bank 功能架构
 
-本目录保存 **v1.1《HSBC 下一代 Private Bank Core System：需求驱动的功能架构》**。
+本目录保存 **v1.2《HSBC 下一代 Private Bank Core System：需求驱动的功能架构》**。
 
 - 主文件（中文）：[`nextgen-pb-demand-driven-architecture.html`](nextgen-pb-demand-driven-architecture.html)
 - **English version**：[`nextgen-pb-demand-driven-architecture-en.html`](nextgen-pb-demand-driven-architecture-en.html)
 - 需求依据：[`../01_personas/nextgen-pb-real-people-cases.html`](../01_personas/nextgen-pb-real-people-cases.html)（17 组人物）
 - 外部核对：16 份机构报告（引证出处与页码见主文件 §0.5；交叉核对文档已移除，待决策清单 C5–C8 内联于主文件）
-- 能力对照：《独有能力判定：HSBC 新一代 PB 系统相对 Avaloq 与 Aladdin》v1.0
+- 能力对照：本版 **§6 与 Avaloq / Aladdin / Addepar 的边界**（历史参考：《独有能力判定》v1.0）
 - 性质：**内部架构提案，非营销材料**，不构成税务、法律或投资建议。
 
 ## 这份文档做什么
@@ -15,23 +15,24 @@
 
 1. **客户为什么痛？** 17 组人物 → 8 个 Job（看见 / 行动 / 归属 / 合规 / 变现 / 传承 / 证明 / 服务）。
 2. **客户愿意为哪个痛付钱？** 区分 T1 客户付溢价/信贷、T2 打包/留存、T3 必须有但不能单列收费、T4 纯基础设施。
-3. **系统应该长什么样、先建什么？** 7 层、18 个模块、3 个建设波次。
+3. **系统应该长什么样？** 7 层、18 个模块；建设顺序与风险验证留待下一阶段。
 
 ## 核心结论
 
 - **需求强度 ≠ 付费意愿。** 最痛的是授权、合规、证据、数据一致性；最愿意付钱的是流动性、家族治理、税务协调、私人股权。
-- **三个差异化簇，不是一个。** 旧版只识别了“跨辖区身份/税务”；需求证据显示“家族/授权/权利”和“私人股权/流动性”的付费意愿更高。
+- **Avaloq 必须被平替。** 它的强项是账务、结算、税表工程，恰好不是客户付费的地方；客户付费的五个时刻（授权、家族、私股、税务协调、证据）落在它的主键之外。平替的验收标准是：关掉 Avaloq 之后，8 个 Job 仍能交付。
 - **六个收入模块：** M02 家族治理、M03 授权/争议、M05 权利矩阵、M06 私人股权、M10 信贷与流动性、M13 税务计算。
 - **十二个成本/地基模块：** 客户主数据、实体结构、资产登记、IBOR、交易、支付、身份状态、义务披露、案件、证据、数据平台、AI。
-- **不建：** 自建风险分析（买 Aladdin）、全量 held-away 聚合（合作 Addepar）、数字资产平台（买 Avaloq）、通用 AI Copilot（买 Agent Connect）。
+- **不建：** 自建风险分析（买 Aladdin）、全量 held-away 聚合（合作 Addepar）、通用 AI Copilot 底座（买平台）、大众市场 onboarding；数字资产/加密暂不纳入（含读侧），如需外购。
 
-## v1.1 变更（相对 v1.0）
+## v1.2 变更（相对 v1.1）
 
-- 新增 **§0.5 三处外部原文背书**：BCG 2026 p.19（system architects）、McKinsey CEO 季刊 2021 p.80（端到端企业家包）、McKinsey Technology Trends 2026 p.27（agentic AI 仍在试点）。
-- **报告术语对齐**（仅改措辞、不改判断）：`system architects`、`cross-border tax and legal navigation`、`liquidity solutions`、`AI-first`、`structurally underserved`、`decoupled data layer`。
-- **簇 1 表述修正**：从“空白”改为“把现有家族顾问能力产品化、证据化、可定价化”（HSBC 已有 Family Office Advisory / Family Advisory）。
-- **M06/M10 增补** liquidity solutions（secondaries / continuation vehicles / NAV lending）；**原则 7** 改为“人在回路 + AI-first 流程”。
-- **实质分歧未改动**：C5–C8（数字资产读侧、香港零售承接、内地中段案例、中段定价降级）仍待决策。
+- **§6 重写**：从“与旧版《独有能力判定》比较”改为“为什么 Avaloq 必须被平替”，加入源码级证据（`OBJ_BP`/`OBJ_REL` 主键、税表覆盖 CN 2 / HK 0）与 8 个 Job 的下线验收标准；Aladdin / Addepar 明确为组件而非替代品。
+- **删除三个章节**：原 §6.1–6.3（旧版结论回顾、三个差异化簇、一处修正两处加强三处放弃）、原 §7（三个波次与最小可交付核心）、原 §9（风险与验证），留待下一阶段。
+- **M13 改为全球税务方案**：全球引擎一次建成，辖区按规则包扩展（CN/HK 是首批包，不是范围边界），增补养老金/社保协定。
+- **M02 增补家庭目标四元组**（教育/养老/慈善：提出人/受益人/出资方/决策人）；**M10 增补退休/回收现金流（decumulation）**；X1 视图增补家庭目标与长期现金流。
+- **客群标签不是模块**：女性、二代、企业家由 X1/X2 与服务设计承载，不新增模块；“家族结构/下一代/教育/养老/慈善在一个视图里”是 M02 + M10 + X1 共同交付的客户结果。
+- **实质分歧**：数字资产/加密已决策为**暂不纳入（含读侧）**，见 §6.3；香港零售承接、内地中段案例、中段定价降级（C6–C8）仍待决策。
 
 ## 18 个模块
 
@@ -43,12 +44,6 @@
 | L4 税务、监管与义务 | M12 多辖区身份状态、M13 税务计算与申报、M14 义务/披露/报告 |
 | L5 运营与证据 | M15 案件与工作流、M16 文件/契约/证据 |
 | L6 数据、AI 与集成 | M17 客户数据平台与集成、M18 AI Copilot 与监督 |
-
-## 三个波次
-
-- **Wave 1（0–12 个月）信任与流动性核心：** M01/M03/M04/M05/M06/M10/M12/M13（CN/HK）/M14/M16/M17；集成 M08/M09/M11；试点 M02。
-- **Wave 2（12–24 个月）家族与规模化：** M02 全量、M07、M15、M18。
-- **Wave 3（24–36 个月）体验与生态：** X1/X3/X4、Aladdin/Addepar 类分析、外部服务网络。
 
 ## 使用边界
 
