@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSBC 下一代 Private Bank Core System：需求驱动的功能架构（v1.1）</title>
+<style>
+:root{
+  --ink:#1a1a17; --ink2:#4a4840; --mut:#8a877d;
+  --bg:#faf9f5; --panel:#f2f0e9; --line:#d8d5cb;
+  --gold:#8a6d1f; --gold-bg:#f6efdc;
+  --red:#8f2f2a; --red-bg:#f7e8e6;
+  --green:#2f6b46; --green-bg:#e7f0e9;
+  --blue:#2d4a6b; --blue-bg:#e8eef4;
+  --grey:#77746a; --grey-bg:#eeece5;
+  --violet:#5b3f6b; --violet-bg:#efe9f3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Songti SC","Noto Serif SC",Georgia,serif;background:var(--bg);color:var(--ink);line-height:1.74;font-size:14.5px}
+.wrap{max-width:1120px;margin:0 auto;padding:48px 40px 80px}
+header{border-bottom:3px solid var(--ink);padding-bottom:20px;margin-bottom:26px}
+header h1{font-size:25px;font-weight:700;line-height:1.42}
+.sub{font-size:15px;color:var(--ink2);margin-top:8px}
+.meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--ink2)}
+h2{font-size:20px;margin:46px 0 6px;padding-left:12px;border-left:4px solid var(--ink)}
+h3{font-size:16px;margin:26px 0 4px}
+h4{font-size:14px;margin:14px 0 4px;color:var(--ink2)}
+p{margin:9px 0}
+.lead{font-size:15.5px;margin:12px 0}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{background:var(--ink);color:var(--bg);text-align:left;padding:7px 9px;font-weight:600;font-size:12.5px}
+td{padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:var(--panel)}
+code{font-family:"SF Mono",Menlo,monospace;font-size:12px;background:var(--panel);padding:1px 5px;border-radius:3px}
+ul,ol{margin:8px 0 8px 22px}
+li{margin:4px 0}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:9px;margin:1px 2px;font-family:"PingFang SC","Helvetica Neue",sans-serif;white-space:nowrap}
+.t-pub{background:var(--green-bg);color:var(--green)}
+.t-rep{background:var(--blue-bg);color:var(--blue)}
+.t-inf{background:var(--violet-bg);color:var(--violet)}
+.t-unk{background:var(--gold-bg);color:var(--gold)}
+.t-risk{background:var(--red-bg);color:var(--red)}
+.t-part{background:var(--gold-bg);color:var(--gold)}
+.t-same{background:var(--grey-bg);color:var(--grey)}
+.t-bey{background:var(--green-bg);color:var(--green)}
+.t-weak{background:var(--red-bg);color:var(--red)}
+.note{background:var(--panel);border-left:3px solid var(--gold);padding:11px 15px;margin:14px 0;font-size:13.5px;color:var(--ink2)}
+.warn{background:var(--red-bg);border-left:3px solid var(--red);padding:11px 15px;margin:14px 0;font-size:13.5px;color:var(--ink2)}
+.good{background:var(--green-bg);border-left:3px solid var(--green);padding:11px 15px;margin:14px 0;font-size:13.5px;color:var(--ink2)}
+.shadow{background:#eceae3;border:1px solid var(--line);border-radius:3px;padding:14px 16px;margin:14px 0}
+.src{font-size:11.5px;color:var(--mut);margin-top:5px;line-height:1.6}
+.foot{margin-top:52px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--mut)}
+.verdict{font-size:15.5px;background:var(--ink);color:var(--bg);padding:15px 19px;margin:18px 0;line-height:1.72}
+.verdict b{color:#f0e6c8}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0}
+.tw table{margin:0}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:2px 12px;font-size:13px;margin:8px 0}
+.kv b{color:var(--ink2);font-weight:600}
+.score{display:inline-block;min-width:22px;text-align:center;font-family:"Helvetica Neue",sans-serif;font-weight:700;font-size:12px;padding:1px 5px;border-radius:3px;background:var(--panel);border:1px solid var(--line)}
+.s5{background:var(--red-bg);color:var(--red);border-color:#e3bdb8}
+.s4{background:var(--gold-bg);color:var(--gold);border-color:#dcc98f}
+.s3{background:var(--blue-bg);color:var(--blue);border-color:#b9c9d9}
+.s2{background:var(--grey-bg);color:var(--grey)}
+.s1{background:var(--grey-bg);color:var(--mut)}
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.qbox{border:1px solid var(--line);background:#fff;padding:13px 15px;min-height:150px}
+.qbox h4{margin-top:0;font-size:13px;letter-spacing:.04em}
+.qbox .m{display:inline-block;font-size:11.5px;padding:2px 7px;margin:2px;border-radius:3px;background:var(--panel);border:1px solid var(--line);font-family:"PingFang SC",sans-serif}
+.q-hi{border-top:4px solid var(--green)}
+.q-hl{border-top:4px solid var(--gold)}
+.q-lh{border-top:4px solid var(--blue)}
+.q-ll{border-top:4px solid var(--grey)}
+.arch{border:1px solid var(--line);background:#fff;padding:16px;margin:16px 0}
+.arch-row{display:grid;grid-template-columns:110px 1fr;gap:10px;margin:8px 0;align-items:stretch}
+.arch-label{font-family:"PingFang SC",sans-serif;font-size:11px;letter-spacing:.04em;color:var(--mut);display:flex;align-items:center;justify-content:flex-end;text-align:right;padding-right:4px}
+.arch-cells{display:flex;flex-wrap:wrap;gap:6px}
+.acell{flex:1 1 120px;border:1px solid var(--line);background:var(--panel);padding:8px 10px;font-size:12px;line-height:1.45}
+.acell b{display:block;font-size:12px;margin-bottom:2px}
+.acell span{color:var(--mut);font-size:11px}
+.arch-exp .acell{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.arch-exp .acell span{color:#d8d5cb}
+.arch-data .acell{background:var(--blue-bg);border-color:#b9c9d9}
+.arch-tax .acell{background:var(--gold-bg);border-color:#dcc98f}
+.arch-risk .acell{background:var(--red-bg);border-color:#e3bdb8}
+.arch-core .acell{background:var(--green-bg);border-color:#b9d3c2}
+.arch-ops .acell{background:var(--grey-bg)}
+@media(max-width:760px){.wrap{padding:30px 20px 60px}.quad{grid-template-columns:1fr}.arch-row{grid-template-columns:1fr}.arch-label{justify-content:flex-start;text-align:left;padding:0}.two{grid-template-columns:1fr}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.two .shadow{margin:0}
+.cite{font-family:"PingFang SC","Helvetica Neue",sans-serif;font-size:11px;color:var(--blue);white-space:nowrap}
+.en{font-size:12.5px;color:var(--mut)}
+.quote{color:var(--ink2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+<h1>HSBC 下一代 Private Bank Core System：需求驱动的功能架构</h1>
+<div class="sub">从 17 组客户痛点反推 18 个模块、付费意愿与建设顺序</div>
+<div class="meta">
+  <span><b>版本</b> v1.1</span>
+  <span><b>日期</b> 2026-10-22</span>
+  <span><b>需求依据</b> nextgen-pb-real-people-cases v3.2（17 组人物）</span>
+  <span><b>能力对照</b> nextgen-pb-unique-capabilities（Avaloq / Aladdin）</span>
+  <span><b>外部核对</b> 16 份机构报告（见 §0.5）</span>
+  <span><b>English</b> <a href="nextgen-pb-demand-driven-architecture-en.html">English version</a></span>
+  <span><b>性质</b> 内部架构提案，非营销材料</span>
+</div>
+</header>
+
+<div class="warn">
+<b>这份文档回答三个问题，而不是一个。</b><br>
+<b>其一，客户到底为什么痛？</b>——从 17 组人物的原话与失败场景出发，归纳成 8 个 Job。<br>
+<b>其二，客户愿意为哪一个痛付钱？</b>——区分“客户付费”“客户通过信贷/交易付费”“银行自己付费”“纯基础设施”。<b>需求强度不等于付费意愿。</b><br>
+<b>其三，系统应该长什么样、先建什么？</b>——18 个模块、7 层架构、4 个付费层级、3 个建设波次。<br>
+<b>不做什么：</b>不重复旧版《独有能力判定》的厂商功能对照；不复述 17 个案例；不做没有依据的市场规模测算。评分是<b>序数</b>（1–5），用于排序，不用于报价。
+</div>
+
+<h2>§0 读法：为什么从痛点开始，而不是从竞品开始</h2>
+
+<h3>0.1 旧版是 competitor-first，这一版是 demand-first</h3>
+<p class="lead">旧版《独有能力判定》先问：Avaloq 有什么、Aladdin 有什么、HSBC 能建什么。它回答的是<b>“能不能赢”</b>。这一版先问：17 组客户在什么时刻愿意付钱、为什么换银行、为什么留存。它回答的是<b>“值不值得建、先建什么、谁来付”</b>。</p>
+<div class="note"><b>两个问题都重要，但顺序不能反。</b>先看竞品，容易得到一个“功能对照表”；先看痛点，才能得到一个“价值链条”。<b>功能对照表告诉你哪里可以差异化；价值链条告诉你差异化能不能收钱。</b></div>
+
+<h3>0.2 三个判断</h3>
+<div class="tw"><table>
+<tr><th style="width:26%">判断</th><th>含义</th><th style="width:30%">对架构的直接后果</th></tr>
+<tr><td><b>客户不买模块，客户买结果</b></td><td>客户不会为“客户主数据”“IBOR”“工作流”付钱；他们为流动性、确定性、连续性、被理解付钱。</td><td>模块必须挂在“Job”上，而不是挂在“功能清单”上。</td></tr>
+<tr><td><b>需求强度 ≠ 付费意愿</b></td><td>最痛的往往是合规、证据、数据一致性——这些是银行必须承担的 COGS；最愿意付钱的往往是带交易、带对手方、带截止日的时刻。</td><td>架构必须区分“收入模块”与“成本模块”，并用收入模块养成本模块。</td></tr>
+<tr><td><b>核心系统的价值是可交付性</b></td><td>不是功能数量，而是让高付费意愿的服务能被交付、被证明、被规模化。</td><td>“证据与 as-of”不是附属功能，是所有高价值模块的地基。</td></tr>
+</table></div>
+
+<h3>0.3 评分方法：N / W / Payer</h3>
+<div class="tw"><table>
+<tr><th style="width:12%">维度</th><th style="width:42%">定义</th><th>1–5 分怎么打</th></tr>
+<tr><td><b>N（Need）</b></td><td>客户需求强度：覆盖多少人物、发生多频繁、失败代价多大、是否阻塞其他需求</td><td>5 = 多组人物、频繁、失败代价极高、阻塞其他需求；1 = 少数人物、偶发、可替代</td></tr>
+<tr><td><b>W（Willingness to pay）</b></td><td>客户/银行愿意为它付钱的程度</td><td>5 = 客户愿为它付溢价或按信贷利差付费；4 = 客户愿打包付费/显著提升留存；3 = 客户视为应有服务；2 = 银行付钱降本；1 = 纯基础设施</td></tr>
+<tr><td><b>Payer</b></td><td>谁付钱</td><td>客户（顾问费/家族办公室费/信托费）、客户（信贷利差/安排费）、客户（FX/产品利差）、银行（成本/风险）、共享</td></tr>
+</table></div>
+<p class="src">证据来源：17 组人物的“场景 · 推演”与“六问”；旧版能力判定；Avaloq / Aladdin / Addepar 公开能力。<b>评分为序数判断，不是市场调研；正式立项前须用 10–15 个客户访谈与 5 场 RM 工作坊校准。</b></p>
+
+<h3>0.4 一条主线</h3>
+<div class="shadow">
+<p class="story"><b>17 组人物 → 8 个 Job → 18 个模块 → 4 个付费层级 → 3 个建设波次。</b><br>
+这条主线的核心不是“做更多”，而是<b>把客户最愿意付钱的四个时刻（身份变化、授权变化、资金变化、结构变化）变成可交付的服务</b>；其余模块是让这四个时刻能够被交付的地基。</p>
+</div>
+
+<h2>§0.5 三处外部原文背书（v1.1 新增）</h2>
+<p class="lead">2026-10 对 16 份机构报告做了交叉核对；本版把三处可直接引用的原文放进正文，报告引证的出处与页码见本节表格，术语对齐到报告用法。</p>
+
+<div class="tw"><table>
+<tr><th style="width:18%">架构判断</th><th style="width:40%">外部原文</th><th style="width:15%">出处</th><th>落在本文哪里</th></tr>
+<tr><td><b>从“产品供应商”转向“制度架构师”：家族治理、所有权与控制机制、跨境税务与法律导航是一等能力</b></td><td class="quote">“Move from product providers to <b>system architects</b>. The most forward-looking wealth managers are helping families build the structures intergenerational wealth requires—<b>ownership and control mechanisms</b> suited to the family's situation, <b>cross-border tax and legal navigation</b>, and <b>governance frameworks</b>…”</td><td class="cite">BCG, <i>Global Wealth Report 2026</i>, p.19</td><td>原则 1（§4.1）、簇 1 与簇 3（§6.2）、L4（§4.4）</td></tr>
+<tr><td><b>企业家客群的价值主张是“融资 + 另类投资 + 家族办公室 + 税务”的端到端打包，而不是单点产品</b></td><td class="quote">「端到端定制化解决方案包……融资产品线、专属另类投资产品、家族办公室服务和税务规划」</td><td class="cite">McKinsey, <i>中国金融业 CEO 季刊</i> 2021 春, p.80</td><td>六个收入模块的组合逻辑（§5）、T1 打包（§3.2）</td></tr>
+<tr><td><b>代理式 AI 仍在试点期：AI 应以“人在回路 + 数据地基先行”的方式建设</b></td><td class="quote">“Adoption score: 3 — <b>Piloting</b>. Many organizations are testing the functionality and viability of agentic AI with small-scale prototypes.”<br>另：“the <b>AI-first</b> organization is no longer aspirational. It's a <b>mandate</b>.”</td><td class="cite">McKinsey, <i>Technology Trends Outlook 2026</i>, p.27；BCG 2026, p.21</td><td>原则 7（§4.1）、M18 建设姿态（§4.3）、Wave 2（§7.1）</td></tr>
+</table></div>
+<p class="src">引句已对报告原文核对；页码为 PDF 物理页序。本版沿用报告原文的两个英文术语：<b>system architects</b>（不再泛译为“制度设计者”）与 <b>liquidity solutions</b>（指 secondaries / continuation vehicles / NAV lending 这一组工具，替代笼统的“流动性方案”）。</p>
+
+<div class="note"><b>术语对齐（v1.1）：</b>凡与报告只是措辞不同、含义相同的地方，本版采用报告用词——<b>system architects</b>、<b>cross-border tax and legal navigation</b>、<b>liquidity solutions</b>、<b>AI-first</b>、<b>structurally underserved</b>（US$5m 以下客群）、<b>decoupled data layer</b>（M17 的分层）。<br>
+<b>尚未处理的实质分歧</b>（留待决策，未在本版改动）：数字资产是否纳入 M07 读侧登记、香港是否增设财富零售承接入口、是否补一个内地中段案例、中段定价是否降为 T2。〔待决策清单 C5–C8，本版内联记录〕</div>
+
+<h2>§1 17 组客户，8 个 Job</h2>
+<p class="lead">把 17 个案例的痛点去掉行业与人物差异，剩下 8 个重复出现的 Job。每一个 Job 都对应一句客户原话、一组人物、一个现在的替代方案、以及一个失败的代价。</p>
+
+<div class="tw"><table>
+<tr><th style="width:5%">#</th><th style="width:13%">Job</th><th style="width:22%">客户原话 / 场景</th><th style="width:18%">人物</th><th style="width:18%">现在的替代</th><th>失败的代价</th></tr>
+<tr><td><b>J1</b></td><td><b>看见<br>See</b></td><td>“我到底有多少、在哪、能不能用？”——三层财富：纸面 / 可质押 / 可花费</td><td>1,2,3,7,10,12,15,16；全部</td><td>Excel、PDF、多个 RM、多个网银</td><td>决策慢；钱包份额只看到一半；高估可投资资产</td></tr>
+<tr><td><b>J2</b></td><td><b>行动<br>Act</b></td><td>“我这周到底能不能动？”——窗口期、锁定期、披露、集中度、授权</td><td>1,2,3,5,12,13,16</td><td>问券商/律师；靠 RM 记忆；两套系统各查一次</td><td>窗口违规、交易失败、监管问询</td></tr>
+<tr><td><b>J3</b></td><td><b>归属<br>Belong</b></td><td>“这个家谁是谁、谁受益？”——分支、姻亲、堂侄、受益人类别、未成年</td><td>4,5,6,10,17</td><td>家庭关系字段、RM 记忆、纸质家谱</td><td>受益人漏识别、家族争议、KYC 重做</td></tr>
+<tr><td><b>J4</b></td><td><b>合规<br>Comply</b></td><td>“哪个辖区、哪一天、哪套规则？”——身份、税务、CRS、迁移影子</td><td>2,4,6,7,8,9,10,17</td><td>外部税务顾问、邮件、四套 Excel</td><td>双重征税、申报错误、罚款、客户流失</td></tr>
+<tr><td><b>J5</b></td><td><b>变现<br>Liquify</b></td><td>“不卖股，怎么拿到可花的钱？”——Pre-IPO、EOT、earn-out、Lombard</td><td>12,13,14,15,16</td><td>卖股、个人借款、无方案</td><td>流动性错配、控制权丢失、税负提前</td></tr>
+<tr><td><b>J6</b></td><td><b>传承<br>Transmit</b></td><td>“如果他不在了，会发生什么？”——信托、遗嘱、授权切换、家族治理</td><td>4,5,8,11,17</td><td>律师、受托人、家人；银行最后知道</td><td>继承争议、客户流失、资产冻结</td></tr>
+<tr><td><b>J7</b></td><td><b>证明<br>Prove</b></td><td>“怎么向监管/审计/家人证明？”——版本、as-of、证据链</td><td>1,2,3,4,5,8,9,10,11,16,17</td><td>邮件、PDF、个人文件夹</td><td>处罚、声誉、无法自证</td></tr>
+<tr><td><b>J8</b></td><td><b>服务<br>Serve</b></td><td>“谁来做、什么时候做、做到什么程度？”——案件、期限、责任人</td><td>全部</td><td>RM/PA 手工、Teams、Outlook</td><td>成本高、体验差、随 RM 离职清零</td></tr>
+</table></div>
+
+<div class="verdict"><b>把 8 个 Job 放在一起，会看到痛感集中在四个“变化”时刻：身份变化（移民/IPO）、授权变化（失能/身故/争议）、资金变化（流动性/信贷）、结构变化（信托/实体/分家）。</b>下一代核心系统如果只按“产品”组织，就会错过这四个时刻；按“变化”组织，才能在每个时刻都出现。</div>
+
+<h2>§2 需求强度：哪些痛最深、最常发生、最不能被替代</h2>
+
+<h3>2.1 痛的分布不是均匀的</h3>
+<p class="story">17 个案例里，真正让客户“睡不着”的不是日常配置，而是四类<b>变化时刻</b>：<b>身份变化</b>（移民、IPO、退市、国籍）、<b>授权变化</b>（失能、身故、争议、接班）、<b>资金变化</b>（变现、质押、信贷、税务到期）、<b>结构变化</b>（信托、实体、分家、基金会）。<b>日常配置是低频痛；变化时刻是高频恐惧。</b>下一代核心系统如果只能在“日常”里工作，就会在客户最需要银行的那一天缺席。</p>
+
+<div class="tw"><table>
+<tr><th style="width:5%">#</th><th style="width:24%">痛点</th><th style="width:10%">Job</th><th style="width:12%">人物</th><th style="width:7%">N</th><th>为什么深</th></tr>
+<tr><td>1</td><td><b>主客户失能/身故后，谁有权、谁受益、谁来决定</b></td><td>J6 / J3</td><td>17 何氏、8 MAF、5 郑、11 Murdoch</td><td><span class="score s5">5</span></td><td>失败代价是家族争议 + 客户流失 + 资产冻结；银行通常在这一天才第一次服务接收人。</td></tr>
+<tr><td>2</td><td><b>跨辖区身份/税务/申报：同一个人、同一天、两套规则</b></td><td>J4</td><td>9 Mittal、1 周、2 李、7 Poonawalla</td><td><span class="score s5">5</span></td><td>不是“算错税”，是“哪套规则适用、哪一天切换、谁来申报”；错误会追溯多年。</td></tr>
+<tr><td>3</td><td><b>同一经济权益，多个登记系统/多个 ISIN/多个窗口期</b></td><td>J1 / J2</td><td>1 周、2 李、3 张勇</td><td><span class="score s5">5</span></td><td>系统主键是证券代码，客户主键是“这笔钱”；两边对不上，交易前检查就会漏。</td></tr>
+<tr><td>4</td><td><b>文件版本、法院命令、受托人决议：现在有效的是哪一版</b></td><td>J7</td><td>11 Murdoch、5 郑、8 MAF</td><td><span class="score s5">5</span></td><td>“不可撤销”不等于“不可修改”；银行必须证明“我按当时的有效文件执行”。</td></tr>
+<tr><td>5</td><td><b>家族图谱：谁是家人、谁是关键人、谁受益</b></td><td>J3</td><td>4 李嘉诚、6 郭、10 Premji、17 何氏</td><td><span class="score s5">5</span></td><td>家族不是一棵树；堂侄、姻亲、未出生受益人、慈善基金会都可能改变受益结构。</td></tr>
+<tr><td>6</td><td><b>Pre-IPO/私人股权：纸面财富≠可花费财富</b></td><td>J5</td><td>16 梁文锋、12 Guy、13 Sarah</td><td><span class="score s4">4</span></td><td>客户人数少，但单客户价值极高；银行若只做 IPO 后减持，会错过最需要银行的三年。</td></tr>
+<tr><td>7</td><td><b>未上市估值、卖方贷款、或有对价、非现金股权</b></td><td>J5</td><td>12 Guy、13 Sarah、14 Vardy、15 Neame</td><td><span class="score s4">4</span></td><td>“市值/headline”与“可投资/可花费”之间隔着一整个交易结构。</td></tr>
+<tr><td>8</td><td><b>女性/子女/长辈：家庭中的非主客户</b></td><td>J3 / J6</td><td>17 何氏、4 李嘉诚第三代、6 郭第三代</td><td><span class="score s4">4</span></td><td>银行只服务“主客户”，但财富会在某一天转移到从未被服务的人手里。</td></tr>
+<tr><td>9</td><td><b>RM/PA 手工搬运、追件、记到期日</b></td><td>J8</td><td>全部</td><td><span class="score s4">4</span></td><td>不产生客户价值，但消耗大量工时；错误会变成监管/客户事件。</td></tr>
+<tr><td>10</td><td><b>薄市场/家族控制：市值≠可卖的钱</b></td><td>J1 / J5</td><td>15 Neame、10 Premji</td><td><span class="score s3">3</span></td><td>客户人数少，但“控制权 vs 流动性”是家族企业客户的普遍问题。</td></tr>
+</table></div>
+
+<h3>2.2 最深的五个痛，分别要求系统做什么</h3>
+<div class="shadow">
+<p class="story"><b>痛 1｜授权变化。</b>要求系统能回答：谁是客户、谁是账户持有人、谁是受益人、谁是决策人、谁是监护人；在失能/身故/争议时，主语如何切换；哪些指示有效、哪些必须双签。<b>这不是“关系字段”，是“授权状态机”。</b></p>
+<p class="story"><b>痛 2｜跨辖区合规。</b>要求系统能回答：这个人在哪几个辖区是税务居民、从哪天起、按哪套规则、由谁申报；身份变化前后，同一笔资产如何分段计算、如何重放。<b>这不是“税务表”，是“带时间轴的状态”。</b></p>
+<p class="story"><b>痛 3｜多登记权益。</b>要求系统能回答：这两条持仓是不是同一笔经济权益；一致行动人合并后是多少；两边的窗口期/锁定期/披露义务分别是什么。<b>这不是“多币种持仓”，是“高于 ISIN 的经济权益对象”。</b></p>
+<p class="story"><b>痛 4｜证据与版本。</b>要求系统能回答：当时有效的是哪一版信托契约/法院命令/受托人决议；那一天的受益人权利是什么；这笔分配依据哪一条。<b>这不是“文档管理”，是“法律文件生效链”。</b></p>
+<p class="story"><b>痛 5｜家族图谱。</b>要求系统能回答：这个家有哪些分支、哪些是关键人、哪些是受益人、哪些是未成年人、哪些是慈善主体；谁和谁有授权/监护/利益冲突。<b>这不是“家庭关系”，是“家族图 + 三套边界”。</b></p>
+</div>
+
+<h3>2.3 需求强度的反直觉结论</h3>
+<div class="verdict"><b>最深的需求，往往不是最愿意付钱的需求。</b>授权、合规、证据、数据一致性是“没有它会出事”的需求，客户默认银行应该做好；Pre-IPO 流动性、家族治理、税务协调是“有它更好”的需求，客户愿意为此付溢价或承担信贷成本。<b>架构必须同时服务这两种需求，但商业模型必须区分它们。</b></div>
+
+<h2>§3 付费意愿：客户为什么付、付给谁、付多少</h2>
+
+<h3>3.1 五个价格杠杆</h3>
+<div class="tw"><table>
+<tr><th style="width:18%">杠杆</th><th style="width:16%">谁付</th><th style="width:26%">怎么收</th><th style="width:20%">对应模块</th><th>约束</th></tr>
+<tr><td><b>L1 顾问/家族办公室费</b></td><td>客户</td><td>AUM bps、年度 retainer、项目制</td><td>M02 家族治理、M03 授权、M05 权利、M13 税务协调</td><td>客户会问“你比律师/会计师多做了什么”；必须可证明。</td></tr>
+<tr><td><b>L2 信贷利差/安排费</b></td><td>客户</td><td>Lombard/按揭/私人股权质押的利差 + 安排费</td><td>M06 私人股权、M10 信贷与流动性</td><td>估值折扣、追保、集中度；不能把“纸面”当“市价”。</td></tr>
+<tr><td><b>L3 FX/产品利差</b></td><td>客户</td><td>跨境支付、FX、产品分销</td><td>M09 交易、M11 支付与外汇</td><td>价格透明、最佳执行；不能靠信息不对称。</td></tr>
+<tr><td><b>L4 留存/钱包份额</b></td><td>客户（隐性）</td><td>不直接收费，但减少流失、提升 AUM 份额</td><td>M01 客户主数据、M03 授权、M12 身份、M16 证据</td><td>价值难直接归因；用流失率/份额做 KPI。</td></tr>
+<tr><td><b>L5 成本/风险避免</b></td><td>银行</td><td>RM/PA 工时、对账、合规、罚款避免</td><td>M14 义务、M15 案件、M17 数据、M18 AI</td><td>预算在银行侧；必须能用“工时/错误率/罚款”证明。</td></tr>
+</table></div>
+
+<h3>3.2 四个付费层级</h3>
+<div class="tw"><table>
+<tr><th style="width:9%">层级</th><th style="width:14%">含义</th><th style="width:22%">模块</th><th style="width:25%">为什么</th><th>定价机制</th></tr>
+<tr><td><span class="tag t-pub">T1</span></td><td><b>客户会为它换银行/付溢价</b></td><td><b>M02 家族治理、M03 授权与争议、M05 权利矩阵、M06 私人股权、M10 信贷与流动性、M13 税务计算</b></td><td>直接对应“传承、控制、流动性、跨辖区合规确定性（可辩护的申报）”四个高价值结果；替代方案是律师/会计师/另一家银行，客户已经在付费。这与麦肯锡记录的欧洲“企业家银行”端到端包（融资产品线 + 专属另类投资 + 家族办公室服务 + 税务规划）是同一组能力。<span class="cite">〔McKinsey CEO 季刊 2021 p.80〕</span></td><td>家族办公室 retainer、信托/治理项目费、信贷利差、税务协调费</td></tr>
+<tr><td><span class="tag t-rep">T2</span></td><td><b>客户愿意打包付费/显著提升留存</b></td><td><b>M04 实体结构、M12 身份状态</b></td><td>不单独收费，但决定“能不能做这个客户的业务”；没有它，T1 服务无法交付。</td><td>打包进顾问费/关系定价；用留存率与 AUM 份额衡量</td></tr>
+<tr><td><span class="tag t-same">T3</span></td><td><b>必须有，但客户不愿单独付费</b></td><td><b>M01 客户主数据、M07 资产登记、M08 组合/IBOR、M09 交易、M11 支付、M14 义务/披露、M15 案件、M16 证据</b></td><td>客户视为“银行应该做好的事”；不做会出事，但不会为它多付钱。</td><td>银行 COGS；用成本-to-serve、错误率、监管指标衡量</td></tr>
+<tr><td><span class="tag t-unk">T4</span></td><td><b>纯基础设施/银行内部付费</b></td><td><b>M17 数据平台、M18 AI 与监督</b></td><td>不直接产生客户价值；决定 T1–T3 能否规模化、可审计、可复制。</td><td>技术预算；用 RM 产能、合规覆盖率、系统可用性衡量</td></tr>
+</table></div>
+
+<h3>3.3 需求 × 付费意愿：2×2</h3>
+<div class="quad">
+<div class="qbox q-hi"><h4>高需求 / 高付费意愿 —— 先建、建深</h4>
+<span class="m">M02 家族治理</span><span class="m">M03 授权与争议</span><span class="m">M05 权利矩阵</span><span class="m">M06 私人股权</span><span class="m">M10 信贷与流动性</span><span class="m">M13 税务计算</span>
+<p class="src">这六个模块是收入引擎；但每一个都依赖右下角的“高需求/低付费”模块才能交付。</p></div>
+<div class="qbox q-hl"><h4>高需求 / 不能单独收费（T2/T3）—— 必须做好，但只能打包或计入 COGS</h4>
+<span class="m">M01 客户主数据</span><span class="m">M04 实体结构</span><span class="m">M07 资产登记</span><span class="m">M08 组合/IBOR</span><span class="m">M09 交易</span><span class="m">M11 支付</span><span class="m">M12 身份状态</span><span class="m">M14 义务/披露</span><span class="m">M15 案件</span><span class="m">M16 证据</span>
+<p class="src">T2（M04/M12）打包进顾问费/留存；T3（其余）计入 COGS。两者都是 T1 模块的“交付前提”；用收入模块养它们，不要试图单独收费。</p></div>
+<div class="qbox q-lh"><h4>低客户需求 / 高付费意愿（银行侧）</h4>
+<span class="m">M18 AI 与顾问监督</span><span class="m">X3 家族办公室控制台</span>
+<p class="src">M18 的付费方是银行（产能/合规）；X3 的付费方是少数家族办公室（高 retainer）。</p></div>
+<div class="qbox q-ll"><h4>低需求 / 低付费 —— 不建，买/合作</h4>
+<span class="m">自建风险分析（应买 Aladdin）</span><span class="m">自建 held-away 聚合（应合作 Addepar）</span><span class="m">数字资产平台（应买 Avaloq）</span><span class="m">通用 AI Copilot（应买 Agent Connect）</span>
+<p class="src">这些不是“客户不需要”，而是“别人已经做得更好、更便宜”；自建只会重复投入。</p></div>
+</div>
+
+<h3>3.4 谁付钱：一张分解表</h3>
+<div class="tw"><table>
+<tr><th style="width:18%">付费方</th><th style="width:30%">付费形式</th><th style="width:24%">典型模块</th><th>商业逻辑</th></tr>
+<tr><td><b>客户 · 顾问费</b></td><td>家族办公室 retainer、治理项目、税务协调、信托服务</td><td>M02、M03、M05、M13</td><td>客户已经在付律师/会计师/信托公司；银行把“协调 + 记录 + 证明”做成可收费服务。</td></tr>
+<tr><td><b>客户 · 信贷</b></td><td>Lombard、按揭、私人股权质押、卖方贷款</td><td>M06、M10</td><td>不卖股拿流动性；银行赚利差与安排费。</td></tr>
+<tr><td><b>客户 · 交易</b></td><td>FX、产品分销、执行</td><td>M09、M11</td><td>交易型收入；价格透明化后，靠体验与额度而非信息不对称。</td></tr>
+<tr><td><b>客户 · 隐性</b></td><td>留存、钱包份额、转介绍</td><td>M01、M03、M12、M16</td><td>不直接收费，但减少“主客户身故/离婚/迁移”带来的流失。</td></tr>
+<tr><td><b>银行 · 成本/风险</b></td><td>RM/PA 工时、对账、合规、罚款避免</td><td>M14、M15、M17、M18</td><td>核心系统的“省钱”故事；必须用可量化 KPI 证明。</td></tr>
+</table></div>
+
+<div class="warn"><b>付费意愿的三个常见误判。</b><br>
+<b>误判一：把“需求强”当成“愿意付”。</b>合规、证据、数据一致性需求极强，但客户认为这是银行的本分；试图单列收费会立刻被比价。<br>
+<b>误判二：把“客户愿意付”当成“银行能收”。</b>家族治理/税务协调的付费方常常是律师/会计师，银行只能收“协调费”，不能收“意见费”；边界必须先定。<br>
+<b>误判三：把“高净值”当成“高付费”。</b>Pre-IPO 客户纸面财富很高，但现金流可能很低；定价必须跟“可花费财富”走，而不是跟“富豪榜排名”走。</div>
+
+<h2>§4 功能架构：7 层、18 个模块</h2>
+
+<h3>4.1 七条架构原则</h3>
+<div class="tw"><table>
+<tr><th style="width:6%">#</th><th style="width:24%">原则</th><th>含义</th><th style="width:22%">反例（不要这样做）</th></tr>
+<tr><td>1</td><td><b>家庭是首席对象</b></td><td>主键不是账户、不是产品，是“人—家庭—实体—资产—权利—义务”的关系图。这是报告所说的 <b>system architects</b> 立场：卖的不是产品，而是家族跨代传承所需的结构。<span class="cite">〔BCG 2026 p.19〕</span></td><td>把配偶建成“附属字段”；把信托建成“账户的备注”。</td></tr>
+<tr><td>2</td><td><b>单一事实源 + 事件账本 + as-of</b></td><td>任何时点的结论都能重放；不覆盖历史，只追加修正。落到实现上就是报告的 <b>decoupled data layer</b>：把操作型源系统与可 API 访问的整理后数据分开。<span class="cite">〔BCG 2026 p.23〕</span></td><td>同步 Oracle + 冲账；只存“当前状态”。</td></tr>
+<tr><td>3</td><td><b>输出四元组</b></td><td>对外只输出“事实 + 义务/到期日 + 责任方 + 证据”，不输出建议。</td><td>RM 在邮件里“顺手给个税务建议”。</td></tr>
+<tr><td>4</td><td><b>买商品，建差异</b></td><td>风险分析、held-away 聚合、数字资产、通用 Copilot 买/合作；家族/授权/私人股权/义务自建。</td><td>自建 Aladdin/Addepar 的替代品。</td></tr>
+<tr><td>5</td><td><b>规则是数据，不是代码</b></td><td>税务、披露、窗口期、信托条款按“辖区 × 版本 × 生效日”配置；变更不发版。</td><td>把税率写进存储过程；每次修法发一次 release。</td></tr>
+<tr><td>6</td><td><b>同意范围内的可见性</b></td><td>同一家庭视图，不同成员看到不同范围；隐私、居民身份、跨境传输按设计处理。</td><td>“一家人就应该看到全部”。</td></tr>
+<tr><td>7</td><td><b>人在回路 + AI-first 流程</b></td><td><b>AI-first 是流程级 mandate</b>，不是“自建一个大模型”；AI 做检索、起草、校对、监督，建议与决策仍由 RM/IC/受托人完成。代理式 AI 目前仍处试点期（Adoption score 3 — Piloting），因此 M18 放在 Wave 2，并以 M16/M17 为前置。<span class="cite">〔McKinsey Technology Trends 2026 p.27；BCG 2026 p.21〕</span></td><td>让 AI 直接给客户税务/投资建议；或在数据地基未完成前承诺 AI 产能。</td></tr>
+</table></div>
+
+<h3>4.2 架构图</h3>
+<div class="arch">
+<div class="arch-row arch-exp">
+<div class="arch-label">体验层</div>
+<div class="arch-cells">
+<div class="acell"><b>X1 客户/家庭门户</b><span>资产、目标、授权、文件</span></div>
+<div class="acell"><b>X2 RM/顾问工作台</b><span>360、案件、预检、下一步</span></div>
+<div class="acell"><b>X3 家族办公室控制台</b><span>多实体、合并报表、治理</span></div>
+<div class="acell"><b>X4 外部顾问门户</b><span>律师/会计师/受托人协作</span></div>
+</div>
+</div>
+
+<div class="arch-row arch-core">
+<div class="arch-label">L1 客户与家庭</div>
+<div class="arch-cells">
+<div class="acell"><b>M01 客户/家庭主数据</b><span>人、角色、关系、KYC</span></div>
+<div class="acell"><b>M02 家族图谱与治理</b><span>分支、宪章、委员会、二代</span></div>
+<div class="acell"><b>M03 同意/授权/争议</b><span>五角色、四权利、主语切换</span></div>
+</div>
+</div>
+
+<div class="arch-row arch-core">
+<div class="arch-label">L2 结构、权利与资产</div>
+<div class="arch-cells">
+<div class="acell"><b>M04 实体与结构图</b><span>信托/基金/控股/SPV、穿透</span></div>
+<div class="acell"><b>M05 权利与所有权</b><span>经济/投票/处分、双 AUM</span></div>
+<div class="acell"><b>M06 私人股权与 Pre-IPO</b><span>估值、质押、锁定期、用途</span></div>
+<div class="acell"><b>M07 资产/负债登记</b><span>证券、房产、艺术、私股、债务</span></div>
+</div>
+</div>
+
+<div class="arch-row">
+<div class="arch-label">L3 产品与流动性</div>
+<div class="arch-cells">
+<div class="acell"><b>M08 组合与 IBOR</b><span>多托管、业绩、归因</span></div>
+<div class="acell"><b>M09 交易/执行/预检</b><span>OMS、窗口、适当性、分配</span></div>
+<div class="acell"><b>M10 信贷与流动性</b><span>Lombard、按揭、卖方贷款、资本承诺</span></div>
+<div class="acell"><b>M11 支付与外汇</b><span>多币种、跨境、结算</span></div>
+</div>
+</div>
+
+<div class="arch-row arch-tax">
+<div class="arch-label">L4 税务、监管与义务</div>
+<div class="arch-cells">
+<div class="acell"><b>M12 多辖区身份状态</b><span>税务/移民/证券/制裁，as-of</span></div>
+<div class="acell"><b>M13 税务计算与申报</b><span>预提、抵扣、CRS/FATCA、申报</span></div>
+<div class="acell"><b>M14 义务/披露/报告</b><span>交易所、监管、信托、法院</span></div>
+</div>
+</div>
+
+<div class="arch-row arch-ops">
+<div class="arch-label">L5 运营与证据</div>
+<div class="arch-cells">
+<div class="acell"><b>M15 案件与工作流</b><span>跨模块、依赖、SLA、责任人</span></div>
+<div class="acell"><b>M16 文件/契约/证据</b><span>版本、生效链、e-sign、审计</span></div>
+</div>
+</div>
+
+<div class="arch-row arch-data">
+<div class="arch-label">L6 数据、AI 与集成</div>
+<div class="arch-cells">
+<div class="acell"><b>M17 客户数据平台与集成</b><span>单一事实源、事件账本、API/feed</span></div>
+<div class="acell"><b>M18 AI Copilot 与顾问监督</b><span>检索、起草、质检、引用溯源</span></div>
+</div>
+</div>
+
+<div class="arch-row arch-risk">
+<div class="arch-label">横切</div>
+<div class="arch-cells">
+<div class="acell"><b>安全/隐私/居民身份</b><span>加密、分区、跨境传输、PIA</span></div>
+<div class="acell"><b>配置/规则版本</b><span>辖区 × 版本 × 生效日</span></div>
+<div class="acell"><b>可观测/审计</b><span>决策日志、模型日志、证据链</span></div>
+</div>
+</div>
+</div>
+
+<h3>4.3 18 个模块：需求、付费、优先级、建设姿态</h3>
+<div class="tw"><table>
+<tr><th style="width:4%">#</th><th style="width:15%">模块</th><th style="width:20%">核心能力</th><th style="width:11%">主要人物</th><th style="width:7%">Job</th><th style="width:4%">N</th><th style="width:4%">W</th><th style="width:9%">付费方</th><th style="width:12%">价格杠杆</th><th style="width:5%">优先级</th><th>建设姿态</th></tr>
+<tr><td>M01</td><td><b>客户/家庭主数据</b></td><td>人、家庭、角色、关系、KYC/同意</td><td>全部</td><td>J1/J3/J8</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>银行</td><td>留存/成本</td><td>P0</td><td>自建</td></tr>
+<tr><td>M02</td><td><b>家族图谱与治理</b></td><td>分支、宪章、委员会、二代、慈善</td><td>4,5,6,10,17</td><td>J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>客户</td><td>顾问/家办费</td><td>P1</td><td>自建</td></tr>
+<tr><td>M03</td><td><b>同意/授权/争议</b></td><td>五角色、四权利、监护、争议、主语切换</td><td>4,5,8,11,17</td><td>J2/J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>客户/银行</td><td>顾问/留存</td><td>P1</td><td>自建</td></tr>
+<tr><td>M04</td><td><b>实体与结构图</b></td><td>信托/基金/控股/SPV、层级、Passive NFE</td><td>3,4,5,6,7,8,10,11,17</td><td>J4/J7</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>客户/银行</td><td>打包顾问费</td><td>P1</td><td>自建</td></tr>
+<tr><td>M05</td><td><b>权利与所有权</b></td><td>经济/投票/处分、穿透、双 AUM</td><td>4,10,16,17</td><td>J1/J4/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>客户</td><td>顾问/税务</td><td>P1</td><td>自建</td></tr>
+<tr><td>M06</td><td><b>私人股权与 Pre-IPO</b></td><td>估值、质押、锁定期、IPO 窗口、用途</td><td>12,13,16</td><td>J5</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>客户</td><td>信贷利差</td><td>P1</td><td>自建</td></tr>
+<tr><td>M07</td><td><b>资产/负债登记</b></td><td>证券、房产、艺术、私股、债务</td><td>全部</td><td>J1</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>银行</td><td>成本</td><td>P0</td><td>自建+合作</td></tr>
+<tr><td>M08</td><td><b>组合与 IBOR</b></td><td>多托管、业绩、归因、持仓</td><td>全部</td><td>J1/J8</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>银行</td><td>基础能力（table stakes）</td><td>P0</td><td>买/合作</td></tr>
+<tr><td>M09</td><td><b>交易/执行/预检</b></td><td>OMS、窗口、适当性、分配</td><td>1,2,3,5,12,13,16</td><td>J2</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>银行</td><td>产品利差</td><td>P0</td><td>买/合作</td></tr>
+<tr><td>M10</td><td><b>信贷与流动性</b></td><td>Lombard、按揭、卖方贷款、资本承诺</td><td>12,13,14,15,16,17</td><td>J5</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>客户</td><td>信贷利差/安排费</td><td>P1</td><td>自建+合作</td></tr>
+<tr><td>M11</td><td><b>支付与外汇</b></td><td>多币种、跨境、结算</td><td>全部</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>客户/银行</td><td>FX 利差</td><td>P0</td><td>买/合作</td></tr>
+<tr><td>M12</td><td><b>多辖区身份状态</b></td><td>税务/移民/证券/制裁，as-of</td><td>2,4,6,7,8,9,10,17</td><td>J4</td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td>银行/客户</td><td>留存</td><td>P1</td><td>自建</td></tr>
+<tr><td>M13</td><td><b>税务计算与申报</b></td><td>预提、抵扣、CRS/FATCA、申报</td><td>2,4,6,7,8,9,10,17</td><td>J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>客户</td><td>税务协调费</td><td>P1</td><td>自建（CN/HK 先）</td></tr>
+<tr><td>M14</td><td><b>义务/披露/报告</b></td><td>交易所、监管、信托、法院、到期日</td><td>1,3,5,8,9,11,16,17</td><td>J2/J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>银行</td><td>合规成本</td><td>P0</td><td>自建</td></tr>
+<tr><td>M15</td><td><b>案件与工作流</b></td><td>跨模块、依赖、SLA、责任人</td><td>全部</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>银行</td><td>产能</td><td>P0</td><td>自建</td></tr>
+<tr><td>M16</td><td><b>文件/契约/证据</b></td><td>版本、生效链、e-sign、as-of、审计</td><td>4,5,8,11,16,17</td><td>J7</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>银行</td><td>风险成本</td><td>P0</td><td>自建</td></tr>
+<tr><td>M17</td><td><b>客户数据平台与集成</b></td><td>单一事实源、事件账本、API/feed</td><td>全部</td><td>J1/J8</td><td><span class="score s5">5</span></td><td><span class="score s1">1</span></td><td>银行</td><td>基础设施</td><td>P0</td><td>自建+合作</td></tr>
+<tr><td>M18</td><td><b>AI Copilot 与监督</b></td><td>检索、起草、质检、引用溯源（AI-first 是流程要求，模型/平台外购）</td><td>全部</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>银行</td><td>产能/合规</td><td>P2</td><td>合作底座 + 自建差异层</td></tr>
+</table></div>
+
+<h3>4.4 七层分别在解决什么</h3>
+<div class="two">
+<div class="shadow"><b>L1 客户与家庭</b><br>回答“谁是客户、谁是这个家、谁有权”。<b>没有这一层，后面的结构/资产/税务都挂在错误的主体上。</b></div>
+<div class="shadow"><b>L2 结构、权利与资产</b><br>回答“钱在哪个实体里、谁拥有什么权利、这些权利值多少”。<b>这是私行与零售银行的分水岭。</b></div>
+<div class="shadow"><b>L3 产品与流动性</b><br>回答“怎么投资、怎么交易、怎么借钱、怎么付钱”。<b>大部分是基础能力（table stakes），买/合作，不自建。</b></div>
+<div class="shadow"><b>L4 税务、监管与义务</b><br>回答“哪个辖区、哪一天、哪套规则、什么时候到期”。<b>这是旧版判定里唯一的产品级独有项，也是本架构的防御核心。</b>对应的行业表述是 BCG 的 <b>cross-border tax and legal navigation</b>——客户要的是跨境税务与法律的可导航性，而不是一份税务意见。<span class="cite">〔BCG 2026 p.19〕</span></div>
+<div class="shadow"><b>L5 运营与证据</b><br>回答“谁来做、做到哪一步、怎么证明”。<b>不产生收入，但决定收入模块能否被监管/客户接受。</b></div>
+<div class="shadow"><b>L6 数据、AI 与集成</b><br>回答“事实从哪来、怎么复用、怎么让 RM 更快”。<b>这是规模化与成本-to-serve 的地基。</b></div>
+</div>
+
+<h2>§5 六个收入模块：为什么客户愿意为它们付钱</h2>
+<p class="lead">T1 的六个模块不是“功能最多”的模块，而是<b>最接近客户付费时刻</b>的模块。下面每一个都给出：痛证、它做什么、付费逻辑、建设/依赖/风险。</p>
+
+<div class="tw"><table>
+<tr><th style="width:12%">模块</th><th style="width:24%">痛证（来自 17 组人物）</th><th style="width:22%">它做什么</th><th style="width:20%">付费逻辑</th><th>建设 / 依赖 / 风险</th></tr>
+<tr><td><b>M02 家族图谱与治理</b></td><td>李嘉诚第三代第一次进分行，系统查不到；郭鹤年两个 RM 各知一半；何氏家族没有家族宪章。</td><td>家族图（血亲/姻亲/堂表/关键人）、三套边界（血亲/经济/治理）、家族宪章、委员会、二代教育、慈善。</td><td><b>客户付</b>：家族办公室 retainer、治理工作坊、传承项目费；锚点是律师/会计师/家办。</td><td>自建；依赖 M01/M03；风险是家族政治、隐私、跨境数据。</td></tr>
+<tr><td><b>M03 同意/授权/争议</b></td><td>郑裕彤 CEO 辞任次日，系统授权还是昨天的；MAF 三封“家族的决定”；何氏妻子第一次成为主客户。</td><td>五角色（客户/账户持有人/受益人/决策人/监护人）、四权利（信息共享/决策代理/监护/受益）、争议状态、主语切换。</td><td><b>客户付</b>：打包进顾问/信托费；银行为“避免执行无权指示”付费。</td><td>自建；依赖 M01/M16；风险是法律效力、辖区差异、争议中的立场。</td></tr>
+<tr><td><b>M05 权利与所有权</b></td><td>Premji 的 67% 已不属于家族，AUM 却仍算进去；李嘉诚的经济权/投票权/处分权分离；梁文锋的私人股权。</td><td>经济权/投票权/处分权逐资产建模；穿透；双 AUM（受益口径/控制口径）；受益人类别。</td><td><b>客户付</b>：顾问/税务/信托费；客户为“我到底拥有什么”付费。</td><td>自建；依赖 M04/M07；风险是数据可得性、估值、信托条款解释。</td></tr>
+<tr><td><b>M06 私人股权与 Pre-IPO</b></td><td>梁文锋 US$46bn 纸面财富但无法直接花；Guy 没有市场价；Sarah 的 £114m 有一半是条件。</td><td>私人股权估值（多方法）、质押、锁定期/IPO 窗口、用途管理、卖方贷款、或有对价；接入 <b>secondaries / continuation vehicles</b> 作为变现通道。</td><td><b>客户付</b>：信贷利差 + 安排费；<b>W5，单客户价值最高</b>。</td><td>自建 + 估值合作；依赖 M05/M10/M12；风险是估值治理、集中度、监管审批。</td></tr>
+<tr><td><b>M10 信贷与流动性</b></td><td>Guy 的卖方贷款；Vardy 的孤儿股权；Neame 的薄市场；何氏的税负缺口。</td><td>Lombard、按揭、结构性信贷、资本承诺、卖方贷款、追保与压力测试；以及 <b>liquidity solutions</b>（secondaries / continuation vehicles / NAV lending）的接入与定价。</td><td><b>客户付</b>：信贷利差、安排费、承诺费；W5。</td><td>自建信贷引擎 + 合作资产负债表；依赖 M06/M07/M16；风险是抵押品、追保、跨境执行。</td></tr>
+<tr><td><b>M13 税务计算与申报</b></td><td>Mittal 离境后仍有 10 年英国尾随；Poonawalla 一栋房子四个制度；周群飞 A/H 股息两套规则；李西廷四个证券制度。</td><td>多辖区规则库、预提/抵扣、CRS/FATCA、申报产出、as-of 重放；<b>只做计算与协调，不做税务意见</b>。</td><td><b>客户付</b>：税务协调费/打包顾问费；W4；但客户常认为银行“应该做”，必须打包。</td><td>自建（CN/HK 先）；依赖 M12/M14；风险是规则维护、责任边界、监管许可。</td></tr>
+</table></div>
+
+<div class="note"><b>六个模块的共同点：</b>它们都发生在“客户必须做决定、而且做错的代价很高”的时刻。客户不是为“功能”付费，是为<b>“有人替我把这件事办对、并且能证明”</b>付费。这也解释了为什么 T1 模块必须和 T3 的证据/数据模块一起交付——<b>没有证据，收费的服务就变成了不可辩护的建议。</b></div>
+
+<h3>5.1 收入模块的定价锚点</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">模块</th><th style="width:20%">定价锚点</th><th style="width:22%">客户会拿来比较的替代</th><th>银行的差异化理由</th></tr>
+<tr><td>M02 家族治理</td><td>家族办公室 retainer / 治理项目费</td><td>律师、家族顾问、独立家办</td><td>银行有账户、资产、信贷、跨境网络；能把“治理”落到“执行”。</td></tr>
+<tr><td>M03 授权/争议</td><td>打包顾问费 / 信托服务费</td><td>律师、受托人、遗嘱执行人</td><td>银行是资金路径上的人；能在争议中执行/拒绝，并留痕。</td></tr>
+<tr><td>M05 权利/所有权</td><td>顾问费 / 税务协调费</td><td>会计师、信托公司、Addepar</td><td>银行同时看到账户、实体、受益人、辖区；能做“双 AUM”。</td></tr>
+<tr><td>M06 私人股权</td><td>信贷利差 + 安排费</td><td>投行、私行、家族办公室、质押融资</td><td>银行能在 IPO 前给出估值/质押/用途结构，而不是等 IPO 后减持。</td></tr>
+<tr><td>M10 信贷/流动性</td><td>利差 + 安排费 + 承诺费</td><td>商业银行、私行、信托贷款</td><td>银行同时理解资产、税务、家族现金流；能做“不卖股”的方案。</td></tr>
+<tr><td>M13 税务计算</td><td>税务协调费 / 打包</td><td>四大、税务律师、本地会计师</td><td>银行有全量交易/持仓数据；能把“算税”嵌进交易与服务，而不是事后补。</td></tr>
+</table></div>
+
+<h3>5.2 T2/T3/T4：为什么不能单独收费</h3>
+<div class="tw"><table>
+<tr><th style="width:8%">层级</th><th style="width:18%">模块</th><th style="width:34%">为什么不能单独收费</th><th>应该用什么 KPI 证明价值</th></tr>
+<tr><td><span class="tag t-rep">T2</span></td><td>M04 实体结构、M12 身份状态</td><td>客户认为这是“开户/合规”的一部分；单独收费会立刻被比价。但没有它们，M02/M03/M05/M13 无法交付。</td><td>开户周期、KYC 返工率、跨境客户留存、AUM 份额</td></tr>
+<tr><td><span class="tag t-same">T3</span></td><td>M01 主数据、M07 资产登记、M08 组合、M09 交易、M11 支付、M14 义务、M15 案件、M16 证据</td><td>客户视为银行本分；不做会出事，但不会为“做得对”多付钱。</td><td>成本-to-serve、RM/PA 工时、错误率、对账差异、监管罚款</td></tr>
+<tr><td><span class="tag t-unk">T4</span></td><td>M17 数据平台、M18 AI/监督</td><td>纯基础设施；客户看不见，也不应该看见。</td><td>系统可用性、数据时延、RM 产能、合规覆盖率、模型引用准确率</td></tr>
+</table></div>
+
+<div class="verdict"><b>收入模块是“前台”，T2/T3/T4 是“后台”。</b>没有后台，前台只能靠人肉交付，无法规模化；只有后台，没有前台，系统就变成了一个昂贵的报表工具。<b>架构的关键不是选择前台或后台，而是让前台每收一笔钱，后台都能留下可证明的证据。</b></div>
+
+<h2>§6 与旧版《独有能力判定》的比较：一处修正、两处加强、三处放弃</h2>
+
+<h3>6.1 旧版结论回顾</h3>
+<div class="shadow">
+<p class="story">旧版的核心结论是：<b>“Avaloq 没有、Aladdin 也没有、HSBC 能建”的产品级能力只剩一项——跨辖区客户引擎（身份/税务居民/CRS-FATCA 状态机 + 多辖区税务计算与申报）。</b>其余三项是非产品能力：可证伪的正确性基建、顾问监督 AI、自建界面。功能数量上不存在胜出。</p>
+</div>
+
+<h3>6.2 需求证据带来的修正：不是一项，是三个“差异化簇”</h3>
+<p class="lead">旧版是在<b>产品功能层</b>做判定：Avaloq 有没有这个字段、Aladdin 有没有这个模块。需求证据是在<b>客户 Job 层</b>做判定：客户在哪个时刻愿意付钱、哪个时刻没有替代品。两层结论不完全相同。</p>
+<div class="tw"><table>
+<tr><th style="width:18%">差异化簇</th><th style="width:20%">对应模块</th><th style="width:20%">旧版是否识别</th><th>需求证据</th></tr>
+<tr><td><b>簇 1：家族/授权/权利</b></td><td>M02、M03、M05</td><td><span class="tag t-weak">未识别为独有</span></td><td>李嘉诚第三代、郑裕彤授权、MAF 争议、Premji 三权、何氏妻子——<b>客户愿意为“谁有权、谁受益、谁决定”付顾问费</b>。</td></tr>
+<tr><td><b>簇 2：私人股权/流动性</b></td><td>M06、M10</td><td><span class="tag t-part">部分识别</span>（Lombard 被视为商品）</td><td>梁文锋、Guy、Sarah、Vardy、Neame——<b>Pre-IPO/未上市/薄市场的“纸面变可花”是最高 WTP 的单点</b>。</td></tr>
+<tr><td><b>簇 3：跨辖区身份/税务</b></td><td>M12、M13</td><td><span class="tag t-pub">已识别为唯一</span></td><td>Mittal、Poonawalla、周群飞、李西廷——<b>防御性最强、但 WTP 不是最高；它是留存/合规模块，不是溢价模块</b>。</td></tr>
+</table></div>
+
+<div class="warn"><b>这不是说旧版错了，而是说旧版的“独有”定义太窄。</b>它把“独有”定义为“厂商没有的产品功能”；需求证据把“独有”定义为“客户在这个时刻没有替代品，且愿意付钱”。<b>按前者，只有簇 3；按后者，簇 1 和簇 2 更值钱。</b><br>
+<b>另需说明（v1.1）：簇 1 在 HSBC 内部并不是空白。</b>HSBC 已设有 Family Office Advisory / Family Advisory 职能（见 2025 全球企业家财富报告致谢名单与接班人章节）。本架构的增量不是“首创”，而是<b>把咨询型交付做成可定价、可复用、可审计的系统对象</b>——否则它永远只能随顾问的个人时间线性增长。<span class="cite">〔HSBC Global Entrepreneurial Wealth Report 2025 p.27–32〕</span></div>
+
+<h3>6.3 一处修正、两处加强、三处放弃</h3>
+<div class="tw"><table>
+<tr><th style="width:10%">判定</th><th style="width:24%">旧版主张</th><th style="width:30%">需求证据</th><th>新结论</th></tr>
+<tr><td><span class="tag t-part">修正</span></td><td>只有一项产品级独有：跨辖区 + 税务</td><td>家族/授权/权利与私人股权/流动性也是差异化，且 WTP 更高</td><td><b>三个差异化簇</b>；税务是防御核心，家族/流动性是收入核心。</td></tr>
+<tr><td><span class="tag t-pub">加强</span></td><td>可证伪正确性基建是“买不来的纪律”</td><td>Murdoch 的文件版本、郑裕彤的授权、Mittal 的影子期都要求 as-of/证据</td><td>升级为 <b>M16/M17</b>，是所有 T1 模块的交付前提。</td></tr>
+<tr><td><span class="tag t-pub">加强</span></td><td>顾问监督 AI 是两厂商都没有的空白</td><td>它是银行侧 WTP，不是客户侧 WTP；客户不会为“监督 RM”付钱</td><td>保留为 <b>M18</b>（T4），用产能/合规 KPI 证明，不放进客户价值主张。</td></tr>
+<tr><td><span class="tag t-risk">放弃</span></td><td>不要在风险分析上挑战 Aladdin</td><td>客户不会为“另一个风险引擎”换银行</td><td><b>M08 买/合作</b>；不建因子模型/情景库。</td></tr>
+<tr><td><span class="tag t-risk">放弃</span></td><td>不要挑战 Addepar 的 held-away 聚合</td><td>客户要的是“看见”，不是“银行自建聚合器”</td><td><b>M07 合作 feed</b>；自建只做“与义务/权利相关的资产”，不做全量聚合。</td></tr>
+<tr><td><span class="tag t-risk">放弃</span></td><td>数字资产/加密不是 HSBC 的强项</td><td>17 组人物中没有人为“加密”换私行</td><td><b>不建</b>；如需，外购 Avaloq Crypto Assets Platform 一类。</td></tr>
+</table></div>
+
+<h3>6.4 与 Avaloq / Aladdin / Addepar 的边界</h3>
+<div class="tw"><table>
+<tr><th style="width:16%">能力</th><th style="width:18%">Avaloq</th><th style="width:18%">Aladdin</th><th style="width:18%">Addepar</th><th>HSBC 的姿态</th></tr>
+<tr><td>核心账务/IBOR</td><td><span class="tag t-pub">强</span></td><td><span class="tag t-weak">不做</span></td><td><span class="tag t-part">聚合强</span></td><td>迁移/复用；M08 买/合作，不自建同款</td></tr>
+<tr><td>风险/组合分析</td><td><span class="tag t-part">中</span></td><td><span class="tag t-pub">强</span></td><td><span class="tag t-pub">强</span></td><td>买/沿用 Aladdin；不自建</td></tr>
+<tr><td>held-away 聚合/穿透</td><td><span class="tag t-part">中</span></td><td><span class="tag t-pub">强</span></td><td><span class="tag t-pub">最强</span></td><td>合作 feed；M07 只做“义务相关”资产</td></tr>
+<tr><td>多辖区税务计算/申报</td><td><span class="tag t-weak">薄（CN 2/HK 0）</span></td><td><span class="tag t-weak">只做优化</span></td><td><span class="tag t-weak">不做</span></td><td><b>自建 M13（CN/HK 先）</b>；这是防御核心</td></tr>
+<tr><td>家族/授权/权利图</td><td><span class="tag t-part">字段级</span></td><td><span class="tag t-weak">无</span></td><td><span class="tag t-part">household 级</span></td><td><b>自建 M02/M03/M05</b>；这是收入核心</td></tr>
+<tr><td>私人股权/Pre-IPO 质押</td><td><span class="tag t-part">Lombard 商品</span></td><td><span class="tag t-weak">无</span></td><td><span class="tag t-weak">无</span></td><td><b>自建 M06 + 合作估值</b>；这是最高 WTP</td></tr>
+<tr><td>数字资产</td><td><span class="tag t-pub">强（2022 生产）</span></td><td><span class="tag t-weak">—</span></td><td><span class="tag t-weak">—</span></td><td>不建；如需外购</td></tr>
+</table></div>
+<p class="src">注：Avaloq / Aladdin / Addepar 的能力判断与税务辖区覆盖（CN 2 / HK 0）沿用旧版《独有能力判定》的口径，本版未重新向厂商核实；正式对外引用前须以厂商最新产品文档复核。</p>
+
+<div class="verdict"><b>旧版的“唯一独有”结论，在“厂商功能”层面成立；在“客户付费”层面不成立。</b>客户不会为“又一个税务引擎”换银行，但会为“不卖股也能拿到钱”“我失能后我妻子知道谁能决定”“我的家族结构不会被记错”付钱。<b>架构的任务，是把这三句话变成可交付、可证明的模块。</b></div>
+
+<h2>§7 建设顺序：三个波次，一个“最小可交付核心”</h2>
+
+<h3>7.1 波次划分的原则</h3>
+<ul>
+<li><b>先建“变化时刻”的地基</b>：授权、结构、权利、私人股权、身份、税务、证据——这七件事决定客户是否在关键时刻留下。</li>
+<li><b>商品模块只集成，不自建</b>：IBOR、交易、支付、风险分析，能用现有/合作的就不要重写。</li>
+<li><b>每个波次都必须能独立交付一个客户结果</b>：不是“建完一个层”，而是“能让一类客户完成一件事”。</li>
+<li><b>证据与数据平台先行</b>：没有 M16/M17，后面的 T1 模块无法向监管/客户证明。</li>
+</ul>
+
+<div class="tw"><table>
+<tr><th style="width:10%">波次</th><th style="width:16%">主题</th><th style="width:34%">建设 / 集成</th><th style="width:20%">客户结果</th><th>依赖</th></tr>
+<tr><td><b>Wave 1</b><br>0–12 个月</td><td><b>信任与流动性核心</b></td><td><b>自建：</b>M01 客户/家庭、M03 授权、M04 实体、M05 权利、M06 私人股权、M10 信贷、M12 身份、M13 税务（CN/HK）、M14 义务、M16 证据、M17 数据。<br><b>集成：</b>M08 IBOR、M09 交易、M11 支付。<br><b>试点：</b>M02 家族治理（3–5 个家族）。</td><td>“我知道谁有权、我有什么、我能不能不卖股拿到钱、我在两个辖区各要做什么。”</td><td>M16/M17 必须先于 M05/M06/M13；M01/M03 必须先于 M02。</td></tr>
+<tr><td><b>Wave 2</b><br>12–24 个月</td><td><b>家族与规模化</b></td><td><b>自建：</b>M02 家族治理全量、M07 资产/负债、M15 案件、M18 AI/监督。<br><b>集成：</b>M09/M11 高级能力、外部估值/受托人/税务伙伴。</td><td>“我的家族结构、下一代、教育/养老/慈善都能在一个视图里被服务。”</td><td>M02 依赖 M01/M03/M04/M05；M18 依赖 M16/M17。</td></tr>
+<tr><td><b>Wave 3</b><br>24–36 个月</td><td><b>体验与生态</b></td><td><b>自建：</b>X1 客户/家庭门户、X3 家办控制台、X4 外部顾问门户。<br><b>合作：</b>Aladdin/Addepar 类分析、数字资产（如需）、外部服务网络。</td><td>“客户、RM、律师/会计师/受托人可以在同一个案件里协作，且各自只看到该看的。”</td><td>X1/X3/X4 依赖 M03 的同意范围与 M16 的证据链。</td></tr>
+</table></div>
+
+<h3>7.2 最小可交付核心（Minimum Lovable Core）</h3>
+<div class="shadow">
+<p class="story">如果只能做一件事，做这个：<b>让一个跨境家族在“授权变化 + 资金变化”的两个时刻，得到一份可执行、可证明的答案。</b></p>
+<ul>
+<li><b>输入：</b>家族六个人、两个辖区、三个实体、一笔私人股权、一笔到期税负。</li>
+<li><b>输出：</b>谁有权指示；哪些资产可质押/可花；未来 90 天有哪些义务；每一条的依据与责任人。</li>
+<li><b>最小模块集：</b>M01 + M03 + M04 + M05 + M06 + M10 + M12 + M13（CN/HK）+ M14 + M16 + M17。</li>
+<li><b>不做：</b>全量风险分析、全量 held-away 聚合、数字资产、通用 AI 助手、全渠道门户。</li>
+</ul>
+<p class="story"><b>这个核心一旦成立，M02（家族治理）、M07（资产）、M15（案件）、M18（AI）才有意义；否则它们只是更贵的报表。</b></p>
+</div>
+
+<h3>7.3 明确不建的东西</h3>
+<div class="tw"><table>
+<tr><th style="width:26%">不建</th><th style="width:30%">为什么</th><th>替代</th></tr>
+<tr><td>自建风险分析/因子模型</td><td>Aladdin 30 年飞轮；客户不会为“另一个风险引擎”换银行</td><td>沿用/外购 Aladdin；HSBC 现有集成交给 M08 消费</td></tr>
+<tr><td>全量 held-away 聚合器</td><td>Addepar 500+ feed、$8tn+；自建是重复投入</td><td>合作 feed；M07 只做“与义务/权利相关”的资产</td></tr>
+<tr><td>数字资产/加密交易平台</td><td>Avaloq 2022 已生产运行；17 组人物无人为此换私行</td><td>如需，外购</td></tr>
+<tr><td>通用 LLM Copilot</td><td>Agent Connect / JPM Coach 已产品化；自建同款是 2027 年的行业底座</td><td>买底座；自建只做“引用溯源 + 顾问监督”的差异层</td></tr>
+<tr><td>大众市场 onboarding</td><td>不是私行；会稀释服务密度</td><td>集团零售/财富平台</td></tr>
+</table></div>
+
+<h2>§8 商业案例：每个模块怎么赚钱、怎么省钱</h2>
+
+<h3>8.1 价值桥</h3>
+<div class="tw"><table>
+<tr><th style="width:16%">价值杠杆</th><th style="width:22%">模块</th><th style="width:20%">KPI</th><th style="width:22%">假设（待验证）</th><th>验证方式</th></tr>
+<tr><td><b>顾问/家办费</b></td><td>M02、M03、M05、M13</td><td>每家族年费、附加率、留存率</td><td>客户愿意为“治理 + 协调 + 证明”支付外部律师/会计师费用的 10–30%</td><td>10–15 个家族访谈；对比现有外部顾问账单</td></tr>
+<tr><td><b>信贷利差</b></td><td>M06、M10</td><td>授信额、利用率、利差、追保率</td><td>私人股权质押/卖方贷款可带来 100–300bps 利差（示意，非报价）</td><td>信贷委员会；3 个试点客户</td></tr>
+<tr><td><b>交易/FX</b></td><td>M09、M11</td><td>交易量、FX 利差、客户渗透率</td><td>基础能力（table stakes）；不指望溢价，靠体验与额度</td><td>现有收入基线</td></tr>
+<tr><td><b>留存/钱包份额</b></td><td>M01、M03、M12、M16</td><td>身故/离婚/迁移后的流失率、AUM 份额</td><td>把“接收人”提前建档，可把相关流失率降低 20–30%（假设）</td><td>历史流失回溯；RM 访谈</td></tr>
+<tr><td><b>成本-to-serve</b></td><td>M14、M15、M17、M18</td><td>RM/PA 工时、错误率、对账差异</td><td>手工合并/追件/对账工时降低 20–30%（假设）</td><td>时间动作研究；试点前后对比</td></tr>
+<tr><td><b>风险避免</b></td><td>M14、M16</td><td>监管罚款、重述、客户投诉</td><td>可证明的 as-of/证据链减少“无法自证”事件</td><td>合规/审计案例复盘</td></tr>
+</table></div>
+<p class="src"><b>以上数字均为示意假设，不是预测或报价。</b>正式商业案例须用 HSBC 内部客户分布、AUM、信贷利差、RM 工时与流失数据替换。</p>
+
+<h3>8.2 收入模块如何养成本模块</h3>
+<div class="shadow">
+<p class="story"><b>一个简化的价值流：</b>M06/M10 的信贷利差 + M02/M03/M05/M13 的顾问/协调费 → 覆盖 M01/M07/M08/M09/M11/M14/M15/M16/M17 的成本 → 剩余部分才是系统的投资回报。<b>如果只建 T3 的成本模块，系统会变成“更贵的后台”；如果只建 T1 的收入模块，交付会靠人肉，无法规模化。</b></p>
+<p class="story"><b>因此，预算不应该按“模块”切，而应该按“客户结果”切：</b>“让一个 Pre-IPO 创始人完成一次不卖股的流动性安排”需要 M05+M06+M10+M12+M13+M16+M17 七个模块；单独给 M06 预算，是建不出来的。</p>
+</div>
+
+<h3>8.3 定价思路（待客户验证）</h3>
+<div class="tw"><table>
+<tr><th style="width:19%">服务</th><th style="width:22%">定价方式</th><th style="width:20%">示意量级（非报价）</th><th style="width:18%">锚点</th><th>风险</th></tr>
+<tr><td>家族治理/传承项目</td><td>年度 retainer 或项目制</td><td>US$50k–250k / 年 / 家族，或 5–15bps</td><td>律师/家族顾问/独立家办</td><td>客户会问“你和律师的区别”；必须用“执行 + 记录 + 证明”回答</td></tr>
+<tr><td>私人股权质押/卖方贷款</td><td>利差 + 安排费 + 承诺费</td><td>100–300bps 利差 + 0.5–1.5% 安排费</td><td>投行/私行/商业银行</td><td>估值折扣、追保、集中度；不能把纸面当市价</td></tr>
+<tr><td>税务协调</td><td>打包进顾问费，或按辖区项目制</td><td>US$20k–100k / 辖区 / 年，或打包</td><td>四大/税务律师</td><td>不能构成税务意见；边界必须写进合同</td></tr>
+<tr><td>合并报告/家庭视图</td><td>打包进关系定价</td><td>不单列；计入顾问费/关系定价</td><td>Addepar/私行报表</td><td>客户认为“应该有”；不要单列收费</td></tr>
+</table></div>
+<p class="src">以上区间为<b>示意假设</b>，用于讨论“愿意付多少”的量级，不是 HSBC 的实际定价或信贷政策；须用内部定价、信贷委员会与客户访谈替换。</p>
+
+<h2>§9 风险与验证：什么会推翻这份架构</h2>
+
+<h3>9.1 五类风险</h3>
+<div class="tw"><table>
+<tr><th style="width:16%">风险</th><th style="width:34%">表现</th><th>缓解</th></tr>
+<tr><td><b>需求风险</b></td><td>客户说“很重要”，但不肯付费；或者只在出事后才需要</td><td>用“付费意愿”而非“满意度”做访谈；先卖 3–5 个试点，不做全量建设</td></tr>
+<tr><td><b>建设风险</b></td><td>家族/授权/权利的语义太复杂，越建越像咨询项目</td><td>先锁定 3 个辖区、10 个家族、5 类事件；用“可执行 + 可证明”做验收</td></tr>
+<tr><td><b>监管风险</b></td><td>税务计算被理解为税务意见；跨境数据/隐私违规</td><td>只做计算/协调，不做意见；PIA；辖区法律顾问逐条验收</td></tr>
+<tr><td><b>数据风险</b></td><td>私人股权估值不可靠；家族成员数据不完整；同意范围错误</td><td>估值委员会；数据质量 KPI；同意范围默认最小可见</td></tr>
+<tr><td><b>竞争风险</b></td><td>Avaloq Mosaic Tax Engine 交付并覆盖 CN/HK；Aladdin/Addepar 向下延伸</td><td>窗口期内把“家族/授权/私人股权”做成客户关系壁垒，而不是只做税务</td></tr>
+</table></div>
+
+<h3>9.2 上线前必须做的验证</h3>
+<ol>
+<li><b>10–15 个客户访谈</b>：每个 T1 模块至少 3 个客户；问“你上次为这件事付了多少钱、付给谁”，不问“你觉得重不重要”。</li>
+<li><b>5 场 RM/PA 工作坊</b>：用真实案件走一遍“授权变化/资金变化/结构变化”，记录系统缺什么、人补了什么。</li>
+<li><b>3 个辖区的税务/法律逐条验收</b>：CN/HK/SG 先做；UK/CH/AE 第二阶段。</li>
+<li><b>3–5 个试点家族</b>：至少一个 Pre-IPO、一个家族企业、一个跨境家庭；用 90 天交付一个可证明的结果。</li>
+<li><b>成本-to-serve 基线</b>：先测当前 RM/PA 工时、对账差异、错误率，再谈 ROI。</li>
+</ol>
+
+<h3>9.3 什么情况下应推翻这份架构</h3>
+<ul>
+<li>如果客户访谈显示 T1 模块的付费意愿低于 T3（即客户不愿为治理/流动性付溢价），则收入模型需重写。</li>
+<li>如果 Avaloq Mosaic 在 12 个月内交付 CN/HK 税务并达到可用，则 M13 的独有性降级，架构重心应转向 M02/M03/M06。</li>
+<li>如果 HSBC 内部数据显示 80% 的客户是 US$5m 以下——即 BCG 所说的 <b>structurally underserved</b> 客群——则 §4 的模块优先级需整体下移，T1 的“家族治理”要让位于“低成本服务”。</li>
+<li>如果监管认定“私人股权质押”不可做或资本占用过高，则 M06/M10 的收入假设不成立。</li>
+</ul>
+
+<h2>§10 结论：一句话的架构</h2>
+
+<div class="verdict"><b>HSBC 下一代 Private Bank Core System 不是“更好的账户系统”，而是一个“家族操作系统”：它知道你是谁、你有什么、谁有权决定、下一步必须做什么、以及怎么证明。</b><br>
+三个引擎：<b>流动性</b>（M06/M10）、<b>连续性</b>（M02/M03/M05）、<b>合规性</b>（M12/M13/M14/M16）。<br>
+三种付费：<b>客户为结果付费</b>（顾问/信贷/税务协调）、<b>客户为留存付费</b>（家庭视图/授权/证据）、<b>银行为成本与风险付费</b>（数据/工作流/AI）。</div>
+
+<p class="story"><b>对“每一个模块有多么被客户需要、客户有多么愿意付钱”的最终回答：</b>最需要的是授权、合规、证据、数据一致性；最愿意付钱的是流动性、家族治理、税务协调、私人股权。两者不是同一张清单。<b>架构的价值，是把“最愿意付钱”的六个模块，建立在“最需要但不能收费”的十二个模块之上。</b></p>
+
+<p class="story">如果用一句话回答“先建什么”：<b>先建“授权 + 结构 + 权利 + 私人股权 + 身份 + 税务 + 证据”这条链，让一个跨境家族在“失能/IPO/迁移”三个时刻得到可执行、可证明的答案。</b>其余模块，能买就买，能合作就合作，不要自建。</p>
+
+<h2>附录 A：模块索引</h2>
+<div class="tw"><table>
+<tr><th style="width:8%">ID</th><th style="width:24%">模块</th><th style="width:10%">层</th><th style="width:8%">层级</th><th>一句话</th></tr>
+<tr><td>M01</td><td>客户/家庭主数据</td><td>L1</td><td>T3</td><td>人、家庭、角色、关系、KYC</td></tr>
+<tr><td>M02</td><td>家族图谱与治理</td><td>L1</td><td>T1</td><td>分支、宪章、委员会、二代、慈善</td></tr>
+<tr><td>M03</td><td>同意/授权/争议</td><td>L1</td><td>T1</td><td>五角色、四权利、主语切换</td></tr>
+<tr><td>M04</td><td>实体与结构图</td><td>L2</td><td>T2</td><td>信托/基金/控股/SPV、穿透</td></tr>
+<tr><td>M05</td><td>权利与所有权</td><td>L2</td><td>T1</td><td>经济/投票/处分、双 AUM</td></tr>
+<tr><td>M06</td><td>私人股权与 Pre-IPO</td><td>L2</td><td>T1</td><td>估值、质押、锁定期、用途</td></tr>
+<tr><td>M07</td><td>资产/负债登记</td><td>L2</td><td>T3</td><td>证券、房产、艺术、私股、债务</td></tr>
+<tr><td>M08</td><td>组合与 IBOR</td><td>L3</td><td>T3</td><td>多托管、业绩、归因</td></tr>
+<tr><td>M09</td><td>交易/执行/预检</td><td>L3</td><td>T3</td><td>OMS、窗口、适当性、分配</td></tr>
+<tr><td>M10</td><td>信贷与流动性</td><td>L3</td><td>T1</td><td>Lombard、按揭、卖方贷款、资本承诺</td></tr>
+<tr><td>M11</td><td>支付与外汇</td><td>L3</td><td>T3</td><td>多币种、跨境、结算</td></tr>
+<tr><td>M12</td><td>多辖区身份状态</td><td>L4</td><td>T2</td><td>税务/移民/证券/制裁，as-of</td></tr>
+<tr><td>M13</td><td>税务计算与申报</td><td>L4</td><td>T1</td><td>预提、抵扣、CRS/FATCA、申报</td></tr>
+<tr><td>M14</td><td>义务/披露/报告</td><td>L4</td><td>T3</td><td>交易所、监管、信托、法院</td></tr>
+<tr><td>M15</td><td>案件与工作流</td><td>L5</td><td>T3</td><td>跨模块、依赖、SLA、责任人</td></tr>
+<tr><td>M16</td><td>文件/契约/证据</td><td>L5</td><td>T3</td><td>版本、生效链、e-sign、审计</td></tr>
+<tr><td>M17</td><td>客户数据平台与集成</td><td>L6</td><td>T4</td><td>单一事实源、事件账本、API/feed</td></tr>
+<tr><td>M18</td><td>AI Copilot 与监督</td><td>L6</td><td>T4</td><td>检索、起草、质检、引用溯源</td></tr>
+</table></div>
+
+<h2>附录 B：术语</h2>
+<div class="tw"><table>
+<tr><th style="width:20%">术语</th><th>含义</th></tr>
+<tr><td><b>N / W</b></td><td>Need（需求强度）/ Willingness to pay（付费意愿），1–5 序数评分；不是金额。</td></tr>
+<tr><td><b>T1–T4</b></td><td>T1 客户愿付溢价/信贷；T2 打包/留存；T3 必须有但不能单列收费；T4 纯基础设施。</td></tr>
+<tr><td><b>双 AUM</b></td><td>受益口径（beneficial）与控制口径（control）并存，不合并成一个数。</td></tr>
+<tr><td><b>as-of</b></td><td>按任意历史时点重放当时的规则、文件、状态与结论。</td></tr>
+<tr><td><b>五角色 / 四权利</b></td><td>客户/账户持有人/受益人/决策人/监护人；信息共享/决策代理/监护/受益。</td></tr>
+</table></div>
+
+<div class="foot">
+<b>依据：</b><a href="../01_personas/nextgen-pb-real-people-cases.html">nextgen-pb-real-people-cases v3.2</a>（17 组人物、53 张表）；《独有能力判定：HSBC 新一代 PB 系统相对 Avaloq 与 Aladdin》v1.0；16 份机构报告交叉核对（BCG <i>Global Wealth Report 2026</i>、McKinsey <i>中国金融业 CEO 季刊</i> 2021 春、McKinsey <i>Technology Trends Outlook 2026</i>、HSBC <i>Global Entrepreneurial Wealth Report 2025</i> 等，引证出处与页码见 §0.5）；Avaloq Mosaic / Aladdin Wealth / Addepar 公开能力；HSBC 私行公开定位。<br>
+<b>性质：</b>内部架构提案，不构成税务、法律或投资建议；所有金额、比例、评分均为序数/示意，须经客户访谈、RM 工作坊与税务/法律组验证。<br>
+<b>版本：</b>v1.1 · 2026-10-22 · 与 17 组人物场景集 v3.2 配套；本版新增 §0.5 外部原文背书与报告术语对齐。English version: <a href="nextgen-pb-demand-driven-architecture-en.html">nextgen-pb-demand-driven-architecture-en.html</a>。<br>
+<b>版本差异：</b>v1.0 → v1.1：新增三处原文级引用（BCG p.19 system architects、McKinsey p.80 端到端企业家包、McKinsey Tech Trends p.27 agentic AI 试点期）；采用报告术语 <b>system architects / cross-border tax and legal navigation / liquidity solutions / AI-first / structurally underserved / decoupled data layer</b>；修正簇 1 的“空白”表述为“现有能力的产品化”；M06/M10 增补 liquidity solutions；原则 7 改为“人在回路 + AI-first 流程”。实质分歧（C5–C8）未改动，待决策。
+</div>
+
+</div>
+</body>
+</html>
