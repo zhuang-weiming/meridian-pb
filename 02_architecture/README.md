@@ -1,30 +1,37 @@
 # 02_architecture — 需求驱动的 HSBC 下一代 Private Bank 功能架构
 
-本目录保存 **v1.2《HSBC 下一代 Private Bank Core System：需求驱动的功能架构》**。
+本目录保存 **v1.3《HSBC 下一代 Private Bank Core System：需求驱动的功能架构》**。
 
 - 主文件（中文）：[`nextgen-pb-demand-driven-architecture.html`](nextgen-pb-demand-driven-architecture.html)
 - **English version**：[`nextgen-pb-demand-driven-architecture-en.html`](nextgen-pb-demand-driven-architecture-en.html)
 - 需求依据：[`../01_personas/nextgen-pb-real-people-cases.html`](../01_personas/nextgen-pb-real-people-cases.html)（17 组人物）
 - 外部核对：16 份机构报告（引证出处与页码见主文件 §0.5；交叉核对文档已移除，待决策清单 C5–C8 内联于主文件）
-- 能力对照：本版 **§6 与 Avaloq / Aladdin / Addepar 的边界**（历史参考：《独有能力判定》v1.0）
-- 延伸阅读：[`nextgen-pb-pain-deepdive-ubs-benchmark.html`](nextgen-pb-pain-deepdive-ubs-benchmark.html)（痛点五层拆解、15 条增量痛点、HSBC vs UBS 能力对标，v0.1）
+- 能力对照：本版 **§6 与 Avaloq / Aladdin / Addepar / UBS 的边界**——Avaloq 是平替对象，Aladdin/Addepar 是组件，UBS 是能力标尺
 - 性质：**内部架构提案，非营销材料**，不构成税务、法律或投资建议。
 
 ## 这份文档做什么
 
 从 17 组客户痛点出发，而不是从竞品功能清单出发，回答三个问题：
 
-1. **客户为什么痛？** 17 组人物 → 8 个 Job（看见 / 行动 / 归属 / 合规 / 变现 / 传承 / 证明 / 服务）。
+1. **客户为什么痛？** 17 组人物 → 8 个 Job（看见 / 行动 / 归属 / 合规 / 变现 / 传承 / 证明 / 服务）→ 25 条痛点（原有 10 条 + 增量 15 条）。
 2. **客户愿意为哪个痛付钱？** 区分 T1 客户付溢价/信贷、T2 打包/留存、T3 必须有但不能单列收费、T4 纯基础设施。
 3. **系统应该长什么样？** 7 层、18 个模块；建设顺序与风险验证留待下一阶段。
 
 ## 核心结论
 
-- **需求强度 ≠ 付费意愿。** 最痛的是授权、合规、证据、数据一致性；最愿意付钱的是流动性、家族治理、税务协调、私人股权。
+- **需求强度 ≠ 付费意愿，也不等于不可逆性。** 最痛的是授权、合规、证据、数据一致性；最愿意付钱的是流动性、家族治理、税务协调、私人股权；最不可逆的是失能/身故与文件生效链。
 - **Avaloq 必须被平替。** 它的强项是账务、结算、税表工程，恰好不是客户付费的地方；客户付费的五个时刻（授权、家族、私股、税务协调、证据）落在它的主键之外。平替的验收标准是：关掉 Avaloq 之后，8 个 Job 仍能交付。
 - **六个收入模块：** M02 家族治理、M03 授权/争议、M05 权利矩阵、M06 私人股权、M10 信贷与流动性、M13 税务计算。
+- **UBS 对标结论：** 差距不是“有没有”，是“产品化/平台化/一体化”；补 G1 目标规划、G2 慈善平台、G3 私募运营，G4/G6 用合作与服务设计补齐。
 - **十二个成本/地基模块：** 客户主数据、实体结构、资产登记、IBOR、交易、支付、身份状态、义务披露、案件、证据、数据平台、AI。
 - **不建：** 自建风险分析（买 Aladdin）、全量 held-away 聚合（合作 Addepar）、通用 AI Copilot 底座（买平台）、大众市场 onboarding；数字资产/加密暂不纳入（含读侧），如需外购。
+
+## v1.3 变更（相对 v1.2）
+
+- **§2 扩为 25 条痛点**：10 条逐条下钻（细分场景/失败链/系统必须回答/验收）、15 条增量痛点（Chinese Wall、probate/紧急流动性、POA 过期、退出税、制裁/PEP、capital call、deepfake、费用披露等）、痛感指数 PI 重排（#1/#4 并列第一，#8 升到第 2）。
+- **§6 扩为“Avaloq 平替 + UBS 能力标尺”**：新增 6.4，只保留 P0/P1 五项——G1 目标规划、G2 慈善平台、G3 私募运营、G4 FO 外包/合并报告、G6 女性财富常设细分；G5 艺术品、G7 白标、G8 美国在岸按 P2 不展开。
+- **对象与模块同步**：Goal/FundingRatio、ProbateCase、AuthorityDocument、GroupExposure/WallRule、ScreeningAlert、FraudCase、Commitment/CapitalCall、Foundation/Grant 等对象挂到 M02/M03/M06/M10/M12/M13/M14/M16/M17；横切层增加“信息隔离（Chinese Wall）”。
+- **合并独立分析稿**：上一轮的痛点深挖与 UBS 对标内容已全部并入主文件 §2 与 §6.4，不再保留独立文档。
 
 ## v1.2 变更（相对 v1.1）
 

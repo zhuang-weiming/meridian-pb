@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HSBC Next-Generation Private Bank Core System: A Demand-Driven Functional Architecture (v1.2)</title>
+<title>HSBC Next-Generation Private Bank Core System: A Demand-Driven Functional Architecture (v1.3)</title>
 <style>
 :root{
   --ink:#1a1a17; --ink2:#4a4840; --mut:#8a877d;
@@ -96,12 +96,12 @@ li{margin:4px 0}
 
 <header>
 <h1>HSBC Next-Generation Private Bank Core System: A Demand-Driven Functional Architecture</h1>
-<div class="sub">Deriving 18 modules, willingness to pay, and the Avaloq replacement boundary from 17 client pain points</div>
+<div class="sub">Deriving 18 modules, 25 pains, willingness to pay, and the Avaloq/UBS boundary from 17 client pain points</div>
 <div class="meta">
-  <span><b>Version</b> v1.2</span>
-  <span><b>Date</b> 2026-10-22</span>
+  <span><b>Version</b> v1.3</span>
+  <span><b>Date</b> 2026-10-23</span>
   <span><b>Demand basis</b> nextgen-pb-real-people-cases v3.2 (17 personas)</span>
-  <span><b>Capability benchmark</b> §6 of this version (Avaloq / Aladdin / Addepar)</span>
+  <span><b>Capability benchmark</b> §6 of this version (Avaloq / Aladdin / Addepar / UBS)</span>
   <span><b>External cross-check</b> 16 institutional reports (see §0.5)</span>
   <span><b>Chinese</b> <a href="nextgen-pb-demand-driven-architecture.html">中文版</a></span>
   <span><b>Nature</b> Internal architecture proposal, not marketing material</span>
@@ -176,7 +176,7 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 
 <div class="verdict"><b>Placed side by side, the eight Jobs show that pain concentrates in four moments of change: identity change (migration/IPO), authority change (incapacity/death/dispute), liquidity change (liquidity/credit), and structure change (trust/entity/separation).</b> A next-generation core system organised only around products will miss all four moments; organised around change, it can show up at each one.</div>
 
-<h2>§2 Need intensity: which pain is deepest, most frequent, least substitutable</h2>
+<h2 id="s2">§2 Need intensity: 25 pains, three fractures and a re-ranking</h2>
 
 <h3>2.1 Pain is not evenly distributed</h3>
 <p class="story">Across the 17 cases, what really keeps clients awake is not day-to-day allocation but four kinds of <b>moment of change</b>: <b>identity change</b> (migration, IPO, delisting, nationality), <b>authority change</b> (incapacity, death, dispute, succession), <b>liquidity change</b> (monetisation, pledge, credit, tax due), and <b>structure change</b> (trust, entity, separation, foundation). <b>Day-to-day allocation is low-frequency pain; moments of change are high-frequency fear.</b> A next-generation core system that can only operate in the day-to-day will be absent on the day the client needs the bank most.</p>
@@ -195,17 +195,130 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <tr><td>10</td><td><b>Thin markets / family control: market cap ≠ sellable cash</b></td><td>J1 / J5</td><td>15 Neame, 10 Premji</td><td><span class="score s3">3</span></td><td>Few clients, but “control versus liquidity” is a universal issue for family-business clients.</td></tr>
 </table></div>
 
-<h3>2.2 What the five deepest pains require the system to do</h3>
+<h3>2.2 Five layers: from story to requirement</h3>
+<p class="lead">Written as an “event”, a pain is only a story. Written to the fifth layer, it becomes a requirement. All ten pains below are decomposed the same way.</p>
+<div class="tw"><table>
+<tr><th style="width:14%">Layer</th><th style="width:30%">Question</th><th style="width:30%">Example: #1 incapacity/death</th><th>Architecture implication</th></tr>
+<tr><td><b>L1 Event</b></td><td>What happened</td><td>The principal client is incapacitated or dies; the family needs cash, authority and answers</td><td>A persona scenario, not a requirement</td></tr>
+<tr><td><b>L2 Fracture</b></td><td>Which layer broke</td><td>Subject fracture (the deceased is still the principal client) + time fracture (documents/authority have no effective date)</td><td>Determines how the object is built</td></tr>
+<tr><td><b>L3 Failure chain</b></td><td>How it is fixed today</td><td>The bank learns 3–30 days later → freeze → RM calls lawyers → notarisation/translation → weeks or months</td><td>Determines the current substitute and its cost</td></tr>
+<tr><td><b>L4 Cost</b></td><td>Who pays what</td><td>The family has no cash flow; the bank loses the client; dispute/litigation; regulatory inquiry</td><td>Determines N/W and who pays</td></tr>
+<tr><td><b>L5 Requirement</b></td><td>What the system must answer</td><td>Five roles, documents in force, affected assets, payments that can continue, who may instruct, dispute freeze</td><td>Determines modules, objects and acceptance</td></tr>
+</table></div>
+
+<h3>2.3 Ten pains drilled down: scenarios, failure chains and acceptance</h3>
+<div class="tw"><table>
+<tr><th style="width:4%">#</th><th style="width:13%">Pain</th><th style="width:30%">Newly identified scenarios</th><th style="width:20%">Failure chain</th><th style="width:18%">What the system must answer</th><th>Acceptance / modules</th></tr>
+<tr><td>1</td><td><b>Incapacity/death</b></td><td>No will / unprobated will; POA unregistered or foreign POA rejected; trustee changed; beneficiaries disagree; cross-border probate; family decision-maker not modelled</td><td>Event → bank learns 3–30 days later → freeze → no family cash flow → lawyers/notarisation → months → attrition</td><td>Five roles; documents in force today; affected assets; payments that can continue; who may instruct; dispute freeze</td><td>T+0 authority snapshot; four-part answer; 12-month retention<br><b>M03/M16/M12/M14</b></td></tr>
+<tr><td>2</td><td><b>Cross-border tax</b></td><td>Mid-year residency switch; non-dom/remittance; exit tax; double taxation; CRS inconsistency; transparent entities; filing responsibility</td><td>Notification → email → adviser → Excel → error/omission → penalty/look-back → attrition</td><td>Which jurisdictions, from which date, which rulebook, who files; apportionment; validity of self-certification</td><td>Any date replayable; filing pack deliverable; change triggers<br><b>M12/M13/M14</b></td></tr>
+<tr><td>3</td><td><b>Multiple registries</b></td><td>A/H, ADR/GDR, share classes; multi-custody/CSD/shells; pledge/lending/derivatives; corporate actions; lot-level windows; acting in concert</td><td>No reconciliation → wrong concentration → missed pre-trade check → breach/disclosure → inquiry</td><td>Same economic interest? Combined size? Window/lock-up/disclosure per lot? Who controls?</td><td>Reconciled aggregate; lot-level rules traceable<br><b>M05/M07/M08/M09/M14</b></td></tr>
+<tr><td>4</td><td><b>Chain of effect</b></td><td>Multiple trust deed versions; court order vs family agreement vs resolution; resolution not served; multilingual/legalisation; e-sign vs paper; “irrevocable” but amendable</td><td>Act on old version → unauthorised → litigation/regulation → compensation</td><td>Which version today; who signed and under what power; priority on conflict; clause relied on</td><td>Historic “effective document set” replayable; instruction cites clause; conflict ruling<br><b>M16/M14/M03</b></td></tr>
+<tr><td>5</td><td><b>Family graph</b></td><td>Blood/in-law/cousin/step/adopted/surrogate/unborn; key people; beneficiary classes; branches/councils; privacy tiers; cross-border marriage/same-sex partners</td><td>Missed beneficiary → KYC/distribution error → dispute → attrition</td><td>Who is who; who benefits; who has authority; who conflicts; who may see what</td><td>100% known beneficiaries; clause traceability; consent-scoped visibility<br><b>M01/M02/M03/M05</b></td></tr>
+<tr><td>6</td><td><b>Pre-IPO</b></td><td>Rounds/preferred/options/ESOP; lock-up/window/quiet period; pledge/founder loan; tax; control; divorce/inheritance/nominee</td><td>Needs cash → sells shares → loses control/tax; or bank will not lend → attrition</td><td>Paper/pledgeable/spendable; sell or pledge today; after-tax proceeds; cash without selling</td><td>Three layers agree; full pledge chain; after-tax scenarios<br><b>M06/M10/M05/M13</b></td></tr>
+<tr><td>7</td><td><b>Unlisted valuation</b></td><td>Methods/discounts; earn-out; orphan/thin market; collateral enforcement/pre-emption; stale valuation; non-financial assets</td><td>Overvalue → lend too much → margin call → forced sale → relationship breaks</td><td>Value, basis, refresh; lendable amount; margin-call trigger; exit route</td><td>Valuation governance; margin call replayable; enforceable disposal<br><b>M06/M10/M07/M16</b></td></tr>
+<tr><td>8</td><td><b>Non-principal clients</b></td><td>Women as independent clients; longevity/incapacity/care; next-gen education/succession; minors/unborn/step; widow/divorce handover; female founders</td><td>Principal dies → beneficiary never served → competitor takes over → AUM loss</td><td>Independent client? Who benefits/decides? Goals/risk/tax? When does the subject switch?</td><td>Independent onboarding rate; 12-month retention; female AUM share<br><b>M01/M02/M03/X1</b></td></tr>
+<tr><td>9</td><td><b>Manual RM/PA work</b></td><td>Rekeying; document chasing; approvals/dual sign; regulatory calendar; RM departure; time zones</td><td>Missed deadline → penalty/breach; departure → relationship resets</td><td>Who does it, at what step, due when, on what basis, who is next</td><td>Closure/SLA; hours; 30 days after handover<br><b>M15/M14/M16/M17/M18</b></td></tr>
+<tr><td>10</td><td><b>Thin market/control</b></td><td>Small cap/family control/suspension; block-trade discount; shareholder/pre-emption/drag; inheritance split; pledge/concentration</td><td>Mark at market → cannot sell → mismatch → discount</td><td>How much can be sold, at what discount, how soon; control value; pre-emption rights</td><td>T+0/30/365 liquidity tiers; constraints traceable<br><b>M05/M06/M07/M10</b></td></tr>
+</table></div>
+
+<h3>2.4 Three fractures × four moments of change</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">Moment</th><th style="width:26%">Subject fracture (who is who / who has authority)</th><th style="width:26%">Time fracture (which version / which day)</th><th>Rule fracture (which jurisdiction / which rulebook)</th></tr>
+<tr><td><b>Identity change</b><br>migration/IPO/delisting</td><td>#5 family graph; #8 non-principal clients</td><td>#3 lot-level windows; #2 identity switch</td><td>#2 cross-border tax; #7 valuation/tax</td></tr>
+<tr><td><b>Authority change</b><br>incapacity/death/dispute</td><td>#1 five roles/beneficiaries; #5 family decision-maker</td><td>#1 event effect; #4 document version</td><td>#1 cross-border probate; #2 inheritance tax</td></tr>
+<tr><td><b>Liquidity change</b><br>liquidity/credit</td><td>#6 control; #10 shareholder agreement</td><td>#6 lock-up/window; #7 stale valuation</td><td>#2 exit tax; #7 cross-border collateral</td></tr>
+<tr><td><b>Structure change</b><br>trust/entity/separation</td><td>#5 three boundaries; #8 beneficiaries</td><td>#4 chain of effect; #3 corporate actions</td><td>#2 transparent entities; #10 inheritance split</td></tr>
+</table></div>
+<p class="src">Read across for the moment, down for the fracture. A pain often sits in two cells at once (e.g. #1 is both a subject and a time problem), which is why a single point feature cannot fix it.</p>
+
+<h3>2.5 Re-scoring: the Pain Index (PI)</h3>
+<p class="lead">N answers “how much it is needed”, not “how irreversible it is”. Add <b>C</b> cost of failure (1–5), <b>I</b> irreversibility (1–3), <b>T</b> time concentration (1–2), divided by <b>S</b> substitutability (1–3). <b>PI = C × I × T ÷ S</b>; it ranks, it does not price.</p>
+<div class="tw"><table>
+<tr><th style="width:5%">#</th><th style="width:34%">Pain</th><th style="width:7%">C</th><th style="width:7%">I</th><th style="width:7%">T</th><th style="width:7%">S</th><th style="width:9%">PI</th><th>Rank change</th></tr>
+<tr><td>1</td><td>Incapacity/death: authority and beneficiaries</td><td>5</td><td>3</td><td>2</td><td>2</td><td><b>15</b></td><td>Joint 1st (↑)</td></tr>
+<tr><td>4</td><td>Document versions/court orders/trustee resolutions</td><td>5</td><td>3</td><td>2</td><td>2</td><td><b>15</b></td><td>Joint 1st (↑)</td></tr>
+<tr><td>8</td><td>Women/children/elders: non-principal clients</td><td>4</td><td>3</td><td>2</td><td>2</td><td><b>12</b></td><td>2nd (↑↑)</td></tr>
+<tr><td>2</td><td>Cross-border identity/tax/filing</td><td>5</td><td>2</td><td>2</td><td>2</td><td><b>10</b></td><td>3rd (↓)</td></tr>
+<tr><td>6</td><td>Pre-IPO/private equity</td><td>3</td><td>2</td><td>2</td><td>2</td><td><b>6</b></td><td>4th (↑)</td></tr>
+<tr><td>3</td><td>Multiple registries/ISINs/windows</td><td>5</td><td>2</td><td>1</td><td>2</td><td><b>5</b></td><td>5th (↓)</td></tr>
+<tr><td>5</td><td>Family graph</td><td>5</td><td>2</td><td>1</td><td>2</td><td><b>5</b></td><td>5th (↓)</td></tr>
+<tr><td>7</td><td>Unlisted valuation/seller loans/contingent consideration</td><td>4</td><td>2</td><td>1</td><td>2</td><td><b>4</b></td><td>6th (↓)</td></tr>
+<tr><td>10</td><td>Thin market/family control</td><td>3</td><td>2</td><td>1</td><td>2</td><td><b>3</b></td><td>7th (↑)</td></tr>
+<tr><td>9</td><td>Manual RM/PA work</td><td>2</td><td>1</td><td>1</td><td>2</td><td><b>1</b></td><td>8th (↓)</td></tr>
+</table></div>
+<div class="verdict"><b>The re-ranking changes the build order:</b> make “incapacity/death + chain of effect” a provable state machine first, then make “independent onboarding of non-principal clients” a default capability. Tax remains important, but it is a question of rule depth, not irreversibility. <b>Moving #8 from N4 to 2nd is the most important re-ranking in this round.</b></div>
+
+<h3>2.6 Fifteen additional pains (11–26, P2 #23 omitted)</h3>
+<p class="lead">All fifteen sit in P0/P1 and do not repeat the table above. Each has a root cause, a new object and an owner. P2 items (art, EAM, model explainability) are not expanded in this version.</p>
+<div class="tw"><table>
+<tr><th style="width:4%">#</th><th style="width:23%">Pain</th><th style="width:8%">Job</th><th style="width:13%">Persona anchor</th><th style="width:4%">N</th><th style="width:22%">Root cause (fracture)</th><th style="width:14%">New object</th><th>Owner</th></tr>
+<tr><td>11</td><td><b>Intra-group information barrier / Chinese Wall</b>: group exposure must be aggregated across corporate, markets, private bank and trust, but information cannot cross the wall</td><td>J2/J8</td><td>5 Cheng, 6 Kuok</td><td>4</td><td>Client group ≠ legal entity; wall has direction/time/jurisdiction</td><td>GroupExposure, WallRule</td><td>Cross-cutting + M17 + M03</td></tr>
+<tr><td>12</td><td><b>Marriage/divorce/cohabitation/prenup</b>: marital property regime, whether trust benefits are shared, divorce freeze/split</td><td>J3/J6</td><td>17 He, 4 Li</td><td>3</td><td>Subject fracture: spouse/partner is not a field</td><td>MaritalEvent, Claim</td><td>M01/M03/M16</td></tr>
+<tr><td>13</td><td><b>Minors/unborn/adoption/surrogacy</b>: beneficiary classes, guardianship, trust distributions, education funding</td><td>J3/J6</td><td>17 He, 4 Li, 6 Kuok</td><td>3</td><td>Subject fracture: unborn/not-yet-established relationship</td><td>BeneficiaryClass, Guardianship</td><td>M01/M02/M03</td></tr>
+<tr><td>14</td><td><b>Trustee resolution vs bank execution lag</b>: resolution passed but not received/verified; execution vs trustee liability</td><td>J2/J6</td><td>11 Murdoch, 8 MAF, 5 Cheng</td><td>4</td><td>Evidence fracture: a resolution is not yet a valid instruction</td><td>Resolution, Delegation</td><td>M03/M16</td></tr>
+<tr><td>15</td><td><b>Probate/freeze and emergency liquidity</b>: accounts frozen before probate; funeral/medical/tax/payroll payments; cross-border probate</td><td>J6/J5</td><td>5 Cheng, 11 Murdoch, 17 He</td><td>4</td><td>Time fracture: death and inheritance rights are not synchronised</td><td>ProbateCase, EstateExpense</td><td>M03/M10/M14/M16</td></tr>
+<tr><td>16</td><td><b>Authority document expiry/lapse</b>: POA validity period/territorial limits/bank registration; cannot re-sign after incapacity</td><td>J2/J6</td><td>5 Cheng, 17 He</td><td>4</td><td>Time fracture: authority is not permanent</td><td>AuthorityDocument, Expiry</td><td>M03/M16</td></tr>
+<tr><td>17</td><td><b>Exit tax / inheritance tax / gift tax</b>: departure tax, estate duty, gifts, generational transfer; timing and valuation</td><td>J4</td><td>9 Mittal, 2 Li, 7 Poonawalla</td><td>4</td><td>Rule fracture: tax type changes with identity/time</td><td>TaxEvent, EstatePlan</td><td>M13/M14</td></tr>
+<tr><td>18</td><td><b>CRS/FATCA self-certification change</b>: address/phone/place of birth/residency change; unreasonable self-certification; look-back</td><td>J4</td><td>1 Zhou, 2 Li, 7 Poonawalla, 9 Mittal</td><td>3</td><td>Time fracture: certification expires/degrades</td><td>TaxSelfCert, Indicia</td><td>M12/M13</td></tr>
+<tr><td>19</td><td><b>Sanctions/PEP/adverse media dynamics</b>: existing clients become higher risk; cross-border payment blocking</td><td>J4</td><td>All (esp. 5 Cheng, 8 MAF)</td><td>4</td><td>Rule fracture: lists change daily</td><td>ScreeningAlert, Case</td><td>M12/M14/M15</td></tr>
+<tr><td>20</td><td><b>UBO / economic substance</b>: trust/foundation/shell UBO registers, substance rules, public register vs privacy</td><td>J4/J7</td><td>4 Li, 10 Premji, 8 MAF</td><td>3</td><td>Rule fracture: registration differs by jurisdiction</td><td>UBORecord, SubstanceTest</td><td>M04/M12/M14</td></tr>
+<tr><td>21</td><td><b>Capital calls / commitments</b>: private-fund calls due, default, bridge lending, distributions</td><td>J5</td><td>12 Guy, 13 Sarah, 16 Liang</td><td>3</td><td>Time fracture: commitment and cash are not synchronised</td><td>Commitment, CapitalCall, Distribution</td><td>M06/M10/M11</td></tr>
+<tr><td>22</td><td><b>Margin calls / stale valuation</b>: private-asset valuation, loan-to-value, margin call, forced sale</td><td>J5</td><td>12 Guy, 15 Neame, 16 Liang</td><td>4</td><td>Time fracture: valuation date ≠ risk date</td><td>MarginCall, Valuation</td><td>M06/M10</td></tr>
+<tr><td>24</td><td><b>Charitable foundation payout/impact</b>: 5% payout, grant management, impact reporting, trustee duties</td><td>J6/J4</td><td>10 Premji, 17 He</td><td>3</td><td>Rule fracture: charity law + fiduciary duty</td><td>Foundation, Grant, ImpactReport</td><td>M02/M14/M16</td></tr>
+<tr><td>25</td><td><b>APP fraud / deepfake</b>: voice/video impersonation of client or authorised person; payment fraud; instruction verification</td><td>J2/J8</td><td>All (esp. 3 Zhang Yong, 15 Neame)</td><td>4</td><td>Evidence fracture: identity/intent can be forged</td><td>FraudCase, Verification</td><td>M09/M11/M15/M18</td></tr>
+<tr><td>26</td><td><b>Fee / value-for-money disclosure</b>: bundled fees, third-party remuneration, regulatory disclosure</td><td>J7/J8</td><td>All (esp. 8 MAF)</td><td>3</td><td>Evidence fracture: price and value not visible</td><td>FeeDisclosure</td><td>M14/M16</td></tr>
+</table></div>
+
+<h3>2.7 What the five key additions require (P0/P1)</h3>
+
 <div class="shadow">
-<p class="story"><b>Pain 1 | Authority change.</b> The system must answer: who is the client, who is the account holder, who is the beneficiary, who is the decision-maker, who is the guardian; when incapacity, death or dispute occurs, how the subject switches; which instructions are valid and which require dual signatures. <b>This is not a “relationship field”; it is an authority state machine.</b></p>
-<p class="story"><b>Pain 2 | Cross-jurisdiction compliance.</b> The system must answer: in which jurisdictions is this person tax-resident, from which date, under which rulebook, and who files; before and after an identity change, how the same asset is apportioned and replayed. <b>This is not a “tax table”; it is a state with a timeline.</b></p>
-<p class="story"><b>Pain 3 | Multiple registries of one interest.</b> The system must answer: are these two positions the same economic interest; what is the combined position after aggregating acting-in-concert parties; what windows, lock-ups and disclosure obligations apply on each side. <b>This is not “multi-currency holdings”; it is an economic-interest object above the ISIN.</b></p>
-<p class="story"><b>Pain 4 | Evidence and versions.</b> The system must answer: which version of the trust deed, court order or trustee resolution was in force; what were the beneficiary's rights on that date; under which clause was this distribution made. <b>This is not “document management”; it is the chain of legal effect.</b></p>
-<p class="story"><b>Pain 5 | The family graph.</b> The system must answer: which branches exist, who is key, who benefits, who is a minor, which are charitable entities; who has authority, guardianship or a conflict of interest with whom. <b>This is not “household relationships”; it is a family graph plus three sets of boundaries.</b></p>
+<p class="story"><b>#11 Intra-group information barrier (Chinese Wall)</b>　<span class="tag t-risk">J2/J8</span>　N4</p>
+<p><b>Scenario:</b> the Cheng family is simultaneously a corporate client, private-bank client, trust settlor and controlling shareholder of a listed company; two RMs each know half of the Kuok family. The group must aggregate exposure (credit/concentration/related-party) while investment-bank information cannot flow to the private bank, and vice versa; direction, timing and jurisdictional basis all differ.<br>
+<b>Failure:</b> no aggregation → group exposure understated → credit/concentration out of control; aggregate without walls → information misuse → penalty/reputation.<br>
+<b>Must answer:</b> total exposure across group entities; which information may flow where; which wall version an instruction/credit relied on; who approved an exception.<br>
+<b>Landing:</b> cross-cutting barrier rules + M17 group-exposure feed + M09 hard pre-trade block + M16 evidence + M03 visibility.<br>
+<b>Acceptance:</b> one client group aggregated across four lenses; every cross-wall access has purpose/basis/approval; breaches blocked and logged.</p>
 </div>
 
-<h3>2.3 The counter-intuitive conclusion about need intensity</h3>
-<div class="verdict"><b>The deepest need is often not the need clients will pay most for.</b> Authority, compliance, evidence and data consistency are “something goes wrong without it” needs that clients assume the bank should handle; pre-IPO liquidity, family governance and tax coordination are “better with it” needs for which clients will pay a premium or bear credit cost. <b>The architecture must serve both; the business model must distinguish them.</b></div>
+<div class="shadow">
+<p class="story"><b>#15 Probate/freeze and emergency liquidity</b>　<span class="tag t-risk">J6/J5</span>　N4</p>
+<p><b>Scenario:</b> Cheng Yu-tung dies; probate runs in HK/UK/Cayman at the same time; accounts freeze, but the family must pay funeral, medical arrears, estate tax, payroll and loan interest. A bank that can only “wait for documents” loses the family's cash flow first, then its trust.<br>
+<b>Failure:</b> death → freeze → no family cash → emergency borrowing/asset sales → tax and discounts → relationship breaks.<br>
+<b>Must answer:</b> which accounts are frozen and which payments may be exempted/advanced; who authorises emergency payments; which document/law supports each payment; priority and recovery path.<br>
+<b>Landing:</b> M03 probate state, M10 emergency/estate liquidity, M14 estate tax/deadlines, M16 court documents.<br>
+<b>Acceptance:</b> probate case opened T+1; emergency payment list and authority chain visible; 30-day warning before estate tax due.</p>
+</div>
+
+<div class="shadow">
+<p class="story"><b>#16 Authority document expiry/lapse</b>　<span class="tag t-risk">J2/J6</span>　N4</p>
+<p><b>Scenario:</b> the He wife's POA was signed ten years ago and the bank's registration has expired; Cheng's authority lapsed after the CEO resignation but the system still shows it as valid; after incapacity the client cannot re-sign, and the family arrives with a document that “looks valid”.<br>
+<b>Failure:</b> expiry not detected → unauthorised instruction executed → dispute/compensation; or excessive caution → legitimate instruction refused → attrition.<br>
+<b>Must answer:</b> when this authority starts/ends, which accounts/jurisdictions/matters it covers; valid today? who succeeds? has the bank registered/verified it?<br>
+<b>Landing:</b> M03 AuthorityDocument state machine, M16 chain of effect, M12 identity, M14 expiry.<br>
+<b>Acceptance:</b> any authority judged valid/invalid at T+0; 90/30/7-day warnings; lapse automatically triggers the subject-switch workflow.</p>
+</div>
+
+<div class="shadow">
+<p class="story"><b>#17 Exit tax / inheritance tax / gift tax</b>　<span class="tag t-risk">J4</span>　N4</p>
+<p><b>Scenario:</b> Mittal still has a 10-year UK tail after leaving; a client moves from the UK to Singapore and triggers exit tax; shares are gifted to children and trigger gift/inheritance tax; the same wealth is taxed in three jurisdictions.<br>
+<b>Failure:</b> income tax only → misses exit/estate tax → client discovers after the transaction → regret/litigation/attrition.<br>
+<b>Must answer:</b> which taxes are triggered by this identity/residence/gift/inheritance event; timing and valuation date; reliefs/treaties; who files; consequence of inaction.<br>
+<b>Landing:</b> M13 TaxEvent/rule packs, M14 filing/deadlines, M12 identity-change trigger.<br>
+<b>Acceptance:</b> identity/gift/inheritance events generate a tax checklist; any tax shows “jurisdiction × date × basis”; adviser interface has a liability boundary.</p>
+</div>
+
+<div class="shadow">
+<p class="story"><b>#25 APP fraud / deepfake</b>　<span class="tag t-risk">J2/J8</span>　N4</p>
+<p><b>Scenario:</b> a client receives a video call from “the RM” (deepfake) instructing a US$5m transfer to a new account; or an authorised person's voice is cloned and passes telephone verification; or a defrauded client asks the bank to compensate.<br>
+<b>Failure:</b> verification relies on voice/video → transfer → fraud discovered → hard to recover → regulation/reputation/compensation.<br>
+<b>Must answer:</b> how identity/intent is verified; whether device/behaviour/relationship is anomalous; whether step-up verification/cooling-off is triggered; who approved an exception; is the evidence chain complete afterwards.<br>
+<b>Landing:</b> M09 pre-trade, M11 payments, M15 case, M18 anomaly detection, M16 evidence.<br>
+<b>Acceptance:</b> high-risk payments require multi-factor/callback; deepfake score explainable; fraud case reconstructable within 24 hours.</p>
+</div>
+
+<h3>2.8 The counter-intuitive conclusion about need intensity</h3>
+<div class="verdict"><b>The deepest need is often not the need clients will pay most for.</b> Authority, compliance, evidence and data consistency are “something goes wrong without it” needs that clients assume the bank should handle; pre-IPO liquidity, family governance and tax coordination are “better with it” needs for which clients will pay a premium or bear credit cost. <b>The architecture must serve both; the business model must distinguish them.</b><br>
+<b>New in this round:</b> “irreversible” outranks “frequent”. Incapacity/death, the chain of effect, probate, POA lapse and deepfake are low-frequency but irreversible; they generate no revenue, yet they decide whether the client stays on the day that matters most.</div>
 
 <h2>§3 Willingness to pay: why clients pay, who pays, and how much</h2>
 
@@ -290,7 +403,7 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <div class="arch-cells">
 <div class="acell"><b>M01 Client/family master data</b><span>People, roles, relationships, KYC</span></div>
 <div class="acell"><b>M02 Family graph &amp; governance</b><span>Branches, charter, council, next generation, family goals</span></div>
-<div class="acell"><b>M03 Consent/authority/disputes</b><span>Five roles, four rights, subject switching</span></div>
+<div class="acell"><b>M03 Consent/authority/disputes</b><span>Five roles, four rights, subject switching, POA/probate</span></div>
 </div>
 </div>
 
@@ -299,7 +412,7 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <div class="arch-cells">
 <div class="acell"><b>M04 Entities &amp; structure chart</b><span>Trust/fund/holding/SPV, look-through</span></div>
 <div class="acell"><b>M05 Ownership &amp; rights</b><span>Economic/voting/dispositive, dual AUM</span></div>
-<div class="acell"><b>M06 Private equity &amp; pre-IPO</b><span>Valuation, pledge, lock-up, use of proceeds</span></div>
+<div class="acell"><b>M06 Private equity &amp; pre-IPO</b><span>Valuation, pledge, lock-up, capital calls</span></div>
 <div class="acell"><b>M07 Asset/liability registry</b><span>Securities, property, art, private shares, debt</span></div>
 </div>
 </div>
@@ -317,8 +430,8 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <div class="arch-row arch-tax">
 <div class="arch-label">L4 Tax, regulatory &amp; obligations</div>
 <div class="arch-cells">
-<div class="acell"><b>M12 Multi-jurisdiction identity state</b><span>Tax/immigration/securities/sanctions, as-of</span></div>
-<div class="acell"><b>M13 Tax computation &amp; filing</b><span>Withholding, relief, CRS/FATCA, filing</span></div>
+<div class="acell"><b>M12 Multi-jurisdiction identity state</b><span>Tax/immigration/securities/sanctions/PEP, as-of</span></div>
+<div class="acell"><b>M13 Tax computation &amp; filing</b><span>Withholding, CRS/FATCA, filing, exit/estate tax</span></div>
 <div class="acell"><b>M14 Obligations/disclosure/reporting</b><span>Exchange, regulator, trust, court</span></div>
 </div>
 </div>
@@ -327,14 +440,14 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <div class="arch-label">L5 Operations &amp; evidence</div>
 <div class="arch-cells">
 <div class="acell"><b>M15 Cases &amp; workflow</b><span>Cross-module, dependencies, SLA, ownership</span></div>
-<div class="acell"><b>M16 Documents/contracts/evidence</b><span>Version, chain of effect, e-sign, audit</span></div>
+<div class="acell"><b>M16 Documents/contracts/evidence</b><span>Version, chain of effect, authority/resolutions, audit</span></div>
 </div>
 </div>
 
 <div class="arch-row arch-data">
 <div class="arch-label">L6 Data, AI &amp; integration</div>
 <div class="arch-cells">
-<div class="acell"><b>M17 Client data platform &amp; integration</b><span>Single source of truth, event ledger, API/feed</span></div>
+<div class="acell"><b>M17 Client data platform &amp; integration</b><span>Single source of truth, event ledger, group exposure, API</span></div>
 <div class="acell"><b>M18 AI Copilot &amp; advisor oversight</b><span>Retrieval, drafting, QA, citation traceability</span></div>
 </div>
 </div>
@@ -344,6 +457,7 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <div class="arch-cells">
 <div class="acell"><b>Security/privacy/residency</b><span>Encryption, partitioning, cross-border transfer, PIA</span></div>
 <div class="acell"><b>Configuration/rule versions</b><span>Jurisdiction × version × effective date</span></div>
+<div class="acell"><b>Information barrier (Chinese Wall)</b><span>Group exposure, wall direction, exceptions</span></div>
 <div class="acell"><b>Observability/audit</b><span>Decision log, model log, evidence chain</span></div>
 </div>
 </div>
@@ -353,26 +467,26 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 <div class="tw"><table>
 <tr><th style="width:4%">#</th><th style="width:16%">Module</th><th style="width:22%">Core capability</th><th style="width:10%">Key personas</th><th style="width:7%">Job</th><th style="width:4%">N</th><th style="width:4%">W</th><th style="width:9%">Payer</th><th style="width:11%">Price lever</th><th style="width:5%">Priority</th><th>Posture</th></tr>
 <tr><td>M01</td><td><b>Client/family master data</b></td><td>Person, family, roles, relationships, KYC/consent</td><td>All</td><td>J1/J3/J8</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Retention/cost</td><td>P0</td><td>Build</td></tr>
-<tr><td>M02</td><td><b>Family graph &amp; governance</b></td><td>Branches, charter, council, next generation, philanthropy, family goals (education/retirement/philanthropy) as a four-party object</td><td>4,5,6,10,17</td><td>J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>Client</td><td>Advisory/FO fee</td><td>P1</td><td>Build</td></tr>
-<tr><td>M03</td><td><b>Consent/authority/disputes</b></td><td>Five roles, four rights, guardianship, disputes, subject switching</td><td>4,5,8,11,17</td><td>J2/J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>Client/bank</td><td>Advisory/retention</td><td>P1</td><td>Build</td></tr>
+<tr><td>M02</td><td><b>Family graph &amp; governance</b></td><td>Branches, charter, council, next generation, philanthropy, family goals (education/retirement/philanthropy) as a four-party object, foundation/grants</td><td>4,5,6,10,17</td><td>J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>Client</td><td>Advisory/FO fee</td><td>P1</td><td>Build</td></tr>
+<tr><td>M03</td><td><b>Consent/authority/disputes</b></td><td>Five roles, four rights, guardianship, disputes, subject switching, POA/authority expiry, probate, marital events</td><td>4,5,8,11,17</td><td>J2/J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>Client/bank</td><td>Advisory/retention</td><td>P1</td><td>Build</td></tr>
 <tr><td>M04</td><td><b>Entities &amp; structure chart</b></td><td>Trust/fund/holding/SPV, hierarchy, passive NFE</td><td>3,4,5,6,7,8,10,11,17</td><td>J4/J7</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>Client/bank</td><td>Bundled advisory</td><td>P1</td><td>Build</td></tr>
 <tr><td>M05</td><td><b>Ownership &amp; rights</b></td><td>Economic/voting/dispositive, look-through, dual AUM</td><td>4,10,16,17</td><td>J1/J4/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>Client</td><td>Advisory/tax</td><td>P1</td><td>Build</td></tr>
-<tr><td>M06</td><td><b>Private equity &amp; pre-IPO</b></td><td>Valuation, pledge, lock-up, IPO window, use of proceeds</td><td>12,13,16</td><td>J5</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>Client</td><td>Credit spread</td><td>P1</td><td>Build</td></tr>
+<tr><td>M06</td><td><b>Private equity &amp; pre-IPO</b></td><td>Valuation, pledge, lock-up, IPO window, use of proceeds, commitments/capital calls, evergreen private markets</td><td>12,13,16</td><td>J5</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>Client</td><td>Credit spread</td><td>P1</td><td>Build</td></tr>
 <tr><td>M07</td><td><b>Asset/liability registry</b></td><td>Securities, property, art, private shares, debt</td><td>All</td><td>J1</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Cost</td><td>P0</td><td>Build + partner</td></tr>
 <tr><td>M08</td><td><b>Portfolio &amp; IBOR</b></td><td>Multi-custody, performance, attribution, positions</td><td>All</td><td>J1/J8</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Table stakes</td><td>P0</td><td>Buy/partner</td></tr>
 <tr><td>M09</td><td><b>Trading/execution/pre-trade</b></td><td>OMS, windows, suitability, allocation</td><td>1,2,3,5,12,13,16</td><td>J2</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Product spread</td><td>P0</td><td>Buy/partner</td></tr>
-<tr><td>M10</td><td><b>Credit &amp; liquidity</b></td><td>Lombard, mortgages, seller loans, capital commitments, retirement/decumulation cash flow</td><td>12,13,14,15,16,17</td><td>J5</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>Client</td><td>Spread/arrangement</td><td>P1</td><td>Build + partner</td></tr>
+<tr><td>M10</td><td><b>Credit &amp; liquidity</b></td><td>Lombard, mortgages, seller loans, capital commitments, retirement/decumulation, probate emergency liquidity, margin calls</td><td>12,13,14,15,16,17</td><td>J5</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>Client</td><td>Spread/arrangement</td><td>P1</td><td>Build + partner</td></tr>
 <tr><td>M11</td><td><b>Payments &amp; FX</b></td><td>Multi-currency, cross-border, settlement</td><td>All</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>Client/bank</td><td>FX spread</td><td>P0</td><td>Buy/partner</td></tr>
-<tr><td>M12</td><td><b>Multi-jurisdiction identity state</b></td><td>Tax/immigration/securities/sanctions, as-of</td><td>2,4,6,7,8,9,10,17</td><td>J4</td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td>Bank/client</td><td>Retention</td><td>P1</td><td>Build</td></tr>
-<tr><td>M13</td><td><b>Tax computation &amp; filing</b></td><td>Global jurisdiction rule packs, withholding/relief, CRS/FATCA, filing, pension/social-security treaties</td><td>2,4,6,7,8,9,10,17</td><td>J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>Client</td><td>Tax coordination fee</td><td>P1</td><td>Build (global engine + per-jurisdiction rule packs)</td></tr>
-<tr><td>M14</td><td><b>Obligations/disclosure/reporting</b></td><td>Exchange, regulator, trust, court, deadlines</td><td>1,3,5,8,9,11,16,17</td><td>J2/J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Compliance cost</td><td>P0</td><td>Build</td></tr>
+<tr><td>M12</td><td><b>Multi-jurisdiction identity state</b></td><td>Tax/immigration/securities/sanctions/PEP, as-of, CRS self-certification</td><td>2,4,6,7,8,9,10,17</td><td>J4</td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td>Bank/client</td><td>Retention</td><td>P1</td><td>Build</td></tr>
+<tr><td>M13</td><td><b>Tax computation &amp; filing</b></td><td>Global rule packs, withholding/relief, CRS/FATCA, filing, pension/social-security treaties, exit/estate/gift tax</td><td>2,4,6,7,8,9,10,17</td><td>J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>Client</td><td>Tax coordination fee</td><td>P1</td><td>Build (global engine + per-jurisdiction rule packs)</td></tr>
+<tr><td>M14</td><td><b>Obligations/disclosure/reporting</b></td><td>Exchange, regulator, trust, court, deadlines, fee disclosure, charity payout</td><td>1,3,5,8,9,11,16,17</td><td>J2/J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Compliance cost</td><td>P0</td><td>Build</td></tr>
 <tr><td>M15</td><td><b>Cases &amp; workflow</b></td><td>Cross-module, dependencies, SLA, ownership</td><td>All</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Productivity</td><td>P0</td><td>Build</td></tr>
-<tr><td>M16</td><td><b>Documents/contracts/evidence</b></td><td>Version, chain of effect, e-sign, as-of, audit</td><td>4,5,8,11,16,17</td><td>J7</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Risk cost</td><td>P0</td><td>Build</td></tr>
-<tr><td>M17</td><td><b>Client data platform &amp; integration</b></td><td>Single source of truth, event ledger, API/feed</td><td>All</td><td>J1/J8</td><td><span class="score s5">5</span></td><td><span class="score s1">1</span></td><td>Bank</td><td>Infrastructure</td><td>P0</td><td>Build + partner</td></tr>
+<tr><td>M16</td><td><b>Documents/contracts/evidence</b></td><td>Version, chain of effect, e-sign, as-of, audit, authority/resolutions</td><td>4,5,8,11,16,17</td><td>J7</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>Bank</td><td>Risk cost</td><td>P0</td><td>Build</td></tr>
+<tr><td>M17</td><td><b>Client data platform &amp; integration</b></td><td>Single source of truth, event ledger, API/feed, group exposure, consolidated reporting</td><td>All</td><td>J1/J8</td><td><span class="score s5">5</span></td><td><span class="score s1">1</span></td><td>Bank</td><td>Infrastructure</td><td>P0</td><td>Build + partner</td></tr>
 <tr><td>M18</td><td><b>AI Copilot &amp; advisor oversight</b></td><td>Retrieval, drafting, QA, citation traceability (AI-first process; model/platform bought)</td><td>All</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>Bank</td><td>Productivity/compliance</td><td>P2</td><td>Partner platform + build the differentiator</td></tr>
 </table></div>
 
-<p class="src">Note: <b>client segments are not modules.</b> “Women”, “next generation” and “entrepreneurs” are service-design and channel cuts, not system modules; the system supplies objects (independent client, beneficiary, decision-maker) and permissions, while the segment value proposition is carried by X1/X2 and the service design in §5. Likewise, “family structure, next generation, education, retirement and philanthropy in one view” is a <b>client outcome</b> delivered jointly by M02 + M10 + X1, not a nineteenth module.</p>
+<p class="src">Note: <b>client segments are not modules.</b> “Women”, “next generation” and “entrepreneurs” are service-design and channel cuts, not system modules; the system supplies objects (independent client, beneficiary, decision-maker) and permissions, while the segment value proposition is carried by X1/X2 and the service design in §5. Likewise, “family structure, next generation, education, retirement and philanthropy in one view” is a <b>client outcome</b> delivered jointly by M02 + M10 + X1, not a nineteenth module. The new objects in this version (Goal/FundingRatio, ProbateCase, AuthorityDocument, GroupExposure/WallRule, ScreeningAlert, FraudCase, Commitment/CapitalCall, Foundation/Grant) hang off existing modules; the module count does not change.</p>
 
 <h3>4.4 What each of the seven layers solves</h3>
 <div class="two">
@@ -389,12 +503,12 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 
 <div class="tw"><table>
 <tr><th style="width:12%">Module</th><th style="width:24%">Pain evidence (from the 17 personas)</th><th style="width:22%">What it does</th><th style="width:20%">Payment logic</th><th>Build / dependency / risk</th></tr>
-<tr><td><b>M02 Family graph &amp; governance</b></td><td>Li Ka-shing's third generation walks into a branch and the system cannot find them; two RMs each know half of Robert Kuok's family; the He family has no family charter.</td><td>Family graph (blood, in-law, cousins, key people), three sets of boundaries (blood/economic/governance), family charter, council, next-generation education, philanthropy, and family goals as a four-party object (proposer/beneficiary/funder/decision-maker).</td><td><b>Client pays</b>: family office retainer, governance workshops, succession project fees; anchored to lawyers, accountants, family offices.</td><td>Build; depends on M01/M03; risks are family politics, privacy, cross-border data.</td></tr>
+<tr><td><b>M02 Family graph &amp; governance</b></td><td>Li Ka-shing's third generation walks into a branch and the system cannot find them; two RMs each know half of Robert Kuok's family; the He family has no family charter.</td><td>Family graph (blood, in-law, cousins, key people), three sets of boundaries (blood/economic/governance), family charter, council, next-generation education, philanthropy, family goals as a four-party object (proposer/beneficiary/funder/decision-maker), foundation/grants and impact reporting.</td><td><b>Client pays</b>: family office retainer, governance workshops, succession project fees; anchored to lawyers, accountants, family offices.</td><td>Build; depends on M01/M03; risks are family politics, privacy, cross-border data.</td></tr>
 <tr><td><b>M03 Consent/authority/disputes</b></td><td>On the day after Cheng Yu-tung's CEO resignation, the system still shows yesterday's authority; MAF's three “family decisions”; the He wife becomes principal client for the first time.</td><td>Five roles (client/account holder/beneficiary/decision-maker/guardian), four rights (information sharing/decision agency/guardianship/benefit), dispute states, subject switching.</td><td><b>Client pays</b>: bundled into advisory/trust fees; the bank pays to “avoid acting on unauthorised instructions”.</td><td>Build; depends on M01/M16; risks are legal effect, jurisdictional differences, and taking a position in a dispute.</td></tr>
 <tr><td><b>M05 Ownership &amp; rights</b></td><td>Premji's 67% no longer belongs to the family, yet AUM still counts it; Li Ka-shing's economic, voting and dispositive rights are separated; Liang Wenfeng's private shares.</td><td>Model economic/voting/dispositive rights asset by asset; look-through; dual AUM (beneficial/control); beneficiary classes.</td><td><b>Client pays</b>: advisory/tax/trust fees; clients pay to know “what do I actually own”.</td><td>Build; depends on M04/M07; risks are data availability, valuation, interpretation of trust deeds.</td></tr>
-<tr><td><b>M06 Private equity &amp; pre-IPO</b></td><td>Liang Wenfeng's US$46bn is paper wealth he cannot spend; Guy has no market price; half of Sarah's £114m is conditional.</td><td>Private-equity valuation (multiple methods), pledge, lock-up/IPO window, use-of-proceeds management, seller loans, contingent consideration; access to <b>secondaries / continuation vehicles</b> as monetisation channels.</td><td><b>Client pays</b>: credit spread + arrangement fee; <b>W5, the highest value per client</b>.</td><td>Build + valuation partner; depends on M05/M10/M12; risks are valuation governance, concentration, regulatory approvals.</td></tr>
-<tr><td><b>M10 Credit &amp; liquidity</b></td><td>Guy's seller loan; Vardy's orphan equity; Neame's thin market; the He family's tax gap.</td><td>Lombard, mortgages, structured credit, capital commitments, seller loans, margin calls and stress testing; plus access to and pricing of <b>liquidity solutions</b> (secondaries / continuation vehicles / NAV lending), and long-term retirement/decumulation cash flow.</td><td><b>Client pays</b>: credit spread, arrangement fee, commitment fee; W5.</td><td>Build the credit engine + partner the balance sheet; depends on M06/M07/M16; risks are collateral, margin calls, cross-border enforcement.</td></tr>
-<tr><td><b>M13 Tax computation &amp; filing</b></td><td>Mittal still has a 10-year UK tail after leaving; Poonawalla's one house sits under four regimes; Zhou Qunfei's A/H dividends fall under two rulebooks; Li Xiting faces four securities regimes.</td><td>Global multi-jurisdiction rule library (engine built once, jurisdictions added as rule packs), withholding/relief, CRS/FATCA, filing outputs, pension/social-security treaties, as-of replay; <b>computation and coordination only, never a tax opinion</b>.</td><td><b>Client pays</b>: tax coordination fee/bundled advisory; W4; but clients often think the bank “should do it”, so it must be bundled.</td><td>Build (global engine + per-jurisdiction rule packs); depends on M12/M14; risks are rule maintenance, liability boundary, regulatory licensing.</td></tr>
+<tr><td><b>M06 Private equity &amp; pre-IPO</b></td><td>Liang Wenfeng's US$46bn is paper wealth he cannot spend; Guy has no market price; half of Sarah's £114m is conditional.</td><td>Private-equity valuation (multiple methods), pledge, lock-up/IPO window, use-of-proceeds management, seller loans, contingent consideration; access to <b>secondaries / continuation vehicles</b> as monetisation channels, plus commitments/capital calls and evergreen vehicles.</td><td><b>Client pays</b>: credit spread + arrangement fee; <b>W5, the highest value per client</b>.</td><td>Build + valuation partner; depends on M05/M10/M12; risks are valuation governance, concentration, regulatory approvals.</td></tr>
+<tr><td><b>M10 Credit &amp; liquidity</b></td><td>Guy's seller loan; Vardy's orphan equity; Neame's thin market; the He family's tax gap.</td><td>Lombard, mortgages, structured credit, capital commitments, seller loans, margin calls and stress testing; plus access to and pricing of <b>liquidity solutions</b> (secondaries / continuation vehicles / NAV lending), long-term retirement/decumulation cash flow, and emergency liquidity during probate.</td><td><b>Client pays</b>: credit spread, arrangement fee, commitment fee; W5.</td><td>Build the credit engine + partner the balance sheet; depends on M06/M07/M16; risks are collateral, margin calls, cross-border enforcement.</td></tr>
+<tr><td><b>M13 Tax computation &amp; filing</b></td><td>Mittal still has a 10-year UK tail after leaving; Poonawalla's one house sits under four regimes; Zhou Qunfei's A/H dividends fall under two rulebooks; Li Xiting faces four securities regimes.</td><td>Global multi-jurisdiction rule library (engine built once, jurisdictions added as rule packs), withholding/relief, CRS/FATCA, filing outputs, pension/social-security treaties, exit/inheritance/gift tax, as-of replay; <b>computation and coordination only, never a tax opinion</b>.</td><td><b>Client pays</b>: tax coordination fee/bundled advisory; W4; but clients often think the bank “should do it”, so it must be bundled.</td><td>Build (global engine + per-jurisdiction rule packs); depends on M12/M14; risks are rule maintenance, liability boundary, regulatory licensing.</td></tr>
 </table></div>
 
 <div class="note"><b>What the six have in common:</b> each occurs at a moment when <b>the client must decide and the cost of getting it wrong is high</b>. Clients are not paying for a feature; they are paying for <b>someone to get this right on their behalf and be able to prove it</b>. This is also why T1 modules must ship alongside T3 evidence/data modules: <b>without evidence, a paid service becomes indefensible advice.</b></div>
@@ -420,7 +534,7 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 
 <div class="verdict"><b>Revenue modules are the front office; T2/T3/T4 are the back office.</b> Without the back office, the front office can only be delivered by hand and cannot scale; with only the back office, the system becomes an expensive reporting tool. <b>The key is not choosing front or back, but ensuring that every fee the front office earns leaves provable evidence in the back office.</b></div>
 
-<h2>§6 Boundaries with Avaloq / Aladdin / Addepar: why Avaloq has to be replaced</h2>
+<h2>§6 Boundaries with Avaloq / Aladdin / Addepar / UBS: replacement target and capability benchmark</h2>
 
 <p class="lead">This project did not start as “a new layer on top of Avaloq”; it started as <b>a replacement for Avaloq</b>. So this section is not a feature checklist. It answers three questions: what Avaloq structurally lacks across the eight Jobs; what counts as “replaced”; and whether Aladdin / Addepar are components on this path or substitutes for it.</p>
 
@@ -476,6 +590,68 @@ The point of this thread is not “doing more”, but <b>turning the four moment
 
 <div class="verdict"><b>Avaloq's strengths — accounting, settlement, tax-table engineering — are exactly where clients do not pay; the five moments where clients do pay (authority, family, private equity, tax coordination, evidence) sit outside its primary key.</b> So “replacing Avaloq” is not rewriting an accounting system; it is <b>taking the account off the primary key</b> and returning it to its place as an asset carrier.</div>
 
+<h3 id="ubs">6.4 UBS is not a substitute target; it is a capability benchmark</h3>
+<p class="lead">Avaloq is the core to be replaced; Aladdin / Addepar are components; <b>UBS is a peer benchmark</b> — it does not sit in the procurement boundary, but it shows what is missing from the service menu. Only the five P0/P1 gaps are listed; P2 items (art, white-label, US onshore) are not expanded in this version.</p>
+<div class="tw"><table>
+<tr><th style="width:20%">Capability</th><th style="width:6%">UBS</th><th style="width:6%">HSBC</th><th style="width:6%">Gap</th><th style="width:38%">Evidence / note (public sources, as of Oct 2026)</th><th>System implication</th></tr>
+<tr><td>Goals-based planning framework</td><td>4</td><td>2</td><td><b>2</b></td><td>UBS Wealth Way: Liquidity / Longevity / Legacy + annual check-up; HSBC has wealth planning, but no equally structured, digitised framework product</td><td>Goal, FundingRatio, scenarios</td></tr>
+<tr><td>Philanthropy funding platform</td><td>4</td><td>2</td><td><b>2</b></td><td>UBS Optimus: 120+ programmes/40 countries, 100% pass-through, co-investment, impact bonds, PRI; HSBC has 65 years of philanthropy advisory + trust/foundation administration + charity investing, but no client-facing programme menu/impact platform</td><td>Foundation, Grant, ImpactReport</td></tr>
+<tr><td>Evergreen private markets + capital-call operations</td><td>4</td><td>2</td><td><b>2</b></td><td>UBS created Unified Global Alternatives in 2025; ELTIF/evergreen, co-investment, secondaries; HSBC has an alternatives shelf + HSBC Access (VC direct/co-invest), but no evergreen platform or scaled capital-call operations</td><td>Commitment, CapitalCall, NAV</td></tr>
+<tr><td>Family office outsourced operations / consolidated reporting</td><td>4</td><td>1</td><td><b>3</b></td><td>UBS US FO Solutions ($50m+): cyber, consolidated reporting, bill pay, lifestyle, commercial real estate; HSBC has FO set-up/governance/custody/prime brokerage, but no back-office outsourcing bundle</td><td>ConsolidatedReport, BillPay</td></tr>
+<tr><td>Women's wealth as a standing segment</td><td>3</td><td>2</td><td>1</td><td>UBS Women's Wealth, Academy, Female Founders, gender-lens research; HSBC has Women and Wealth research, Female Entrepreneur Fund/Roar, events, but no standing PB segment</td><td>Independent client + X1/X2</td></tr>
+<tr><td>Next generation</td><td>3</td><td>3</td><td>0</td><td>UBS Global Next Generation Solutions; HSBC NextWave + MIT Sloan (Oct 2026) + GEWR next-gen chapter — broadly at parity</td><td>Education/goal objects</td></tr>
+<tr><td>Asia corridor / China connectivity</td><td>2</td><td>4</td><td><b>-2</b></td><td>HSBC has 12 booking centres (incl. mainland China, HK, SG, Taiwan, India, UAE, Mexico); UBS is concentrated in CH/SG/HK/LUX/UK/US</td><td>Multi-jurisdiction identity/tax</td></tr>
+<tr><td>Entrepreneurs / innovation economy</td><td>3</td><td>4</td><td><b>-1</b></td><td>HSBC Innovation Banking (900+ specialists, multiple markets) + HSBC Access + GEWR; about two-thirds of HK/SG PB clients are entrepreneurs</td><td>M06/M10/M02</td></tr>
+</table></div>
+
+<div class="shadow">
+<p class="story"><b>G1 Goals-based planning engine (Wealth Way equivalent)</b>　Gap 2　<b>P0</b></p>
+<p><b>UBS:</b> divides wealth into Liquidity (3–5 years of cash flow), Longevity (lifetime) and Legacy (beyond), with an annual check-up and a “will it be enough” calculation.<br>
+<b>HSBC:</b> has Financial Planning / Liquidity Planning / Planning for the future, but no equally named, structured, digitised framework product.<br>
+<b>Why it matters:</b> #1/#6/#8; the He family's retirement/education/philanthropy, Liang's paper wealth and Neame's thin market all need “goal → gap → plan” language, not a product list.<br>
+<b>Landing:</b> Goal, GoalBucket, FundingRatio, Scenario, ReviewTrigger; M02 (family goals) + M10 (cash flow/decumulation) + M13 (after tax) + X1 (view).<br>
+<b>Recommendation:</b> build (this is a differentiator, not a commodity); start with three layers of wealth + funding gap + annual check-up; MVP in 6–9 months.</p>
+</div>
+
+<div class="shadow">
+<p class="story"><b>G2 Philanthropy funding platform (Optimus equivalent)</b>　Gap 2　<b>P1</b></p>
+<p><b>UBS:</b> Optimus Foundation offers 120+ vetted programmes across 40 countries, 100% pass-through, co-investment, development impact bonds, PRI, US 501(c)(3) status and a 10% match, with impact reporting.<br>
+<b>HSBC:</b> 65 years of philanthropy advisory, charitable trust/foundation set-up and administration, charity investing; lacks a client-facing programme menu + impact measurement + co-investment platform.<br>
+<b>Why it matters:</b> #24; Premji's and the He family's philanthropy; the next generation wants measurable impact; philanthropy is an entry point to family governance.<br>
+<b>Landing:</b> Foundation, Grant, Program, ImpactReport, DAF; M02 (family goals) + M14 (payout/disclosure) + M16 (fiduciary evidence).<br>
+<b>Recommendation:</b> partner first (existing foundation/DAF platforms); build only the client view + grant approval + impact evidence, not programme due diligence.</p>
+</div>
+
+<div class="shadow">
+<p class="story"><b>G3 Evergreen private markets + capital-call operations</b>　Gap 2　<b>P0/P1</b></p>
+<p><b>UBS:</b> Unified Global Alternatives (2025), open architecture across hedge funds/PE/private credit/real estate/infrastructure/multi-alternatives, with co-investment and secondaries; ELTIF/evergreen lowers the entry point.<br>
+<b>HSBC:</b> alternatives shelf and HSBC Access (direct/co-invest/VC funds from Innovation Banking); lacks an equivalent evergreen/semi-liquid platform and scaled capital-call operations.<br>
+<b>Why it matters:</b> #6/#21/#22; Liang/Guy/Sarah/Vardy; UBS GFO 2025 shows family offices allocate 44% on average to alternatives, and capital calls are a frequent cash-flow pain.<br>
+<b>Landing:</b> Commitment, CapitalCall, Distribution, NAV, RedemptionWindow, Eligibility; M06/M10/M11/M14.<br>
+<b>Recommendation:</b> partner on products (external GPs/evergreen manufacturers), <b>build the operations layer</b> (calls/distributions/pledge/bridge) — that is the moat.</p>
+</div>
+
+<div class="shadow">
+<p class="story"><b>G4 Family office outsourced operations and consolidated reporting</b>　Gap 3　<b>P1</b></p>
+<p><b>UBS:</b> US Family Office Solutions ($50m+) explicitly offers cybersecurity, consolidated reporting, bill pay/technology/admin, lifestyle concierge and commercial real estate.<br>
+<b>HSBC:</b> FO set-up/governance, global custody, prime brokerage, direct access dealing; no “outsource the FO back office to the bank” bundle.<br>
+<b>Why it matters:</b> #9/#11; family offices employ only a dozen or so people (UBS GFO); core research/reporting stays in-house, while legal/tax/cyber are outsourced — if the bank can take the back office, the relationship deepens.<br>
+<b>Landing:</b> ConsolidatedReport, EntityConsolidation, BillPay, CyberAlert, ExternalAdvisor; M17/M07/M08/M15.<br>
+<b>Recommendation:</b> partner + integrate (reporting/bill-pay/cyber vendors), build the consolidation and evidence layer; do not build cyber products.</p>
+</div>
+
+<div class="shadow">
+<p class="story"><b>G6 Women's wealth as a standing segment</b>　Gap 1　<b>P1</b></p>
+<p><b>UBS:</b> global Women's Wealth pages + Women's Wealth Academy + Female Founders + gender-lens investing research; a standing segment, not a one-off event.<br>
+<b>HSBC:</b> Women and Wealth research, Female Entrepreneur Fund ($1bn)/HSBC Roar (commercial bank), Know Your Value events; no global standing PB segment.<br>
+<b>Why it matters:</b> #8; HSBC's own research says about 40% of investable wealth will be controlled by women by 2030; widowhood/divorce/inheritance are high-attrition moments; the female-founder funding gap is a differentiated entry point.<br>
+<b>Landing:</b> not a new module; M01 independent onboarding + M03 subject switching + X1/X2 service model + content/community.<br>
+<b>Recommendation:</b> service design first; the system only has to guarantee “she is an independent client from day one”, not turn “woman” into a field.</p>
+</div>
+
+<div class="verdict"><b>UBS's strength is “global institutionalisation + product platforms”; HSBC's strength is “Asia corridor + entrepreneurs + trade/insurance”.</b> Copying UBS would fight an expensive catch-up battle on HSBC's weakest ground; the right move is: <b>fill three system gaps (G1 goals engine, G2 philanthropy platform, G3 private-markets operations), reinforce two differentiators (the entrepreneur “before/after exit” chain, the Asia corridor), and close G4/G6 through partnership and service design.</b></div>
+
+
 <h2>§7 Business case: how each module earns and saves money</h2>
 
 <h3>7.1 Value bridge</h3>
@@ -519,19 +695,19 @@ Three ways to be paid: <b>clients pay for outcomes</b> (advisory/credit/tax coor
 <div class="tw"><table>
 <tr><th style="width:8%">ID</th><th style="width:26%">Module</th><th style="width:9%">Layer</th><th style="width:8%">Tier</th><th>One line</th></tr>
 <tr><td>M01</td><td>Client/family master data</td><td>L1</td><td>T3</td><td>People, family, roles, relationships, KYC</td></tr>
-<tr><td>M02</td><td>Family graph &amp; governance</td><td>L1</td><td>T1</td><td>Branches, charter, council, next generation, philanthropy</td></tr>
-<tr><td>M03</td><td>Consent/authority/disputes</td><td>L1</td><td>T1</td><td>Five roles, four rights, subject switching</td></tr>
+<tr><td>M02</td><td>Family graph &amp; governance</td><td>L1</td><td>T1</td><td>Branches, charter, council, family goals, philanthropy</td></tr>
+<tr><td>M03</td><td>Consent/authority/disputes</td><td>L1</td><td>T1</td><td>Five roles, four rights, POA/probate, subject switching</td></tr>
 <tr><td>M04</td><td>Entities &amp; structure chart</td><td>L2</td><td>T2</td><td>Trust/fund/holding/SPV, look-through</td></tr>
 <tr><td>M05</td><td>Ownership &amp; rights</td><td>L2</td><td>T1</td><td>Economic/voting/dispositive, dual AUM</td></tr>
-<tr><td>M06</td><td>Private equity &amp; pre-IPO</td><td>L2</td><td>T1</td><td>Valuation, pledge, lock-up, use of proceeds</td></tr>
+<tr><td>M06</td><td>Private equity &amp; pre-IPO</td><td>L2</td><td>T1</td><td>Valuation, pledge, lock-up, capital calls</td></tr>
 <tr><td>M07</td><td>Asset/liability registry</td><td>L2</td><td>T3</td><td>Securities, property, art, private shares, debt</td></tr>
 <tr><td>M08</td><td>Portfolio &amp; IBOR</td><td>L3</td><td>T3</td><td>Multi-custody, performance, attribution</td></tr>
 <tr><td>M09</td><td>Trading/execution/pre-trade</td><td>L3</td><td>T3</td><td>OMS, windows, suitability, allocation</td></tr>
-<tr><td>M10</td><td>Credit &amp; liquidity</td><td>L3</td><td>T1</td><td>Lombard, mortgages, seller loans, capital commitments</td></tr>
+<tr><td>M10</td><td>Credit &amp; liquidity</td><td>L3</td><td>T1</td><td>Lombard, seller loans, probate liquidity, decumulation</td></tr>
 <tr><td>M11</td><td>Payments &amp; FX</td><td>L3</td><td>T3</td><td>Multi-currency, cross-border, settlement</td></tr>
-<tr><td>M12</td><td>Multi-jurisdiction identity state</td><td>L4</td><td>T2</td><td>Tax/immigration/securities/sanctions, as-of</td></tr>
-<tr><td>M13</td><td>Tax computation &amp; filing</td><td>L4</td><td>T1</td><td>Withholding, relief, CRS/FATCA, filing</td></tr>
-<tr><td>M14</td><td>Obligations/disclosure/reporting</td><td>L4</td><td>T3</td><td>Exchange, regulator, trust, court</td></tr>
+<tr><td>M12</td><td>Multi-jurisdiction identity state</td><td>L4</td><td>T2</td><td>Tax/immigration/sanctions/PEP, CRS self-certification</td></tr>
+<tr><td>M13</td><td>Tax computation &amp; filing</td><td>L4</td><td>T1</td><td>Withholding, CRS/FATCA, exit/estate tax, filing</td></tr>
+<tr><td>M14</td><td>Obligations/disclosure/reporting</td><td>L4</td><td>T3</td><td>Exchange, regulator, trust, court, fee disclosure</td></tr>
 <tr><td>M15</td><td>Cases &amp; workflow</td><td>L5</td><td>T3</td><td>Cross-module, dependencies, SLA, ownership</td></tr>
 <tr><td>M16</td><td>Documents/contracts/evidence</td><td>L5</td><td>T3</td><td>Version, chain of effect, e-sign, audit</td></tr>
 <tr><td>M17</td><td>Client data platform &amp; integration</td><td>L6</td><td>T4</td><td>Single source of truth, event ledger, API/feed</td></tr>
@@ -553,8 +729,8 @@ Three ways to be paid: <b>clients pay for outcomes</b> (advisory/credit/tax coor
 <div class="foot">
 <b>Basis:</b> <a href="../01_personas/nextgen-pb-real-people-cases.html">nextgen-pb-real-people-cases v3.2</a> (17 personas, 53 tables); <i>Unique Capabilities: HSBC Next-Generation PB System vs Avaloq and Aladdin</i> v1.0; cross-check of 16 institutional reports (BCG <i>Global Wealth Report 2026</i>, McKinsey <i>China Financial Services CEO Quarterly</i> Spring 2021, McKinsey <i>Technology Trends Outlook 2026</i>, HSBC <i>Global Entrepreneurial Wealth Report 2025</i>, and others; sources and page numbers in §0.5); public capabilities of Avaloq Mosaic / Aladdin Wealth / Addepar; HSBC private banking public positioning.<br>
 <b>Nature:</b> internal architecture proposal; not tax, legal or investment advice. All amounts, ratios and scores are ordinal/illustrative and must be validated through client interviews, RM workshops and tax/legal review.<br>
-<b>Version:</b> v1.2 · 2026-10-22 · companion to the 17-persona scenario set v3.2. This version rewrites §6 as the Avaloq replacement boundary (including acceptance across the eight Jobs) and removes the earlier comparison, build-sequence and risk sections. Chinese version: <a href="nextgen-pb-demand-driven-architecture.html">nextgen-pb-demand-driven-architecture.html</a>.<br>
-<b>Change log (v1.1 → v1.2):</b> §6 rewritten from “comparison with the earlier assessment” to “why Avaloq has to be replaced”, with source-level evidence (primary key, tax coverage CN 2 / HK 0) and acceptance criteria for switching Avaloq off across the eight Jobs; removed the earlier §6.1–6.3 (recap of the earlier conclusion / three differentiation clusters / one correction, two reinforcements, three concessions), §7 (build waves and Minimum Lovable Core) and §9 (risks and validation), deferred to the next stage; M13 changed to “global engine + per-jurisdiction rule packs” rather than CN/HK only; M02 adds the four-party family-goal object and M10 adds retirement/decumulation cash flow; added a boundary note that client segments are not modules.
+<b>Version:</b> v1.3 · 2026-10-23 · companion to the 17-persona scenario set v3.2. This version expands §2 to 25 pains (ten five-layer drill-downs, fifteen additions, PI re-ranking) and adds the UBS capability benchmark in §6.4. Chinese version: <a href="nextgen-pb-demand-driven-architecture.html">nextgen-pb-demand-driven-architecture.html</a>.<br>
+<b>Change log (v1.2 → v1.3):</b> §2 expanded to 25 pains: ten drill-downs (scenarios/failure chain/system questions/acceptance), fifteen additions (Chinese Wall, probate, POA lapse, exit tax, capital calls, deepfake, fee disclosure and others), and a Pain Index re-ranking; §6 expanded into “Avaloq replacement + UBS benchmark” with 6.4 (G1 goals engine, G2 philanthropy, G3 private-markets operations, G4 FO outsourcing, G6 women's wealth); M02/M03/M06/M10/M12/M13/M14/M16/M17 capability lines updated; the separate analysis note has been deleted and merged back into this document.<br><b>Change log (v1.1 → v1.2):</b> §6 rewritten from “comparison with the earlier assessment” to “why Avaloq has to be replaced”, with source-level evidence (primary key, tax coverage CN 2 / HK 0) and acceptance criteria for switching Avaloq off across the eight Jobs; removed the earlier §6.1–6.3 (recap of the earlier conclusion / three differentiation clusters / one correction, two reinforcements, three concessions), §7 (build waves and Minimum Lovable Core) and §9 (risks and validation), deferred to the next stage; M13 changed to “global engine + per-jurisdiction rule packs” rather than CN/HK only; M02 adds the four-party family-goal object and M10 adds retirement/decumulation cash flow; added a boundary note that client segments are not modules.
 </div>
 
 
