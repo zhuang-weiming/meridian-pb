@@ -3,6 +3,7 @@
 本目录保存 **v1.5《HSBC 下一代 Private Bank Core System：需求驱动的功能架构》**。
 
 - 主文件（中文）：[`nextgen-pb-demand-driven-architecture.html`](nextgen-pb-demand-driven-architecture.html)
+- 用户旅程：[`02.1_user_jounery/`](02.1_user_jounery/README.md)（7 条 Demo 旅程，覆盖 25 条痛点 / 9 个类别）
 - **English version**：[`nextgen-pb-demand-driven-architecture-en.html`](nextgen-pb-demand-driven-architecture-en.html)
 - 需求依据：[`../01_personas/nextgen-pb-real-people-cases.html`](../01_personas/nextgen-pb-real-people-cases.html)（21 个案例：20 组公开 + 1 组匿名）
 - 外部核对：16 份机构报告（引证出处与页码见主文件 §0.5；交叉核对文档已移除，待决策清单 C5–C8 内联于主文件）
