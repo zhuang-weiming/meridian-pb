@@ -126,7 +126,7 @@
 
 ## 3. 文件索引
 
-> **目录说明（2026-10-22 迁移后）**：下表的 00–12 号文档与 `RELEASE_CHECK.md` 已整体移至 [`03_webpage_design/`](03_webpage_design/)（旧一代蓝图/页面规格）；新一代文档为 [`01_personas/`](01_personas/)（17 组真实人物场景集 v3.2，需求依据）与 [`02_architecture/`](02_architecture/)（需求驱动功能架构 v1.2，18 个模块 / Avaloq 平替边界）。
+> **目录说明（2026-10-23）**：下表的 00–12 号文档与 `RELEASE_CHECK.md` 已整体移至 [`03_webpage_design/`](03_webpage_design/)（旧一代蓝图/页面规格）；新一代文档为 [`01_personas/`](01_personas/)（21 个案例场景集 v3.5，需求依据）、[`02_architecture/`](02_architecture/)（需求驱动功能架构 v1.5，18 个模块 / Avaloq 平替边界）与 [`02_architecture/02.1_user_jounery/`](02_architecture/02.1_user_jounery/README.md)（7 条 Demo 用户旅程）。
 
 | 文件 | 内容 | 读者 |
 |---|---|---|
