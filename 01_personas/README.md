@@ -1,6 +1,8 @@
 # 01_personas — 下一代私行核心的真实人物场景集
 
-本目录保存 **v3.4《下一代私行核心：17 组核心人物 + 4 个财富带案例的结构性场景》**。
+本目录保存 **v3.5《下一代私行核心：17 组核心人物 + 4 个财富带案例的结构性场景》**。
+
+> v3.5（2026-10-23）：公开事实校准——Ali 行医年份、Alvin 书出版年、Hawker Chan 年龄与 Bib Gourmand、梁文锋双榜单口径与 2026-06 融资结构、Nadiya 2018 年英国法定登记；页头元数据同步为 20 组公开 + 1 匿名。
 
 - 主文件：[`nextgen-pb-real-people-cases.html`](nextgen-pb-real-people-cases.html)
 - 替代：v2.1《跨境私行案例集：CN·HK / CN·SG / IN·UK / 欧洲投美》
