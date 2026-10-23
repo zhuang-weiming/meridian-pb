@@ -29,7 +29,7 @@
 ## v1.3 变更（相对 v1.2）
 
 - **§2 扩为 25 条痛点**：10 条逐条下钻（细分场景/失败链/系统必须回答/验收）、15 条增量痛点（Chinese Wall、probate/紧急流动性、POA 过期、退出税、制裁/PEP、capital call、deepfake、费用披露等）、痛感指数 PI 重排（#1/#4 并列第一，#8 升到第 2）。
-- **§6 扩为“Avaloq 平替 + UBS 能力标尺”**：新增 6.4，只保留 P0/P1 五项——G1 目标规划、G2 慈善平台、G3 私募运营、G4 FO 外包/合并报告、G6 女性财富常设细分；G5 艺术品、G7 白标、G8 美国在岸按 P2 不展开。
+- **§6 扩为“Avaloq 平替 + UBS 能力标尺”**：新增 6.4，只保留 P0/P1 五项——G1 目标规划、G2 慈善平台、G3 私募运营、G4 FO 外包/合并报告、G6 女性财富常设细分。
 - **对象与模块同步**：Goal/FundingRatio、ProbateCase、AuthorityDocument、GroupExposure/WallRule、ScreeningAlert、FraudCase、Commitment/CapitalCall、Foundation/Grant 等对象挂到 M02/M03/M06/M10/M12/M13/M14/M16/M17；横切层增加“信息隔离（Chinese Wall）”。
 - **合并独立分析稿**：上一轮的痛点深挖与 UBS 对标内容已全部并入主文件 §2 与 §6.4，不再保留独立文档。
 
