@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HSBC 下一代 Private Bank Core System：需求驱动的功能架构（v1.3）</title>
+<title>HSBC 下一代 Private Bank Core System：需求驱动的功能架构（v1.4）</title>
 <style>
 :root{
   --ink:#1a1a17; --ink2:#4a4840; --mut:#8a877d;
@@ -97,11 +97,11 @@ li{margin:4px 0}
 
 <header>
 <h1>HSBC 下一代 Private Bank Core System：需求驱动的功能架构</h1>
-<div class="sub">从 17 组客户痛点反推 18 个模块、25 条痛点、付费意愿与 Avaloq/UBS 边界</div>
+<div class="sub">从 21 个案例（17 核心 + 4 财富带）反推 18 个模块、25 条痛点、付费意愿与 Avaloq/UBS 边界</div>
 <div class="meta">
-  <span><b>版本</b> v1.3</span>
+  <span><b>版本</b> v1.4</span>
   <span><b>日期</b> 2026-10-23</span>
-  <span><b>需求依据</b> nextgen-pb-real-people-cases v3.2（17 组人物）</span>
+  <span><b>需求依据</b> nextgen-pb-real-people-cases v3.5（20 组公开 + 1 组匿名 / 21 个案例）</span>
   <span><b>能力对照</b> 本版 §6（Avaloq / Aladdin / Addepar / UBS）</span>
   <span><b>外部核对</b> 16 份机构报告（见 §0.5）</span>
   <span><b>English</b> <a href="nextgen-pb-demand-driven-architecture-en.html">English version</a></span>
@@ -111,16 +111,16 @@ li{margin:4px 0}
 
 <div class="warn">
 <b>这份文档回答三个问题，而不是一个。</b><br>
-<b>其一，客户到底为什么痛？</b>——从 17 组人物的原话与失败场景出发，归纳成 8 个 Job。<br>
+<b>其一，客户到底为什么痛？</b>——从 21 个案例（20 组公开 + 1 组匿名）的原话与失败场景出发，归纳成 8 个 Job。<br>
 <b>其二，客户愿意为哪一个痛付钱？</b>——区分“客户付费”“客户通过信贷/交易付费”“银行自己付费”“纯基础设施”。<b>需求强度不等于付费意愿。</b><br>
 <b>其三，系统应该长什么样？</b>——18 个模块、7 层架构、4 个付费层级。<br>
-<b>不做什么：</b>不重复厂商的功能清单；不复述 17 个案例；不做没有依据的市场规模测算。§6 不是功能对照表，而是对 incumbent（Avaloq）的平替判定。评分是<b>序数</b>（1–5），用于排序，不用于报价。
+<b>不做什么：</b>不重复厂商的功能清单；不复述 21 个案例；不做没有依据的市场规模测算。§6 不是功能对照表，而是对 incumbent（Avaloq）的平替判定。评分是<b>序数</b>（1–5），用于排序，不用于报价。
 </div>
 
 <h2>§0 读法：为什么从痛点开始，而不是从竞品开始</h2>
 
 <h3>0.1 旧版是 competitor-first，这一版是 demand-first</h3>
-<p class="lead">旧版《独有能力判定》先问：Avaloq 有什么、Aladdin 有什么、HSBC 能建什么。它回答的是<b>“能不能赢”</b>。这一版先问：17 组客户在什么时刻愿意付钱、为什么换银行、为什么留存。它回答的是<b>“值不值得建、谁来付”</b>。</p>
+<p class="lead">旧版《独有能力判定》先问：Avaloq 有什么、Aladdin 有什么、HSBC 能建什么。它回答的是<b>“能不能赢”</b>。这一版先问：21 个案例里的客户在什么时刻愿意付钱、为什么换银行、为什么留存。它回答的是<b>“值不值得建、谁来付”</b>。</p>
 <div class="note"><b>两个问题都重要，但顺序不能反。</b>先看竞品，容易得到一个“功能对照表”；先看痛点，才能得到一个“价值链条”。<b>功能对照表告诉你哪里可以差异化；价值链条告诉你差异化能不能收钱。</b></div>
 
 <h3>0.2 三个判断</h3>
@@ -138,11 +138,11 @@ li{margin:4px 0}
 <tr><td><b>W（Willingness to pay）</b></td><td>客户/银行愿意为它付钱的程度</td><td>5 = 客户愿为它付溢价或按信贷利差付费；4 = 客户愿打包付费/显著提升留存；3 = 客户视为应有服务；2 = 银行付钱降本；1 = 纯基础设施</td></tr>
 <tr><td><b>Payer</b></td><td>谁付钱</td><td>客户（顾问费/家族办公室费/信托费）、客户（信贷利差/安排费）、客户（FX/产品利差）、银行（成本/风险）、共享</td></tr>
 </table></div>
-<p class="src">证据来源：17 组人物的“场景 · 推演”与“六问”；旧版能力判定；Avaloq / Aladdin / Addepar 公开能力。<b>评分为序数判断，不是市场调研；正式立项前须用 10–15 个客户访谈与 5 场 RM 工作坊校准。</b></p>
+<p class="src">证据来源：21 个案例的“场景 · 推演”与“六问”；旧版能力判定；Avaloq / Aladdin / Addepar 公开能力。<b>评分为序数判断，不是市场调研；正式立项前须用 10–15 个客户访谈与 5 场 RM 工作坊校准。</b></p>
 
 <h3>0.4 一条主线</h3>
 <div class="shadow">
-<p class="story"><b>17 组人物 → 8 个 Job → 18 个模块 → 4 个付费层级。</b><br>
+<p class="story"><b>21 个案例 → 8 个 Job → 18 个模块 → 4 个付费层级。</b><br>
 这条主线的核心不是“做更多”，而是<b>把客户最愿意付钱的四个时刻（身份变化、授权变化、资金变化、结构变化）变成可交付的服务</b>；其余模块是让这四个时刻能够被交付的地基。</p>
 </div>
 
@@ -160,18 +160,18 @@ li{margin:4px 0}
 <div class="note"><b>术语对齐（v1.1）：</b>凡与报告只是措辞不同、含义相同的地方，本版采用报告用词——<b>system architects</b>、<b>cross-border tax and legal navigation</b>、<b>liquidity solutions</b>、<b>AI-first</b>、<b>structurally underserved</b>（US$5m 以下客群）、<b>decoupled data layer</b>（M17 的分层）。<br>
 <b>尚未处理的实质分歧</b>（留待决策，未在本版改动）：香港是否增设财富零售承接入口、是否补一个内地中段案例、中段定价是否降为 T2。数字资产/加密已决策为<b>暂不纳入（含读侧）</b>，见 §6.3。〔待决策清单 C5–C7，本版内联记录〕</div>
 
-<h2>§1 17 组客户，8 个 Job</h2>
-<p class="lead">把 17 个案例的痛点去掉行业与人物差异，剩下 8 个重复出现的 Job。每一个 Job 都对应一句客户原话、一组人物、一个现在的替代方案、以及一个失败的代价。</p>
+<h2>§1 21 个案例，8 个 Job</h2>
+<p class="lead">把 21 个案例的痛点去掉行业与人物差异，剩下 8 个重复出现的 Job。每一个 Job 都对应一句客户原话、一组人物、一个现在的替代方案、以及一个失败的代价。</p>
 
 <div class="tw"><table>
 <tr><th style="width:5%">#</th><th style="width:13%">Job</th><th style="width:22%">客户原话 / 场景</th><th style="width:18%">人物</th><th style="width:18%">现在的替代</th><th>失败的代价</th></tr>
-<tr><td><b>J1</b></td><td><b>看见<br>See</b></td><td>“我到底有多少、在哪、能不能用？”——三层财富：纸面 / 可质押 / 可花费</td><td>1,2,3,7,10,12,15,16；全部</td><td>Excel、PDF、多个 RM、多个网银</td><td>决策慢；钱包份额只看到一半；高估可投资资产</td></tr>
-<tr><td><b>J2</b></td><td><b>行动<br>Act</b></td><td>“我这周到底能不能动？”——窗口期、锁定期、披露、集中度、授权</td><td>1,2,3,5,12,13,16</td><td>问券商/律师；靠 RM 记忆；两套系统各查一次</td><td>窗口违规、交易失败、监管问询</td></tr>
-<tr><td><b>J3</b></td><td><b>归属<br>Belong</b></td><td>“这个家谁是谁、谁受益？”——分支、姻亲、堂侄、受益人类别、未成年</td><td>4,5,6,10,17</td><td>家庭关系字段、RM 记忆、纸质家谱</td><td>受益人漏识别、家族争议、KYC 重做</td></tr>
-<tr><td><b>J4</b></td><td><b>合规<br>Comply</b></td><td>“哪个辖区、哪一天、哪套规则？”——身份、税务、CRS、迁移影子</td><td>2,4,6,7,8,9,10,17</td><td>外部税务顾问、邮件、四套 Excel</td><td>双重征税、申报错误、罚款、客户流失</td></tr>
-<tr><td><b>J5</b></td><td><b>变现<br>Liquify</b></td><td>“不卖股，怎么拿到可花的钱？”——Pre-IPO、EOT、earn-out、Lombard</td><td>12,13,14,15,16</td><td>卖股、个人借款、无方案</td><td>流动性错配、控制权丢失、税负提前</td></tr>
-<tr><td><b>J6</b></td><td><b>传承<br>Transmit</b></td><td>“如果他不在了，会发生什么？”——信托、遗嘱、授权切换、家族治理</td><td>4,5,8,11,17</td><td>律师、受托人、家人；银行最后知道</td><td>继承争议、客户流失、资产冻结</td></tr>
-<tr><td><b>J7</b></td><td><b>证明<br>Prove</b></td><td>“怎么向监管/审计/家人证明？”——版本、as-of、证据链</td><td>1,2,3,4,5,8,9,10,11,16,17</td><td>邮件、PDF、个人文件夹</td><td>处罚、声誉、无法自证</td></tr>
+<tr><td><b>J1</b></td><td><b>看见<br>See</b></td><td>“我到底有多少、在哪、能不能用？”——三层财富：纸面 / 可质押 / 可花费</td><td>全部（重点 1,2,3,7,10,12,15,16,18–21）</td><td>Excel、PDF、多个 RM、多个网银</td><td>决策慢；钱包份额只看到一半；高估可投资资产</td></tr>
+<tr><td><b>J2</b></td><td><b>行动<br>Act</b></td><td>“我这周到底能不能动？”——窗口期、锁定期、披露、集中度、授权</td><td>1,2,3,5,12,13,16,18,20,21</td><td>问券商/律师；靠 RM 记忆；两套系统各查一次</td><td>窗口违规、交易失败、监管问询</td></tr>
+<tr><td><b>J3</b></td><td><b>归属<br>Belong</b></td><td>“这个家谁是谁、谁受益？”——分支、姻亲、堂侄、受益人类别、未成年</td><td>4,5,6,10,17,19,20,21</td><td>家庭关系字段、RM 记忆、纸质家谱</td><td>受益人漏识别、家族争议、KYC 重做</td></tr>
+<tr><td><b>J4</b></td><td><b>合规<br>Comply</b></td><td>“哪个辖区、哪一天、哪套规则？”——身份、税务、CRS、迁移影子</td><td>2,4,6,7,8,9,10,17,18,19,20,21</td><td>外部税务顾问、邮件、四套 Excel</td><td>双重征税、申报错误、罚款、客户流失</td></tr>
+<tr><td><b>J5</b></td><td><b>变现<br>Liquify</b></td><td>“不卖股，怎么拿到可花的钱？”——Pre-IPO、EOT、earn-out、Lombard</td><td>12,13,14,15,16,18,20,21</td><td>卖股、个人借款、无方案</td><td>流动性错配、控制权丢失、税负提前</td></tr>
+<tr><td><b>J6</b></td><td><b>传承<br>Transmit</b></td><td>“如果他不在了，会发生什么？”——信托、遗嘱、授权切换、家族治理</td><td>4,5,8,11,17,19,20,21</td><td>律师、受托人、家人；银行最后知道</td><td>继承争议、客户流失、资产冻结</td></tr>
+<tr><td><b>J7</b></td><td><b>证明<br>Prove</b></td><td>“怎么向监管/审计/家人证明？”——版本、as-of、证据链</td><td>1,2,3,4,5,8,9,10,11,16,17,18–21</td><td>邮件、PDF、个人文件夹</td><td>处罚、声誉、无法自证</td></tr>
 <tr><td><b>J8</b></td><td><b>服务<br>Serve</b></td><td>“谁来做、什么时候做、做到什么程度？”——案件、期限、责任人</td><td>全部</td><td>RM/PA 手工、Teams、Outlook</td><td>成本高、体验差、随 RM 离职清零</td></tr>
 </table></div>
 
@@ -180,12 +180,12 @@ li{margin:4px 0}
 <h2 id="s2">§2 需求强度：25 条痛点、三个断层与痛感重排</h2>
 
 <h3>2.1 痛的分布不是均匀的</h3>
-<p class="story">17 个案例里，真正让客户“睡不着”的不是日常配置，而是四类<b>变化时刻</b>：<b>身份变化</b>（移民、IPO、退市、国籍）、<b>授权变化</b>（失能、身故、争议、接班）、<b>资金变化</b>（变现、质押、信贷、税务到期）、<b>结构变化</b>（信托、实体、分家、基金会）。<b>日常配置是低频痛；变化时刻是高频恐惧。</b>下一代核心系统如果只能在“日常”里工作，就会在客户最需要银行的那一天缺席。</p>
+<p class="story">21 个案例里，真正让客户“睡不着”的不是日常配置，而是四类<b>变化时刻</b>：<b>身份变化</b>（移民、IPO、退市、国籍）、<b>授权变化</b>（失能、身故、争议、接班）、<b>资金变化</b>（变现、质押、信贷、税务到期）、<b>结构变化</b>（信托、实体、分家、基金会）。<b>日常配置是低频痛；变化时刻是高频恐惧。</b>下一代核心系统如果只能在“日常”里工作，就会在客户最需要银行的那一天缺席。</p>
 
 <div class="tw"><table>
 <tr><th style="width:4%">#</th><th style="width:26%">痛点与具体表现</th><th style="width:12%">Job / 人物</th><th style="width:4%">N</th><th style="width:16%">根因（断层）</th><th style="width:20%">今天怎么做 → 代价</th><th>系统要求（对象 / 模块）</th></tr>
-<tr><td>1</td><td><b>主客户失能/身故后，谁有权、谁受益、谁来决定</b><br>失能/身故当天，系统仍以逝者为主客户；账户、授权、受益人、决策人四套记录不同步；家庭要付丧葬、医疗、税款，却拿不到钱；跨境家族还要同时跑 2–3 个 probate 程序。</td><td>J6 / J3<br>17 何氏、8 MAF、5 郑、11 Murdoch</td><td><span class="score s5">5</span></td><td>主体断层（逝者仍是主客户）+ 时间断层（权利没有生效/失效日，死亡不是一等事件）</td><td>银行等律师/公证/法院文件，家属垫资或紧急借款；银行 3–30 天才知道。<br><b>代价：</b>家族争议、资产冻结、客户流失、诉讼。</td><td>五角色、有效文件、受影响资产、可继续支付、T+0 权限快照<br><b>M03/M16/M12/M14</b></td></tr>
-<tr><td>2</td><td><b>跨辖区身份/税务/申报：同一个人、同一天、两套规则</b><br>同一个人在同一天可能是两国税务居民；客户以为银行“应该知道”；银行在三个系统查三次，最后给一份 Excel；身份切换前后同一笔资产要分段计算。</td><td>J4<br>9 Mittal、1 周、2 李、7 Poonawalla</td><td><span class="score s5">5</span></td><td>规则断层（辖区/税种/协定）+ 时间断层（身份是状态，不是字段）</td><td>外部税务顾问 + 邮件 + 四套 Excel；银行只做支付/申报接口。<br><b>代价：</b>双重征税、申报错/漏、追溯 5–10 年、罚款、流失。</td><td>as-of 身份状态机、三要素连结点、分辖区规则包、申报包<br><b>M12/M13/M14</b></td></tr>
+<tr><td>1</td><td><b>主客户失能/身故后，谁有权、谁受益、谁来决定</b><br>失能/身故当天，系统仍以逝者为主客户；账户、授权、受益人、决策人四套记录不同步（Avaloq CRM 对四类有记录，但事件当天不联动）；家庭要付丧葬、医疗、税款，却拿不到钱；跨境家族还要同时跑 2–3 个 probate 程序。</td><td>J6 / J3<br>17 何氏、8 MAF、5 郑、11 Murdoch</td><td><span class="score s5">5</span></td><td>主体断层（逝者仍是主客户）+ 时间断层（权利没有生效/失效日，死亡不是一等事件；四记录是账户级、静态的）</td><td>银行等律师/公证/法院文件，家属垫资或紧急借款；银行 3–30 天才知道。<br><b>代价：</b>家族争议、资产冻结、客户流失、诉讼。</td><td>五角色、有效文件、受影响资产、可继续支付、T+0 权限快照<br><b>M03/M16/M12/M14</b></td></tr>
+<tr><td>2</td><td><b>跨辖区身份/税务/申报：同一个人、同一天、两套规则</b><br>同一个人在同一天可能是两国税务居民；客户以为银行“应该知道”；银行在三个系统查三次，最后给一份 Excel；身份切换前后同一笔资产要分段计算。</td><td>J4<br>9 Mittal、1 周、2 李、7 Poonawalla</td><td><span class="score s5">5</span></td><td>规则断层（辖区/税种/协定）+ 时间断层（身份是状态，不是字段）</td><td>外部税务顾问 + 邮件 + 四套 Excel；银行只做支付/申报接口。Avaloq 对上报身份做 CRS/FATCA 尽职调查；EasyTax 只做申报，计算/缴税/建议是不同层。<br><b>代价：</b>双重征税、申报错/漏、追溯 5–10 年、罚款、流失。</td><td>as-of 身份状态机、三要素连结点、分辖区规则包、申报包<br><b>M12/M13/M14</b></td></tr>
 <tr><td>3</td><td><b>同一经济权益，多个登记系统/多个 ISIN/多个窗口期</b><br>A/H、ADR/GDR、同一基金不同 share class、多个托管/CSD/壳公司里代码不同；一批股票锁定、另一批可卖；质押/借出/衍生品让“登记”和“经济权益”分离。</td><td>J1 / J2<br>1 周、2 李、3 张勇</td><td><span class="score s5">5</span></td><td>主键断层（证券代码/账户 ≠ 经济权益）+ 时间断层（不同批次窗口不同）</td><td>RM 手工合并 Excel；交易前问券商/律师；两套系统各查一次。<br><b>代价：</b>集中度算错、超限/披露违规、监管问询。</td><td>EconomicInterest 对象、lot 级窗口/锁定/披露、一致行动人合并<br><b>M05/M07/M08/M09/M14</b></td></tr>
 <tr><td>4</td><td><b>文件版本、法院命令、受托人决议：现在有效的是哪一版</b><br>信托契约改过五版；法院命令、家族协议、受托人决议互相冲突；书面决议未送达银行/签名人权限不足；多语言版本与公证认证不一致；系统只存 PDF。</td><td>J7<br>11 Murdoch、5 郑、8 MAF</td><td><span class="score s5">5</span></td><td>证据断层 + 时间断层（文件没有优先级、生效链、冲突裁决）</td><td>法务人工比对；RM 记“最新版”；执行前临时找律师确认。<br><b>代价：</b>按旧版执行 → 越权/无效 → 诉讼/监管 → 赔偿与声誉。</td><td>有效文件集、生效链、冲突裁决、as-of、执行依据条款<br><b>M16/M14/M03</b></td></tr>
 <tr><td>5</td><td><b>家族图谱：谁是家人、谁是关键人、谁受益</b><br>家族不是一棵树：堂侄、姻亲、继亲、收养、代孕、未出生、慈善基金会；家族办公室 CEO/律师/受托人也是关键人；两个 RM 各知一半；不同成员应看到不同范围。</td><td>J3<br>4 李嘉诚、6 郭、10 Premji、17 何氏</td><td><span class="score s5">5</span></td><td>主体断层（三套边界：血亲/经济/治理没有对象）</td><td>纸质家谱、RM 记忆、家庭关系字段；KYC 每次重做。<br><b>代价：</b>受益人漏识别、分配错、家族争议、KYC 返工。</td><td>FamilyGraph、BeneficiaryClass、关键人网络、可见性分级<br><b>M01/M02/M03/M05</b></td></tr>
@@ -199,7 +199,7 @@ li{margin:4px 0}
 <tr><td>12</td><td><b>婚姻/离婚/同居/婚前协议</b><br>婚前/婚后财产制度不同；信托受益权是否算共同财产；离婚冻结/分割可能先于死亡发生；跨境婚姻/同性伴侣的法律认定不同；银行往往在看到律师函时才知道配偶也是受益人。</td><td>J3 / J6<br>17 何氏、4 李嘉诚</td><td><span class="score s3">3</span></td><td>主体断层（配偶/伴侣不是字段）+ 事件缺失（婚姻变化不是一等事件）</td><td>律师函/法院命令到了才处理；家庭关系靠 RM 记忆。<br><b>代价：</b>资产被冻结/分割错误、家族争议、客户流失。</td><td>MaritalEvent、Claim、婚姻财产制度、冻结/分割状态<br><b>M01/M03/M16</b></td></tr>
 <tr><td>13</td><td><b>未成年/未出生/收养/代孕</b><br>受益人类别包含未出生、未成年、收养、代孕；监护人与决策人不是同一人；教育金/信托分配有触发条件；跨境收养/代孕的法律认定差异大。</td><td>J3 / J6<br>17 何氏、4 李嘉诚、6 郭</td><td><span class="score s3">3</span></td><td>主体断层（未出生/未确立关系无法建档）</td><td>备注/纸质文件；分配时临时确认监护人。<br><b>代价：</b>受益人漏识别、分配错、监护争议。</td><td>BeneficiaryClass、Guardianship、分配触发条件、教育金<br><b>M01/M02/M03</b></td></tr>
 <tr><td>14</td><td><b>受托人决议与银行执行时滞</b><br>受托人已通过书面决议，但银行未收到/未验证签名人权限；多受托人意见不一致；银行执行决议 vs 受托人责任边界不清；决议与信托契约冲突。</td><td>J2 / J6<br>11 Murdoch、8 MAF、5 郑</td><td><span class="score s4">4</span></td><td>证据断层（决议不是“有效指令”，只是 PDF）</td><td>邮件 + PDF + 电话确认；执行前临时找律师。<br><b>代价：</b>执行延误/越权、诉讼、受托人责任。</td><td>Resolution、Delegation、签名人权限、冲突裁决<br><b>M03/M16</b></td></tr>
-<tr><td>15</td><td><b>遗产认证/冻结与紧急流动性</b><br>死亡后账户冻结，但丧葬、医疗欠款、遗产税、员工工资、贷款利息要付；跨境家族同时跑 2–3 个 probate；继承权未生效，家庭没有现金流。</td><td>J6 / J5<br>5 郑、11 Murdoch、17 何氏</td><td><span class="score s4">4</span></td><td>时间断层（死亡与继承权生效不同步）</td><td>家属垫资/紧急借款/卖资产；银行“等文件”。<br><b>代价：</b>现金流断裂、折价卖资产、关系破裂。</td><td>ProbateCase、EstateExpense、紧急支付授权、遗产贷款<br><b>M03/M10/M14/M16</b></td></tr>
+<tr><td>15</td><td><b>遗产认证/冻结与紧急流动性</b><br>死亡后账户冻结，但丧葬、医疗欠款、遗产税、员工工资、贷款利息要付；跨境家族同时跑 2–3 个 probate；继承权未生效，家庭没有现金流。</td><td>J6 / J5<br>5 郑、11 Murdoch、17 何氏</td><td><span class="score s4">4</span></td><td>时间断层（死亡与继承权生效不同步）</td><td>家属垫资/紧急借款/卖资产；银行“等文件”。Avaloq 信托产品定义清楚，但 probate 状态、遗产费用、紧急支付不在模型里。<br><b>代价：</b>现金流断裂、折价卖资产、关系破裂。</td><td>ProbateCase、EstateExpense、紧急支付授权、遗产贷款<br><b>M03/M10/M14/M16</b></td></tr>
 <tr><td>16</td><td><b>授权文件过期/失效</b><br>POA 是 10 年前签的、银行登记已过期；授权有地域/事项限制；失能后无法补签；家属拿着“看起来有效”的文件来指示；系统仍显示旧授权有效。</td><td>J2 / J6<br>5 郑、17 何氏</td><td><span class="score s4">4</span></td><td>时间断层（授权不是永久状态）</td><td>人工查文件/律师确认；靠 RM 判断。<br><b>代价：</b>执行无权指示 → 赔偿；或拒绝合法指示 → 流失。</td><td>AuthorityDocument、Expiry、地域/事项范围、登记状态、主语切换<br><b>M03/M16</b></td></tr>
 <tr><td>17</td><td><b>退出税/遗产税/赠与税</b><br>离境触发退出税；向子女赠与股权触发赠与税/遗产税；同一笔财富在三个辖区被征两次；纳税时点与估值日不同；抵扣/协定适用复杂。</td><td>J4<br>9 Mittal、2 李、7 Poonawalla</td><td><span class="score s4">4</span></td><td>规则断层（税种随身份/时点变化）</td><td>只算所得税；交易后才发现退出/遗产税。<br><b>代价：</b>追悔/诉讼、税负超预期、流失。</td><td>TaxEvent、EstatePlan、纳税时点/估值日、协定/抵扣<br><b>M13/M14</b></td></tr>
 <tr><td>18</td><td><b>CRS/FATCA 自我证明变更</b><br>地址、电话、出生地、税务居民变化；自我证明与实际矛盾；不合理情形（indicia）触发补问；开户时收一次，之后不更新；追溯多年。</td><td>J4<br>1 周、2 李、7 Poonawalla、9 Mittal</td><td><span class="score s3">3</span></td><td>时间断层（证明会过期/失真）</td><td>开户时收一次；之后靠客户主动更新。<br><b>代价：</b>申报错/漏、罚款、监管问询、声誉。</td><td>TaxSelfCert、Indicia、有效期、变更触发、证据<br><b>M12/M13</b></td></tr>
@@ -279,7 +279,7 @@ li{margin:4px 0}
 
 <div class="shadow">
 <p class="story"><b>#15 遗产认证/冻结与紧急流动性</b>　<span class="tag t-risk">J6/J5</span>　N4</p>
-<p><b>场景：</b>郑裕彤身故，遗嘱认证（probate）在 HK/UK/开曼同时进行；账户冻结，但家族要付丧葬、医疗欠款、遗产税、员工工资、贷款利息。银行如果只能“等文件”，客户会先失去现金流，再失去信任。<br>
+<p><b>场景：</b>郑裕彤身故，遗嘱认证（probate）在 HK/UK/开曼同时进行；账户冻结，但家族要付丧葬、医疗欠款、遗产税、员工工资、贷款利息。银行如果只能“等文件”，客户会先失去现金流，再失去信任。Avaloq 的信托产品定义清楚，但 probate 不是一等事件，遗产费用与紧急支付也没有对象。<br>
 <b>失败链：</b>死亡 → 账户冻结 → 家庭无现金 → 紧急借款/卖资产 → 税负与折价 → 关系破裂。<br>
 <b>系统必须回答：</b>哪些账户被冻结、哪些支付可豁免/可垫付；紧急支付的授权人是谁；每笔支付对应哪份文件/哪条法律；垫付的优先级与追偿路径。<br>
 <b>落点：</b>M03 probate 状态、M10 紧急流动性/遗产贷款、M14 遗产税/到期日、M16 法院文件。<br>
@@ -300,7 +300,7 @@ li{margin:4px 0}
 <p><b>场景：</b>Mittal 离境后仍有 10 年英国尾随；客户从英国移居新加坡，触发退出税；把股权赠与子女，触发赠与税/遗产税；同一笔财富在三个辖区被征两次。<br>
 <b>失败链：</b>只算所得税 → 漏掉退出税/遗产税 → 客户在交易后才发现 → 追悔/诉讼/流失。<br>
 <b>系统必须回答：</b>这次身份/居住地/赠与/继承变化触发哪些税种；纳税时点与估值日；哪些抵扣/协定可用；谁申报；不处理的后果。<br>
-<b>落点：</b>M13 TaxEvent/规则包、M14 申报/到期、M12 身份变化触发。<br>
+<b>落点：</b>M13 TaxEvent/规则包、M14 申报/到期、M12 身份变化触发。注意：EasyTax 只做申报；缴税与建议不在 Avaloq 的 M13 范围内。<br>
 <b>验收：</b>身份/赠与/继承事件自动生成税务清单；任一税种可给出“辖区 × 日期 × 依据”；与外部顾问的接口有责任边界。</p>
 </div>
 
@@ -316,6 +316,17 @@ li{margin:4px 0}
 <h3>2.7 需求强度的反直觉结论</h3>
 <div class="verdict"><b>最深的需求，往往不是最愿意付钱的需求。</b>授权、合规、证据、数据一致性是“没有它会出事”的需求，客户默认银行应该做好；Pre-IPO 流动性、家族治理、税务协调是“有它更好”的需求，客户愿意为此付溢价或承担信贷成本。<b>架构必须同时服务这两种需求，但商业模型必须区分它们。</b><br>
 <b>本轮新增的判断：</b>“不可逆”比“高频”更该优先。失能/身故、文件生效链、probate、POA 过期、deepfake 都是低频但不可逆；它们不产生收入，却决定客户是否在最重要的那天留下。</div>
+
+<h3>2.8 来自 Avaloq 一线的四条修正：哪些是“没有”，哪些是“有但不联动”</h3>
+<p class="lead">本节把 Avaloq 同事的反馈单独列出，因为它修正了本文此前的两个判断：Avaloq 并不是“没有账户/授权/受益人/决策人”，也不是“完全不碰税”。真正的差距在事件当天的联动、四层税务边界、生态合作的对象化，以及私人股权自动化的“人审边界”。</p>
+<div class="tw"><table>
+<tr><th style="width:4%">#</th><th style="width:17%">一线反馈</th><th style="width:30%">它修正了什么</th><th style="width:27%">系统含义</th><th>落点</th></tr>
+<tr><td>1</td><td><b>Avaloq CRM 对投资账户有账户/授权/受益人/决策人四类记录；信托产品定义清楚。</b></td><td>此前写成“家族/信托/授权只有字段”，过重。准确说法是：<b>四类记录存在，但它们是账户级、静态的；失能/身故当天不自动联动，跨境 probate 不在模型里。</b></td><td>不是“补字段”，是“补事件 + 生效日 + T+0 快照 + 跨境程序”。</td><td>M03/M16/M14；对象：IncapacityEvent/DeathEvent、EstateExpense、EmergencyPayment、PrimaryClientSwitch。</td></tr>
+<tr><td>2</td><td><b>Avaloq 能算税、能生成申报；EasyTax 只是报税；HSBC 的 Avaloq 主要对上报身份做 CRS/FATCA 尽职调查，不做主动税务服务。</b></td><td>此前把“税务计算”与“税务服务”混在一起。准确说法是四层：<b>计算 ≠ 申报 ≠ 缴税 ≠ 建议</b>。EasyTax 只覆盖申报；<b>缴税是否包含在 Avaloq 内须向厂商确认</b>，本文按“不含、走支付/税务代理”设计；建议由外部顾问完成，银行不做。</td><td>M13 只做“可复算的计算 + 申报包 + 协调”，不输出建议；银行与外部顾问之间要有责任边界与证据包。</td><td>M13/M14/M16/X4；对象：TaxPayment、FilingPackage、PartnerReferral、EvidencePack。</td></tr>
+<tr><td>3</td><td><b>RM 会私下推荐避税模式、会计师、律师、家办；具体服务与 HSBC 无关。</b></td><td>这是“生态合作”的真实起点，也是最大合规风险：<b>非正式推荐 = 无记录、无同意、无责任边界。</b>不能把它洗成“银行建议”，也不能继续留在邮件/微信里。</td><td>把推荐变成对象：合作方注册、转介案件、客户同意、费用披露、责任边界、证据包；数据复用只做去标识化/聚合，不做客户 A 的原始信息转卖给 B。</td><td>M15/M16/M17/M18/X4；对象：PartnerRegistry、ReferralCase、DataSharingConsent、NextBestAction、EvidencePack。</td></tr>
+<tr><td>4</td><td><b>Pre-IPO/私人股权目前大量手工：估值、质押、卖方贷款、或有对价、非现金股权；风险评估是难点。</b></td><td>此前只写“要联动”，没写“哪些能自动、哪些必须人审”。准确说法是：<b>数据采集、估值区间、LTV、税务计算、追保监控可自动化；估值判断、质押审批、谈判、退出执行仍由人。</b></td><td>自动化到“可计算、可监控、可举证”为止；风险判断留在估值委员会/信贷委员会/律师。</td><td>M06/M10/M16；对象：UnlistedValuation、PledgeOfUnlistedShares、VendorLoan、EarnOut、ValuationGovernance；详见 §5.3。</td></tr>
+</table></div>
+<div class="note"><b>一句话：</b>Avaloq 的缺口不是“完全没有”，而是“有记录、没事件；有计算、没边界；有合作、没对象；有流程、没自动化”。这四句话决定了本轮新增的对象，而不是新增模块。</div>
 
 <h2>§3 付费意愿：客户为什么付、付给谁、付多少</h2>
 
@@ -371,7 +382,7 @@ li{margin:4px 0}
 
 <h2>§4 功能架构：7 层、18 个模块</h2>
 
-<h3>4.1 七条架构原则</h3>
+<h3>4.1 八条架构原则</h3>
 <div class="tw"><table>
 <tr><th style="width:6%">#</th><th style="width:24%">原则</th><th>含义</th><th style="width:22%">反例（不要这样做）</th></tr>
 <tr><td>1</td><td><b>家庭是首席对象</b></td><td>主键不是账户、不是产品，是“人—家庭—实体—资产—权利—义务”的关系图。这是报告所说的 <b>system architects</b> 立场：卖的不是产品，而是家族跨代传承所需的结构。<span class="cite">〔BCG 2026 p.19〕</span></td><td>把配偶建成“附属字段”；把信托建成“账户的备注”。</td></tr>
@@ -381,6 +392,7 @@ li{margin:4px 0}
 <tr><td>5</td><td><b>规则是数据，不是代码</b></td><td>税务、披露、窗口期、信托条款按“辖区 × 版本 × 生效日”配置；变更不发版。</td><td>把税率写进存储过程；每次修法发一次 release。</td></tr>
 <tr><td>6</td><td><b>同意范围内的可见性</b></td><td>同一家庭视图，不同成员看到不同范围；隐私、居民身份、跨境传输按设计处理。</td><td>“一家人就应该看到全部”。</td></tr>
 <tr><td>7</td><td><b>人在回路 + AI-first 流程</b></td><td><b>AI-first 是流程级 mandate</b>，不是“自建一个大模型”；AI 做检索、起草、校对、监督，建议与决策仍由 RM/IC/受托人完成。代理式 AI 目前仍处试点期（Adoption score 3 — Piloting），因此 M18 排在 P2，并以 M16/M17 为前置。<span class="cite">〔McKinsey Technology Trends 2026 p.27；BCG 2026 p.21〕</span></td><td>让 AI 直接给客户税务/投资建议；或在数据地基未完成前承诺 AI 产能。</td></tr>
+<tr><td>8</td><td><b>合作而不越界</b></td><td>税务/法律/估值/信托合作方是交付链的一部分，不是数据来源。系统记录“谁在什么授权下、为什么目的、提供了什么证据”；客户 A 的信息只能形成去标识化的同类模式，不能以原始形态服务客户 B。<b>转介、证据、数据复用是三层，不是一件事。</b></td><td>把合作方当“数据供应商”；用客户 A 的原始信息给客户 B 做 Next Best Action；把转介费藏在顾问费里。</td></tr>
 </table></div>
 
 <h3>4.2 架构图</h3>
@@ -391,7 +403,7 @@ li{margin:4px 0}
 <div class="acell"><b>X1 客户/家庭门户</b><span>资产、家庭目标、长期现金流、授权、文件</span></div>
 <div class="acell"><b>X2 RM/顾问工作台</b><span>360、案件、预检、下一步</span></div>
 <div class="acell"><b>X3 家族办公室控制台</b><span>多实体、合并报表、治理</span></div>
-<div class="acell"><b>X4 外部顾问门户</b><span>律师/会计师/受托人协作</span></div>
+<div class="acell"><b>X4 外部顾问门户</b><span>律师/会计师/受托人/估值师协作；转介与证据包</span></div>
 </div>
 </div>
 
@@ -436,16 +448,16 @@ li{margin:4px 0}
 <div class="arch-row arch-ops">
 <div class="arch-label">L5 运营与证据</div>
 <div class="arch-cells">
-<div class="acell"><b>M15 案件与工作流</b><span>跨模块、依赖、SLA、责任人</span></div>
-<div class="acell"><b>M16 文件/契约/证据</b><span>版本、生效链、授权/决议、审计</span></div>
+<div class="acell"><b>M15 案件与工作流</b><span>跨模块、依赖、SLA、责任人、转介案件</span></div>
+<div class="acell"><b>M16 文件/契约/证据</b><span>版本、生效链、授权/决议、合作方证据包、审计</span></div>
 </div>
 </div>
 
 <div class="arch-row arch-data">
 <div class="arch-label">L6 数据、AI 与集成</div>
 <div class="arch-cells">
-<div class="acell"><b>M17 客户数据平台与集成</b><span>单一事实源、事件账本、集团敞口、API</span></div>
-<div class="acell"><b>M18 AI Copilot 与顾问监督</b><span>检索、起草、质检、引用溯源</span></div>
+<div class="acell"><b>M17 客户数据平台与集成</b><span>单一事实源、事件账本、集团敞口、API、用途同意/NBA</span></div>
+<div class="acell"><b>M18 AI Copilot 与顾问监督</b><span>检索、起草、质检、引用溯源、NBA 解释</span></div>
 </div>
 </div>
 
@@ -464,48 +476,65 @@ li{margin:4px 0}
 <div class="tw"><table>
 <tr><th style="width:4%">#</th><th style="width:15%">模块</th><th style="width:20%">核心能力</th><th style="width:11%">主要人物</th><th style="width:7%">Job</th><th style="width:4%">N</th><th style="width:4%">W</th><th style="width:9%">付费方</th><th style="width:12%">价格杠杆</th><th style="width:5%">优先级</th><th>建设姿态</th></tr>
 <tr><td>M01</td><td><b>客户/家庭主数据</b></td><td>人、家庭、角色、关系、KYC/同意</td><td>全部</td><td>J1/J3/J8</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>银行</td><td>留存/成本</td><td>P0</td><td>自建</td></tr>
-<tr><td>M02</td><td><b>家族图谱与治理</b></td><td>分支、宪章、委员会、二代、慈善、家庭目标四元组、慈善基金会/拨款</td><td>4,5,6,10,17</td><td>J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>客户</td><td>顾问/家办费</td><td>P1</td><td>自建</td></tr>
-<tr><td>M03</td><td><b>同意/授权/争议</b></td><td>五角色、四权利、监护、争议、主语切换、POA/授权到期、probate、婚姻事件</td><td>4,5,8,11,17</td><td>J2/J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>客户/银行</td><td>顾问/留存</td><td>P1</td><td>自建</td></tr>
-<tr><td>M04</td><td><b>实体与结构图</b></td><td>信托/基金/控股/SPV、层级、Passive NFE</td><td>3,4,5,6,7,8,10,11,17</td><td>J4/J7</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>客户/银行</td><td>打包顾问费</td><td>P1</td><td>自建</td></tr>
-<tr><td>M05</td><td><b>权利与所有权</b></td><td>经济/投票/处分、穿透、双 AUM</td><td>4,10,16,17</td><td>J1/J4/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>客户</td><td>顾问/税务</td><td>P1</td><td>自建</td></tr>
-<tr><td>M06</td><td><b>私人股权与 Pre-IPO</b></td><td>估值、质押、锁定期、IPO 窗口、用途、commitment/capital call、常青私募</td><td>12,13,16</td><td>J5</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>客户</td><td>信贷利差</td><td>P1</td><td>自建</td></tr>
+<tr><td>M02</td><td><b>家族图谱与治理</b></td><td>分支、宪章、委员会、二代、慈善、家庭目标四元组、慈善基金会/拨款</td><td>4,5,6,10,17,19,20,21</td><td>J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>客户</td><td>顾问/家办费</td><td>P1</td><td>自建</td></tr>
+<tr><td>M03</td><td><b>同意/授权/争议</b></td><td>五角色、四权利、监护、争议、主语切换、POA/授权到期、probate、婚姻事件、失能/身故事件、四记录同步、T+0 快照、遗产费用/紧急支付</td><td>4,5,8,11,17,18,19,20,21</td><td>J2/J3/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>客户/银行</td><td>顾问/留存</td><td>P1</td><td>自建</td></tr>
+<tr><td>M04</td><td><b>实体与结构图</b></td><td>信托/基金/控股/SPV、层级、Passive NFE</td><td>3,4,5,6,7,8,10,11,17,20,21</td><td>J4/J7</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>客户/银行</td><td>打包顾问费</td><td>P1</td><td>自建</td></tr>
+<tr><td>M05</td><td><b>权利与所有权</b></td><td>经济/投票/处分、穿透、双 AUM</td><td>4,10,16,17,19,20,21</td><td>J1/J4/J6</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td>客户</td><td>顾问/税务</td><td>P1</td><td>自建</td></tr>
+<tr><td>M06</td><td><b>私人股权与 Pre-IPO</b></td><td>估值、质押、锁定期、IPO 窗口、用途、commitment/capital call、常青私募、非现金股权/ESOP、自动化边界</td><td>12,13,16,20,21</td><td>J5</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>客户</td><td>信贷利差</td><td>P1</td><td>自建</td></tr>
 <tr><td>M07</td><td><b>资产/负债登记</b></td><td>证券、房产、艺术、私股、债务</td><td>全部</td><td>J1</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>银行</td><td>成本</td><td>P0</td><td>自建+合作</td></tr>
 <tr><td>M08</td><td><b>组合与 IBOR</b></td><td>多托管、业绩、归因、持仓</td><td>全部</td><td>J1/J8</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>银行</td><td>基础能力（table stakes）</td><td>P0</td><td>买/合作</td></tr>
-<tr><td>M09</td><td><b>交易/执行/预检</b></td><td>OMS、窗口、适当性、分配</td><td>1,2,3,5,12,13,16</td><td>J2</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>银行</td><td>产品利差</td><td>P0</td><td>买/合作</td></tr>
-<tr><td>M10</td><td><b>信贷与流动性</b></td><td>Lombard、按揭、卖方贷款、资本承诺、退休/回收现金流、probate 紧急流动性、追保</td><td>12,13,14,15,16,17</td><td>J5</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>客户</td><td>信贷利差/安排费</td><td>P1</td><td>自建+合作</td></tr>
+<tr><td>M09</td><td><b>交易/执行/预检</b></td><td>OMS、窗口、适当性、分配</td><td>1,2,3,5,12,13,16,18,20,21</td><td>J2</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>银行</td><td>产品利差</td><td>P0</td><td>买/合作</td></tr>
+<tr><td>M10</td><td><b>信贷与流动性</b></td><td>Lombard、按揭、卖方贷款、资本承诺、退休/回收现金流、probate 紧急流动性、遗产费用垫付、追保</td><td>12,13,14,15,16,17,18,20,21</td><td>J5</td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td>客户</td><td>信贷利差/安排费</td><td>P1</td><td>自建+合作</td></tr>
 <tr><td>M11</td><td><b>支付与外汇</b></td><td>多币种、跨境、结算</td><td>全部</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>客户/银行</td><td>FX 利差</td><td>P0</td><td>买/合作</td></tr>
-<tr><td>M12</td><td><b>多辖区身份状态</b></td><td>税务/移民/证券/制裁/PEP，as-of、CRS 自我证明</td><td>2,4,6,7,8,9,10,17</td><td>J4</td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td>银行/客户</td><td>留存</td><td>P1</td><td>自建</td></tr>
-<tr><td>M13</td><td><b>税务计算与申报</b></td><td>全球辖区规则包、预提/抵扣、CRS/FATCA、申报、养老金/社保协定、退出/遗产/赠与税</td><td>2,4,6,7,8,9,10,17</td><td>J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>客户</td><td>税务协调费</td><td>P1</td><td>自建（全球引擎 + 分辖区规则包）</td></tr>
-<tr><td>M14</td><td><b>义务/披露/报告</b></td><td>交易所、监管、信托、法院、到期日、费用披露、慈善 payout</td><td>1,3,5,8,9,11,16,17</td><td>J2/J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>银行</td><td>合规成本</td><td>P0</td><td>自建</td></tr>
-<tr><td>M15</td><td><b>案件与工作流</b></td><td>跨模块、依赖、SLA、责任人</td><td>全部</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>银行</td><td>产能</td><td>P0</td><td>自建</td></tr>
-<tr><td>M16</td><td><b>文件/契约/证据</b></td><td>版本、生效链、e-sign、as-of、审计、授权/决议</td><td>4,5,8,11,16,17</td><td>J7</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>银行</td><td>风险成本</td><td>P0</td><td>自建</td></tr>
-<tr><td>M17</td><td><b>客户数据平台与集成</b></td><td>单一事实源、事件账本、API/feed、集团敞口、合并报告</td><td>全部</td><td>J1/J8</td><td><span class="score s5">5</span></td><td><span class="score s1">1</span></td><td>银行</td><td>基础设施</td><td>P0</td><td>自建+合作</td></tr>
-<tr><td>M18</td><td><b>AI Copilot 与监督</b></td><td>检索、起草、质检、引用溯源（AI-first 是流程要求，模型/平台外购）</td><td>全部</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>银行</td><td>产能/合规</td><td>P2</td><td>合作底座 + 自建差异层</td></tr>
+<tr><td>M12</td><td><b>多辖区身份状态</b></td><td>税务/移民/证券/制裁/PEP，as-of、CRS 自我证明</td><td>2,4,6,7,8,9,10,17,18,19,20,21</td><td>J4</td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td>银行/客户</td><td>留存</td><td>P1</td><td>自建</td></tr>
+<tr><td>M13</td><td><b>税务计算与申报</b></td><td>全球辖区规则包、预提/抵扣、CRS/FATCA、申报、养老金/社保协定、退出/遗产/赠与税、计算/申报/缴税/建议四层边界、税务支付接口</td><td>2,4,6,7,8,9,10,17,18,19,20,21</td><td>J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td>客户</td><td>税务协调费</td><td>P1</td><td>自建（全球引擎 + 分辖区规则包）</td></tr>
+<tr><td>M14</td><td><b>义务/披露/报告</b></td><td>交易所、监管、信托、法院、到期日、费用披露、慈善 payout、合作方转介披露/责任边界</td><td>1,3,5,8,9,11,16,17,18,20,21</td><td>J2/J4/J7</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>银行</td><td>合规成本</td><td>P0</td><td>自建</td></tr>
+<tr><td>M15</td><td><b>案件与工作流</b></td><td>跨模块、依赖、SLA、责任人、转介案件/合作方</td><td>全部</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s2">2</span></td><td>银行</td><td>产能</td><td>P0</td><td>自建</td></tr>
+<tr><td>M16</td><td><b>文件/契约/证据</b></td><td>版本、生效链、e-sign、as-of、审计、授权/决议、合作方证据包</td><td>4,5,8,11,16,17,18,19,20,21</td><td>J7</td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td>银行</td><td>风险成本</td><td>P0</td><td>自建</td></tr>
+<tr><td>M17</td><td><b>客户数据平台与集成</b></td><td>单一事实源、事件账本、API/feed、集团敞口、合并报告、数据用途同意/NBA</td><td>全部</td><td>J1/J8</td><td><span class="score s5">5</span></td><td><span class="score s1">1</span></td><td>银行</td><td>基础设施</td><td>P0</td><td>自建+合作</td></tr>
+<tr><td>M18</td><td><b>AI Copilot 与监督</b></td><td>检索、起草、质检、引用溯源、NBA 解释/监督（AI-first 是流程要求，模型/平台外购）</td><td>全部</td><td>J8</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>银行</td><td>产能/合规</td><td>P2</td><td>合作底座 + 自建差异层</td></tr>
 </table></div>
 
-<p class="src">注：<b>客群标签不是模块。</b>“女性”“二代”“企业家”是服务设计与渠道的切分，不是系统模块；系统只提供对象（独立客户、受益人、决策人）与权限，客群价值主张由 X1/X2 与 §5 的服务设计承载。同理，“家族结构、下一代、教育/养老/慈善在一个视图里”是 M02 + M10 + X1 共同交付的<b>客户结果</b>，不新增第 19 个模块。本版新增的对象（Goal/FundingRatio、ProbateCase、AuthorityDocument、GroupExposure/WallRule、ScreeningAlert、FraudCase、Commitment/CapitalCall、Foundation/Grant）都挂在既有模块上，不扩模块数量。</p>
+<p class="src">注：<b>客群标签不是模块。</b>“女性”“二代”“企业家”是服务设计与渠道的切分，不是系统模块；系统只提供对象（独立客户、受益人、决策人）与权限，客群价值主张由 X1/X2 与 §5 的服务设计承载。同理，“家族结构、下一代、教育/养老/慈善在一个视图里”是 M02 + M10 + X1 共同交付的<b>客户结果</b>，不新增第 19 个模块。本版新增的对象（Goal/FundingRatio、ProbateCase、AuthorityDocument、GroupExposure/WallRule、ScreeningAlert、FraudCase、Commitment/CapitalCall、Foundation/Grant、IncapacityEvent/DeathEvent、EstateExpense/EmergencyPayment、TaxPayment/FilingPackage、PartnerRegistry/ReferralCase、DataSharingConsent/NextBestAction、EvidencePack、VendorLoan/EarnOut、UnlistedValuation/PledgeOfUnlistedShares）都挂在既有模块上，不扩模块数量。</p>
 
 <h3>4.4 七层分别在解决什么</h3>
 <div class="two">
 <div class="shadow"><b>L1 客户与家庭</b><br>回答“谁是客户、谁是这个家、谁有权”。<b>没有这一层，后面的结构/资产/税务都挂在错误的主体上。</b></div>
 <div class="shadow"><b>L2 结构、权利与资产</b><br>回答“钱在哪个实体里、谁拥有什么权利、这些权利值多少”。<b>这是私行与零售银行的分水岭。</b></div>
 <div class="shadow"><b>L3 产品与流动性</b><br>回答“怎么投资、怎么交易、怎么借钱、怎么付钱”。<b>大部分是基础能力（table stakes），买/合作，不自建。</b></div>
-<div class="shadow"><b>L4 税务、监管与义务</b><br>回答“哪个辖区、哪一天、哪套规则、什么时候到期”。<b>这是本架构的防御核心。</b>对应的行业表述是 BCG 的 <b>cross-border tax and legal navigation</b>——客户要的是跨境税务与法律的可导航性，而不是一份税务意见。<span class="cite">〔BCG 2026 p.19〕</span></div>
+<div class="shadow"><b>L4 税务、监管与义务</b><br>回答“哪个辖区、哪一天、哪套规则、什么时候到期”，并区分<b>计算/申报/缴税/建议</b>四层边界。<b>这是本架构的防御核心。</b>对应的行业表述是 BCG 的 <b>cross-border tax and legal navigation</b>——客户要的是跨境税务与法律的可导航性，而不是一份税务意见。<span class="cite">〔BCG 2026 p.19〕</span></div>
 <div class="shadow"><b>L5 运营与证据</b><br>回答“谁来做、做到哪一步、怎么证明”。<b>不产生收入，但决定收入模块能否被监管/客户接受。</b></div>
 <div class="shadow"><b>L6 数据、AI 与集成</b><br>回答“事实从哪来、怎么复用、怎么让 RM 更快”。<b>这是规模化与成本-to-serve 的地基。</b></div>
 </div>
+
+<h3>4.5 生态合作与数据复用：不新增模块，新增四个对象组</h3>
+<p class="lead">税务师事务所、律所、估值师、受托人不是“供应商”，而是交付链上的共同责任人。系统要做的不是把他们的工作搬进来，而是把“谁在什么授权下、为什么目的、提供了什么证据、谁依赖了它”变成可查的对象。数据复用同理：客户 A 的信息可以帮助“同类客户”的服务设计，但不能以原始形态流向客户 B。</p>
+<div class="tw"><table>
+<tr><th style="width:8%">层</th><th style="width:18%">对象</th><th style="width:26%">必须回答</th><th style="width:22%">边界 / 控制</th><th>落点</th></tr>
+<tr><td><b>合作方</b></td><td><code>PartnerRegistry</code></td><td>谁（税/法/估值/信托）、哪个辖区、什么牌照、什么能力、有无利益冲突、SLA 是什么</td><td>只注册经法务/采购/合规准入的机构；禁止“RM 私人推荐”进入生产</td><td>M15/M16/X4</td></tr>
+<tr><td><b>转介</b></td><td><code>ReferralCase</code></td><td>哪个客户、什么目的、客户是否同意、费用谁付、责任边界在哪、结果如何</td><td>不得暗示银行提供税务/法律意见；转介费/共享收入须披露并符合当地法规</td><td>M15/M16/X4</td></tr>
+<tr><td><b>证据</b></td><td><code>EvidencePack</code></td><td>合作方给了哪份文件/哪个版本/哪个 as-of、谁依赖了它、银行据此做了什么</td><td>证据可追溯、可撤回；合作方结论不等于银行结论</td><td>M16/M17</td></tr>
+<tr><td><b>数据复用</b></td><td><code>DataSharingConsent</code> + <code>NextBestAction</code></td><td>什么目的、什么字段、是否去标识化、是否跨境、是否用于模型训练、客户能否退出</td><td>客户 A 的原始信息不得直接用于客户 B；只允许聚合/去标识化的同类模式；NBA 必须可解释、可拒绝</td><td>M17/M18/X2</td></tr>
+</table></div>
+<div class="tw"><table>
+<tr><th style="width:10%">复用层级</th><th style="width:30%">可以做什么</th><th style="width:30%">不可以做什么</th><th>需要的控制</th></tr>
+<tr><td><b>L1 同一客户·跨实体</b></td><td>在客户本人授权范围内，合并企行/私行/信托/保险视图</td><td>超出同意范围共享；把投行信息流入私行</td><td>目的限制、Chinese Wall、可见性分级</td></tr>
+<tr><td><b>L2 同类客户·模式</b></td><td>用去标识化/聚合数据形成客群模式，生成 Next Best Action</td><td>用客户 A 的可识别信息直接服务客户 B；反向重识别</td><td>去标识化、聚合阈值、模型治理、可解释、opt-out</td></tr>
+<tr><td><b>L3 对外·合作方</b></td><td>在明确同意 + 合同 + 辖区许可下，向税务/法律/估值合作方提供必要字段</td><td>整包数据出售；超出目的二次使用；跨境无依据传输</td><td>DataSharingConsent、合同、跨境评估、审计</td></tr>
+</table></div>
+<div class="warn"><b>“拿到客户 A 的信息，就能服务同类客户”这句话，必须拆成两半：</b>能复用是<b>模式</b>（什么结构、什么时点、什么服务有效），不是<b>原始数据</b>；能共享是<b>客户本人同意 + 目的限定</b>，不是 RM 的判断。否则生态合作会变成数据倒卖，Next Best Action 会变成隐私事故。</div>
 
 <h2>§5 六个收入模块：为什么客户愿意为它们付钱</h2>
 <p class="lead">T1 的六个模块不是“功能最多”的模块，而是<b>最接近客户付费时刻</b>的模块。下面每一个都给出：痛证、它做什么、付费逻辑、建设/依赖/风险。</p>
 
 <div class="tw"><table>
-<tr><th style="width:12%">模块</th><th style="width:24%">痛证（来自 17 组人物）</th><th style="width:22%">它做什么</th><th style="width:20%">付费逻辑</th><th>建设 / 依赖 / 风险</th></tr>
+<tr><th style="width:12%">模块</th><th style="width:24%">痛证（来自 21 个案例）</th><th style="width:22%">它做什么</th><th style="width:20%">付费逻辑</th><th>建设 / 依赖 / 风险</th></tr>
 <tr><td><b>M02 家族图谱与治理</b></td><td>李嘉诚第三代第一次进分行，系统查不到；郭鹤年两个 RM 各知一半；何氏家族没有家族宪章。</td><td>家族图（血亲/姻亲/堂表/关键人）、三套边界（血亲/经济/治理）、家族宪章、委员会、二代教育、慈善、家庭目标四元组（提出人/受益人/出资方/决策人）、慈善基金会/拨款与影响力报告。</td><td><b>客户付</b>：家族办公室 retainer、治理工作坊、传承项目费；锚点是律师/会计师/家办。</td><td>自建；依赖 M01/M03；风险是家族政治、隐私、跨境数据。</td></tr>
 <tr><td><b>M03 同意/授权/争议</b></td><td>郑裕彤 CEO 辞任次日，系统授权还是昨天的；MAF 三封“家族的决定”；何氏妻子第一次成为主客户。</td><td>五角色（客户/账户持有人/受益人/决策人/监护人）、四权利（信息共享/决策代理/监护/受益）、争议状态、主语切换。</td><td><b>客户付</b>：打包进顾问/信托费；银行为“避免执行无权指示”付费。</td><td>自建；依赖 M01/M16；风险是法律效力、辖区差异、争议中的立场。</td></tr>
 <tr><td><b>M05 权利与所有权</b></td><td>Premji 的 67% 已不属于家族，AUM 却仍算进去；李嘉诚的经济权/投票权/处分权分离；梁文锋的私人股权。</td><td>经济权/投票权/处分权逐资产建模；穿透；双 AUM（受益口径/控制口径）；受益人类别。</td><td><b>客户付</b>：顾问/税务/信托费；客户为“我到底拥有什么”付费。</td><td>自建；依赖 M04/M07；风险是数据可得性、估值、信托条款解释。</td></tr>
-<tr><td><b>M06 私人股权与 Pre-IPO</b></td><td>梁文锋 US$46bn 纸面财富但无法直接花；Guy 没有市场价；Sarah 的 £114m 有一半是条件。</td><td>私人股权估值（多方法）、质押、锁定期/IPO 窗口、用途管理、卖方贷款、或有对价、commitment/capital call 与常青/半流动接入；<b>secondaries / continuation vehicles</b> 作为变现通道。</td><td><b>客户付</b>：信贷利差 + 安排费；<b>W5，单客户价值最高</b>。</td><td>自建 + 估值合作；依赖 M05/M10/M12；风险是估值治理、集中度、监管审批。</td></tr>
-<tr><td><b>M10 信贷与流动性</b></td><td>Guy 的卖方贷款；Vardy 的孤儿股权；Neame 的薄市场；何氏的税负缺口。</td><td>Lombard、按揭、结构性信贷、资本承诺、卖方贷款、追保与压力测试；以及 <b>liquidity solutions</b>（secondaries / continuation vehicles / NAV lending）的接入与定价、退休/回收期的长期现金流（decumulation）、probate 期紧急流动性。</td><td><b>客户付</b>：信贷利差、安排费、承诺费；W5。</td><td>自建信贷引擎 + 合作资产负债表；依赖 M06/M07/M16；风险是抵押品、追保、跨境执行。</td></tr>
-<tr><td><b>M13 税务计算与申报</b></td><td>Mittal 离境后仍有 10 年英国尾随；Poonawalla 一栋房子四个制度；周群飞 A/H 股息两套规则；李西廷四个证券制度。</td><td>全球多辖区规则库（引擎一次建成、辖区按规则包扩展）、预提/抵扣、CRS/FATCA、申报产出、养老金/社保协定、退出税/遗产税/赠与税、as-of 重放；<b>只做计算与协调，不做税务意见</b>。</td><td><b>客户付</b>：税务协调费/打包顾问费；W4；但客户常认为银行“应该做”，必须打包。</td><td>自建（全球引擎 + 分辖区规则包）；依赖 M12/M14；风险是规则维护、责任边界、监管许可。</td></tr>
+<tr><td><b>M06 私人股权与 Pre-IPO</b></td><td>梁文锋 US$46bn 纸面财富但无法直接花；Guy 没有市场价；Sarah 的 £114m 有一半是条件。</td><td>私人股权估值（多方法）、质押、锁定期/IPO 窗口、用途管理、卖方贷款、或有对价、非现金股权/ESOP、commitment/capital call 与常青/半流动接入；<b>secondaries / continuation vehicles</b> 作为变现通道；<b>自动化边界见 §5.3</b>。</td><td><b>客户付</b>：信贷利差 + 安排费；<b>W5，单客户价值最高</b>。</td><td>自建 + 估值合作；依赖 M05/M10/M12；风险是估值治理、集中度、监管审批。</td></tr>
+<tr><td><b>M10 信贷与流动性</b></td><td>Guy 的卖方贷款；Vardy 的孤儿股权；Neame 的薄市场；何氏的税负缺口。</td><td>Lombard、按揭、结构性信贷、资本承诺、卖方贷款、追保与压力测试；以及 <b>liquidity solutions</b>（secondaries / continuation vehicles / NAV lending）的接入与定价、退休/回收期的长期现金流（decumulation）、probate 期紧急流动性与遗产费用垫付。</td><td><b>客户付</b>：信贷利差、安排费、承诺费；W5。</td><td>自建信贷引擎 + 合作资产负债表；依赖 M06/M07/M16；风险是抵押品、追保、跨境执行。</td></tr>
+<tr><td><b>M13 税务计算与申报</b></td><td>Mittal 离境后仍有 10 年英国尾随；Poonawalla 一栋房子四个制度；周群飞 A/H 股息两套规则；李西廷四个证券制度。</td><td>全球多辖区规则库（引擎一次建成、辖区按规则包扩展）、预提/抵扣、CRS/FATCA、申报产出、养老金/社保协定、退出税/遗产税/赠与税、as-of 重放；<b>严格区分计算/申报/缴税/建议四层：只做计算、申报包与协调，不做税务意见</b>；缴税走支付/税务代理接口（是否包含在 Avaloq 内须厂商确认）。</td><td><b>客户付</b>：税务协调费/打包顾问费；W4；但客户常认为银行“应该做”，必须打包。</td><td>自建（全球引擎 + 分辖区规则包）；依赖 M12/M14；风险是规则维护、责任边界、监管许可。</td></tr>
 </table></div>
 
 <div class="note"><b>六个模块的共同点：</b>它们都发生在“客户必须做决定、而且做错的代价很高”的时刻。客户不是为“功能”付费，是为<b>“有人替我把这件事办对、并且能证明”</b>付费。这也解释了为什么 T1 模块必须和 T3 的证据/数据模块一起交付——<b>没有证据，收费的服务就变成了不可辩护的建议。</b></div>
@@ -531,22 +560,42 @@ li{margin:4px 0}
 
 <div class="verdict"><b>收入模块是“前台”，T2/T3/T4 是“后台”。</b>没有后台，前台只能靠人肉交付，无法规模化；只有后台，没有前台，系统就变成了一个昂贵的报表工具。<b>架构的关键不是选择前台或后台，而是让前台每收一笔钱，后台都能留下可证明的证据。</b></div>
 
+<h3>5.3 Pre-IPO/私人股权：自动化边界与手工现状</h3>
+<p class="lead">老板的问题很具体：这些服务能否自动化、目前怎么手工做、风险在哪里。答案不是“全自动”或“全手工”，而是<b>把可计算的部分自动化，把判断与谈判留给人，并把每一步变成证据</b>。</p>
+<div class="tw"><table>
+<tr><th style="width:13%">环节</th><th style="width:26%">今天怎么做（手工）</th><th style="width:22%">可自动化</th><th style="width:20%">必须人审</th><th>风险 / 证据</th></tr>
+<tr><td><b>数据采集</b></td><td>cap table、股东协议、锁定期、期权/ESOP 由投行/律师/创始人用 Excel 提供；版本经常不一致</td><td>数据室/API 接入、字段校验、版本比对、缺口清单</td><td>数据完整性/法律效力确认</td><td>数据缺口 → 估值/质押错；证据：数据源、版本、as-of</td></tr>
+<tr><td><b>估值</b></td><td>估值团队 + 外部评估师 + 最近一轮融资；折扣/流动性/集中度靠经验</td><td>多方法区间、可比公司、折扣规则、估值日/复核提醒</td><td>方法选择、折扣假设、异常值</td><td>估值治理；证据：方法、输入、日期、审批</td></tr>
+<tr><td><b>质押/LTV</b></td><td>信贷委员会逐笔审；LTV、集中度、管辖权、锁定期靠邮件</td><td>政策引擎给出上限、追保线、情景压力测试</td><td>授信审批、例外、跨境执行</td><td>贷多/贷少、追保；证据：质押率、集中度、审批链</td></tr>
+<tr><td><b>卖方贷款/earn-out</b></td><td>律师起草 + Excel 跟踪；条件、期限、抵扣靠人记</td><td>义务对象、到期日、条件触发、现金流预测</td><td>条款解释、违约/豁免</td><td>或有对价/卖方贷款是“未到账的钱”；证据：合同条款、触发条件</td></tr>
+<tr><td><b>税务计算</b></td><td>外部税务顾问 + Excel；估值日/纳税时点/辖区不同</td><td>规则包计算、税后情景、申报包</td><td>税务意见、跨境协定适用</td><td>计算≠申报≠缴税≠建议；证据：规则版本、假设、顾问意见</td></tr>
+<tr><td><b>用途/AML</b></td><td>RM 收集用途证明；合规逐笔看</td><td>用途分类、限额、异常检测、证据清单</td><td>可疑活动判断、例外</td><td>用途改变/洗钱；证据：用途、受益人、交易链</td></tr>
+<tr><td><b>监控/追保</b></td><td>估值更新后人工比对；追保电话/邮件</td><td>估值日触发、追保线、通知、处置预案</td><td>强制处置/豁免</td><td>估值滞后；证据：估值日、追保记录、客户确认</td></tr>
+<tr><td><b>退出/secondaries</b></td><td>投行/GP 关系 + 谈判；没有标准流程</td><td>机会匹配、定价参考、流程跟踪</td><td>谈判、结构设计、最终执行</td><td>流动性/控制权；证据：报价、条款、审批</td></tr>
+</table></div>
+<div class="shadow"><b>风险评估的三个难点（也是自动化不能越过的三条线）：</b><br>
+<b>其一，估值风险：</b>没有市场价，方法/折扣/日期都是判断；系统只能给区间与治理记录，不能给“唯一真值”。<br>
+<b>其二，流动性与退出风险：</b>锁定期、IPO 窗口、股东协议、优先购买权、secondaries 折价；系统能算“最早可卖/最多可卖”，不能替客户决定“卖不卖”。<br>
+<b>其三，法律与执行风险：</b>质押在哪个辖区可执行、跨境承认、配偶同意、公司同意；系统能列清单与证据，不能替代律师意见。<br>
+<b>结论：</b>可自动化的是<b>数据、计算、监控、证据</b>；不可自动化的是<b>估值判断、授信审批、谈判、法律意见</b>。把这条线画清楚，M06/M10 才不会变成“黑箱放贷”。</div>
+
 <h2>§6 与 Avaloq / Aladdin / Addepar / UBS 的边界：平替对象与能力标尺</h2>
 
 <p class="lead">这个项目的起点不是“在 Avaloq 上加一层界面”，而是<b>平替 Avaloq</b>。所以本节不做功能清单对照，而回答三个问题：Avaloq 在 8 个 Job 上结构性缺什么；什么算“已经平替”；Aladdin / Addepar 在这条路径上是组件还是替代品。</p>
 
 <h3>6.1 Avaloq 的结构性边界：账务中心，不是家族中心</h3>
-<p class="lead">Avaloq 是成熟的核心银行与财富平台：账务、结算、监管报表、税表工程化，都是应当继承而不是重写的资产。但在 17 组人物提出的 8 个 Job 上，它的数据模型决定了三件事不是“还没做”，而是<b>在现有主键上做不出来</b>。</p>
+<p class="lead">Avaloq 是成熟的核心银行与财富平台：账务、结算、监管报表、税表工程化，都是应当继承而不是重写的资产。但在 21 个案例提出的 8 个 Job 上，它的数据模型决定了几件事不是“还没做”，而是<b>在现有主键上做不出来</b>。</p>
 <div class="tw"><table>
 <tr><th style="width:13%">维度</th><th style="width:33%">Avaloq 的做法（源码/文档证据）</th><th style="width:29%">为什么不够</th><th>后果</th></tr>
-<tr><td><b>主语</b></td><td>以 <code>OBJ_BP</code>（业务伙伴）+ <code>OBJ_REL</code>（关系）+ 合同/账户为中心。家族、信托、家办可以作为 BP 建档，授权可以用关系记录表达（<code>doc/04_business_domains/pillar_1_wealth_client_master/01_CLIENT_CONTRACT_ACCOUNT.md</code>）。</td><td>“人—家庭—实体—资产—权利—义务”的关系图要拆成字段和关系记录；家族宪章、委员会、受益人类别、五角色四权利没有一等表达。问一句“那天谁有权”，要把多张关系表加外部文档拼回来。</td><td>J3 归属、J6 传承、J2 行动只能靠人和文档交付，系统给不出可重放的结论。</td></tr>
-<tr><td><b>税务</b></td><td><code>TAX2_EVT</code> 事件驱动税务引擎 + 三要素连结点 + EasyTax 外挂申报，模式是对的；规则覆盖按国家税表堆：DE 644 / FR 201 / UK 94 / US 45 / CH 9 / SG 5，<b>CN 2 / HK 0</b>（<code>doc/04_business_domains/pillar_6_compliance_regulatory/01_TAXATION_FRAMEWORK.md</code>）。</td><td>HSBC PB 的两个主战场恰好是空白：香港零覆盖、内地两张表。服务全球客户还需要引擎级扩展——全球辖区、养老金/社保协定、迁移后的影子义务——而不是再堆几张表。</td><td>J4 合规在 CN/HK 上等于从零建，且改造成本落在 Avaloq 的税表结构里。</td></tr>
+<tr><td><b>主语</b></td><td>以 <code>OBJ_BP</code>（业务伙伴）+ <code>OBJ_REL</code>（关系）+ 合同/账户为中心。Avaloq CRM 对投资账户确有<b>账户/授权/受益人/决策人</b>四类记录，信托产品定义也清楚（Avaloq 同事口径；<code>doc/04_business_domains/pillar_1_wealth_client_master/01_CLIENT_CONTRACT_ACCOUNT.md</code>）。</td><td>四类记录是<b>账户级、静态的</b>：失能/身故当天不会自动联动，授权没有生效日/失效日，跨境 probate 不在模型里；家族宪章、委员会、受益人类别、五角色四权利没有一等表达。问一句“那天谁有权”，仍要把多张关系表加外部文档拼回来。</td><td>J3 归属、J6 传承、J2 行动只能靠人和文档交付，系统给不出可重放的 T+0 快照。</td></tr>
+<tr><td><b>税务</b></td><td><code>TAX2_EVT</code> 事件驱动税务引擎 + 三要素连结点 + EasyTax 外挂申报，模式是对的；规则覆盖按国家税表堆：DE 644 / FR 201 / UK 94 / US 45 / CH 9 / SG 5，<b>CN 2 / HK 0</b>（<code>doc/04_business_domains/pillar_6_compliance_regulatory/01_TAXATION_FRAMEWORK.md</code>）。按 Avaloq 同事口径：EasyTax 只做<b>申报</b>；<b>缴税</b>是否包含在 Avaloq 内须向厂商确认，本文按“不含、走支付/税务代理”设计；HSBC 对 Avaloq 的主要用法是<b>CRS/FATCA 尽职调查（上报身份信息）</b>，不是主动税务服务。</td><td>“计算 ≠ 申报 ≠ 缴税 ≠ 建议”是四层，不是一件事。HSBC PB 的两个主战场恰好是空白：香港零覆盖、内地两张表；服务全球客户还需要引擎级扩展——全球辖区、养老金/社保协定、迁移后的影子义务——而不是再堆几张表。</td><td>J4 合规在 CN/HK 上等于从零建，且改造成本落在 Avaloq 的税表结构里；主动建议必须由外部顾问完成，银行只做协调/证据。</td></tr>
 <tr><td><b>义务与证据</b></td><td>有事件、审计日志、监管报表与文件归档；文件版本链、as-of 重放、对客结论散在周边系统。</td><td>“义务对象（谁、何时、依据哪份文件、责任人）”不是一等对象；系统能证明“发生过”，不能直接回答“凭什么”。</td><td>J7 证明仍要人工拼邮件和 PDF，T1 的收费服务缺少可辩护的证据。</td></tr>
+<tr><td><b>生态合作</b></td><td>有第三方/顾问字段、文件归档与转介的周边流程，但<b>合作方注册、转介案件、客户同意、责任边界、证据包、数据用途</b>不是一等对象；多数靠邮件/合同/个人关系。</td><td>“谁在什么授权下、为什么目的、提供了什么证据、谁依赖了它”无法一键回答；客户 A 的信息能否用于同类客户，没有系统级边界。</td><td>J8 服务、J7 证明只能靠人；生态合作容易变成无记录推荐或数据滥用。</td></tr>
 <tr><td><b>私人股权与流动性</b></td><td>Lombard 是商品化的标准贷；未上市估值、锁定期/IPO 窗口、用途管理、卖方贷款、或有对价、secondaries/接续基金不在模型里。</td><td>J5（最高付费意愿）要的是“不卖股也能拿到钱”，它要求估值、质押、税务、用途、退出通道在同一个对象上联动。</td><td>J5 变现没有落点，只能退化成“卖股”或“个人借款”。</td></tr>
 <tr><td><b>变化时刻</b></td><td>有状态与事件，但没有“迁移前/中/后 + 影子义务清单”的流程对象；授权切换、失能/身故、争议状态靠参数与人工流程。</td><td>四个付费时刻（身份/授权/资金/结构变化）都需要“同一时点的完整答案”，而 Avaloq 的答案是分系统、分时点拼出来的。</td><td>J2/J6 靠项目组人肉；一次迁移就是一轮手工对账。</td></tr>
 </table></div>
 
-<div class="warn"><b>结论：这不是“补几个模块”能追上的差距，而是主键与语义层的差距。</b>把 Avaloq 当底座往上加，最终得到的仍是“以账户为中心 + 一圈外挂”的系统——正是 17 组人物反复失败的那种系统。</div>
+<div class="warn"><b>结论：这不是“补几个模块”能追上的差距，而是主键与语义层的差距。</b>把 Avaloq 当底座往上加，最终得到的仍是“以账户为中心 + 一圈外挂”的系统——正是 21 个案例反复失败的那种系统。</div>
 
 <h3>6.2 平替的判定标准：关掉 Avaloq 之后，8 个 Job 还能不能交付</h3>
 <p class="lead">“平替”不是功能对比表的胜负，而是一条可验收的线：<b>Avaloq 只作为数据源与并行账本，双跑期结束后下线；下线那天，8 个 Job 仍能交付。</b>四条前置条件：</p>
@@ -568,6 +617,8 @@ li{margin:4px 0}
 <tr><td><b>J8</b> 服务</td><td>案件、SLA、责任人可查；RM 离职不清零</td><td>M15 / M17 / M18</td><td>交接后 30 天内客户问题闭环率不下降</td></tr>
 </table></div>
 
+<p class="src">21 个案例（含 §18–§21 四个财富带）加入后，J1/J2/J5/J6 的验收还需覆盖：创作者/版税收入、餐饮多实体与个人担保、加盟/品牌授权、UK→HK 身份切换。验收口径不变：关掉 Avaloq 后，这些场景仍能给出“事实 + 义务/到期日 + 责任方 + 证据”。</p>
+
 <h3>6.3 Aladdin / Addepar 是组件，不是平替对象</h3>
 <p class="lead">这三家不在同一层：Avaloq 是要被换掉的核心；Aladdin 是风险与组合分析的商品；Addepar 是 held-away 聚合与 household 报告的商品。后两家买/合作即可，自建同款是重复投入。</p>
 <div class="tw"><table>
@@ -579,6 +630,7 @@ li{margin:4px 0}
 <tr><td>家族 / 授权 / 权利图</td><td><span class="tag t-part">字段级</span></td><td><span class="tag t-weak">无</span></td><td><span class="tag t-part">household 级</span></td><td><b>自建 M02/M03/M05</b>；这是平替的第二理由，也是收入核心</td></tr>
 <tr><td>私人股权 / Pre-IPO 质押</td><td><span class="tag t-part">Lombard 商品</span></td><td><span class="tag t-weak">无</span></td><td><span class="tag t-weak">无</span></td><td><b>自建 M06 + 合作估值</b>；这是最高付费意愿</td></tr>
 <tr><td>义务 / 证据 / as-of</td><td><span class="tag t-part">周边系统</span></td><td><span class="tag t-weak">无</span></td><td><span class="tag t-weak">报表级</span></td><td><b>自建 M14/M16/M17</b>；这是 T1 收费的证据前提</td></tr>
+<tr><td>生态合作 / 转介 / 数据复用</td><td><span class="tag t-part">周边/字段</span></td><td><span class="tag t-weak">—</span></td><td><span class="tag t-weak">—</span></td><td><b>自建对象层</b>（PartnerRegistry/ReferralCase/DataSharingConsent/EvidencePack/NBA）；合作方供货，不做数据倒卖</td></tr>
 <tr><td>数字资产 / 加密</td><td><span class="tag t-pub">强（2022 生产）</span></td><td><span class="tag t-weak">—</span></td><td><span class="tag t-weak">—</span></td><td><b>暂不纳入（含读侧）</b>；如需，外购</td></tr>
 <tr><td>通用 LLM Copilot</td><td><span class="tag t-weak">—</span></td><td><span class="tag t-weak">—</span></td><td><span class="tag t-weak">—</span></td><td>买底座；自建只做“引用溯源 + 顾问监督”的差异层</td></tr>
 <tr><td>大众市场 onboarding</td><td><span class="tag t-part">有</span></td><td><span class="tag t-weak">—</span></td><td><span class="tag t-weak">—</span></td><td><b>不做</b>；不是私行，会稀释服务密度</td></tr>
@@ -662,6 +714,7 @@ li{margin:4px 0}
 <tr><td><b>风险避免</b></td><td>M14、M16</td><td>监管罚款、重述、客户投诉</td><td>可证明的 as-of/证据链减少“无法自证”事件</td><td>合规/审计案例复盘</td></tr>
 </table></div>
 <p class="src"><b>以上数字均为示意假设，不是预测或报价。</b>正式商业案例须用 HSBC 内部客户分布、AUM、信贷利差、RM 工时与流失数据替换。</p>
+<p class="src"><b>生态合作本身不直接收费。</b>转介费/共享收入在多数辖区受监管与披露约束；本文件不把它计入收入桥，只计入留存/转化/AUM 份额。任何转介安排须经法务/合规预审。</p>
 
 <h3>7.2 收入模块如何养成本模块</h3>
 <div class="shadow">
@@ -686,6 +739,8 @@ li{margin:4px 0}
 三种付费：<b>客户为结果付费</b>（顾问/信贷/税务协调）、<b>客户为留存付费</b>（家庭视图/授权/证据）、<b>银行为成本与风险付费</b>（数据/工作流/AI）。</div>
 
 <p class="story"><b>对“每一个模块有多么被客户需要、客户有多么愿意付钱”的最终回答：</b>最需要的是授权、合规、证据、数据一致性；最愿意付钱的是流动性、家族治理、税务协调、私人股权。两者不是同一张清单。<b>架构的价值，是把“最愿意付钱”的六个模块，建立在“最需要但不能收费”的十二个模块之上。</b></p>
+
+<p class="story"><b>两条新边界（v1.4）：</b>税务只做“计算 + 申报包 + 协调 + 证据”，不做建议；生态合作只做“转介 + 证据 + 去标识化模式”，不做原始数据倒卖。Pre-IPO 自动化只到“可计算、可监控、可举证”，估值判断、授信审批、谈判与法律意见仍由人。</p>
 
 
 <h2>附录 A：模块索引</h2>
@@ -719,13 +774,18 @@ li{margin:4px 0}
 <tr><td><b>双 AUM</b></td><td>受益口径（beneficial）与控制口径（control）并存，不合并成一个数。</td></tr>
 <tr><td><b>as-of</b></td><td>按任意历史时点重放当时的规则、文件、状态与结论。</td></tr>
 <tr><td><b>五角色 / 四权利</b></td><td>客户/账户持有人/受益人/决策人/监护人；信息共享/决策代理/监护/受益。</td></tr>
+<tr><td><b>四记录</b></td><td>账户/授权/受益人/决策人。Avaloq CRM 对投资账户已有四类记录，但需要事件级联动、生效日与 T+0 快照。</td></tr>
+<tr><td><b>税务四层</b></td><td>计算（tax calculation）/ 申报（filing）/ 缴税（payment）/ 建议（advice）。EasyTax 只覆盖申报；银行只做计算、申报包与协调。</td></tr>
+<tr><td><b>PartnerRegistry / ReferralCase</b></td><td>合作方注册与转介案件：牌照、辖区、利益冲突、客户同意、费用披露、责任边界。</td></tr>
+<tr><td><b>EvidencePack</b></td><td>合作方提供的文件/版本/as-of 与“谁依赖了它”的证据包。</td></tr>
+<tr><td><b>DataSharingConsent / NBA</b></td><td>数据用途同意与 Next Best Action：只基于去标识化/聚合模式，可解释、可退出。</td></tr>
 </table></div>
 
 <div class="foot">
-<b>依据：</b><a href="../01_personas/nextgen-pb-real-people-cases.html">nextgen-pb-real-people-cases v3.2</a>（17 组人物、53 张表）；《独有能力判定：HSBC 新一代 PB 系统相对 Avaloq 与 Aladdin》v1.0；16 份机构报告交叉核对（BCG <i>Global Wealth Report 2026</i>、McKinsey <i>中国金融业 CEO 季刊</i> 2021 春、McKinsey <i>Technology Trends Outlook 2026</i>、HSBC <i>Global Entrepreneurial Wealth Report 2025</i> 等，引证出处与页码见 §0.5）；Avaloq Mosaic / Aladdin Wealth / Addepar 公开能力；HSBC 私行公开定位。<br>
+<b>依据：</b><a href="../01_personas/nextgen-pb-real-people-cases.html">nextgen-pb-real-people-cases v3.5</a>（21 个案例：20 组公开 + 1 组匿名）；《独有能力判定：HSBC 新一代 PB 系统相对 Avaloq 与 Aladdin》v1.0；16 份机构报告交叉核对（BCG <i>Global Wealth Report 2026</i>、McKinsey <i>中国金融业 CEO 季刊</i> 2021 春、McKinsey <i>Technology Trends Outlook 2026</i>、HSBC <i>Global Entrepreneurial Wealth Report 2025</i> 等，引证出处与页码见 §0.5）；Avaloq Mosaic / Aladdin Wealth / Addepar 公开能力；HSBC 私行公开定位。<br>
 <b>性质：</b>内部架构提案，不构成税务、法律或投资建议；所有金额、比例、评分均为序数/示意，须经客户访谈、RM 工作坊与税务/法律组验证。<br>
-<b>版本：</b>v1.3 · 2026-10-23 · 与 17 组人物场景集 v3.2 配套；本版把 §2 扩为 25 条痛点（10 条五层下钻 + 15 条增量 + PI 重排），并在 §6.4 加入 UBS 能力标尺。English version: <a href="nextgen-pb-demand-driven-architecture-en.html">nextgen-pb-demand-driven-architecture-en.html</a>。<br>
-<b>版本差异：</b>v1.2 → v1.3：§2 扩为 25 条痛点：10 条逐条下钻（细分场景/失败链/系统必须回答/验收）、15 条增量痛点（Chinese Wall、probate、POA 过期、退出税、capital call、deepfake、费用披露等）、痛感指数 PI 重排；§6 扩为“Avaloq 平替 + UBS 能力标尺”，新增 6.4（G1 目标规划、G2 慈善平台、G3 私募运营、G4 FO 外包、G6 女性财富）；M02/M03/M06/M10/M12/M13/M14/M16/M17 能力行与对象同步；独立分析稿已删除，内容全部合并回本文。<br><b>v1.1 → v1.2：</b>§6 从“与旧版判定比较”重写为“为什么 Avaloq 必须被平替”，加入源码级证据（主键、税表覆盖 CN 2 / HK 0）与 8 个 Job 的下线验收标准；删除原 §6.1–6.3（旧版结论回顾/三个差异化簇/一处修正两处加强三处放弃）、原 §7（建设波次与最小可交付核心）与原 §9（风险与验证），留待下一阶段；M13 改为“全球引擎 + 分辖区规则包”，不再收敛 CN/HK；M02 增补家庭目标四元组，M10 增补退休/回收现金流；新增“客群标签不是模块”的边界说明。
+<b>版本：</b>v1.4 · 2026-10-23 · 与 21 个案例场景集 v3.5 配套；v1.3 已把 §2 扩为 25 条痛点（10 条五层下钻 + 15 条增量 + PI 重排）并在 §6.4 加入 UBS 能力标尺；本版新增 §2.8、§4.5、§5.3，并修正 §6.1 的 Avaloq 表述。English version: <a href="nextgen-pb-demand-driven-architecture-en.html">nextgen-pb-demand-driven-architecture-en.html</a>（v1.3；v1.4 同步待办）。<br>
+<b>版本差异：</b>v1.3 → v1.4：接入 personas v3.5 的 §18–§21 四个财富带（Ali、Nadiya、Alvin、Hawker Chan）；新增 §2.8 Avaloq 一线四条修正（四记录/税务四层/生态合作/Pre-IPO 自动化）、§4.5 生态合作与数据复用（PartnerRegistry/ReferralCase/DataSharingConsent/EvidencePack/NBA）、§5.3 Pre-IPO 自动化边界与手工现状；§6.1 修正“Avaloq 没有四类记录/不碰税”的过重表述；§4.1 增第八条原则“合作而不越界”；M03/M06/M10/M13/M14/M15/M16/M17/M18 能力与对象同步；§7.1 增生态合作不直接收费的边界。<b>v1.2 → v1.3：</b>§2 扩为 25 条痛点：10 条逐条下钻（细分场景/失败链/系统必须回答/验收）、15 条增量痛点（Chinese Wall、probate、POA 过期、退出税、capital call、deepfake、费用披露等）、痛感指数 PI 重排；§6 扩为“Avaloq 平替 + UBS 能力标尺”，新增 6.4（G1 目标规划、G2 慈善平台、G3 私募运营、G4 FO 外包、G6 女性财富）；M02/M03/M06/M10/M12/M13/M14/M16/M17 能力行与对象同步；独立分析稿已删除，内容全部合并回本文。<br><b>v1.1 → v1.2：</b>§6 从“与旧版判定比较”重写为“为什么 Avaloq 必须被平替”，加入源码级证据（主键、税表覆盖 CN 2 / HK 0）与 8 个 Job 的下线验收标准；删除原 §6.1–6.3（旧版结论回顾/三个差异化簇/一处修正两处加强三处放弃）、原 §7（建设波次与最小可交付核心）与原 §9（风险与验证），留待下一阶段；M13 改为“全球引擎 + 分辖区规则包”，不再收敛 CN/HK；M02 增补家庭目标四元组，M10 增补退休/回收现金流；新增“客群标签不是模块”的边界说明。
 </div>
 
 </div>
