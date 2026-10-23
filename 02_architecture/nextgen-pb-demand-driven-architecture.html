@@ -194,6 +194,22 @@ li{margin:4px 0}
 <tr><td>8</td><td><b>女性/子女/长辈：家庭中的非主客户</b><br>妻子、子女、长辈只在“主客户”字段里出现；失能/身故/离婚后突然成为主体；从未被独立建档，风险偏好/税务身份/目标都是空白；女性企业家还面临融资与导师网络缺口。</td><td>J3 / J6<br>17 何氏、4 李嘉诚第三代、6 郭第三代</td><td><span class="score s4">4</span></td><td>主体断层 + 服务模型（不是字段问题，是独立客户与主语切换）</td><td>事件发生后临时 KYC；靠 RM 私交交接；寡妇/离婚客户常被竞争对手接走。<br><b>代价：</b>AUM 流失、家族争议、口碑受损。</td><td>独立客户建档、五角色、主语切换、家庭门户、女性细分服务<br><b>M01/M02/M03/X1</b></td></tr>
 <tr><td>9</td><td><b>RM/PA 手工搬运、追件、记到期日</b><br>多系统重复录入；文件缺失反复追件；审批/双签靠邮件；监管日历、信托分配、贷款到期靠人记；RM 离职，客户知识清零；跨时区/多语言协作靠 Teams。</td><td>J8<br>全部</td><td><span class="score s4">4</span></td><td>案件/义务对象缺失；SLA 与责任人不可见</td><td>邮件/微信/Excel/Teams 当数据库；PA 个人清单。<br><b>代价：</b>漏到期 → 罚款/违约；工时高、体验差、随 RM 离职清零。</td><td>Case、Obligation、SLA、责任人、证据、交接<br><b>M15/M14/M16/M17/M18</b></td></tr>
 <tr><td>10</td><td><b>薄市场/家族控制：市值≠可卖的钱</b><br>市值 100 亿，实际卖 5% 就砸盘；小盘股/家族控股/停牌/退市；股东协议、优先购买权、拖售/跟随权限制；继承分割时家族成员之间买卖；质押率/保证金/集中度互相牵制。</td><td>J1 / J5<br>15 Neame、10 Premji</td><td><span class="score s3">3</span></td><td>流动性断层（流动性是资产属性）+ 控制权/股东协议没有对象</td><td>按市价估值、私下转让、大宗交易折价；没有“多久能卖多少”的答案。<br><b>代价：</b>流动性错配、被迫折价、控制权丢失。</td><td>流动性分层（T+0/30/365）、控制权价值、股东协议约束、质押率<br><b>M05/M06/M07/M10</b></td></tr>
+<tr><td colspan="7" style="background:var(--panel);font-weight:600">以下为增量 15 条（P0/P1；编号 11–26，跳过 P2 的 #23）</td></tr>
+<tr><td>11</td><td><b>集团内信息隔离（Chinese Wall）</b><br>同一集团客户在企行、投行、私行、信托各有关系；集团要合并看敞口（信用/集中度/关联交易），但投行掌握的信息不能流到私行，反之亦然；墙的方向、时点、辖区法律依据不同；例外靠邮件审批，无法证明“谁在什么目的下看过什么”。</td><td>J2 / J8<br>5 郑、6 郭</td><td><span class="score s4">4</span></td><td>主体断层（客户群 ≠ 法律实体）+ 规则断层（墙不是数据，是口头/邮件纪律）</td><td>各实体各自看敞口，或人工问合规；跨墙访问靠邮件/会议。<br><b>代价：</b>集团敞口低估 → 授信/集中度失控；或信息滥用 → 监管处罚/声誉。</td><td>GroupExposure、WallRule（方向/时点/例外）、合并 feed、硬阻断、留痕<br><b>横切 + M17/M09/M03/M16</b></td></tr>
+<tr><td>12</td><td><b>婚姻/离婚/同居/婚前协议</b><br>婚前/婚后财产制度不同；信托受益权是否算共同财产；离婚冻结/分割可能先于死亡发生；跨境婚姻/同性伴侣的法律认定不同；银行往往在看到律师函时才知道配偶也是受益人。</td><td>J3 / J6<br>17 何氏、4 李嘉诚</td><td><span class="score s3">3</span></td><td>主体断层（配偶/伴侣不是字段）+ 事件缺失（婚姻变化不是一等事件）</td><td>律师函/法院命令到了才处理；家庭关系靠 RM 记忆。<br><b>代价：</b>资产被冻结/分割错误、家族争议、客户流失。</td><td>MaritalEvent、Claim、婚姻财产制度、冻结/分割状态<br><b>M01/M03/M16</b></td></tr>
+<tr><td>13</td><td><b>未成年/未出生/收养/代孕</b><br>受益人类别包含未出生、未成年、收养、代孕；监护人与决策人不是同一人；教育金/信托分配有触发条件；跨境收养/代孕的法律认定差异大。</td><td>J3 / J6<br>17 何氏、4 李嘉诚、6 郭</td><td><span class="score s3">3</span></td><td>主体断层（未出生/未确立关系无法建档）</td><td>备注/纸质文件；分配时临时确认监护人。<br><b>代价：</b>受益人漏识别、分配错、监护争议。</td><td>BeneficiaryClass、Guardianship、分配触发条件、教育金<br><b>M01/M02/M03</b></td></tr>
+<tr><td>14</td><td><b>受托人决议与银行执行时滞</b><br>受托人已通过书面决议，但银行未收到/未验证签名人权限；多受托人意见不一致；银行执行决议 vs 受托人责任边界不清；决议与信托契约冲突。</td><td>J2 / J6<br>11 Murdoch、8 MAF、5 郑</td><td><span class="score s4">4</span></td><td>证据断层（决议不是“有效指令”，只是 PDF）</td><td>邮件 + PDF + 电话确认；执行前临时找律师。<br><b>代价：</b>执行延误/越权、诉讼、受托人责任。</td><td>Resolution、Delegation、签名人权限、冲突裁决<br><b>M03/M16</b></td></tr>
+<tr><td>15</td><td><b>遗产认证/冻结与紧急流动性</b><br>死亡后账户冻结，但丧葬、医疗欠款、遗产税、员工工资、贷款利息要付；跨境家族同时跑 2–3 个 probate；继承权未生效，家庭没有现金流。</td><td>J6 / J5<br>5 郑、11 Murdoch、17 何氏</td><td><span class="score s4">4</span></td><td>时间断层（死亡与继承权生效不同步）</td><td>家属垫资/紧急借款/卖资产；银行“等文件”。<br><b>代价：</b>现金流断裂、折价卖资产、关系破裂。</td><td>ProbateCase、EstateExpense、紧急支付授权、遗产贷款<br><b>M03/M10/M14/M16</b></td></tr>
+<tr><td>16</td><td><b>授权文件过期/失效</b><br>POA 是 10 年前签的、银行登记已过期；授权有地域/事项限制；失能后无法补签；家属拿着“看起来有效”的文件来指示；系统仍显示旧授权有效。</td><td>J2 / J6<br>5 郑、17 何氏</td><td><span class="score s4">4</span></td><td>时间断层（授权不是永久状态）</td><td>人工查文件/律师确认；靠 RM 判断。<br><b>代价：</b>执行无权指示 → 赔偿；或拒绝合法指示 → 流失。</td><td>AuthorityDocument、Expiry、地域/事项范围、登记状态、主语切换<br><b>M03/M16</b></td></tr>
+<tr><td>17</td><td><b>退出税/遗产税/赠与税</b><br>离境触发退出税；向子女赠与股权触发赠与税/遗产税；同一笔财富在三个辖区被征两次；纳税时点与估值日不同；抵扣/协定适用复杂。</td><td>J4<br>9 Mittal、2 李、7 Poonawalla</td><td><span class="score s4">4</span></td><td>规则断层（税种随身份/时点变化）</td><td>只算所得税；交易后才发现退出/遗产税。<br><b>代价：</b>追悔/诉讼、税负超预期、流失。</td><td>TaxEvent、EstatePlan、纳税时点/估值日、协定/抵扣<br><b>M13/M14</b></td></tr>
+<tr><td>18</td><td><b>CRS/FATCA 自我证明变更</b><br>地址、电话、出生地、税务居民变化；自我证明与实际矛盾；不合理情形（indicia）触发补问；开户时收一次，之后不更新；追溯多年。</td><td>J4<br>1 周、2 李、7 Poonawalla、9 Mittal</td><td><span class="score s3">3</span></td><td>时间断层（证明会过期/失真）</td><td>开户时收一次；之后靠客户主动更新。<br><b>代价：</b>申报错/漏、罚款、监管问询、声誉。</td><td>TaxSelfCert、Indicia、有效期、变更触发、证据<br><b>M12/M13</b></td></tr>
+<tr><td>19</td><td><b>制裁/PEP/adverse media 动态</b><br>存量客户新增制裁/政治暴露/负面新闻；名单每天变；跨境交易被阻断；客户不知道自己做错了什么。</td><td>J4<br>全部（尤其 5 郑、8 MAF）</td><td><span class="score s4">4</span></td><td>规则断层（名单实时变化）</td><td>开户筛查 + 定期人工复核。<br><b>代价：</b>违规/罚款；或误阻断合法交易 → 体验/流失。</td><td>ScreeningAlert、Case、处置理由、交易前阻断<br><b>M12/M14/M15</b></td></tr>
+<tr><td>20</td><td><b>UBO/经济实质</b><br>信托/基金会/壳公司的 UBO 登记；经济实质法；公开登记与隐私冲突；不同辖区要求不同；股权/控制链变化后要重报。</td><td>J4 / J7<br>4 李嘉诚、10 Premji、8 MAF</td><td><span class="score s3">3</span></td><td>规则断层（登记辖区各异）</td><td>每家律师手工准备；开户/年检时补。<br><b>代价：</b>开户延误、处罚、隐私泄露。</td><td>UBORecord、SubstanceTest、控制链、申报到期<br><b>M04/M12/M14</b></td></tr>
+<tr><td>21</td><td><b>Capital call/commitment</b><br>私募承诺是未来现金义务；call 到期未付 = 违约/失去份额；需要桥接贷款/分配/NAV；客户同时有多支基金，现金流叠加。</td><td>J5<br>12 Guy、13 Sarah、16 梁文锋</td><td><span class="score s3">3</span></td><td>时间断层（承诺与现金不同步）</td><td>Excel/邮件提醒；资金临时调拨。<br><b>代价：</b>违约/罚息、份额稀释、关系受损。</td><td>Commitment、CapitalCall、Distribution、NAV、桥接<br><b>M06/M10/M11</b></td></tr>
+<tr><td>22</td><td><b>追保/估值滞后</b><br>私人资产估值不是每日价；抵押率按最近一轮估值；估值日期 ≠ 风险日期；跌价时追保/强平；客户被迫卖资产。</td><td>J5<br>12 Guy、15 Neame、16 梁文锋</td><td><span class="score s4">4</span></td><td>时间断层（估值滞后）</td><td>最近一轮估值 + 人工折扣；追保靠邮件。<br><b>代价：</b>贷多/贷少、追保、被迫卖资产、关系破裂。</td><td>MarginCall、Valuation（日期/折扣/治理）、抵押率、处置<br><b>M06/M10</b></td></tr>
+<tr><td>24</td><td><b>慈善基金会支出义务/影响力</b><br>基金会每年 5% payout；grant 管理/多年拨款；impact 报告；受托人责任；捐赠承诺与现金流不匹配。</td><td>J6 / J4<br>10 Premji、17 何氏</td><td><span class="score s3">3</span></td><td>规则断层（慈善法 + 受托责任）</td><td>Excel/律师/基金会自管。<br><b>代价：</b>罚款/受托责任、影响力无法证明。</td><td>Foundation、Grant、ImpactReport、payout 义务<br><b>M02/M14/M16</b></td></tr>
+<tr><td>25</td><td><b>APP 欺诈/深度伪造</b><br>视频/语音冒充客户或授权人；电话验证被绕过；转账到新账户；客户被诈骗后要求银行赔偿；事后证据链不完整。</td><td>J2 / J8<br>全部（尤其 3 张勇、15 Neame）</td><td><span class="score s4">4</span></td><td>证据断层（身份/意图可伪造）</td><td>电话回拨/人工判断；高风险支付靠 RM 经验。<br><b>代价：</b>资金损失、监管/声誉、赔偿。</td><td>FraudCase、Verification、deepfake 评分、冷静期、证据<br><b>M09/M11/M15/M18</b></td></tr>
+<tr><td>26</td><td><b>费用/价值披露</b><br>打包费、第三方报酬、value-for-money、监管披露；客户问“我到底付了什么、值不值”；跨产品/跨辖区费用口径不一致。</td><td>J7 / J8<br>全部（尤其 8 MAF）</td><td><span class="score s3">3</span></td><td>证据断层（价格与价值不可见）</td><td>对账单/人工解释；客户投诉时才拆。<br><b>代价：</b>投诉、监管、信任受损。</td><td>FeeDisclosure、服务价值、第三方报酬、披露版本<br><b>M14/M16</b></td></tr>
 </table></div>
 
 <h3>2.2 五层结构：从故事到需求</h3>
@@ -207,7 +223,7 @@ li{margin:4px 0}
 <tr><td><b>L5 系统要求</b></td><td>系统必须回答什么</td><td>五角色、有效文件、受影响资产、可继续支付、谁可指示、争议冻结</td><td>决定模块、对象、验收</td></tr>
 </table></div>
 
-<h3>2.3 十条逐条下钻：细分场景、失败链与验收</h3>
+<h3>2.3 原有十条的逐条下钻：细分场景、失败链与验收</h3>
 <div class="tw"><table>
 <tr><th style="width:4%">#</th><th style="width:13%">痛点</th><th style="width:30%">细分场景（新增）</th><th style="width:20%">失败链</th><th style="width:18%">系统必须回答</th><th>验收 / 落点</th></tr>
 <tr><td>1</td><td><b>失能/身故</b></td><td>无遗嘱/未认证；POA 未登记或境外不认；受托人已换；受益人意见冲突；跨境 probate；家族决策人未建模</td><td>事件 → 银行 3–30 天才知道 → 冻结 → 家庭无现金流 → 律师/公证 → 数月 → 流失</td><td>五角色；今天有效文件；受影响资产；可继续支付；谁可指示；争议冻结</td><td>T+0 权限快照；四元组；12 个月留存<br><b>M03/M16/M12/M14</b></td></tr>
@@ -247,30 +263,10 @@ li{margin:4px 0}
 <tr><td>10</td><td>薄市场/家族控制</td><td>3</td><td>2</td><td>1</td><td>2</td><td><b>3</b></td><td>第 7（↑）</td></tr>
 <tr><td>9</td><td>RM/PA 手工搬运</td><td>2</td><td>1</td><td>1</td><td>2</td><td><b>1</b></td><td>第 8（↓）</td></tr>
 </table></div>
+<p class="src">PI 本轮只对原有 10 条做重排；新增 15 条的 C / I / T / S 需在客户访谈与 RM 工作坊后校准。</p>
 <div class="verdict"><b>重排后的结论会改变建设顺序：</b>先把“失能/身故 + 文件生效链”做成可证明的状态机，再把“非主客户独立建档”做成默认能力；税务仍然重要，但它是“规则深度”问题，不是“不可逆”问题。<b>把 #8 从 N4 提到第 2，是本轮最重要的重排。</b></div>
 
-<h3>2.6 增量痛点：15 条（编号 11–26，跳过 P2 的 #23）</h3>
-<p class="lead">以下 15 条不重复上表，全部落在 P0/P1，均给出根因、对象与 owner。</p>
-<div class="tw"><table>
-<tr><th style="width:4%">#</th><th style="width:22%">痛点</th><th style="width:8%">Job</th><th style="width:13%">人物锚点</th><th style="width:4%">N</th><th style="width:22%">根因（断层）</th><th style="width:14%">新增对象</th><th>owner</th></tr>
-<tr><td>11</td><td><b>集团内信息隔离/Chinese Wall</b>：同一集团客户（企行/投行/私行/信托）的敞口要合并看，但信息不能跨墙流动</td><td>J2/J8</td><td>5 郑、6 郭</td><td>4</td><td>客户群 ≠ 法律实体；墙有方向/时点/辖区</td><td>GroupExposure、WallRule</td><td>横切 + M17 + M03</td></tr>
-<tr><td>12</td><td><b>婚姻/离婚/同居/婚前协议</b>：婚姻财产制度、信托受益权是否算共同财产、离婚冻结/分割</td><td>J3/J6</td><td>17 何氏、4 李嘉诚</td><td>3</td><td>主体断层：配偶/伴侣不是字段</td><td>MaritalEvent、Claim</td><td>M01/M03/M16</td></tr>
-<tr><td>13</td><td><b>未成年/未出生/收养/代孕</b>：受益人类别、监护人、信托分配、教育金</td><td>J3/J6</td><td>17 何氏、4 李嘉诚、6 郭</td><td>3</td><td>主体断层：未出生/未确立关系</td><td>BeneficiaryClass、Guardianship</td><td>M01/M02/M03</td></tr>
-<tr><td>14</td><td><b>受托人决议与银行执行时滞</b>：决议已通过但银行未收到/未验证；银行执行 vs 受托人责任</td><td>J2/J6</td><td>11 Murdoch、8 MAF、5 郑</td><td>4</td><td>证据断层：决议不是“有效指令”</td><td>Resolution、Delegation</td><td>M03/M16</td></tr>
-<tr><td>15</td><td><b>遗产认证/冻结与紧急流动性</b>：probate 前账户冻结；丧葬/医疗/税款/员工工资需紧急支付；跨境 probate</td><td>J6/J5</td><td>5 郑、11 Murdoch、17 何氏</td><td>4</td><td>时间断层：死亡与继承权生效不同步</td><td>ProbateCase、EstateExpense</td><td>M03/M10/M14/M16</td></tr>
-<tr><td>16</td><td><b>授权文件过期/失效</b>：POA 有有效期/地域限制/银行登记要求；失能后无法补签</td><td>J2/J6</td><td>5 郑、17 何氏</td><td>4</td><td>时间断层：授权不是永久状态</td><td>AuthorityDocument、Expiry</td><td>M03/M16</td></tr>
-<tr><td>17</td><td><b>退出税/遗产税/赠与税</b>：离境税、遗产税、赠与税、代际转移；时点与估值</td><td>J4</td><td>9 Mittal、2 李、7 Poonawalla</td><td>4</td><td>规则断层：税种随身份/时点变化</td><td>TaxEvent、EstatePlan</td><td>M13/M14</td></tr>
-<tr><td>18</td><td><b>CRS/FATCA 自我证明变更</b>：地址/电话/出生地/税务居民变化；不合理自我证明；追溯</td><td>J4</td><td>1 周、2 李、7 Poonawalla、9 Mittal</td><td>3</td><td>时间断层：证明会过期/失真</td><td>TaxSelfCert、Indicia</td><td>M12/M13</td></tr>
-<tr><td>19</td><td><b>制裁/PEP/adverse media 动态</b>：存量客户新增制裁/政治暴露/负面新闻；跨境交易阻断</td><td>J4</td><td>全部（尤其 5 郑、8 MAF）</td><td>4</td><td>规则断层：名单每天变</td><td>ScreeningAlert、Case</td><td>M12/M14/M15</td></tr>
-<tr><td>20</td><td><b>UBO/经济实质</b>：信托/基金会/壳公司 UBO 登记、经济实质法、公开登记与隐私冲突</td><td>J4/J7</td><td>4 李嘉诚、10 Premji、8 MAF</td><td>3</td><td>规则断层：登记辖区各异</td><td>UBORecord、SubstanceTest</td><td>M04/M12/M14</td></tr>
-<tr><td>21</td><td><b>Capital call/commitment</b>：私募基金 capital call 到期、违约、桥接贷款、分配</td><td>J5</td><td>12 Guy、13 Sarah、16 梁文锋</td><td>3</td><td>时间断层：承诺与现金不同步</td><td>Commitment、CapitalCall、Distribution</td><td>M06/M10/M11</td></tr>
-<tr><td>22</td><td><b>追保/估值滞后</b>：私人资产估值 stale、抵押率、追保、强平</td><td>J5</td><td>12 Guy、15 Neame、16 梁文锋</td><td>4</td><td>时间断层：估值日期 ≠ 风险日期</td><td>MarginCall、Valuation</td><td>M06/M10</td></tr>
-<tr><td>24</td><td><b>慈善基金会支出义务/影响力</b>：5% payout、grant 管理、impact 报告、受托人责任</td><td>J6/J4</td><td>10 Premji、17 何氏</td><td>3</td><td>规则断层：慈善法 + 受托责任</td><td>Foundation、Grant、ImpactReport</td><td>M02/M14/M16</td></tr>
-<tr><td>25</td><td><b>APP 欺诈/深度伪造</b>：语音/视频 deepfake 冒充客户/授权人；转账欺诈；授权验证</td><td>J2/J8</td><td>全部（尤其 3 张勇、15 Neame）</td><td>4</td><td>证据断层：身份/意图可伪造</td><td>FraudCase、Verification</td><td>M09/M11/M15/M18</td></tr>
-<tr><td>26</td><td><b>费用/价值披露</b>：打包费、第三方报酬、value-for-money、监管披露</td><td>J7/J8</td><td>全部（尤其 8 MAF）</td><td>3</td><td>证据断层：价格与价值不可见</td><td>FeeDisclosure</td><td>M14/M16</td></tr>
-</table></div>
-
-<h3>2.7 五条关键增量痛点的系统要求（P0/P1）</h3>
+<h3>2.6 五条关键增量痛点的系统要求（P0/P1）</h3>
 
 <div class="shadow">
 <p class="story"><b>#11 集团内信息隔离（Chinese Wall）</b>　<span class="tag t-risk">J2/J8</span>　N4</p>
@@ -317,7 +313,7 @@ li{margin:4px 0}
 <b>验收：</b>高风险支付强制多因子/回拨验证；deepfake 风险评分可解释；欺诈案件 24 小时内可还原全链。</p>
 </div>
 
-<h3>2.8 需求强度的反直觉结论</h3>
+<h3>2.7 需求强度的反直觉结论</h3>
 <div class="verdict"><b>最深的需求，往往不是最愿意付钱的需求。</b>授权、合规、证据、数据一致性是“没有它会出事”的需求，客户默认银行应该做好；Pre-IPO 流动性、家族治理、税务协调是“有它更好”的需求，客户愿意为此付溢价或承担信贷成本。<b>架构必须同时服务这两种需求，但商业模型必须区分它们。</b><br>
 <b>本轮新增的判断：</b>“不可逆”比“高频”更该优先。失能/身故、文件生效链、probate、POA 过期、deepfake 都是低频但不可逆；它们不产生收入，却决定客户是否在最重要的那天留下。</div>
 
