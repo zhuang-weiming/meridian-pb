@@ -7,6 +7,7 @@
 - 需求依据：[`../01_personas/nextgen-pb-real-people-cases.html`](../01_personas/nextgen-pb-real-people-cases.html)（17 组人物）
 - 外部核对：16 份机构报告（引证出处与页码见主文件 §0.5；交叉核对文档已移除，待决策清单 C5–C8 内联于主文件）
 - 能力对照：本版 **§6 与 Avaloq / Aladdin / Addepar 的边界**（历史参考：《独有能力判定》v1.0）
+- 延伸阅读：[`nextgen-pb-pain-deepdive-ubs-benchmark.html`](nextgen-pb-pain-deepdive-ubs-benchmark.html)（痛点五层拆解、15 条增量痛点、HSBC vs UBS 能力对标，v0.1）
 - 性质：**内部架构提案，非营销材料**，不构成税务、法律或投资建议。
 
 ## 这份文档做什么
