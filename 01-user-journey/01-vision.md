@@ -593,7 +593,7 @@ Ida 在 Citi 的经历：先做 fashion/retail/entertainment 垂直团队，再�
 5. `#/m4-founder` → `#/m4-valuation` → `#/m4-pledge` → `#/m4-trust`：企业家退出/质押/信托。
 6. `#/m5-intake` → `#/m5-scenarios` → `#/m5-substance` → `#/m5-advisor`：跨境税务数据/责任边界。
 7. **第二幕：经营**：`rm-workbench.html?record=1#/revenue-cockpit` → `#/revenue-rm`：AUM/收入/佣金/毛利/净利/CIR，加 RM 产能。
-8. **第三幕：信任**：`#/m3-cases`（授权/案件）→ `m3-cases`/`m3-family` 预演失能/身故 → X5 欺诈。
+8. **第三幕：信任**：`#/m3-cases`（授权/案件）→ `m3-cases`/`m3-family` 预演失能/身故 → X5 欺诈 → 失败归因（`rm-workbench#/order-failure` / `#/order-kpi`）。
 9. 收尾：家族 10 年路线图/下一代激活（可用 `#/m3-family` + `#/m3-hub` 回看）。
 
 > X1/X2 独立页面不在本版范围；当前用 `m3-cases` + `m3-family` 的授权缺口做“压力预览”。

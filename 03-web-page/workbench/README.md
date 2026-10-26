@@ -18,7 +18,7 @@ python3 -m http.server 8791
 | **2 · Estate & Continuity** | Estate Case Portfolio · Estate Case Timeline · Authority & Probate · 12-Month Outcomes | Death is a multi-year process; authority and outcomes can be measured |
 | **3 · Family Onboarding** | Family Onboarding · Suitability & Risk · Portfolio Templates · First Investment | Next-gen/spouse onboarding can be low-friction without bypassing suitability |
 | **4 · Revenue & Margin** | PB Operating Dashboard · Client P&L · Product P&L · RM Scorecard | AUM, revenue, client commission, GM/NM/CIR and RM capacity on one dashboard, with formulas |
-| **5 · Order Trust** | Order Monitor · Failure Detail · Recovery Workflow · Order KPI & Trust | Failed trade % can be measured by cause, client impact and RM KPI |
+| **5 · Order Trust** | Order Monitor · Failure Detail · Recovery Workflow · Failure Attribution & Learning | Attribution by cause/owner/evidence; IT/system explicit; RM knowledge card |
 
 ## Data
 
@@ -38,7 +38,7 @@ The Workbench is the **operating layer** of the existing journey portfolio, not 
 | Estate & Continuity | J8 Trust | death / probate / estate account / distribution / 12-month outcome |
 | Family Onboarding | J1 Family + J4 Women + J7 Core HNW | family / consent / suitability / template / first investment |
 | Revenue & Margin | J9 RM + J6 Family Office | client P&L / product P&L / RM scorecard |
-| Order Trust | J9 RM + J8 Trust | order lifecycle / failure reason / recovery / RM KPI |
+| Order Trust | J9 RM + J8 Trust | order lifecycle / attribution / IT-system flag / knowledge card / recovery |
 
 Full mapping and before/after steps:
 

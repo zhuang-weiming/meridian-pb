@@ -182,16 +182,16 @@ const WB = {
     summary: { ordersToday: 128, failed: 7, failedPct: 5.5, firstTimeFill: 91.2, avgRecoveryMinutes: 42, clientImpact: 4, rmKpiImpact: 6 },
     reasonPeriod: "Trailing 30 days",
     orders: [
-      { id: "ORD-1001", client: "He family (demo)", rm: "Alex Chan", market: "HKEX", symbol: "0700.HK", side: "Buy", qty: 20000, amount: 7200000, ccy: "HKD", status: "Filled", reason: "—", time: "09:32" },
-      { id: "ORD-1002", client: "UK creator family (demo)", rm: "Priya Nair", market: "LSE", symbol: "VOD.L", side: "Buy", qty: 50000, amount: 45000, ccy: "GBP", status: "Failed", reason: "Market closed (submitted 16:44, after close)", time: "16:44" },
-      { id: "ORD-1003", client: "Cross-border creator family (demo)", rm: "Priya Nair", market: "HKEX", symbol: "2800.HK", side: "Buy", qty: 10000, amount: 260000, ccy: "HKD", status: "Filled", reason: "—", time: "10:15" },
-      { id: "ORD-1004", client: "AI founder family (demo)", rm: "Alex Chan", market: "SGX", symbol: "D05.SI", side: "Sell", qty: 20000, amount: 640000, ccy: "SGD", status: "Rejected", reason: "Insufficient holdings", time: "11:02" },
-      { id: "ORD-1005", client: "Ashworth family (demo)", rm: "James Wong", market: "LSE", symbol: "SHEP.L", side: "Buy", qty: 15000, amount: 120000, ccy: "GBP", status: "Failed", reason: "Limit price / liquidity", time: "11:20" },
-      { id: "ORD-1006", client: "He family (demo)", rm: "Alex Chan", market: "OTC", symbol: "BOND-2030", side: "Buy", qty: 1000000, amount: 980000, ccy: "USD", status: "Pending", reason: "Counterparty confirmation", time: "11:45" },
-      { id: "ORD-1007", client: "Cross-border creator family (demo)", rm: "Priya Nair", market: "HKEX", symbol: "9988.HK", side: "Buy", qty: 5000, amount: 450000, ccy: "HKD", status: "Filled", reason: "—", time: "13:05" },
-      { id: "ORD-1008", client: "UK creator family (demo)", rm: "Priya Nair", market: "LSE", symbol: "ULVR.L", side: "Buy", qty: 8000, amount: 320000, ccy: "GBP", status: "Failed", reason: "System timeout", time: "14:10" },
-      { id: "ORD-1009", client: "He family (demo)", rm: "Alex Chan", market: "HKEX", symbol: "1299.HK", side: "Buy", qty: 30000, amount: 1800000, ccy: "HKD", status: "Filled", reason: "—", time: "14:22" },
-      { id: "ORD-1010", client: "Ashworth family (demo)", rm: "James Wong", market: "LSE", symbol: "SHEP.L", side: "Sell", qty: 5000, amount: 40000, ccy: "GBP", status: "Failed", reason: "Market closed (submitted 16:58, after close)", time: "16:58" }
+      { id: "ORD-1001", client: "He family (demo)", rm: "Alex Chan", market: "HKEX", symbol: "0700.HK", side: "Buy", qty: 20000, amount: 7200000, ccy: "HKD", status: "Filled", reason: "—", cause: "—", time: "09:32" },
+      { id: "ORD-1002", client: "UK creator family (demo)", rm: "Priya Nair", market: "LSE", symbol: "VOD.L", side: "Buy", qty: 50000, amount: 45000, ccy: "GBP", status: "Failed", reason: "Market closed (submitted 16:44, after close)", cause: "Market / calendar", time: "16:44" },
+      { id: "ORD-1003", client: "Cross-border creator family (demo)", rm: "Priya Nair", market: "HKEX", symbol: "2800.HK", side: "Buy", qty: 10000, amount: 260000, ccy: "HKD", status: "Filled", reason: "—", cause: "—", time: "10:15" },
+      { id: "ORD-1004", client: "AI founder family (demo)", rm: "Alex Chan", market: "SGX", symbol: "D05.SI", side: "Sell", qty: 20000, amount: 640000, ccy: "SGD", status: "Rejected", reason: "Insufficient holdings", cause: "Funding / holdings", time: "11:02" },
+      { id: "ORD-1005", client: "Ashworth family (demo)", rm: "James Wong", market: "LSE", symbol: "SHEP.L", side: "Buy", qty: 15000, amount: 120000, ccy: "GBP", status: "Failed", reason: "Limit price / liquidity", cause: "Liquidity / limit", time: "11:20" },
+      { id: "ORD-1006", client: "He family (demo)", rm: "Alex Chan", market: "OTC", symbol: "BOND-2030", side: "Buy", qty: 1000000, amount: 980000, ccy: "USD", status: "Pending", reason: "Counterparty confirmation", cause: "Counterparty", time: "11:45" },
+      { id: "ORD-1007", client: "Cross-border creator family (demo)", rm: "Priya Nair", market: "HKEX", symbol: "9988.HK", side: "Buy", qty: 5000, amount: 450000, ccy: "HKD", status: "Filled", reason: "—", cause: "—", time: "13:05" },
+      { id: "ORD-1008", client: "UK creator family (demo)", rm: "Priya Nair", market: "LSE", symbol: "ULVR.L", side: "Buy", qty: 8000, amount: 320000, ccy: "GBP", status: "Failed", reason: "System timeout", cause: "IT / system", time: "14:10" },
+      { id: "ORD-1009", client: "He family (demo)", rm: "Alex Chan", market: "HKEX", symbol: "1299.HK", side: "Buy", qty: 30000, amount: 1800000, ccy: "HKD", status: "Filled", reason: "—", cause: "—", time: "14:22" },
+      { id: "ORD-1010", client: "Ashworth family (demo)", rm: "James Wong", market: "LSE", symbol: "SHEP.L", side: "Sell", qty: 5000, amount: 40000, ccy: "GBP", status: "Failed", reason: "Market closed (submitted 16:58, after close)", cause: "Market / calendar", time: "16:58" }
     ],
     reasons: [
       { reason: "Market closed / after-hours", count: 18, pct: 31, controllable: "Preventable", owner: "Operations / RM" },
@@ -200,6 +200,14 @@ const WB = {
       { reason: "System timeout", count: 7, pct: 12, controllable: "IT", owner: "Technology" },
       { reason: "Counterparty confirmation", count: 6, pct: 10, controllable: "External", owner: "Operations" },
       { reason: "Compliance / suitability", count: 4, pct: 7, controllable: "Preventable", owner: "Compliance" }
+    ],
+    attribution: [
+      { cause: "Market / calendar", count: 18, pct: 31, owner: "Operations / RM", it: false, learning: "Pre-trade market-session and holiday check" },
+      { cause: "Liquidity / limit", count: 14, pct: 24, owner: "RM / client", it: false, learning: "Pre-trade liquidity check; set client expectation" },
+      { cause: "Funding / holdings", count: 9, pct: 16, owner: "RM / Credit", it: false, learning: "Pre-trade cash and holdings validation" },
+      { cause: "IT / system", count: 7, pct: 12, owner: "Technology", it: true, learning: "Incident, latency and order-router checks; exclude from RM blame" },
+      { cause: "Counterparty", count: 6, pct: 10, owner: "Operations", it: false, learning: "Counterparty confirmation SLA" },
+      { cause: "Compliance / suitability", count: 4, pct: 7, owner: "Compliance", it: false, learning: "Suitability and restriction check" }
     ],
     recovery: [
       { order: "ORD-1002", client: "UK creator family (demo)", issue: "Market closed (after hours)", action: "Rebook next trading session; notify client", owner: "Priya Nair", status: "Client informed", sla: "Same day" },

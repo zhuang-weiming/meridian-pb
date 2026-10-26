@@ -12,7 +12,7 @@
 | 新客户/二代/配偶 | J1/J4/J7 | C01/C02/C03/C04/C06 | `onboarding-*`、`m3-family`、`m1-*` | 家庭图→独立 consent→适当性→首投→复盘 |
 | 身故与传承 | J8 | C09/C02/C03/X1/C12 | `estate-*`、`m4-trust` | 授权→probate→estate/trust→12 个月结果 |
 | PB 经营 / RM 产能 | J9（J6 为读者） | X2/C12/C05 | `revenue-*` | AUM→收入→客户佣金→毛利→净利→CIR→RM 产能 |
-| 失败交易与信任 | J9/J8 | C07/X1/X2/C12 | `order-*` | 失败→原因→恢复→KPI |
+| 失败交易与信任 | J9/J8 | C07/X1/X2/C12 | `order-*` | 失败→primary/contributing cause→IT flag→knowledge→恢复→KPI |
 
 ## 本文件结构
 
@@ -373,7 +373,7 @@ dashboard 要区分：
 
 ---
 
-### 六、思路 5：失败交易比例、RM KPI 与客户信任
+### 六、思路 5：失败交易归因、知识沉淀与客户信任
 
 #### 6.1 业务逻辑
 
@@ -387,30 +387,34 @@ dashboard 要区分：
 - 系统/网络；
 - 对手方/结算。
 
-客户感知是“RM 答应了但没做成”；RM KPI 如果只看成交，会被不可控失败误伤。需要区分：
+客户感知是“RM 答应了但没做成”；RM KPI 如果只看成交，会被不可控失败误伤。每笔失败交易要记录：
 
-- **可控失败**（RM 可预防：资金、适当性、标的信息）；
-- **不可控失败**（市场/系统/对手方）；
-- **可恢复失败**（重试/改单/替代市场）。
+- **primary cause**（主因）；
+- **contributing cause**（次因）；
+- **owner / evidence**（谁负责、依据什么）；
+- **IT/system flag**（单独标记、可检索、可修，不记在 RM 头上）；
+- **RM knowledge card**（发生了什么、为什么、下次检查什么、怎么跟客户说）。
+
+这样可以区分 **可控失败**、**外部失败**、**IT/system 失败** 和 **可恢复失败**，并把每一次失败变成可复用的检查清单。
 
 #### 6.2 需要的数据
 
 | 数据 | 用途 |
 |---|---|
 | 订单/客户/RM/市场/产品 | 归属 |
-| 订单状态/失败原因码/时间 | 失败率 |
+| 订单状态/primary cause/contributing cause/时间 | 失败率与归因 |
 | 市场日历/交易时段 | 预防 |
-| 系统 incident | 归因 |
-| 客户沟通/补偿 | 信任 |
+| IT/system incident ID / 路由 / 延迟 | 归因，不误伤 RM |
+| 客户沟通/补偿/knowledge card | 信任与学习 |
 | 成交/TCA | 质量 |
 | RM KPI | 激励 |
 
 #### 6.3 需要的页面
 
-1. **Order Monitor**：实时订单、失败率、原因、市场/系统状态。
-2. **Failure Detail**：订单、原因、客户影响、RM、恢复。
+1. **Order Monitor**：实时订单、失败率、reason、attribution、市场/系统状态。
+2. **Failure Detail**：primary/contributing cause、owner、evidence、客户影响、IT flag、knowledge card。
 3. **Recovery Workflow**：沟通、重下单、补偿、根因、证据。
-4. **Order KPI**：失败率趋势、原因 Pareto、RM/客户影响、信任指标。
+4. **Failure Attribution & Learning**：归因 taxonomy、失败率、repeat causes、RM/客户影响、信任指标。
 
 ---
 
@@ -516,7 +520,7 @@ node check.js
 | **2 · Estate & Continuity** | Estate Case Portfolio · Estate Case Timeline · Authority & Probate · 12-Month Outcomes | 身故是多年流程；授权、probate、资金和结果可测量 |
 | **3 · Family Onboarding** | Family Onboarding · Suitability & Risk · Portfolio Templates · First Investment | 二代/配偶低门槛 onboarding，但不绕过适当性 |
 | **4 · Revenue & Margin** | PB Operating Dashboard · Client P&L · Product P&L · RM Scorecard | AUM→收入→客户佣金→毛利/净利/CIR；公式与 RM 产能一起看 |
-| **5 · Order Trust** | Order Monitor · Failure Detail · Recovery Workflow · Order KPI & Trust | 失败交易按原因/客户影响/RM KPI 可测量 |
+| **5 · Order Trust** | Order Monitor · Failure Detail · Recovery Workflow · Failure Attribution & Learning | 失败归因（primary/contributing/owner/evidence）；IT/system 单列；RM knowledge card |
 
 ---
 

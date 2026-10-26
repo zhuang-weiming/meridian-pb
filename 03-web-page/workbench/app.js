@@ -382,7 +382,7 @@
           ${stat("First-time fill", pct(WB.orders.summary.firstTimeFill), "Target >95%", "amber")}
           ${stat("Client-impacted", WB.orders.summary.clientImpact, "Failures", "red")}
         </div>
-        ${card("Order blotter", "Venue-local times; amounts in the order's currency. Demo session.", table(["Order", "Client", "RM", "Market", "Symbol", "Side", "Amount", "Status", "Reason"], WB.orders.orders.map(o => [`<span class="mono">${o.id}</span>`, o.client, o.rm, o.market, o.symbol, o.side, money(o.amount, o.ccy), badge(o.status, statusTone(o.status)), o.reason]), { compact: true }), primary("Open failure", "Failure detail opened (demo)"))}
+        ${card("Order blotter", "Venue-local times; amounts in the order's currency. Demo session.", table(["Order", "Client", "RM", "Market", "Symbol", "Side", "Amount", "Status", "Reason", "Attribution"], WB.orders.orders.map(o => [`<span class="mono">${o.id}</span>`, o.client, o.rm, o.market, o.symbol, o.side, money(o.amount, o.ccy), badge(o.status, statusTone(o.status)), o.reason, o.cause]), { compact: true }), primary("Open failure", "Failure detail opened (demo)"))}
         ${card("Failure reasons", `Pareto of failure causes — ${WB.orders.reasonPeriod.toLowerCase()}; the blotter shows today's session only (7 of 128 today).`, table(["Reason", "Count", "Share", "Controllable", "Owner"], WB.orders.reasons.map(r => [`<b>${r.reason}</b>`, r.count, pct(r.pct), r.controllable, r.owner]), { compact: true }))}
         ${sourceNote("Blotter and reason pareto are demo. Client rows use fictional demo families; named public persons never appear in account-level rows. Real deployment needs order events, market calendars and reason codes from the execution stack.")}`
     },
@@ -393,8 +393,18 @@
       sub: "What failed, why, who is impacted, what happens next.",
       render: () => pageHead("5 · Order Trust", "Failure Detail", "The RM needs a clear explanation and a recovery path; the client needs honesty and a next step.") + `
         ${card("ORD-1002 · UK creator family (demo)", "Market closed — submitted 16:44 London time, after close; order not executed.", `<div class="grid-3">${stat("Client", "UK creator family (demo)", "HNW / UK · VOD.L GBP 45.0k", "")}${stat("RM", "Priya Nair", "Owns communication", "")}${stat("Impact", "Client informed", "Rebook next session", "amber")}</div><div class="note" style="margin-top:8px"><b>Root cause:</b> no market-hours/calendar check at order entry; the order was submitted after the London close. <b>Control:</b> pre-trade market-session check. <b>Recovery:</b> rebook at next open; confirm with client; log evidence.</div>`)}
+        ${card("Attribution", "One primary cause, contributing cause, owner and evidence — not a single reason code.", table(["Order", "Primary cause", "Contributing cause", "Owner", "IT?", "Evidence"], [
+          ["ORD-1002", "Market / calendar", "Market-hours check missed at order entry", "Operations / RM", "No", "Order event + market calendar"],
+          ["ORD-1008", "IT / system", "Order-router timeout", "Technology", "Yes", "Incident ID + order event"]
+        ], { compact: true }))}
+        ${card("RM knowledge card", "What the RM should be able to explain and carry into the next conversation.", table(["Question", "Answer"], [
+          ["What happened", "Order submitted after the London close; not executed"],
+          ["Why", "Market-hours check was missed; not an IT failure"],
+          ["What to check next time", "Market session, holiday calendar and cut-off before entry"],
+          ["What to tell the client", "Cause, impact, next session, what the bank changed"]
+        ], { compact: true }))}
         ${card("Recovery queue", "Owner, action, SLA and status.", table(["Order", "Client", "Issue", "Action", "Owner", "Status", "SLA"], WB.orders.recovery.map(r => [`<span class="mono">${r.order}</span>`, r.client, r.issue, r.action, r.owner, badge(r.status, statusTone(r.status)), r.sla]), { compact: true }), primary("Send client update", "Client update sent (demo)"))}
-        ${sourceNote("ORD-1002 is a demo case. Root-cause framing follows the reason code: market session / calendar vs external vs system failure.")}`
+        ${sourceNote("ORD-1002 and ORD-1008 are demo cases. Attribution separates market/process failures from IT/system failures and records the knowledge the RM should carry forward.")}`
     },
 
     "order-recovery": {
@@ -414,15 +424,16 @@
 
     "order-kpi": {
       section: "Order Trust",
-      title: "Order KPI & Trust",
-      sub: "Failed %, first-time fill, recovery, RM impact, client trust.",
-      render: () => pageHead("5 · Order Trust", "Order KPI & Trust", "Measure failures by cause and by client impact; separate controllable from uncontrollable.") + `
+      title: "Failure Attribution & Learning",
+      sub: "Attribution, IT/system flags, learning loop, failed %, recovery and trust.",
+      render: () => pageHead("5 · Order Trust", "Failure Attribution & Learning", "Every failed trade gets a primary cause, contributing cause, owner and evidence; IT/system is explicit; the RM turns the cause into knowledge.") + `
+        ${card("Attribution taxonomy", "One primary cause per failure; IT/system is tagged separately and excluded from RM blame.", table(["Cause", "Count", "Share", "Owner", "IT?", "Learning"], WB.orders.attribution.map(r => [`<b>${r.cause}</b>`, r.count, pct(r.pct), r.owner, r.it ? "Yes" : "No", r.learning]), { compact: true }))}
         ${card("KPI dashboard", "Targets and ownership.", table(["Metric", "Value", "Target", "Trend", "Owner"], WB.orders.kpis.map(k => [`<b>${k.metric}</b>`, k.value, k.target, k.trend, k.owner]), { compact: true }))}
         <div class="grid-2" style="margin-top:12px">
-          ${card("What to instrument", "Data needed to prove the problem and the fix.", `<div class="list">${["Order event: created, validated, sent, acknowledged, filled, failed", "Reason code and free-text", "Market calendar / trading session", "System incident / latency", "Client communication and compensation", "TCA / slippage", "RM KPI adjustment", "Client NPS / trust survey"].map(x => `<div class="list-row"><span class="badge blue">•</span><span>${esc(x)}</span></div>`).join("")}</div>`)}
-          ${card("KPI principle", "Do not punish RM for uncontrollable failures.", `<div class="prose"><p>Split failed trade percentage into controllable, external and system causes. RM scorecard should use controllable failures and recovery quality, not raw failures.</p><p>Client trust is measured by communication speed, recovery, and whether the client would recommend the bank after the failure.</p></div>`)}
+          ${card("What to instrument", "Data needed to prove the problem and the fix.", `<div class="list">${["Order event: created, validated, sent, acknowledged, filled, failed", "Primary cause / contributing cause", "Reason code and free-text", "Market calendar / trading session", "IT incident ID / latency / order-router log", "Client communication and compensation", "TCA / slippage", "RM knowledge card / training record", "Client NPS / trust survey"].map(x => `<div class="list-row"><span class="badge blue">•</span><span>${esc(x)}</span></div>`).join("")}</div>`)}
+          ${card("Learning loop", "Cause → knowledge card → pre-trade check → client conversation → training.", `<div class="prose"><p>Every failure produces a knowledge card owned by the RM and reviewed with the desk. IT/system failures go to Technology with an incident ID; they are reported but not counted against the RM.</p><p>The RM scorecard uses controllable failures and recovery quality, not raw failures. Client trust is measured by explanation quality, recovery speed and whether the client would recommend the bank after the failure.</p></div>`)}
         </div>
-        ${sourceNote("KPI values and thresholds are demo. Instrument real order events, calendars, incidents and client-communication logs before setting HR targets.")}`
+        ${sourceNote("Attribution counts, KPI values and thresholds are demo. Real deployment needs order events, market calendars, incident IDs and a reviewed knowledge-card process.")}`
     }
   };
 
@@ -432,7 +443,7 @@
     { name: "2 · Estate & Continuity", pages: [["estate-portfolio", "Estate Case Portfolio"], ["estate-case", "Estate Case Timeline"], ["estate-authority", "Authority & Probate"], ["estate-outcomes", "12-Month Outcomes"]] },
     { name: "3 · Family Onboarding", pages: [["onboarding-family", "Family Onboarding"], ["onboarding-suitability", "Suitability & Risk"], ["onboarding-templates", "Portfolio Templates"], ["onboarding-first", "First Investment"]] },
     { name: "4 · Revenue & Margin", pages: [["revenue-cockpit", "PB Operating Dashboard"], ["revenue-client", "Client P&L"], ["revenue-product", "Product P&L"], ["revenue-rm", "RM Scorecard"]] },
-    { name: "5 · Order Trust", pages: [["order-monitor", "Order Monitor"], ["order-failure", "Failure Detail"], ["order-recovery", "Recovery Workflow"], ["order-kpi", "Order KPI & Trust"]] }
+    { name: "5 · Order Trust", pages: [["order-monitor", "Order Monitor"], ["order-failure", "Failure Detail"], ["order-recovery", "Recovery Workflow"], ["order-kpi", "Failure Attribution & Learning"]] }
   ];
 
   const route = () => (location.hash.replace(/^#\/?/, "") || "overview").split("?")[0];

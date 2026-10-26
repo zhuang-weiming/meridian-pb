@@ -2,8 +2,8 @@
 
 > 这里放**可拍摄的成片脚本**，不是分镜计划。两版共用同一批录屏 take、同一套合规角标、同一套数据口径。
 >
-> - **12 分钟主版** → [`12-minute-master-script.md`](12-minute-master-script.md)（18 段 / 1,555 词 / 12:00）
-> - **5 分钟电梯版** → [`5-minute-elevator-script.md`](5-minute-elevator-script.md)（8 镜 / 643 词 / 5:00）
+> - **12 分钟主版** → [`12-minute-master-script.md`](12-minute-master-script.md)（18 段 / 1,571 词 / 12:00）
+> - **5 分钟电梯版** → [`5-minute-elevator-script.md`](5-minute-elevator-script.md)（8 镜 / 649 词 / 5:00）
 >
 > 两部片都不设独立标题卡或口头合规声明；合规由左下角常驻角标与正文/片尾的 demo-data 说明承载。
 >
@@ -94,13 +94,13 @@ python3 -m http.server 8791
 | S10 | 39s | `rm-workbench#/estate-outcomes` | `?record=1` | 12 个月 cohort |
 | S13a | 28s | `rm-workbench#/revenue-cockpit` | `?record=1` | PB 经营 dashboard |
 | S13b | 61s | `rm-workbench#/revenue-rm` | `?record=1` | RM 产能 |
-| S14a | 44s | `rm-workbench#/order-failure` | `?record=1` | 失败交易 |
-| S14b | 39s | `rm-workbench#/order-kpi` | `?record=1` | KPI 与信任 |
+| S14a | 44s | `rm-workbench#/order-failure` | `?record=1` | 失败归因 |
+| S14b | 39s | `rm-workbench#/order-kpi` | `?record=1` | 失败归因与知识 |
 | S15 | 37s+5s | End card | 剪辑 | 三个请求 |
 
 ### 5 分钟电梯版（8 镜）
 
-直接复用：S4、S11、S8、S13a、S14a、S15 的主版 take；S1' 从 S1 取前 83 词；S7' 从 S7 取 29 词。剪辑表见 5 分钟脚本 §4。
+直接复用：S4、S11、S8、S13a、S14a、S15 的主版 take；S1' 从 S1 取前 97 词；S7' 从 S7 取 29 词。剪辑表见 5 分钟脚本 §4。
 
 ---
 

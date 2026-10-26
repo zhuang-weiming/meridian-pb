@@ -87,7 +87,7 @@ python3 -m http.server 8791
 | Estate & Continuity | `estate-portfolio` / `estate-case` / `estate-authority` / `estate-outcomes` | 身故是多年流程；授权先于动作；结果可测 |
 | Family Onboarding | `onboarding-family` / `-suitability` / `-templates` / `-first` | 配偶/二代独立同意，不绕过适当性 |
 | Revenue & Margin | `revenue-cockpit` (PB Operating Dashboard) / `-client` / `-product` / `-rm` | AUM → revenue → client commission → GM/NM/CIR；RM 产能可解释 |
-| Order Trust | `order-monitor` / `-failure` / `-recovery` / `-kpi` | 失败交易按原因、客户影响、RM KPI 计量 |
+| Order Trust | `order-monitor` / `-failure` / `-recovery` / `-kpi` | 失败归因（primary/contributing/owner/evidence）；IT/system 单列；RM knowledge card |
 
 > 上表按**工作台导航顺序**排列；影片按“顺向 → 逆向”剪辑，所以 onboarding 镜头在 estate 之前，见 [`../04-video-and-movie/README.md`](../04-video-and-movie/README.md)。
 

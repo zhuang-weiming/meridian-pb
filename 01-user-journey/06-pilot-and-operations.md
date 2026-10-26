@@ -326,16 +326,18 @@ AUM、收入、客户佣金、毛利/净利/CIR 分散；公式与成本分摊�
 
 **改造前：**
 
-订单失败只记“失败”；不区分市场关闭/系统/资金/合规；RM 被原始失败率误伤；客户不知道下一步。
+失败交易只记一个 reason code；没有 primary/contributing cause、owner、evidence；IT/system 与市场/流程混在一起；RM 被原始失败率误伤、也无法沉淀知识；客户不知道下一步。
 
 > **基线锚点：** 无同业公开的失败率同口径数据；演示口径 5.5%（trailing 30 天，128 单当天 7 失败）为演示假设——“可控失败 < 3%”目标需运营先发布 reason code 分类定义再校准。
 
 **改造后：**
 
-1. Order monitor：订单/客户/RM/市场/金额/状态/原因；
-2. Failure detail：root cause、control、client impact；
-3. Recovery：detect → explain → rebook → compensate → root cause；
-4. KPI：failed trade %、first-time fill、recovery time、client impact、RM KPI、trust。
+1. Order monitor：订单/客户/RM/市场/金额/状态/reason/attribution；
+2. Failure detail：primary cause、contributing cause、owner、evidence、client impact；
+3. IT/system flag：单独标记、可检索、可修，不记在 RM 头上；
+4. RM knowledge card：发生了什么/为什么/下次检查什么/怎么跟客户说；
+5. Recovery：detect → explain → rebook → compensate → root cause；
+6. KPI：failed trade %、repeat causes、recovery time、trust。
 
 **页面：** `order-monitor`、`order-failure`、`order-recovery`、`order-kpi`。
 
@@ -418,6 +420,8 @@ AUM、收入、客户佣金、毛利/净利/CIR 分散；公式与成本分摊�
 | 可控失败占失败比例 | 5.5% 总失败率（演示假设，30 天窗口） | 可控失败 < 3% | COO | 周 |
 | 平均恢复时长 | 42 分钟（演示假设） | ≤ 30 分钟 | Operations | 周 |
 | 当日已告知客户占比 | 4/4（演示假设） | 100%（当日） | RM / Service | 周 |
+| IT/system failures tagged | 7/7（演示假设） | 100% | Technology | 周 |
+| Repeat causes with knowledge card | 1/1（演示假设） | 100% | Desk head / RM | 月 |
 
 > 复核机制：公开案例数字每季度复核一次并更新 as-of；演示基线在接入真实数据层（IPO pipeline、estate cohort、收入/成本、订单事件、onboarding 闭环）后整体置换。
 

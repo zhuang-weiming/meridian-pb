@@ -2,13 +2,13 @@
 
 > **用途：** 给只有一次转发机会的高管/董事会前阅读者。它不是 12 分钟版的“随机剪短”，而是**五个问题各保留一个最强锚点**的独立版本。
 >
-> 版本 **v3.1 · 2026-10-26** · 总长 **5:00** = 287 秒口播 + 3 秒停帧 + 10 秒缓冲 · **8 镜** · **643 词** · 均 **134 wpm**
+> 版本 **v3.1 · 2026-10-26** · 总长 **5:00** = 287 秒口播 + 3 秒停帧 + 10 秒缓冲 · **8 镜** · **649 词** · 均 **136 wpm**
 
 **旅程表：** 本片 demo 的旅程与 12 分钟版相同，见 [`../01-user-journey/00-journey-catalog.md`](../01-user-journey/00-journey-catalog.md) §1。
 
 **与 12 分钟版的关系：**
 
-- 共用同一批 take：S4、S11、S8、S13a、S14a、S15 直接复用主版；S1' 从 S1 take 截取前 83 词；S7' 从 S7 take 截取 29 词。
+- 共用同一批 take：S4、S11、S8、S13a、S14a、S15 直接复用主版；S1' 从 S1 take 截取前 97 词；S7' 从 S7 take 截取 29 词。
 - 去掉的是论证细节：J2–J4 蓝图、估值/交接、授权矩阵、12 个月 cohort、RM 产能。**五个问题本身一个不少。**
 - 不设标题卡；合规角标与片尾 demo-data 说明与主版一致。
 
@@ -22,16 +22,16 @@
 
 | # | 时间 | 镜 | 画面 | 词 | 秒 | wpm | 作用 |
 |---|---|---|---|---|---|---|---|
-| 01 | 0:00–0:48 | S1' | 五个运营问题（摘句） | 83 | 48 | 104 | 五个运营问题（摘句） |
+| 01 | 0:00–0:48 | S1' | 五个运营问题（摘句） | 97 | 48 | 121 | 五个运营问题（摘句） |
 | 02 | 0:48–1:30 | S4' | IPO & Wealth Event Pipeline | 97 | 42 | 139 | IPO 财富事件管道 |
 | 03 | 1:30–2:09 | S11' | Family Onboarding | 91 | 39 | 140 | 家族 onboarding |
 | 04 | 2:09–2:21 | S7' | 遗产组合 · 时间、金额与结果 | 29 | 12 | 145 | 遗产组合（摘句） |
 | 05 | 2:21–3:04 | S8' | Estate Case Timeline | 102 | 43 | 142 | 单个遗产案件 |
 | 06 | 3:04–3:31 | S13a' | PB Operating Dashboard | 64 | 27 | 142 | PB 经营 dashboard |
-| 07 | 3:31–4:13 | S14a' | Failure Detail | 97 | 42 | 139 | 失败交易 |
+| 07 | 3:31–4:13 | S14a' | Failure Detail & Attribution | 89 | 42 | 127 | 失败归因 |
 | 08 | 4:13–4:50 | S15' | End card · 三个请求 | 80 | 37 (34+3) | 141 | 三个请求 |
 
-**合计：** 8 镜 · 643 词 · 287 秒口播 + 3 秒停帧 + 10 秒缓冲 = **300 秒 / 5:00**。
+**合计：** 8 镜 · 649 词 · 287 秒口播 + 3 秒停帧 + 10 秒缓冲 = **300 秒 / 5:00**。
 
 ---
 
@@ -39,7 +39,7 @@
 
 ### S1' · 0:00–0:48 · 五个运营问题（摘句）
 
-**时长 / 词数 / 语速**：48s · 83 词 · 104 wpm · 功能：五个运营问题（摘句）
+**时长 / 词数 / 语速**：48s · 97 词 · 121 wpm · 功能：五个运营问题（摘句）
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/overview`
 - **画面**：Workbench 首页五张模块卡；只保留五个问题与模块对应关系。
@@ -51,11 +51,11 @@
 
 **英文口播（逐字）**
 
-> Five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, how the Private Bank is actually performing — AUM, revenue, client commission, gross margin, net margin and cost-to-income, with the formulas on one dashboard. Fifth, how a failed trade affects client trust and RM performance.
+> Five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, how the Private Bank is actually performing — AUM, revenue, client commission, gross margin, net margin and cost-to-income, with the formulas on one dashboard. Fifth, why a trade fails — client, market, RM, operations or IT — and how the RM turns that attribution into knowledge and a better client conversation.
 
 **中文对照**
 
-> 五个真实的经营问题。第一，CIB 做 IPO，PB 如何合规承接创始人和高管；第二，新客户、二代和配偶如何完成第一次投资；第三，一个客户身故一年以后，家族的钱到底走到了哪里；第四，私人银行到底经营得怎么样——AUM、收入、客户佣金、毛利、净利、成本收入比，以及这些数字背后的公式，能不能放在一张 dashboard 上；第五，一笔交易失败以后，客户信任和 RM 绩效如何被影响。
+> 五个真实的经营问题。第一，CIB 做 IPO，PB 如何合规承接创始人和高管；第二，新客户、二代和配偶如何完成第一次投资；第三，一个客户身故一年以后，家族的钱到底走到了哪里；第四，私人银行到底经营得怎么样——AUM、收入、客户佣金、毛利、净利、成本收入比，以及这些数字背后的公式，能不能放在一张 dashboard 上；第五，一笔交易为什么失败——是客户、市场、RM、运营还是 IT 的原因——以及 RM 如何把失败归因沉淀成知识和下一次更好的客户沟通。
 
 ### S4' · 0:48–1:30 · IPO & Wealth Event Pipeline
 
@@ -157,25 +157,25 @@
 
 > 这一页是私人银行经营 dashboard：AUM 312 亿美元、收入 4.8 亿美元、客户佣金 5,200 万美元、毛利 3.12 亿美元（65%）、净利 1.56 亿美元（32.5%）、成本收入比 67.5%。公式都在页面上：毛利等于收入减直接成本；净利再扣资金、风险和分摊成本；成本收入比等于收入减净利除以收入。每个数字都要能按客户、产品、RM 和实体拆开。
 
-### S14a' · 3:31–4:13 · Failure Detail
+### S14a' · 3:31–4:13 · Failure Detail & Attribution
 
-**时长 / 词数 / 语速**：42s · 97 词 · 139 wpm · 功能：失败交易
+**时长 / 词数 / 语速**：42s · 89 词 · 127 wpm · 功能：失败交易
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/order-failure`
-- **画面**：失败交易详情：ORD-1002、16:44 伦敦时间、市场已收盘、GBP 45k、失败原因、客户影响、recovery 五步。
+- **画面**：失败交易详情：ORD-1002、16:44 伦敦时间、市场已收盘、GBP 45k；primary cause / contributing cause / IT? / evidence / recovery。
 - **运镜**：固定详情卡；推近 16:44 与 market closed；下摇到 recovery 五步。
 - **屏幕动作**：hover ORD-1002 行；停在 16:44 与 “market closed”；下滚到 recovery；不点击重试。
-- **屏幕标注**：顶部：out-of-hours order · market-hours check missing；底部：failure reason → client impact → recovery。
-- **人物内心（导演层，不占口播）**：客户：一笔失败的交易，没有人告诉我为什么。
+- **屏幕标注**：顶部：primary cause ≠ contributing cause；右侧：IT? no；底部：cause → explanation → knowledge card。
+- **人物内心（导演层，不占口播）**：客户：告诉我为什么；RM：把这次失败变成下一次的检查清单。
 - **转场**：硬切到 end card。
 
 **英文口播（逐字）**
 
-> This is failure detail. Take ORD-1002: the client is a fictional demo family — the UK creator family — the market is London, and the order was submitted at 16:44 London time, after the close; the reason is market closed, out of hours. The page answers four questions: what happened, why it happened, who is affected and what happens next. The root cause is that the market calendar was not checked at order entry. The control is a pre-trade market-calendar check. Recovery is to rebook at the next trading session and inform the client. Every step must leave evidence.
+> This is failure detail. ORD-1002: UK creator family, London, order at 16:44, after the close. Primary cause: market closed. Contributing cause: the market-hours check was missed; it is not an IT failure. The page separates cause, contributing cause, owner and evidence. The RM explains what happened, why, who is affected, what happens next, and what to check next time. Recovery: rebook next session, confirm with the client, log evidence. IT-caused failures are tagged separately, so they can be found and fixed. That explanation is how a failure becomes trust.
 
 **中文对照**
 
-> 这一页是失败详情。以 ORD-1002 为例：客户是一个演示家族（UK creator family），市场是伦敦，时间是伦敦 16:44——收盘之后下单，原因是 market closed（out-of-hours）。这个页面要回答四件事：发生了什么、为什么发生、谁受影响、下一步是什么。Root cause 是下单时没有检查市场日历；Control 是 pre-trade market-calendar check；Recovery 是下一个交易日重新下单并通知客户。每一步要留证据。
+> 这一页是失败详情。以 ORD-1002 为例：客户是演示家族 UK creator family，市场是伦敦，下单时间 16:44，已收盘。Primary cause 是 market closed；contributing cause 是下单时没有检查市场时段；这不是 IT 故障。页面把 cause、contributing cause、owner 和 evidence 分开。RM 要解释：发生了什么、为什么、谁受影响、下一步是什么、下次检查什么。Recovery 是下一个交易日重新下单并通知客户。IT 原因单独标记，能被找出来、修掉。解释清楚，失败才会变成信任。
 
 ### S15' · 4:13–4:50 · End card · 三个请求
 
@@ -203,7 +203,7 @@
 
 **[0:00] S1'**
 
-Five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, how the Private Bank is actually performing — AUM, revenue, client commission, gross margin, net margin and cost-to-income, with the formulas on one dashboard. Fifth, how a failed trade affects client trust and RM performance.
+Five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, how the Private Bank is actually performing — AUM, revenue, client commission, gross margin, net margin and cost-to-income, with the formulas on one dashboard. Fifth, why a trade fails — client, market, RM, operations or IT — and how the RM turns that attribution into knowledge and a better client conversation.
 
 **[0:48] S4'**
 
@@ -227,7 +227,7 @@ This is the Private Bank operating dashboard: AUM US$31.2bn, revenue US$480m, cl
 
 **[3:31] S14a'**
 
-This is failure detail. Take ORD-1002: the client is a fictional demo family — the UK creator family — the market is London, and the order was submitted at 16:44 London time, after the close; the reason is market closed, out of hours. The page answers four questions: what happened, why it happened, who is affected and what happens next. The root cause is that the market calendar was not checked at order entry. The control is a pre-trade market-calendar check. Recovery is to rebook at the next trading session and inform the client. Every step must leave evidence.
+This is failure detail. ORD-1002: UK creator family, London, order at 16:44, after the close. Primary cause: market closed. Contributing cause: the market-hours check was missed; it is not an IT failure. The page separates cause, contributing cause, owner and evidence. The RM explains what happened, why, who is affected, what happens next, and what to check next time. Recovery: rebook next session, confirm with the client, log evidence. IT-caused failures are tagged separately, so they can be found and fixed. That explanation is how a failure becomes trust.
 
 **[4:13] S15'**
 
@@ -239,13 +239,13 @@ Three asks, one decision each. First: approve the minimal usable definitions for
 
 | 镜 | 素材 | 处理 |
 |---|---|---|
-| S1' | 主版 S1 | 只取前 83 词；在 “This workbench is not a marketing site” 前切断 |
+| S1' | 主版 S1 | 只取前 97 词；在 “This workbench is not a marketing site” 前切断 |
 | S4' | 主版 S4 | 直接用；结尾停在 consent pending |
 | S11' | 主版 S11 | 直接用；停在 pending self confirmation |
 | S7' | 主版 S7 | 只取 29 词；保留 8,279 days 与 15 days |
 | S8' | 主版 S8 | 直接用；T+60 停 1.5 秒 |
 | S13a' | 主版 S13a | 直接用；停在 CIR 67.5% |
-| S14a' | 主版 S14a | 直接用；停在 16:44 / market closed |
+| S14a' | 主版 S14a | 直接用；停在 primary / contributing cause |
 | S15' | 主版 S15 | 直接用；三行 ask 每行 8 秒 |
 
 **缓冲用法：** 4:50–5:00 的 10 秒只做 end card 留白或平台片尾，不得把任何单镜拉长到 >150 wpm。

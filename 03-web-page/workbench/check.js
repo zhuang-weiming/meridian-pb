@@ -80,6 +80,8 @@ for (const c of WB.revenue.clients) {
 for (const r of WB.revenue.rms) assert(r.grossMargin < r.revenue && r.netMargin < r.grossMargin, `${r.rm}: margin ordering`);
 assert.strictEqual(WB.orders.reasonPeriod, "Trailing 30 days", "reason pareto needs an explicit window");
 assert.strictEqual(WB.orders.reasons.reduce((a, r) => a + r.pct, 0), 100, "reason shares must sum to 100");
+assert.strictEqual(WB.orders.attribution.reduce((a, r) => a + r.pct, 0), 100, "attribution shares must sum to 100");
+assert(WB.orders.attribution.some(r => /IT/.test(r.cause) && r.it === true), "IT/system failures must be an explicit attribution category");
 for (const o of WB.orders.orders) {
   assert(["USD", "HKD", "GBP", "SGD"].includes(o.ccy), `${o.id}: order needs a currency tag`);
   if (o.market === "LSE") {

@@ -202,10 +202,15 @@
    - 死亡 → POA 终止；executor 等 grant；estate/trust 双账；跨境 probate。
 5. **X5 欺诈**（可讲故事/用现有风控页）：
    - 深伪 RM 视频；异常收款人；多因子回拨；拦截/证据。
+6. **失败交易归因**（`rm-workbench.html?record=1#/order-failure` / `#/order-kpi`）：
+   - 每笔失败交易：primary cause / contributing cause / owner / evidence。
+   - 分类：client、market/calendar、liquidity、funding、RM/process、operations、IT/system、counterparty、compliance。
+   - IT/system 单独标记，能被找出来、修掉，不记在 RM 头上；RM 把原因沉淀成 knowledge card（发生了什么/为什么/下次检查什么/怎么跟客户说）。
 
 ### 关键句
 
 > “压力旅程不是‘恐怖故事’，是‘信任证明’：合法、快速、有证据。  
+> 失败不是一句道歉，是归因、知识、下一次检查；解释清楚，才建立信任。
 > 这也是为什么我们要有家族/授权/事件/证据的核心，而不是只加一个 portal。”
 
 ### 不要做
@@ -246,7 +251,7 @@
 | 3–5 | 顺向 2 | S2 二代/配偶 onboarding（`m3-hub`） |
 | 5–7 | 顺向 3 | S4 退出/质押/信托（`m4-*`） |
 | 7–8 | 银行经营 | AUM / revenue / client commission / GM / NM / CIR（`revenue-cockpit` + `revenue-rm`） |
-| 8–9 | 逆向 | 压力预览（授权 → 失能 → 身故；`m3-cases` + X1/X2 故事） |
+| 8–9 | 逆向 | 压力预览（授权 → 失能 → 身故）+ 失败归因与知识（`order-failure` / `order-kpi`） |
 | 9–10 | 收尾 | 家族 10 年 |
 
 > 顺序原则：**先顺向、后逆向**；不把身故放在二代 onboarding 之前。

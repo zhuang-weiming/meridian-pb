@@ -75,7 +75,7 @@
 | 18 | `order-monitor` | Order Monitor | J9 | Order Trust | — |
 | 19 | `order-failure` | Failure Detail | J8/J9 | Order Trust | **S14a** |
 | 20 | `order-recovery` | Recovery Workflow | J8/J9 | Order Trust | — |
-| 21 | `order-kpi` | Order KPI & Trust | J9 | Order Trust | **S14b** |
+| 21 | `order-kpi` | Failure Attribution & Learning | J9 | Order Trust | **S14b** |
 
 > 本表按工作台页面顺序排列；“影片”列只标锚点。影片播放顺序见 04：S11–S12（onboarding）在 S7–S10（estate）之前。
 

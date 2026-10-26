@@ -12,11 +12,11 @@
 
 ### 中文台词
 
-五个真实的经营问题。第一，CIB 做 IPO，PB 如何合规承接创始人和高管；第二，新客户、二代和配偶如何完成第一次投资；第三，一个客户身故一年以后，家族的钱到底走到了哪里；第四，私人银行到底经营得怎么样——AUM、收入、客户佣金、毛利、净利、成本收入比，以及这些数字背后的公式，能不能放在一张 dashboard 上；第五，一笔交易失败以后，客户信任和 RM 绩效如何被影响。这个工作台不是营销页面，而是把每个问题的业务步骤、字段、状态、责任人和证据拆开。所有公开人物只是结构参考，不表示他们是汇丰客户；所有银行数字都是演示数据。
+五个真实的经营问题。第一，CIB 做 IPO，PB 如何合规承接创始人和高管；第二，新客户、二代和配偶如何完成第一次投资；第三，一个客户身故一年以后，家族的钱到底走到了哪里；第四，私人银行到底经营得怎么样——AUM、收入、客户佣金、毛利、净利、成本收入比，以及这些数字背后的公式，能不能放在一张 dashboard 上；第五，一笔交易为什么失败——是客户、市场、RM、运营还是 IT 的原因——以及 RM 如何把失败归因沉淀成知识和下一次更好的客户沟通。这个工作台不是营销页面，而是把每个问题的业务步骤、字段、状态、责任人和证据拆开。所有公开人物只是结构参考，不表示他们是汇丰客户；所有银行数字都是演示数据。
 
 ### English script
 
-Five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, how the Private Bank is actually performing — AUM, revenue, client commission, gross margin, net margin and cost-to-income, with the formulas on one dashboard. Fifth, how a failed trade affects client trust and RM performance. This workbench is not a marketing site. It decomposes each problem into business steps, fields, status, ownership and evidence. The public names are structural references only, not HSBC clients. All bank figures are demo data.
+Five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, how the Private Bank is actually performing — AUM, revenue, client commission, gross margin, net margin and cost-to-income, with the formulas on one dashboard. Fifth, why a trade fails — client, market, RM, operations or IT — and how the RM turns that attribution into knowledge and a better client conversation. This workbench is not a marketing site. It decomposes each problem into business steps, fields, status, ownership and evidence. The public names are structural references only, not HSBC clients. All bank figures are demo data.
 
 ### On screen / 屏幕动作
 
@@ -386,11 +386,11 @@ We now move to the moment that most directly affects trust: a failed order.
 
 ### 中文台词
 
-这一页是订单监控。订单不是只有“成功/失败”，而是有完整生命周期：created、validated、sent、acknowledged、filled、settled，或者 failed/rejected。失败原因要编码：市场关闭/节假日、限价/流动性、资金/持仓不足、系统超时、对手方、合规/适当性。页面把客户、RM、市场、金额、状态、原因放在一张表上，让运营和 RM 看到同一事实。
+这一页是订单监控。订单不是只有“成功/失败”，而是有完整生命周期：created、validated、sent、acknowledged、filled、settled，或者 failed/rejected。失败原因要编码：市场关闭/节假日、限价/流动性、资金/持仓不足、系统超时、对手方、合规/适当性。页面把客户、RM、市场、金额、状态、原因和 attribution 放在一张表上，让运营和 RM 看到同一事实。
 
 ### English script
 
-This is order monitoring. An order is not simply successful or failed. It has a lifecycle: created, validated, sent, acknowledged, filled, settled, or failed/rejected. Failure reasons must be coded: market closed or holiday, limit price or liquidity, insufficient cash or holdings, system timeout, counterparty and compliance or suitability. The page puts client, RM, market, amount, status and reason on one blotter, so Operations and the RM see the same facts.
+This is order monitoring. An order is not simply successful or failed. It has a lifecycle: created, validated, sent, acknowledged, filled, settled, or failed/rejected. Failure reasons must be coded: market closed or holiday, limit price or liquidity, insufficient cash or holdings, system timeout, counterparty and compliance or suitability. The page puts client, RM, market, amount, status, reason and attribution on one blotter, so Operations and the RM see the same facts.
 
 ### On screen / 屏幕动作
 
@@ -408,11 +408,11 @@ The next page explains one failure in detail.
 
 ### 中文台词
 
-这一页是失败详情。以 ORD-1002 为例：客户是一个演示家族（UK creator family），市场是伦敦，时间是伦敦 16:44——收盘之后下单，原因是 market closed（out-of-hours）。这个页面要回答四件事：发生了什么、为什么发生、谁受影响、下一步是什么。Root cause 是下单时没有检查市场日历；Control 是 pre-trade market-calendar check；Recovery 是下一个交易日重新下单并通知客户。每一步要留证据。
+这一页是失败详情。以 ORD-1002 为例：客户是演示家族 UK creator family，市场是伦敦，下单时间 16:44，已收盘。Primary cause 是 market closed；contributing cause 是下单时没有检查市场时段；这不是 IT 故障。页面把 primary cause、contributing cause、owner 和 evidence 分开。RM 要能解释：发生了什么、为什么、谁受影响、下一步是什么、下次检查什么。Recovery 是下一个交易日重新下单并通知客户。
 
 ### English script
 
-This is failure detail. Take ORD-1002: the client is a fictional demo family — the UK creator family — the market is London, and the order was submitted at 16:44 London time, after the close; the reason is market closed, out of hours. The page answers four questions: what happened, why it happened, who is affected and what happens next. The root cause is that the market calendar was not checked at order entry. The control is a pre-trade market-calendar check. Recovery is to rebook at the next trading session and inform the client. Every step must leave evidence.
+This is failure detail. ORD-1002: the client is a fictional demo family — the UK creator family — the market is London, and the order was submitted at 16:44, after the close. The primary cause is market closed; the contributing cause is that the market-hours check was missed at order entry. It is not an IT failure. The page separates primary cause, contributing cause, owner and evidence. The RM explains what happened, why, who is affected, what happens next, and what to check next time. Recovery is to rebook at the next session and confirm with the client.
 
 ### On screen / 屏幕动作
 
@@ -446,21 +446,21 @@ The last page turns failures into a KPI and a trust measure.
 
 ---
 
-## Order KPI & Trust
+## Failure Attribution & Learning
 
 **Route:** `#/order-kpi`
 
 ### 中文台词
 
-这一页是订单 KPI 与信任。核心指标：失败交易比例、首次成交率、平均恢复时间、受影响客户数、RM KPI 调整、信任分。关键原则是区分可控失败、外部失败和系统失败；RM 只对可控失败和恢复质量负责。要 instrument 的数据包括：订单事件、原因码、市场日历、系统 incident、客户沟通、补偿、TCA、NPS。这样“失败交易”才不是一句抱怨，而是可归因、可改善、可考核的经营指标。
+这一页是失败归因与知识。每笔失败交易都有 primary cause、contributing cause、owner 和 evidence：客户、市场、流动性、资金/持仓、RM 流程、运营、IT/系统、对手方、合规。IT 原因单独标记，能被找出来、修掉，不记在 RM 头上。RM 把原因沉淀成 knowledge card：发生了什么、为什么、下次检查什么、怎么跟客户说。指标是失败率、恢复时间、重复原因和信任。解释清楚，失败才会变成信任。
 
 ### English script
 
-This is order KPI and trust. The core metrics are failed-trade percentage, first-time fill rate, average recovery time, number of affected clients, RM KPI adjustment and trust score. The key principle is to separate controllable failures, external failures and system failures. The RM is accountable for controllable failures and recovery quality. The data to instrument includes order events, reason codes, market calendars, system incidents, client communication, compensation, TCA and NPS. Only then does “failed trade” become an attributable, improvable and measurable operating metric rather than a complaint.
+This is failure attribution and learning. Every failed trade gets a primary cause, contributing cause, owner and evidence: client, market, liquidity, funding, RM process, operations, IT or system, counterparty, or compliance. IT failures are tagged separately, so they can be found and fixed; they are not counted against the RM. The RM turns the cause into a knowledge card: what happened, why, what to check next time, what to tell the client. Metrics: failed percentage, recovery time, repeat causes and trust. A clear explanation is how a failure becomes trust.
 
 ### On screen / 屏幕动作
 
-Read the KPI table and the instrument list; point to the KPI principle.
+Read the attribution taxonomy; point to the IT/system row and the learning loop.
 
 ### Transition / 转场
 
