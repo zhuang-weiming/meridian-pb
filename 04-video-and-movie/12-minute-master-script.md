@@ -2,7 +2,7 @@
 
 > **这不是 plan，是 final take。** 每一镜的画面、运镜、屏幕动作、完整英文口播、中文对照、人物内心与转场都在这里写死；录制时不需要再翻别的文件。
 >
-> 版本 **v3.1 · 2026-10-26** · 总长 **12:00** · **19 段** · **1,566 词** · 均 **131 wpm** · 录制画幅 **1440×900**
+> 版本 **v3.1 · 2026-10-26** · 总长 **12:00** · **19 段** · **1,600 词** · 均 **134 wpm** · 录制画幅 **1440×900**
 
 **入口：** 客户旅程 `03-web-page/client-journey.html`；运营工作台 `03-web-page/rm-workbench.html`。运行方式见 [`../03-web-page/README.md`](../03-web-page/README.md)。
 
@@ -71,26 +71,26 @@
 | # | 时间 | 镜 | 画面 | 词 | 秒 | wpm | 功能 |
 |---|---|---|---|---|---|---|---|
 | 01 | 0:00–0:13 | S0 | 标题卡 · 一句合规声明 | 29 | 13 | 134 | 开场：合规与标题 |
-| 02 | 0:13–1:03 | S1 | 五个运营问题 | 115 | 50 | 138 | 五个运营问题 |
-| 03 | 1:03–1:11 | S2a | J1–J10 静态卡 · 十条旅程，六个 P0 | 11 | 8 | 82 | 旅程组合：3 客户 + 1 横向 + 2 使能 P0 |
+| 02 | 0:13–1:03 | S1 | 五个运营问题 | 116 | 50 | 139 | 五个运营问题 |
+| 03 | 1:03–1:11 | S2a | J1–J10 静态卡 · 十条旅程，六个 P0 | 11 | 8 | 83 | 旅程组合：3 客户 + 1 横向 + 2 使能 P0 |
 | 04 | 1:11–1:51 | S2b | 三张蓝图 · 创始人 / 创作者 / 女性 | 68 | 40 | 102 | 三张客户蓝图 |
 | 05 | 1:51–2:34 | S3 | 私股生命周期 · 纸面价值到可动用价值 | 88 | 43 | 123 | 私股生命周期 |
-| 06 | 2:34–3:19 | S4 | IPO & Wealth Event Pipeline | 97 | 45 | 129 | IPO 财富事件管道 |
-| 07 | 3:19–4:06 | S5 | Pre-IPO Valuation | 102 | 47 | 130 | 估值治理 |
-| 08 | 4:06–4:43 | S6 | CIB → PB Handoff | 84 | 37 | 136 | CIB → PB 交接 |
-| 09 | 4:43–5:23 | S11 | Family Onboarding | 91 | 40 | 136 | 家族 onboarding |
+| 06 | 2:34–3:19 | S4 | IPO & Wealth Event Pipeline | 98 | 45 | 131 | IPO 财富事件管道 |
+| 07 | 3:19–4:06 | S5 | Pre-IPO Valuation | 109 | 47 | 139 | 估值治理 |
+| 08 | 4:06–4:43 | S6 | CIB → PB Handoff | 85 | 37 | 138 | CIB → PB 交接 |
+| 09 | 4:43–5:23 | S11 | Family Onboarding | 93 | 40 | 140 | 家族 onboarding |
 | 10 | 5:23–6:01 | S12 | First Investment | 86 | 38 | 136 | 第一次投资 |
 | 11 | 6:01–6:16 | S7 | 遗产组合 · 时间、金额与结果 | 29 | 15 | 116 | 身故是一条时间线 |
-| 12 | 6:16–7:01 | S8 | Estate Case Timeline | 102 | 45 | 136 | 单个遗产案件 |
-| 13 | 7:01–7:47 | S9 | Authority & Probate | 106 | 46 | 138 | 授权与 probate |
+| 12 | 6:16–7:01 | S8 | Estate Case Timeline | 109 | 45 | 145 | 单个遗产案件 |
+| 13 | 7:01–7:47 | S9 | Authority & Probate | 108 | 46 | 141 | 授权与 probate |
 | 14 | 7:47–8:26 | S10 | 12-Month Outcomes | 89 | 39 | 137 | 12 个月结果 |
-| 15 | 8:26–8:54 | S13a | Revenue & Margin Cockpit | 63 | 28 | 135 | 收入与毛利 |
-| 16 | 8:54–9:55 | S13b | RM Scorecard | 142 | 61 | 140 | RM 产能 |
-| 17 | 9:55–10:39 | S14a | Failure Detail | 97 | 44 | 132 | 失败交易 |
+| 15 | 8:26–8:54 | S13a | Revenue & Margin Cockpit | 64 | 28 | 137 | 收入与毛利 |
+| 16 | 8:54–9:55 | S13b | RM Scorecard | 153 | 61 | 150 | RM 产能 |
+| 17 | 9:55–10:39 | S14a | Failure Detail | 98 | 44 | 134 | 失败交易 |
 | 18 | 10:39–11:18 | S14b | Order KPI & Trust | 87 | 39 | 134 | 订单 KPI 与信任 |
 | 19 | 11:18–12:00 | S15 | End card · 三个请求 | 80 | 42 (37+5) | 130 | 三个请求 |
 
-**合计：** 19 段 · 1,566 词 · 715 秒口播 + 5 秒尾停 = **720 秒 / 12:00**。
+**合计：** 19 段 · 1,600 词 · 715 秒口播 + 5 秒尾停 = **720 秒 / 12:00**。
 
 ---
 
@@ -118,7 +118,7 @@
 
 ### S1 · 0:13–1:03 · 五个运营问题
 
-**时长 / 词数 / 语速**：50s · 115 词 · 138 wpm · 功能：五个运营问题
+**时长 / 词数 / 语速**：50s · 116 词 · 139 wpm · 功能：五个运营问题
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/overview`
 - **画面**：Workbench 首页：左侧五模块导航，中间五张模块卡，底部 KPI 条（5 个 IPO 事件 / 4 个遗产案件 / 5.5% 失败率）。
@@ -138,7 +138,7 @@
 
 ### S2a · 1:03–1:11 · J1–J10 静态卡 · 十条旅程，六个 P0
 
-**时长 / 词数 / 语速**：8s · 11 词 · 82 wpm · 功能：旅程组合：3 客户 + 1 横向 + 2 使能 P0
+**时长 / 词数 / 语速**：8s · 11 词 · 83 wpm · 功能：旅程组合：3 客户 + 1 横向 + 2 使能 P0
 
 - **页面 / 路由**：—（剪辑卡：J1–J10）
 - **画面**：全屏静态信息图：J1–J10 十条旅程，三组颜色区分客户旅程（J1–J7）、横向旅程（J8）、使能旅程（J9–J10）；3 条客户 P0 + 1 条横向 P0 + 2 条使能 P0 用实心标记。
@@ -198,7 +198,7 @@
 
 ### S4 · 2:34–3:19 · IPO & Wealth Event Pipeline
 
-**时长 / 词数 / 语速**：45s · 97 词 · 129 wpm · 功能：IPO 财富事件管道
+**时长 / 词数 / 语速**：45s · 98 词 · 131 wpm · 功能：IPO 财富事件管道
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/ipo-pipeline`
 - **画面**：财富事件管道：KPI 条 + 事件表（公司 / 交易所 / 阶段 / 预计时间 / CIB 覆盖 / 持股 / 估计财富 / PB 状态 / owner）。
@@ -218,7 +218,7 @@
 
 ### S5 · 3:19–4:06 · Pre-IPO Valuation
 
-**时长 / 词数 / 语速**：47s · 102 词 · 130 wpm · 功能：估值治理
+**时长 / 词数 / 语速**：47s · 109 词 · 139 wpm · 功能：估值治理
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/ipo-valuation`
 - **画面**：估值页：三种方法（公开轮 / 可比 / DCF）与权重、折扣表、区间、LTV 指引、委员会证据清单。
@@ -238,7 +238,7 @@
 
 ### S6 · 4:06–4:43 · CIB → PB Handoff
 
-**时长 / 词数 / 语速**：37s · 84 词 · 136 wpm · 功能：CIB → PB 交接
+**时长 / 词数 / 语速**：37s · 85 词 · 138 wpm · 功能：CIB → PB 交接
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/ipo-handoff`
 - **画面**：CIB → PB 交接任务表：CIB 识别 / 客户同意 / 合规墙 / KYC / 家族发现 / 估值与信贷准备；右侧服务菜单在 onboarding 后才激活。
@@ -258,7 +258,7 @@
 
 ### S11 · 4:43–5:23 · Family Onboarding
 
-**时长 / 词数 / 语速**：40s · 91 词 · 136 wpm · 功能：家族 onboarding
+**时长 / 词数 / 语速**：40s · 93 词 · 140 wpm · 功能：家族 onboarding
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/onboarding-family`
 - **画面**：家族图谱：主客户 / 配偶 / 成年子女 / 未成年子女 / 受托人 / 律师 / 家办；每人的 role、consent status、goals、entitlements；底部权限模型。
@@ -318,7 +318,7 @@
 
 ### S8 · 6:16–7:01 · Estate Case Timeline
 
-**时长 / 词数 / 语速**：45s · 102 词 · 136 wpm · 功能：单个遗产案件
+**时长 / 词数 / 语速**：45s · 109 词 · 145 wpm · 功能：单个遗产案件
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/estate-case`
 - **画面**：单个遗产案件时间线：T+0 死亡通知 / POA 自动终止；T+1 家属联系；T+7 葬礼与紧急费用；T+30 probate 申请；T+60 grant；T+90 estate account；T+365 结果复盘。
@@ -338,7 +338,7 @@
 
 ### S9 · 7:01–7:47 · Authority & Probate
 
-**时长 / 词数 / 语速**：46s · 106 词 · 138 wpm · 功能：授权与 probate
+**时长 / 词数 / 语速**：46s · 108 词 · 141 wpm · 功能：授权与 probate
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/estate-authority`
 - **画面**：授权矩阵四行：Executor / Trustee / Attorney / Beneficiary；每行 instrument、scope、status、can pay、cannot do；右侧 probate 清单与负向规则。
@@ -378,7 +378,7 @@
 
 ### S13a · 8:26–8:54 · Revenue & Margin Cockpit
 
-**时长 / 词数 / 语速**：28s · 63 词 · 135 wpm · 功能：收入与毛利
+**时长 / 词数 / 语速**：28s · 64 词 · 137 wpm · 功能：收入与毛利
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/revenue-cockpit`
 - **画面**：收入与毛利驾驶舱：revenue 480m / GM 65% / NM 32.5% / CIR 67.5%；成本瀑布（direct cost / funding & risk / cost-to-serve）。
@@ -398,7 +398,7 @@
 
 ### S13b · 8:54–9:55 · RM Scorecard
 
-**时长 / 词数 / 语速**：61s · 142 词 · 140 wpm · 功能：RM 产能
+**时长 / 词数 / 语速**：61s · 153 词 · 150 wpm · 功能：RM 产能
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/revenue-rm`
 - **画面**：RM 计分卡：relationships / households / AUM / support_ratio / segment_mix / service_intensity / workload index；James 行 51 / 0.7 / 97.4。
@@ -418,7 +418,7 @@
 
 ### S14a · 9:55–10:39 · Failure Detail
 
-**时长 / 词数 / 语速**：44s · 97 词 · 132 wpm · 功能：失败交易
+**时长 / 词数 / 语速**：44s · 98 词 · 134 wpm · 功能：失败交易
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/order-failure`
 - **画面**：失败交易详情：ORD-1002、16:44 伦敦时间、市场已收盘、GBP 45k、失败原因、客户影响、recovery 五步。
