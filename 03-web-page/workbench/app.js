@@ -65,7 +65,7 @@
       sub: "Five real business problems, twenty process pages, and the data needed to prove them.",
       render: () => pageHead("HSBC Private Bank · Workbench", "Operating Workbench", "A working prototype for the five new initiatives: CIB IPO-to-PB, estate outcomes, family onboarding, client margin and failed-trade trust. Public cases are illustrative; bank data is demo data.") + `
         <div class="grid-5">
-          ${["IPO & PB", "Estate & Continuity", "Family Onboarding", "Revenue & Margin", "Order Trust"].map((x, i) => `<a class="module-card" href="#/${["ipo-pipeline", "estate-portfolio", "onboarding-family", "revenue-cockpit", "order-monitor"][i]}"><div class="module-no">0${i + 1}</div><div class="module-name">${x}</div><div class="module-sub">${["CIB pipeline, pre-IPO valuation, consent-based handoff", "Death-to-12-month funds, authority, probate, outcomes", "Templates, suitability, first investment, permissions", "Client P&L, product P&L, RM margin, real-time cockpit", "Failed trade %, reasons, recovery, RM KPI"][i]}</div><span class="arrow">→</span></a>`).join("")}
+          ${["IPO & PB", "Estate & Continuity", "Family Onboarding", "Revenue & Margin", "Order Trust"].map((x, i) => `<a class="module-card" href="#/${["ipo-pipeline", "estate-portfolio", "onboarding-family", "revenue-cockpit", "order-monitor"][i]}"><div class="module-no">0${i + 1}</div><div class="module-name">${x}</div><div class="module-sub">${["CIB pipeline, pre-IPO valuation, consent-based handoff", "Death-to-12-month funds, authority, probate, outcomes", "Templates, suitability, first investment, permissions", "AUM, revenue, client commission, margin, RM capacity", "Failed trade %, reasons, recovery, RM KPI"][i]}</div><span class="arrow">→</span></a>`).join("")}
         </div>
         <div class="grid-3" style="margin-top:12px">
           ${stat("IPO / wealth events", WB.ipo.pipeline.length, "CIB / MSS pipeline", "blue")}
@@ -291,20 +291,40 @@
     /* ── REVENUE ── */
     "revenue-cockpit": {
       section: "Revenue & Margin",
-      title: "Revenue & Margin Cockpit",
-      sub: "Client revenue, direct cost, gross margin, net margin and cost/income.",
-      render: () => pageHead("4 · Revenue & Margin", "Revenue & Margin Cockpit", "A client commission is not a margin. Revenue minus direct cost, funding cost and allocated cost gives the client gross/net margin.") + `
+      title: "PB Operating Dashboard",
+      sub: "AUM, revenue, client commission, margin, cost/income and RM capacity.",
+      render: () => {
+        const r = WB.revenue.summary;
+        return pageHead("4 · Revenue & Margin", "PB Operating Dashboard", "AUM is not revenue. Revenue is not margin. One operating view from AUM to revenue, client commission, gross margin, net margin and RM capacity.") + `
         <div class="grid-4">
-          ${stat("Revenue", money(WB.revenue.summary.revenue), "64-RM demo book · annualised", "")}
-          ${stat("Gross margin", money(WB.revenue.summary.grossMargin), pct(WB.revenue.summary.grossMargin / WB.revenue.summary.revenue * 100) + " after direct cost", "green")}
-          ${stat("Net margin", money(WB.revenue.summary.netMargin), pct(WB.revenue.summary.netMargin / WB.revenue.summary.revenue * 100) + " after funding / CTS", "green")}
-          ${stat("Cost / income", pct(WB.revenue.summary.costIncome), "(revenue − net margin) ÷ revenue", "amber")}
+          ${stat("AUM", money(r.aum), "64-RM demo book", "")}
+          ${stat("Revenue", money(r.revenue), "Annualised", "")}
+          ${stat("Client commission", money(r.clientCommission), pct(r.clientCommission / r.revenue * 100) + " of revenue", "blue")}
+          ${stat("Cost / income", pct(r.costIncome), "(revenue − net margin) ÷ revenue", "amber")}
         </div>
+        <div class="grid-4" style="margin-top:12px">
+          ${stat("Gross margin", money(r.grossMargin), pct(r.grossMargin / r.revenue * 100) + " after direct cost", "green")}
+          ${stat("Net margin", money(r.netMargin), pct(r.netMargin / r.revenue * 100) + " after funding / allocated cost", "green")}
+          ${stat("Revenue yield", pct(r.revenue / r.aum * 100, 2), "Revenue ÷ AUM", "")}
+          ${stat("Gross margin yield", pct(r.grossMargin / r.aum * 100, 2), "Gross margin ÷ AUM", "green")}
+        </div>
+        ${card("Operating formulas", "Every headline number is traceable to a formula.", table(["Line", "Formula", "Value"], [
+          ["AUM", "Client assets / 64 RMs", money(r.aum)],
+          ["Revenue", "Advisory + client commission + lending + FX + custody + trust", money(r.revenue)],
+          ["Client commission", "Brokerage / execution", money(r.clientCommission) + " · " + pct(r.clientCommission / r.revenue * 100) + " of revenue"],
+          ["Gross margin", "Revenue − direct cost-to-serve", money(r.grossMargin) + " · " + pct(r.grossMargin / r.revenue * 100)],
+          ["Net margin", "Gross margin − funding & risk − allocated cost", money(r.netMargin) + " · " + pct(r.netMargin / r.revenue * 100)],
+          ["Cost / income", "(Revenue − net margin) ÷ revenue", pct(r.costIncome)],
+          ["Revenue yield", "Revenue ÷ AUM", pct(r.revenue / r.aum * 100, 2)],
+          ["Gross margin yield", "Gross margin ÷ AUM", pct(r.grossMargin / r.aum * 100, 2)]
+        ], { compact: true }))}
         <div class="grid-2" style="margin-top:12px">
+          ${card("Revenue lines", "Client commission is one line, not the whole revenue pool.", table(["Line", "Revenue"], WB.revenue.revenueLines.map(l => [`<b>${esc(l.line)}</b>`, money(l.amount)]), { compact: true }))}
           ${card("Monthly revenue / margin", "Revenue, gross margin and net margin in USD millions.", table(["Month", "Revenue", "Gross margin", "Net margin"], WB.revenue.monthly.map(x => [x.month, money(x.revenue * 1e6), money(x.grossMargin * 1e6), money(x.netMargin * 1e6)]), { compact: true }))}
-          ${card("Client economics", "Top clients; gross margin and wallet share.", table(["Client", "Revenue", "Cost", "Gross margin", "Wallet"], WB.revenue.clients.map(c => [`<b>${c.client}</b><div class="tiny">${c.segment}</div>`, money(c.revenue), money(c.cost), money(c.grossMargin), pct(c.wallet)]), { compact: true }))}
         </div>
-        ${sourceNote("Revenue and cost figures are demo. Real cockpit requires finance, transfer pricing and cost allocation sign-off.")}`
+        ${card("Client economics", "Top clients; gross margin and wallet share.", table(["Client", "Revenue", "Cost", "Gross margin", "Wallet"], WB.revenue.clients.map(c => [`<b>${esc(c.client)}</b><div class="tiny">${c.segment}</div>`, money(c.revenue), money(c.cost), money(c.grossMargin), pct(c.wallet)]), { compact: true }))}
+        ${sourceNote("AUM, revenue, client commission and costs are demo. Real dashboard requires Finance, Treasury, Product Control and transfer pricing sign-off.")}`;
+      }
     },
 
     "revenue-client": {
@@ -411,7 +431,7 @@
     { name: "1 · IPO & PB", pages: [["ipo-pipeline", "IPO & Wealth Event Pipeline"], ["ipo-company", "Company & Management"], ["ipo-valuation", "Pre-IPO Valuation"], ["ipo-handoff", "CIB → PB Handoff"]] },
     { name: "2 · Estate & Continuity", pages: [["estate-portfolio", "Estate Case Portfolio"], ["estate-case", "Estate Case Timeline"], ["estate-authority", "Authority & Probate"], ["estate-outcomes", "12-Month Outcomes"]] },
     { name: "3 · Family Onboarding", pages: [["onboarding-family", "Family Onboarding"], ["onboarding-suitability", "Suitability & Risk"], ["onboarding-templates", "Portfolio Templates"], ["onboarding-first", "First Investment"]] },
-    { name: "4 · Revenue & Margin", pages: [["revenue-cockpit", "Revenue & Margin Cockpit"], ["revenue-client", "Client P&L"], ["revenue-product", "Product P&L"], ["revenue-rm", "RM Scorecard"]] },
+    { name: "4 · Revenue & Margin", pages: [["revenue-cockpit", "PB Operating Dashboard"], ["revenue-client", "Client P&L"], ["revenue-product", "Product P&L"], ["revenue-rm", "RM Scorecard"]] },
     { name: "5 · Order Trust", pages: [["order-monitor", "Order Monitor"], ["order-failure", "Failure Detail"], ["order-recovery", "Recovery Workflow"], ["order-kpi", "Order KPI & Trust"]] }
   ];
 

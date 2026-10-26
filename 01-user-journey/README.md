@@ -73,7 +73,7 @@
 | IPO / CIB→PB | J2 | 影片 S3–S6 / S4 | 纸面财富、event≠lead、估值/质押/义务分散 | 创始人、CIB、RM、家办 | 事件 pipeline + consent + 估值委员会 + CIB→PB handoff + 私股生命周期 | C03/C08/C02/C10/X1；`ipo-*`、`m4-*` |
 | 新客户/二代/配偶 | J1/J4/J7 | 影片 S11–S12 / S11 | client ID ≠ family；父母替成年子女；配偶无独立 consent | 主客户、配偶、成年子女、未成年子女 | family graph + 三条红线 + suitability→首投→复盘 | C01/C02/C03/C04/C06；`onboarding-*` |
 | 身故与传承 | J8 | 影片 S7–S10 / S7+S8 | POA 终止、executor/trustee 混权、probate 混账、12 个月无结果 | 遗孀、executor、trustee、beneficiary | estate 案件时间线 + 授权矩阵 + probate + 12 个月 cohort | C09/C02/C03/X1/C12；`estate-*` |
-| 收入与 RM 产能 | J9（J6 为读者） | 影片 S13a–S13b / S13a' | 佣金当毛利、成本不透明、客户数当产能 | CFO/COO/RM/家办 CFO | revenue/margin cockpit + RM scorecard（support_ratio/segment_mix/service_intensity） | X2/C12/C05；`revenue-*` |
+| PB 经营 / RM 产能 | J9（J6 为读者） | 影片 S13a–S13b / S13a' | AUM/收入/佣金/毛利/净利/CIR 不在一张 dashboard；成本与公式不透明；客户数当产能 | CFO/COO/RM/家办 CFO | PB operating dashboard（AUM→收入→客户佣金→毛利→净利→CIR）+ RM scorecard（support_ratio/segment_mix/service_intensity） | X2/C12/C05；`revenue-*` |
 | 失败交易与信任 | J9/J8 | 影片 S14a–S14b / S14a | 失败无原因/影响/下一步；KPI 不区分可控性 | 客户、RM、COO/Ops | failure detail + recovery + reason code + trust KPI | C07/X1/X2/C12；`order-*` |
 
 > **注意：** 影片 S2a 的 J1–J10 静态卡只是总览，不是功能 demo。J6（客户 P0）与 J10（使能 P0）只在总览卡出现；J5（P1）只在 30 分钟可选版展开。完整覆盖与缺口见 `00-journey-catalog.md` §2。

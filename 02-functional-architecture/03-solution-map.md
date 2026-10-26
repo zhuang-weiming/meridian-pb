@@ -11,7 +11,7 @@
 | IPO / CIB→PB | J2 | C03/C08/C02/C10/X1 | `ipo-*`、`m4-*` | 事件→consent→估值→质押/退出→handoff |
 | 新客户/二代/配偶 | J1/J4/J7 | C01/C02/C03/C04/C06 | `onboarding-*`、`m3-family`、`m1-*` | 家庭图→独立 consent→适当性→首投→复盘 |
 | 身故与传承 | J8 | C09/C02/C03/X1/C12 | `estate-*`、`m4-trust` | 授权→probate→estate/trust→12 个月结果 |
-| 收入与 RM 产能 | J9（J6 为读者） | X2/C12/C05 | `revenue-*` | 收入→毛利→成本→RM 产能 |
+| PB 经营 / RM 产能 | J9（J6 为读者） | X2/C12/C05 | `revenue-*` | AUM→收入→客户佣金→毛利→净利→CIR→RM 产能 |
 | 失败交易与信任 | J9/J8 | C07/X1/X2/C12 | `order-*` | 失败→原因→恢复→KPI |
 
 ## 本文件结构
@@ -149,7 +149,7 @@
 | **1. CIB 辅导 IPO + PB 承接高管/创始人** | 成立，且是 HSBC 的独特优势；但“把高管一窝端”必须改成“基于客户同意的协同承接” | **P0** | 信息隔离、利益冲突、不得捆绑销售、不得使用重大非公开信息 |
 | **2. 从 use case 到数据：身故 1 年后家族资金如何** | 成立，是私行最缺的“结果数据”；但需要客户/受益人授权与长期追踪 | **P0** | 隐私、受益人数据、跨境数据、不要把“资金流向”做成监控 |
 | **3. 产品组合模板 + 二代/妻子首次投资 + 更大权限** | 成立，是规模化和代际激活的关键；但不能用“模板”替代适当性 | **P1** | 适当性、风险承受、未成年人/监护人、权限滥用 |
-| **4. 客户佣金 = PB 毛利；实时收入大屏** | 成立，但“实时”要考虑收入确认、权责发生、内部转移定价 | **P0 使能** | 财务口径、成本分摊、RM 激励扭曲 |
+| **4. PB 经营 dashboard：AUM → revenue → client commission → margin** | 成立，但“实时”要考虑收入确认、权责发生、内部转移定价 | **P0 使能** | 财务口径、成本分摊、RM 激励扭曲 |
 | **5. 失败交易比例 + RM KPI + 客户信任** | 成立，且是最容易量化的信任指标；但必须区分“可控/不可控”失败 | **P0 使能** | 市场/系统/合规原因混合、KPI 误伤、客户沟通 |
 
 ---
@@ -325,26 +325,27 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 
 ---
 
-### 五、思路 4：客户佣金 = PB 毛利；实时收入大屏
+### 五、思路 4：PB 经营 dashboard：AUM → revenue → client commission → margin
 
 #### 5.1 业务逻辑
 
-客户贡献的收入不只是“佣金”：
+AUM 是规模，不是收入；客户贡献的收入也不只是“佣金”：
 
-- 顾问费/管理费；
+- **AUM**（客户资产规模，不是收入）；
+- **收入**：顾问费/管理费；
 - 托管费；
-- 交易/经纪；
+- **客户佣金**：交易/经纪，是收入的一行，不是毛利；
 - 外汇点差；
 - 贷款利差；
 - 结构化产品/私募；
 - 信托/税务/家办服务；
 - 交叉销售。
 
-“客户佣金 = PB 毛利”需要明确：
+“客户佣金 = PB 毛利”是错误等式；需要明确的是：
 
 > **客户收入 − 直接服务成本 − 资金/风险成本 − 分摊成本 = 客户毛利。**
 
-实时大屏要区分：
+dashboard 要区分：
 
 - **已实现收入**（已入账）；
 - **应计收入**（权责发生）；
@@ -365,7 +366,7 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 
 #### 5.3 需要的页面
 
-1. **Revenue Cockpit**：收入、毛利、净利、成本收入比、趋势。
+1. **PB Operating Dashboard**：AUM、收入、客户佣金、毛利、净利、成本收入比、公式与趋势。
 2. **Client P&L**：客户收入/成本/毛利/钱包份额。
 3. **Product P&L**：产品收入/成本/毛利。
 4. **RM Scorecard**：RM 收入/毛利/客户/成本/KPI。
@@ -514,7 +515,7 @@ node check.js
 | **1 · IPO & PB** | IPO & Wealth Event Pipeline · Company & Management · Pre-IPO Valuation · CIB → PB Handoff | CIB/MSS 识别财富事件；PB 在 consent/wall/KYC 后承接 |
 | **2 · Estate & Continuity** | Estate Case Portfolio · Estate Case Timeline · Authority & Probate · 12-Month Outcomes | 身故是多年流程；授权、probate、资金和结果可测量 |
 | **3 · Family Onboarding** | Family Onboarding · Suitability & Risk · Portfolio Templates · First Investment | 二代/配偶低门槛 onboarding，但不绕过适当性 |
-| **4 · Revenue & Margin** | Revenue & Margin Cockpit · Client P&L · Product P&L · RM Scorecard | 客户佣金不是毛利；收入/成本/服务成本一起看 |
+| **4 · Revenue & Margin** | PB Operating Dashboard · Client P&L · Product P&L · RM Scorecard | AUM→收入→客户佣金→毛利/净利/CIR；公式与 RM 产能一起看 |
 | **5 · Order Trust** | Order Monitor · Failure Detail · Recovery Workflow · Order KPI & Trust | 失败交易按原因/客户影响/RM KPI 可测量 |
 
 ---

@@ -2,8 +2,10 @@
 
 > 这里放**可拍摄的成片脚本**，不是分镜计划。两版共用同一批录屏 take、同一套合规角标、同一套数据口径。
 >
-> - **12 分钟主版** → [`12-minute-master-script.md`](12-minute-master-script.md)（19 段 / 1,566 词 / 12:00）
-> - **5 分钟电梯版** → [`5-minute-elevator-script.md`](5-minute-elevator-script.md)（9 镜 / 668 词 / 5:00）
+> - **12 分钟主版** → [`12-minute-master-script.md`](12-minute-master-script.md)（18 段 / 1,555 词 / 12:00）
+> - **5 分钟电梯版** → [`5-minute-elevator-script.md`](5-minute-elevator-script.md)（8 镜 / 643 词 / 5:00）
+>
+> 两部片都不设独立标题卡或口头合规声明；合规由左下角常驻角标与正文/片尾的 demo-data 说明承载。
 >
 > **词数口径：** 英文口播按空白分词，排除独立标点；`T+0`、`US$400–600m` 这类数字/技术串算一个 token。
 >
@@ -13,6 +15,13 @@
 
 ---
 
+**脚本校验：**
+
+```bash
+cd 04-video-and-movie && node check-words.js
+# OK — 18 + 8 scenes; word counts, wpm, totals and timecodes agree with the narration.
+```
+
 ## 1. 两部片的分工
 
 | | 12 分钟主版 | 5 分钟电梯版 |
@@ -21,10 +30,10 @@
 | 任务 | 让观众同意“旧核心回答不了五个经营问题”，并看到新核心的差异 | 用五个问题各一个最强锚点，换三个决定 |
 | 结构 | 开场（五个问题 + 蓝图）→ 私股 → 五个问题（顺向 → 逆向）→ 三个请求 | 开场 → 五个问题（顺向 → 逆向，各一锚点）→ 三个请求 |
 | 是否独立 | 是 | 是；不是主版的随机剪短 |
-| 素材 | 19 段独立 take | 复用主版 9 段素材：7 段直用 + 2 段摘句 |
+| 素材 | 18 段独立 take | 复用主版 8 段素材：6 段直用 + 2 段摘句 |
 | 结尾 | 三行 ask + 5 秒停帧 | 三行 ask + 3 秒停帧 + 10 秒缓冲 |
 
-**五个问题在两版中都不缺：** IPO/CIB→PB、家族 onboarding、身故与传承、收入与毛利、失败交易。5 分钟版删掉的是论证细节（蓝图、估值/交接、授权矩阵、12 个月 cohort、RM 产能），不是问题本身。
+**五个问题在两版中都不缺：** IPO/CIB→PB、家族 onboarding、身故与传承、PB 经营 dashboard、失败交易。5 分钟版删掉的是论证细节（蓝图、估值/交接、授权矩阵、12 个月 cohort、RM 产能），不是问题本身。
 
 **叙事顺序：** 先把顺向旅程讲完（IPO、家族 onboarding），再进入逆向旅程（身故与传承），最后看银行自身的经营与失败（收入、失败交易）。这样“身故”不会打断“新客户/二代/配偶”的进入路径；20 分钟现场版同序。
 
@@ -66,12 +75,11 @@ python3 -m http.server 8791
 
 > 下表按最终播放顺序排列；S 编号是素材/take 编号，不是播放序号。
 
-### 12 分钟主版（19 段）
+### 12 分钟主版（18 段）
 
 | 段 | 时长 | 页面/素材 | 录制 | 备注 |
 |---|---|---|---|---|
-| S0 | 13s | 标题卡 | 剪辑 | 合规声明 |
-| S1 | 50s | `rm-workbench#/overview` | `?record=1` | 五个问题 |
+| S1 | 63s | `rm-workbench#/overview` | `?record=1` | 五个问题 |
 | S2a | 8s | J1–J10 静态卡 | 剪辑 | 3 客户 + 1 横向 + 2 使能 P0 |
 | S2b | 40s | `client-journey#/m3-journeys` | `?wipe=1` | 三张蓝图 |
 | S3 | 43s | `client-journey#/m4-private-assets` | `?wipe=1` | 私股生命周期 |
@@ -84,15 +92,15 @@ python3 -m http.server 8791
 | S8 | 45s | `rm-workbench#/estate-case` | `?record=1` | 单个案件时间线 |
 | S9 | 46s | `rm-workbench#/estate-authority` | `?record=1` | 授权矩阵 |
 | S10 | 39s | `rm-workbench#/estate-outcomes` | `?record=1` | 12 个月 cohort |
-| S13a | 28s | `rm-workbench#/revenue-cockpit` | `?record=1` | 收入与毛利 |
+| S13a | 28s | `rm-workbench#/revenue-cockpit` | `?record=1` | PB 经营 dashboard |
 | S13b | 61s | `rm-workbench#/revenue-rm` | `?record=1` | RM 产能 |
 | S14a | 44s | `rm-workbench#/order-failure` | `?record=1` | 失败交易 |
 | S14b | 39s | `rm-workbench#/order-kpi` | `?record=1` | KPI 与信任 |
 | S15 | 37s+5s | End card | 剪辑 | 三个请求 |
 
-### 5 分钟电梯版（9 镜）
+### 5 分钟电梯版（8 镜）
 
-直接复用：S0、S4、S11、S8、S13a、S14a、S15 的主版 take；S1' 从 S1 取前 80 词；S7' 从 S7 取 29 词。剪辑表见 5 分钟脚本 §4。
+直接复用：S4、S11、S8、S13a、S14a、S15 的主版 take；S1' 从 S1 取前 83 词；S7' 从 S7 取 29 词。剪辑表见 5 分钟脚本 §4。
 
 ---
 

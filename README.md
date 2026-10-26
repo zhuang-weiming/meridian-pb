@@ -13,7 +13,7 @@
 | **① User journey** | [`01-user-journey/`](01-user-journey/README.md) | [旅程总表 / 视频 demo](01-user-journey/00-journey-catalog.md) · [页面总映射](01-user-journey/PAGE-MAP.md) | 为谁、为什么、什么算好、影片 demo 哪条 |
 | **② Functional architecture** | [`02-functional-architecture/`](02-functional-architecture/README.md) | [功能架构图](02-functional-architecture/functional-architecture.html) · [能力与数据模型](02-functional-architecture/01-capability-and-data-model.md) | 一主键 / 六层 / 十二域；Avaloq 边界与替换论证 |
 | **③ Web page** | [`03-web-page/`](03-web-page/README.md) | [客户旅程](http://localhost:8791/03-web-page/client-journey.html) · [运营工作台](http://localhost:8791/03-web-page/rm-workbench.html) | 客户看到什么；RM/COO 怎么运营、字段/状态/证据是什么 |
-| **④ Video and Movie** | [`04-video-and-movie/`](04-video-and-movie/README.md) | [12 分钟主版脚本](04-video-and-movie/12-minute-master-script.md) · [5 分钟版](04-video-and-movie/5-minute-elevator-script.md) | 19 段/9 镜的完整口播、运镜、人物内心；**旅程总表见 ①** |
+| **④ Video and Movie** | [`04-video-and-movie/`](04-video-and-movie/README.md) | [12 分钟主版脚本](04-video-and-movie/12-minute-master-script.md) · [5 分钟版](04-video-and-movie/5-minute-elevator-script.md) | 18 段/8 镜的完整口播、运镜、人物内心；**旅程总表见 ①** |
 
 旧版与中文 Demo 已归档：[`archive/2026-10_v1/`](archive/2026-10_v1/README.md)。
 
@@ -26,7 +26,7 @@
 **为什么不是“换一个供应商”：**
 
 - 旧核心能回答“账户里有什么”，回答不了“这个家族谁有权、依据什么、到何时、在哪个辖区、下一步谁做、证据在哪”。
-- 五个经营问题（IPO→PB、家族 onboarding、身故与 12 个月结果、客户毛利、失败交易）都卡在同一个地方：**事件、授权、证据没有对象化**。
+- 五个经营问题（IPO→PB、家族 onboarding、身故与 12 个月结果、PB 经营 dashboard、失败交易）都卡在同一个地方：**事件、授权、证据没有对象化**。
 - 新核心的差异化在 **L2 生命周期层**；L0 账本自研重写，不长期双核。
 
 ---
@@ -55,6 +55,7 @@ python3 -m http.server 8791
 ```bash
 cd 03-web-page/client && node check.js && node render-check.js
 cd ../workbench && node check.js
+cd ../../04-video-and-movie && node check-words.js
 ```
 
 当前基线：client 34 routes / 52 renders；workbench 21 pages / 21 组双语台词 / 5 个客户 P&L 对账。
@@ -65,7 +66,7 @@ cd ../workbench && node check.js
 
 | 旧问题 | v3.1 的答案 |
 |---|---|
-| **视频只有“计划”，没有完整台词** | 12 分钟 19 段、5 分钟 9 镜，每镜写死画面、运镜、屏幕动作、完整英文口播、中文对照、人物内心、转场；附提词器版与录制清单 |
+| **视频只有“计划”，没有完整台词** | 12 分钟 18 段、5 分钟 8 镜，每镜写死画面、运镜、屏幕动作、完整英文口播、中文对照、人物内心、转场；附提词器版与录制清单 |
 | **demo 和 workbench 为什么分开** | 合并到 `03-web-page/`：`client-journey.html`（客户/顾问）与 `rm-workbench.html`（RM/COO），两个角色、一个文件夹、一套口径 |
 | **journeys 文档和 HTML 对不上** | 01 收敛为 9 份文档（含 `PAGE-MAP.md`）：`00-journey-catalog.md` 做总表，`01-vision.md` / `02-evidence.md` / `03-blueprints.md` / `04-j2-deep-dive.md` / `05-scenarios.md` / `06-pilot-and-operations.md` 做专题；`PAGE-MAP.md` 明确“不是一一对应” |
 | **01/02 文件过多、内容重复** | 01 从 25 个文件收敛到 11 个（9 份 Markdown + 2 个 personas 资产）；02 从 12 个文件收敛到 7 个（5 份 Markdown + 2 个架构资产）；新增 `00-journey-catalog.md` 做视频/旅程总表 |

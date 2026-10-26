@@ -17,7 +17,7 @@ python3 -m http.server 8791
 | **1 · IPO & PB** | IPO & Wealth Event Pipeline · Company & Management · Pre-IPO Valuation · CIB → PB Handoff | CIB/MSS can identify wealth events; PB can follow with consent, wall clearance, KYC and a governed valuation |
 | **2 · Estate & Continuity** | Estate Case Portfolio · Estate Case Timeline · Authority & Probate · 12-Month Outcomes | Death is a multi-year process; authority and outcomes can be measured |
 | **3 · Family Onboarding** | Family Onboarding · Suitability & Risk · Portfolio Templates · First Investment | Next-gen/spouse onboarding can be low-friction without bypassing suitability |
-| **4 · Revenue & Margin** | Revenue & Margin Cockpit · Client P&L · Product P&L · RM Scorecard | Client commission is not margin; revenue, cost and cost-to-serve can be shown together |
+| **4 · Revenue & Margin** | PB Operating Dashboard · Client P&L · Product P&L · RM Scorecard | AUM, revenue, client commission, GM/NM/CIR and RM capacity on one dashboard, with formulas |
 | **5 · Order Trust** | Order Monitor · Failure Detail · Recovery Workflow · Order KPI & Trust | Failed trade % can be measured by cause, client impact and RM KPI |
 
 ## Data

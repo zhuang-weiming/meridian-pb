@@ -2,14 +2,15 @@
 
 > **这不是 plan，是 final take。** 每一镜的画面、运镜、屏幕动作、完整英文口播、中文对照、人物内心与转场都在这里写死；录制时不需要再翻别的文件。
 >
-> 版本 **v3.1 · 2026-10-26** · 总长 **12:00** · **19 段** · **1,600 词** · 均 **134 wpm** · 录制画幅 **1440×900**
+> 版本 **v3.1 · 2026-10-26** · 总长 **12:00** · **18 段** · **1,555 词** · 均 **130 wpm** · 录制画幅 **1440×900**
 
 **入口：** 客户旅程 `03-web-page/client-journey.html`；运营工作台 `03-web-page/rm-workbench.html`。运行方式见 [`../03-web-page/README.md`](../03-web-page/README.md)。
 
 **旅程表：** 本片 demo 的旅程、痛点、persona、解决方案与 IT 功能提升见 [`../01-user-journey/00-journey-catalog.md`](../01-user-journey/00-journey-catalog.md) §1。
 
+> 不设独立标题卡或口头合规声明；合规由左下角常驻角标与 S1 末句承载。
 > 口播用页名，不念 Workbench 页序号；每镜的 `页面 / 路由` 给出准确位置。影片只呈现锚点页。
-> **镜号 S0–S15 是素材/take 编号，不是播放顺序**；本片按“先顺向、后逆向”剪辑：S11–S12（onboarding）在 S7–S10（estate）之前。
+> **镜号 S1–S15 是素材/take 编号，不是播放顺序**；本片按“先顺向、后逆向”剪辑：S11–S12（onboarding）在 S7–S10（estate）之前。
 
 ---
 
@@ -36,7 +37,7 @@
 | 1 · IPO / CIB→PB | S4–S6 | `ipo-pipeline` → `ipo-valuation` → `ipo-handoff` | 创始人：别把我当名单；合规地接近我 |
 | 2 · 新客户/二代/配偶 | S11–S12 | `onboarding-family` → `onboarding-first` | 配偶/二代：我要独立同意，先走通一小笔 |
 | 3 · 身故与传承 | S7–S10 | `estate-portfolio` → `estate-case` → `estate-authority` → `estate-outcomes` | 家属：人走了，时间没停；谁有权、多久拿到钱 |
-| 4 · 收入与产能 | S13a–S13b | `revenue-cockpit` → `revenue-rm` | CFO/RM：佣金不是毛利；产能要能解释 |
+| 4 · PB 经营与产能 | S13a–S13b | `revenue-cockpit` → `revenue-rm` | CFO/RM：AUM 不是收入；佣金不是毛利；产能要能解释 |
 | 5 · 失败交易 | S14a–S14b | `order-failure` → `order-kpi` | 客户/COO：告诉我为什么；把失败放进记分卡 |
 
 **人物内心线索（导演层，不占口播）：**
@@ -47,7 +48,7 @@
 | 配偶 / 成年子女（J1/J4） | S11–S12 | 不活在别人的授权里；第一次投资能走通 |
 | 家属 / 执行人（J8） | S7–S10 | 知道谁有权、第一笔钱多久到、十二个月后是否还在 |
 | RM / COO（J9） | S1/S6/S13b/S14b | 名单不够；要同意、合规墙、可解释的产能 |
-| CFO（J6） | S13a | 客户佣金不是毛利；成本要摊开 |
+| CFO（J6） | S13a | AUM 不是收入；客户佣金不是毛利；要看完整经营桥 |
 | 客户（J2/J9） | S14a | 失败要有原因、补救和时间 |
 
 ---
@@ -56,7 +57,7 @@
 
 | 幕 | 时间 | 镜头 | 作用 |
 |---|---|---|---|
-| 开场 | 0:00–1:51 | S0–S2b | 合规声明 → 五个问题 → 十条旅程 → 三张蓝图 |
+| 开场 | 0:00–1:51 | S1–S2b | 五个问题 → 十条旅程 → 三张蓝图 |
 | 私股 | 1:51–2:34 | S3 | 先让客户看到“纸面财富如何变成可动用财富” |
 | 问题 1 | 2:34–4:43 | S4–S6 | IPO 事件 → 估值 → CIB→PB 交接 |
 | 问题 2 | 4:43–6:01 | S11–S12 | 家族 onboarding → 第一次投资 |
@@ -70,55 +71,34 @@
 
 | # | 时间 | 镜 | 画面 | 词 | 秒 | wpm | 功能 |
 |---|---|---|---|---|---|---|---|
-| 01 | 0:00–0:13 | S0 | 标题卡 · 一句合规声明 | 29 | 13 | 134 | 开场：合规与标题 |
-| 02 | 0:13–1:03 | S1 | 五个运营问题 | 116 | 50 | 139 | 五个运营问题 |
-| 03 | 1:03–1:11 | S2a | J1–J10 静态卡 · 十条旅程，六个 P0 | 11 | 8 | 83 | 旅程组合：3 客户 + 1 横向 + 2 使能 P0 |
-| 04 | 1:11–1:51 | S2b | 三张蓝图 · 创始人 / 创作者 / 女性 | 68 | 40 | 102 | 三张客户蓝图 |
-| 05 | 1:51–2:34 | S3 | 私股生命周期 · 纸面价值到可动用价值 | 88 | 43 | 123 | 私股生命周期 |
-| 06 | 2:34–3:19 | S4 | IPO & Wealth Event Pipeline | 98 | 45 | 131 | IPO 财富事件管道 |
-| 07 | 3:19–4:06 | S5 | Pre-IPO Valuation | 109 | 47 | 139 | 估值治理 |
-| 08 | 4:06–4:43 | S6 | CIB → PB Handoff | 85 | 37 | 138 | CIB → PB 交接 |
-| 09 | 4:43–5:23 | S11 | Family Onboarding | 93 | 40 | 140 | 家族 onboarding |
-| 10 | 5:23–6:01 | S12 | First Investment | 86 | 38 | 136 | 第一次投资 |
-| 11 | 6:01–6:16 | S7 | 遗产组合 · 时间、金额与结果 | 29 | 15 | 116 | 身故是一条时间线 |
-| 12 | 6:16–7:01 | S8 | Estate Case Timeline | 109 | 45 | 145 | 单个遗产案件 |
-| 13 | 7:01–7:47 | S9 | Authority & Probate | 108 | 46 | 141 | 授权与 probate |
-| 14 | 7:47–8:26 | S10 | 12-Month Outcomes | 89 | 39 | 137 | 12 个月结果 |
-| 15 | 8:26–8:54 | S13a | Revenue & Margin Cockpit | 64 | 28 | 137 | 收入与毛利 |
-| 16 | 8:54–9:55 | S13b | RM Scorecard | 153 | 61 | 150 | RM 产能 |
-| 17 | 9:55–10:39 | S14a | Failure Detail | 98 | 44 | 134 | 失败交易 |
-| 18 | 10:39–11:18 | S14b | Order KPI & Trust | 87 | 39 | 134 | 订单 KPI 与信任 |
-| 19 | 11:18–12:00 | S15 | End card · 三个请求 | 80 | 42 (37+5) | 130 | 三个请求 |
+| 01 | 0:00–1:03 | S1 | 五个运营问题 | 118 | 63 | 112 | 五个运营问题 |
+| 02 | 1:03–1:11 | S2a | J1–J10 静态卡 · 十条旅程，六个 P0 | 11 | 8 | 83 | 旅程组合：3 客户 + 1 横向 + 2 使能 P0 |
+| 03 | 1:11–1:51 | S2b | 三张蓝图 · 创始人 / 创作者 / 女性 | 68 | 40 | 102 | 三张客户蓝图 |
+| 04 | 1:51–2:34 | S3 | 私股生命周期 · 纸面价值到可动用价值 | 88 | 43 | 123 | 私股生命周期 |
+| 05 | 2:34–3:19 | S4 | IPO & Wealth Event Pipeline | 97 | 45 | 129 | IPO 财富事件管道 |
+| 06 | 3:19–4:06 | S5 | Pre-IPO Valuation | 102 | 47 | 130 | 估值治理 |
+| 07 | 4:06–4:43 | S6 | CIB → PB Handoff | 84 | 37 | 136 | CIB → PB 交接 |
+| 08 | 4:43–5:23 | S11 | Family Onboarding | 91 | 40 | 137 | 家族 onboarding |
+| 09 | 5:23–6:01 | S12 | First Investment | 86 | 38 | 136 | 第一次投资 |
+| 10 | 6:01–6:16 | S7 | 遗产组合 · 时间、金额与结果 | 29 | 15 | 116 | 身故是一条时间线 |
+| 11 | 6:16–7:01 | S8 | Estate Case Timeline | 102 | 45 | 136 | 单个遗产案件 |
+| 12 | 7:01–7:47 | S9 | Authority & Probate | 106 | 46 | 138 | 授权与 probate |
+| 13 | 7:47–8:26 | S10 | 12-Month Outcomes | 89 | 39 | 137 | 12 个月结果 |
+| 14 | 8:26–8:54 | S13a | PB Operating Dashboard | 64 | 28 | 137 | PB 经营 dashboard |
+| 15 | 8:54–9:55 | S13b | RM Scorecard | 156 | 61 | 153 | RM 产能 |
+| 16 | 9:55–10:39 | S14a | Failure Detail | 97 | 44 | 132 | 失败交易 |
+| 17 | 10:39–11:18 | S14b | Order KPI & Trust | 87 | 39 | 134 | 订单 KPI 与信任 |
+| 18 | 11:18–12:00 | S15 | End card · 三个请求 | 80 | 42 (37+5) | 130 | 三个请求 |
 
-**合计：** 19 段 · 1,600 词 · 715 秒口播 + 5 秒尾停 = **720 秒 / 12:00**。
+**合计：** 18 段 · 1,555 词 · 715 秒口播 + 5 秒尾停 = **720 秒 / 12:00**。
 
 ---
 
 ## 4. 逐镜脚本
 
-### S0 · 0:00–0:13 · 标题卡 · 一句合规声明
+### S1 · 0:00–1:03 · 五个运营问题
 
-**时长 / 词数 / 语速**：13s · 29 词 · 134 wpm · 功能：开场：合规与标题
-
-- **页面 / 路由**：—（剪辑卡）
-- **画面**：黑场起。HSBC 红细线从左侧划入，标题 “Family Lifetime Core” 与副题 “A film about five operating problems” 淡入；右下角版本号。
-- **运镜**：完全静帧。第 3 秒标题轻微上移 4px；第 8 秒免责声明淡入；无缩放、无转场。
-- **屏幕动作**：无页面操作。
-- **屏幕标注**：左下角合规角标从第 1 帧起常驻；底部一行小字：Illustrative demo · public cases are not clients · bank figures are demo data。
-- **人物内心（导演层，不占口播）**：董事会成员：我要先知道哪些数字能信。
-- **转场**：1 秒黑场后硬切到 workbench 首页；不加转场音效。
-
-**英文口播（逐字）**
-
-> Before we start, one housekeeping sentence: every name on screen is either a public reference or a demo family, and all bank figures are demo data — not HSBC actuals.
-
-**中文对照**
-
-> 开始之前，先说明一句：屏幕上出现的名字，要么是公开参考，要么是演示家族；所有银行数字都是演示数据，不是汇丰的真实数据。
-
-### S1 · 0:13–1:03 · 五个运营问题
-
-**时长 / 词数 / 语速**：50s · 116 词 · 139 wpm · 功能：五个运营问题
+**时长 / 词数 / 语速**：63s · 118 词 · 112 wpm · 功能：五个运营问题
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/overview`
 - **画面**：Workbench 首页：左侧五模块导航，中间五张模块卡，底部 KPI 条（5 个 IPO 事件 / 4 个遗产案件 / 5.5% 失败率）。
@@ -130,11 +110,11 @@
 
 **英文口播（逐字）**
 
-> Today I will not present an abstract architecture. I will present five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, whether client commission is actually Private Bank gross margin. Fifth, how a failed trade affects client trust and RM performance. This workbench is not a marketing site. It decomposes each problem into business steps, fields, status, ownership and evidence. The public names are structural references only, not HSBC clients. All bank figures are demo data.
+> Five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, how the Private Bank is actually performing — AUM, revenue, client commission, gross margin, net margin and cost-to-income, with the formulas on one dashboard. Fifth, how a failed trade affects client trust and RM performance. This workbench is not a marketing site. It decomposes each problem into business steps, fields, status, ownership and evidence. The public names are structural references only, not HSBC clients. All bank figures are demo data.
 
 **中文对照**
 
-> 今天我不讲一个抽象的架构，而是讲五个真实的经营问题：第一，CIB 做 IPO，PB 如何合规承接创始人和高管；第二，新客户、二代和配偶如何完成第一次投资；第三，一个客户身故一年以后，家族的钱到底走到了哪里；第四，客户佣金到底是不是私人银行的毛利；第五，一笔交易失败以后，客户信任和 RM 绩效如何被影响。这个工作台不是营销页面，而是把每个问题的业务步骤、字段、状态、责任人和证据拆开。所有公开人物只是结构参考，不表示他们是汇丰客户；所有银行数字都是演示数据。
+> 五个真实的经营问题。第一，CIB 做 IPO，PB 如何合规承接创始人和高管；第二，新客户、二代和配偶如何完成第一次投资；第三，一个客户身故一年以后，家族的钱到底走到了哪里；第四，私人银行到底经营得怎么样——AUM、收入、客户佣金、毛利、净利、成本收入比，以及这些数字背后的公式，能不能放在一张 dashboard 上；第五，一笔交易失败以后，客户信任和 RM 绩效如何被影响。这个工作台不是营销页面，而是把每个问题的业务步骤、字段、状态、责任人和证据拆开。所有公开人物只是结构参考，不表示他们是汇丰客户；所有银行数字都是演示数据。
 
 ### S2a · 1:03–1:11 · J1–J10 静态卡 · 十条旅程，六个 P0
 
@@ -198,7 +178,7 @@
 
 ### S4 · 2:34–3:19 · IPO & Wealth Event Pipeline
 
-**时长 / 词数 / 语速**：45s · 98 词 · 131 wpm · 功能：IPO 财富事件管道
+**时长 / 词数 / 语速**：45s · 97 词 · 129 wpm · 功能：IPO 财富事件管道
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/ipo-pipeline`
 - **画面**：财富事件管道：KPI 条 + 事件表（公司 / 交易所 / 阶段 / 预计时间 / CIB 覆盖 / 持股 / 估计财富 / PB 状态 / owner）。
@@ -218,7 +198,7 @@
 
 ### S5 · 3:19–4:06 · Pre-IPO Valuation
 
-**时长 / 词数 / 语速**：47s · 109 词 · 139 wpm · 功能：估值治理
+**时长 / 词数 / 语速**：47s · 102 词 · 130 wpm · 功能：估值治理
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/ipo-valuation`
 - **画面**：估值页：三种方法（公开轮 / 可比 / DCF）与权重、折扣表、区间、LTV 指引、委员会证据清单。
@@ -238,7 +218,7 @@
 
 ### S6 · 4:06–4:43 · CIB → PB Handoff
 
-**时长 / 词数 / 语速**：37s · 85 词 · 138 wpm · 功能：CIB → PB 交接
+**时长 / 词数 / 语速**：37s · 84 词 · 136 wpm · 功能：CIB → PB 交接
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/ipo-handoff`
 - **画面**：CIB → PB 交接任务表：CIB 识别 / 客户同意 / 合规墙 / KYC / 家族发现 / 估值与信贷准备；右侧服务菜单在 onboarding 后才激活。
@@ -258,7 +238,7 @@
 
 ### S11 · 4:43–5:23 · Family Onboarding
 
-**时长 / 词数 / 语速**：40s · 93 词 · 140 wpm · 功能：家族 onboarding
+**时长 / 词数 / 语速**：40s · 91 词 · 137 wpm · 功能：家族 onboarding
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/onboarding-family`
 - **画面**：家族图谱：主客户 / 配偶 / 成年子女 / 未成年子女 / 受托人 / 律师 / 家办；每人的 role、consent status、goals、entitlements；底部权限模型。
@@ -318,7 +298,7 @@
 
 ### S8 · 6:16–7:01 · Estate Case Timeline
 
-**时长 / 词数 / 语速**：45s · 109 词 · 145 wpm · 功能：单个遗产案件
+**时长 / 词数 / 语速**：45s · 102 词 · 136 wpm · 功能：单个遗产案件
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/estate-case`
 - **画面**：单个遗产案件时间线：T+0 死亡通知 / POA 自动终止；T+1 家属联系；T+7 葬礼与紧急费用；T+30 probate 申请；T+60 grant；T+90 estate account；T+365 结果复盘。
@@ -338,7 +318,7 @@
 
 ### S9 · 7:01–7:47 · Authority & Probate
 
-**时长 / 词数 / 语速**：46s · 108 词 · 141 wpm · 功能：授权与 probate
+**时长 / 词数 / 语速**：46s · 106 词 · 138 wpm · 功能：授权与 probate
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/estate-authority`
 - **画面**：授权矩阵四行：Executor / Trustee / Attorney / Beneficiary；每行 instrument、scope、status、can pay、cannot do；右侧 probate 清单与负向规则。
@@ -376,29 +356,29 @@
 
 > 这一页是十二个月结果。我们不只问“案件有没有关闭”，而是问：第一笔合法支付用了多少天？十二个月分配了多少？法律成本占遗产多少？家族有没有留下来？NPS 是多少？跨境案件和本地案件的差距在哪里？这些指标让“身故体验”从感觉变成 cohort 数据。下一步要接真实案件、受益人口径、跨境数据，并且做隐私评估。
 
-### S13a · 8:26–8:54 · Revenue & Margin Cockpit
+### S13a · 8:26–8:54 · PB Operating Dashboard
 
-**时长 / 词数 / 语速**：28s · 64 词 · 137 wpm · 功能：收入与毛利
+**时长 / 词数 / 语速**：28s · 64 词 · 137 wpm · 功能：PB 经营 dashboard
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/revenue-cockpit`
-- **画面**：收入与毛利驾驶舱：revenue 480m / GM 65% / NM 32.5% / CIR 67.5%；成本瀑布（direct cost / funding & risk / cost-to-serve）。
+- **画面**：PB 经营 dashboard：AUM 31.2bn / revenue 480m / client commission 52m / GM 312m 65% / NM 156m 32.5% / CIR 67.5%；下方 formula 卡与 revenue lines。
 - **运镜**：KPI 条固定 3 秒；下摇到成本瀑布；最后 2 秒推近 CIR 67.5%。
-- **屏幕动作**：hover 四个 KPI；下滚到成本瀑布；停在 direct cost 与 cost-to-serve 两段；不切换客户。
-- **屏幕标注**：KPI 右侧：demo book · 64 RMs；底部：client commission ≠ gross margin。
-- **人物内心（导演层，不占口播）**：CFO：客户佣金不是毛利；把成本摊开。
+- **屏幕动作**：hover AUM、revenue、client commission、GM、NM、CIR；下滚到 formula 卡；停在 revenue lines 与 client economics；不切换客户。
+- **屏幕标注**：KPI 右侧：demo book · 64 RMs；底部：AUM → revenue → client commission → gross margin → net margin；formulas on page。
+- **人物内心（导演层，不占口播）**：CFO：AUM 不是收入；客户佣金不是毛利；我要看到从 AUM 到收入、毛利、净利和 RM 产能的完整桥。
 - **转场**：硬切到 revenue-rm；镜头从 CIR 直接拉到 RM 行。
 
 **英文口播（逐字）**
 
-> This is the revenue and margin cockpit. Client commission is not gross margin. Gross margin must deduct direct cost-to-serve, funding cost and allocated cost. Revenue, gross margin, net margin and cost/income must be decomposable by client, product, RM and legal entity. The monthly trend must distinguish realised, accrued and forecast revenue. Before production, Finance, Treasury, Product Control and transfer pricing must sign off.
+> This is the Private Bank operating dashboard: AUM US$31.2bn, revenue US$480m, client commission US$52m, gross margin US$312m at 65%, net margin US$156m at 32.5%, cost/income 67.5%. The formulas are on the page: gross margin is revenue minus direct cost; net margin deducts funding, risk and allocated cost; cost/income is revenue minus net margin over revenue. Every number decomposes by client, product, RM and entity.
 
 **中文对照**
 
-> 这一页是收入与毛利驾驶舱。客户佣金不是毛利。毛利要扣除直接服务成本、资金成本、分摊成本。页面上的收入、毛利、净利、成本收入比要能按客户、产品、RM 和实体拆开。月度趋势要区分已实现、应计和预测收入。真实上线前，必须由财务、资金、产品控制和内部转移定价签字。
+> 这一页是私人银行经营 dashboard：AUM 312 亿美元、收入 4.8 亿美元、客户佣金 5,200 万美元、毛利 3.12 亿美元（65%）、净利 1.56 亿美元（32.5%）、成本收入比 67.5%。公式都在页面上：毛利等于收入减直接成本；净利再扣资金、风险和分摊成本；成本收入比等于收入减净利除以收入。每个数字都要能按客户、产品、RM 和实体拆开。
 
 ### S13b · 8:54–9:55 · RM Scorecard
 
-**时长 / 词数 / 语速**：61s · 153 词 · 150 wpm · 功能：RM 产能
+**时长 / 词数 / 语速**：61s · 156 词 · 153 wpm · 功能：RM 产能
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/revenue-rm`
 - **画面**：RM 计分卡：relationships / households / AUM / support_ratio / segment_mix / service_intensity / workload index；James 行 51 / 0.7 / 97.4。
@@ -410,15 +390,15 @@
 
 **英文口播（逐字）**
 
-> This is the RM scorecard. One clarification: 51 is the number of client relationships, not 51 independent wealthy individuals. An RM may manage 35 to 51 relationships, corresponding to 15 to 25 households, with US$400–600m AUM. To turn a raw client count into an explainable capacity measure, we add three fields: support_ratio, the number of assistants or product specialists per RM; segment_mix, the UHNW, HNW and family-office share; and service_intensity, the annual meetings, trades, trust/estate cases and credit facilities per relationship. Public benchmarks: private-banking RMs typically serve 50–70 clients; Goldman Sachs PWM cites 1:25; Asian Private Banker reports average AUM per RM of about US$473m. Fifty-one relationships is at the upper end: on screen, the workload index is 97.4 — overloaded — driven mainly by a 0.7 support ratio. RM KPIs must include gross margin, failed trades, NPS and controllable risk, not revenue alone.
+> This is the RM-level view of the same operating dashboard. AUM and revenue sit next to relationships and capacity. One clarification: 51 is the number of client relationships, not 51 independent wealthy individuals. An RM may manage 35 to 51 relationships, corresponding to 15 to 25 households, with US$400–600m AUM. To turn a raw client count into an explainable capacity measure, we add three fields: support_ratio, the number of assistants or product specialists per RM; segment_mix, the UHNW, HNW and family-office share; and service_intensity, the annual meetings, trades, trust/estate cases and credit facilities per relationship. Public benchmarks: private-banking RMs typically serve 50–70 clients; Goldman Sachs PWM cites 1:25; Asian Private Banker reports average AUM per RM of about US$473m. Fifty-one relationships is at the upper end: on screen, the workload index is 97.4 — overloaded — driven mainly by a 0.7 support ratio. RM KPIs must include gross margin, failed trades, NPS and controllable risk, not revenue alone.
 
 **中文对照**
 
-> 这一页是 RM 计分卡。这里特别要说明：51 是客户关系数，不是 51 位独立富豪。一个 RM 可能管理 35 到 51 个关系，对应 15 到 25 个家庭，AUM 四到六亿美元。为了把“客户数”变成可解释的产能，我们再加三个字段：support_ratio，表示每个 RM 配多少助理/产品专家；segment_mix，表示 UHNW、HNW、家族办公室的占比；service_intensity，表示每个关系的年度会议、交易、信托/遗产案件和信贷额度工作量。公开基准是：私人银行 RM 通常服务 50 到 70 位客户；高盛 PWM 公开 1:25；亚洲私人银行平均 AUM/RM 约 4.73 亿美元。51 个关系属于偏高：屏幕上的 workload index 是 97.4，进入 overloaded 区，主因是 0.7 的 support ratio。RM KPI 不能只看收入，还要看毛利、失败交易、NPS 和可控风险。
+> 这一页是同一张经营 dashboard 的 RM 层：AUM、收入、毛利和关系数、产能放在一起。这里特别要说明：51 是客户关系数，不是 51 位独立富豪。一个 RM 可能管理 35 到 51 个关系，对应 15 到 25 个家庭，AUM 四到六亿美元。为了把“客户数”变成可解释的产能，我们再加三个字段：support_ratio，表示每个 RM 配多少助理/产品专家；segment_mix，表示 UHNW、HNW、家族办公室的占比；service_intensity，表示每个关系的年度会议、交易、信托/遗产案件和信贷额度工作量。公开基准是：私人银行 RM 通常服务 50 到 70 位客户；高盛 PWM 公开 1:25；亚洲私人银行平均 AUM/RM 约 4.73 亿美元。51 个关系属于偏高：屏幕上的 workload index 是 97.4，进入 overloaded 区，主因是 0.7 的 support ratio。RM KPI 不能只看收入，还要看毛利、失败交易、NPS 和可控风险。
 
 ### S14a · 9:55–10:39 · Failure Detail
 
-**时长 / 词数 / 语速**：44s · 98 词 · 134 wpm · 功能：失败交易
+**时长 / 词数 / 语速**：44s · 97 词 · 132 wpm · 功能：失败交易
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/order-failure`
 - **画面**：失败交易详情：ORD-1002、16:44 伦敦时间、市场已收盘、GBP 45k、失败原因、客户影响、recovery 五步。
@@ -482,13 +462,9 @@
 
 > 录制时按时间码切段；段落之间不要加连接词，否则会超出每镜时长。
 
-**[0:00] S0**
+**[0:00] S1**
 
-Before we start, one housekeeping sentence: every name on screen is either a public reference or a demo family, and all bank figures are demo data — not HSBC actuals.
-
-**[0:13] S1**
-
-Today I will not present an abstract architecture. I will present five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, whether client commission is actually Private Bank gross margin. Fifth, how a failed trade affects client trust and RM performance. This workbench is not a marketing site. It decomposes each problem into business steps, fields, status, ownership and evidence. The public names are structural references only, not HSBC clients. All bank figures are demo data.
+Five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, how the Private Bank is actually performing — AUM, revenue, client commission, gross margin, net margin and cost-to-income, with the formulas on one dashboard. Fifth, how a failed trade affects client trust and RM performance. This workbench is not a marketing site. It decomposes each problem into business steps, fields, status, ownership and evidence. The public names are structural references only, not HSBC clients. All bank figures are demo data.
 
 **[1:03] S2a**
 
@@ -540,11 +516,11 @@ This is the twelve-month outcome. We do not only ask whether the case is closed.
 
 **[8:26] S13a**
 
-This is the revenue and margin cockpit. Client commission is not gross margin. Gross margin must deduct direct cost-to-serve, funding cost and allocated cost. Revenue, gross margin, net margin and cost/income must be decomposable by client, product, RM and legal entity. The monthly trend must distinguish realised, accrued and forecast revenue. Before production, Finance, Treasury, Product Control and transfer pricing must sign off.
+This is the Private Bank operating dashboard: AUM US$31.2bn, revenue US$480m, client commission US$52m, gross margin US$312m at 65%, net margin US$156m at 32.5%, cost/income 67.5%. The formulas are on the page: gross margin is revenue minus direct cost; net margin deducts funding, risk and allocated cost; cost/income is revenue minus net margin over revenue. Every number decomposes by client, product, RM and entity.
 
 **[8:54] S13b**
 
-This is the RM scorecard. One clarification: 51 is the number of client relationships, not 51 independent wealthy individuals. An RM may manage 35 to 51 relationships, corresponding to 15 to 25 households, with US$400–600m AUM. To turn a raw client count into an explainable capacity measure, we add three fields: support_ratio, the number of assistants or product specialists per RM; segment_mix, the UHNW, HNW and family-office share; and service_intensity, the annual meetings, trades, trust/estate cases and credit facilities per relationship. Public benchmarks: private-banking RMs typically serve 50–70 clients; Goldman Sachs PWM cites 1:25; Asian Private Banker reports average AUM per RM of about US$473m. Fifty-one relationships is at the upper end: on screen, the workload index is 97.4 — overloaded — driven mainly by a 0.7 support ratio. RM KPIs must include gross margin, failed trades, NPS and controllable risk, not revenue alone.
+This is the RM-level view of the same operating dashboard. AUM and revenue sit next to relationships and capacity. One clarification: 51 is the number of client relationships, not 51 independent wealthy individuals. An RM may manage 35 to 51 relationships, corresponding to 15 to 25 households, with US$400–600m AUM. To turn a raw client count into an explainable capacity measure, we add three fields: support_ratio, the number of assistants or product specialists per RM; segment_mix, the UHNW, HNW and family-office share; and service_intensity, the annual meetings, trades, trust/estate cases and credit facilities per relationship. Public benchmarks: private-banking RMs typically serve 50–70 clients; Goldman Sachs PWM cites 1:25; Asian Private Banker reports average AUM per RM of about US$473m. Fifty-one relationships is at the upper end: on screen, the workload index is 97.4 — overloaded — driven mainly by a 0.7 support ratio. RM KPIs must include gross margin, failed trades, NPS and controllable risk, not revenue alone.
 
 **[9:55] S14a**
 

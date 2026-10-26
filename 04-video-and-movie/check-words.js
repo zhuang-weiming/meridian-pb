@@ -22,7 +22,20 @@ function check(file, expected) {
       .map((l) => l.replace(/^>\s*/, "").trim()).join(" ");
     const head = body.match(/\*\*时长 \/ 词数 \/ 语速\*\*：(\d+)s[^\n]*?· (\d+) 词 · (\d+) wpm/);
     assert(head, `${file}: ${id} has no 时长/词数/语速 header`);
-    scenes[id] = { seconds: +head[1], headWords: +head[2], headWpm: +head[3], words: tokenCount(speech) };
+    scenes[id] = { seconds: +head[1], headWords: +head[2], headWpm: +head[3], words: tokenCount(speech), speech: speech.replace(/\s+/g, " ").trim() };
+  }
+
+  // The teleprompter must be a verbatim copy of the scene narration.
+  const tp = text.match(/## \d+\. 连续英文口播（提词器版）\n([\s\S]*?)(?=\n---\n\n## )/);
+  assert(tp, `${file}: teleprompter section not found`);
+  const tpBlocks = tp[1].split(/^\*\*\[[0-9:]+\] (S[0-9]+[a-z]?'?)\*\*$/m);
+  const tpText = {};
+  for (let i = 1; i < tpBlocks.length; i += 2) {
+    tpText[tpBlocks[i]] = tpBlocks[i + 1].trim().replace(/\s+/g, " ");
+  }
+  for (const [id, s] of Object.entries(scenes)) {
+    assert(tpText[id], `${file}: ${id} missing from teleprompter`);
+    assert.strictEqual(tpText[id], s.speech, `${file}: ${id} teleprompter text differs from the scene`);
   }
 
   const rows = {};

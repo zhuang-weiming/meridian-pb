@@ -68,7 +68,7 @@
 | 11 | `onboarding-suitability` | Suitability & Risk | J1/J7 | Family Onboarding | — |
 | 12 | `onboarding-templates` | Portfolio Templates | J7 | Family Onboarding | — |
 | 13 | `onboarding-first` | First Investment | J1/J7 | Family Onboarding | **S12** |
-| 14 | `revenue-cockpit` | Revenue & Margin Cockpit | J9 | Revenue & Margin | **S13a** |
+| 14 | `revenue-cockpit` | PB Operating Dashboard | J9 | Revenue & Margin | **S13a** |
 | 15 | `revenue-client` | Client P&L | J9 | Revenue & Margin | — |
 | 16 | `revenue-product` | Product P&L | J9 | Revenue & Margin | — |
 | 17 | `revenue-rm` | RM Scorecard | J9 | Revenue & Margin | **S13b** |

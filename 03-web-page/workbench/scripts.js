@@ -3,8 +3,8 @@
 const SCRIPTS = {
   overview: {
     title: "Operating Workbench",
-    cn: "今天我不讲一个抽象的架构，而是讲五个真实的经营问题：第一，CIB 做 IPO，PB 如何合规承接创始人和高管；第二，新客户、二代和配偶如何完成第一次投资；第三，一个客户身故一年以后，家族的钱到底走到了哪里；第四，客户佣金到底是不是私人银行的毛利；第五，一笔交易失败以后，客户信任和 RM 绩效如何被影响。这个工作台不是营销页面，而是把每个问题的业务步骤、字段、状态、责任人和证据拆开。所有公开人物只是结构参考，不表示他们是汇丰客户；所有银行数字都是演示数据。",
-    en: "Today I will not present an abstract architecture. I will present five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, whether client commission is actually Private Bank gross margin. Fifth, how a failed trade affects client trust and RM performance. This workbench is not a marketing site. It decomposes each problem into business steps, fields, status, ownership and evidence. The public names are structural references only, not HSBC clients. All bank figures are demo data.",
+    cn: "五个真实的经营问题。第一，CIB 做 IPO，PB 如何合规承接创始人和高管；第二，新客户、二代和配偶如何完成第一次投资；第三，一个客户身故一年以后，家族的钱到底走到了哪里；第四，私人银行到底经营得怎么样——AUM、收入、客户佣金、毛利、净利、成本收入比，以及这些数字背后的公式，能不能放在一张 dashboard 上；第五，一笔交易失败以后，客户信任和 RM 绩效如何被影响。这个工作台不是营销页面，而是把每个问题的业务步骤、字段、状态、责任人和证据拆开。所有公开人物只是结构参考，不表示他们是汇丰客户；所有银行数字都是演示数据。",
+    en: "Five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, how the Private Bank is actually performing — AUM, revenue, client commission, gross margin, net margin and cost-to-income, with the formulas on one dashboard. Fifth, how a failed trade affects client trust and RM performance. This workbench is not a marketing site. It decomposes each problem into business steps, fields, status, ownership and evidence. The public names are structural references only, not HSBC clients. All bank figures are demo data.",
     screen: "Start at the five module cards; note that each module has four pages.",
     transition: "We start with the IPO-to-Private-Banking pipeline."
   },
@@ -93,10 +93,10 @@ const SCRIPTS = {
     transition: "From the client experience, we move to the economics."
   },
   "revenue-cockpit": {
-    title: "Revenue & Margin Cockpit",
-    cn: "这一页是收入与毛利驾驶舱。客户佣金不是毛利。毛利要扣除直接服务成本、资金成本、分摊成本。页面上的收入、毛利、净利、成本收入比要能按客户、产品、RM 和实体拆开。月度趋势要区分已实现、应计和预测收入。真实上线前，必须由财务、资金、产品控制和内部转移定价签字。",
-    en: "This is the revenue and margin cockpit. Client commission is not gross margin. Gross margin must deduct direct cost-to-serve, funding cost and allocated cost. Revenue, gross margin, net margin and cost/income must be decomposable by client, product, RM and legal entity. The monthly trend must distinguish realised, accrued and forecast revenue. Before production, Finance, Treasury, Product Control and transfer pricing must sign off.",
-    screen: "Point to the four summary metrics and the monthly trend; then the client economics table.",
+    title: "PB Operating Dashboard",
+    cn: "这一页是私人银行经营 dashboard：AUM 312 亿美元、收入 4.8 亿美元、客户佣金 5,200 万美元、毛利 3.12 亿美元（65%）、净利 1.56 亿美元（32.5%）、成本收入比 67.5%。公式都在页面上：毛利等于收入减直接成本；净利再扣资金、风险和分摊成本；成本收入比等于收入减净利除以收入。每个数字都要能按客户、产品、RM 和实体拆开。",
+    en: "This is the Private Bank operating dashboard: AUM US$31.2bn, revenue US$480m, client commission US$52m, gross margin US$312m at 65%, net margin US$156m at 32.5%, cost/income 67.5%. The formulas are on the page: gross margin is revenue minus direct cost; net margin deducts funding, risk and allocated cost; cost/income is revenue minus net margin over revenue. Every number decomposes by client, product, RM and entity.",
+    screen: "Point to AUM, revenue, client commission, gross margin, net margin and cost/income; then the formula card and revenue lines.",
     transition: "The next page opens one client’s P&L."
   },
   "revenue-client": {
@@ -115,8 +115,8 @@ const SCRIPTS = {
   },
   "revenue-rm": {
     title: "RM Scorecard",
-    cn: "这一页是 RM 计分卡。这里特别要说明：51 是客户关系数，不是 51 位独立富豪。一个 RM 可能管理 35 到 51 个关系，对应 15 到 25 个家庭，AUM 四到六亿美元。为了把“客户数”变成可解释的产能，我们再加三个字段：support_ratio，表示每个 RM 配多少助理/产品专家；segment_mix，表示 UHNW、HNW、家族办公室的占比；service_intensity，表示每个关系的年度会议、交易、信托/遗产案件和信贷额度工作量。公开基准是：私人银行 RM 通常服务 50 到 70 位客户；高盛 PWM 公开 1:25；亚洲私人银行平均 AUM/RM 约 4.73 亿美元。51 个关系属于偏高：屏幕上的 workload index 是 97.4，进入 overloaded 区，主因是 0.7 的 support ratio。RM KPI 不能只看收入，还要看毛利、失败交易、NPS 和可控风险。",
-    en: "This is the RM scorecard. One clarification: 51 is the number of client relationships, not 51 independent wealthy individuals. An RM may manage 35 to 51 relationships, corresponding to 15 to 25 households, with US$400–600m AUM. To turn a raw client count into an explainable capacity measure, we add three fields: support_ratio, the number of assistants or product specialists per RM; segment_mix, the UHNW, HNW and family-office share; and service_intensity, the annual meetings, trades, trust/estate cases and credit facilities per relationship. Public benchmarks: private-banking RMs typically serve 50–70 clients; Goldman Sachs PWM cites 1:25; Asian Private Banker reports average AUM per RM of about US$473m. Fifty-one relationships is at the upper end: on screen, the workload index is 97.4 — overloaded — driven mainly by a 0.7 support ratio. RM KPIs must include gross margin, failed trades, NPS and controllable risk, not revenue alone.",
+    cn: "这一页是同一张经营 dashboard 的 RM 层：AUM、收入、毛利和关系数、产能放在一起。这里特别要说明：51 是客户关系数，不是 51 位独立富豪。一个 RM 可能管理 35 到 51 个关系，对应 15 到 25 个家庭，AUM 四到六亿美元。为了把“客户数”变成可解释的产能，我们再加三个字段：support_ratio，表示每个 RM 配多少助理/产品专家；segment_mix，表示 UHNW、HNW、家族办公室的占比；service_intensity，表示每个关系的年度会议、交易、信托/遗产案件和信贷额度工作量。公开基准是：私人银行 RM 通常服务 50 到 70 位客户；高盛 PWM 公开 1:25；亚洲私人银行平均 AUM/RM 约 4.73 亿美元。51 个关系属于偏高：屏幕上的 workload index 是 97.4，进入 overloaded 区，主因是 0.7 的 support ratio。RM KPI 不能只看收入，还要看毛利、失败交易、NPS 和可控风险。",
+    en: "This is the RM-level view of the same operating dashboard. AUM and revenue sit next to relationships and capacity. One clarification: 51 is the number of client relationships, not 51 independent wealthy individuals. An RM may manage 35 to 51 relationships, corresponding to 15 to 25 households, with US$400–600m AUM. To turn a raw client count into an explainable capacity measure, we add three fields: support_ratio, the number of assistants or product specialists per RM; segment_mix, the UHNW, HNW and family-office share; and service_intensity, the annual meetings, trades, trust/estate cases and credit facilities per relationship. Public benchmarks: private-banking RMs typically serve 50–70 clients; Goldman Sachs PWM cites 1:25; Asian Private Banker reports average AUM per RM of about US$473m. Fifty-one relationships is at the upper end: on screen, the workload index is 97.4 — overloaded — driven mainly by a 0.7 support ratio. RM KPIs must include gross margin, failed trades, NPS and controllable risk, not revenue alone.",
     screen: "Point to Relationships, Households and AUM; read the capacity benchmark note.",
     transition: "We now move to the moment that most directly affects trust: a failed order."
   },

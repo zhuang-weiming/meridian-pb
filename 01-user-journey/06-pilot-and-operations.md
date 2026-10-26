@@ -246,7 +246,7 @@
 | **1 · IPO & PB** | **J2 创始人** + **J6 家办** | 公司 IPO/H 股/老股/M&A，管理层财富事件 | CIB 识别 → consent/wall → PB KYC → 估值/信贷/信托/家办 |
 | **2 · Estate & Continuity** | **J8 信任** | 死亡、probate、遗产分配、信托继续 | 时间线、授权、estate account、12 个月结果 |
 | **3 · Family Onboarding** | **J1 家族** + **J3 创作者** + **J4 女性** + **J7 核心 HNW** | 新客户、二代、配偶首次投资；创作者家庭（演示：UK creator / cross-border creator family） | family map、consent、suitability、template、first investment |
-| **4 · Revenue & Margin** | **J9 RM** + **J6 家办** | 客户/产品/RM 收入与成本 | client P&L、product P&L、RM scorecard |
+| **4 · Revenue & Margin** | **J9 RM** + **J6 家办** | AUM/收入/客户佣金/毛利/净利/CIR + RM 产能 | PB Operating Dashboard、client P&L、product P&L、RM scorecard |
 | **5 · Order Trust** | **J9 RM** + **J8 信任** | 订单失败、市场关闭、系统异常 | failed trade %、reason code、recovery、RM KPI |
 
 ---
@@ -305,17 +305,17 @@ CIB 有 IPO/并购关系，PB 只在事后听到“某创始人上市了”；�
 
 **页面：** `onboarding-family`、`onboarding-suitability`、`onboarding-templates`、`onboarding-first`。
 
-#### 3.4 Revenue & Margin（J9 + J6）
+#### 3.4 PB Operating Dashboard & RM（J9 + J6）
 
 **改造前：**
 
-“客户佣金”被当成“毛利”；收入按产品/客户/RM 对不上；成本（RM 时间、运营、法律、技术、资金）没有分摊；RM KPI 只看收入。
+AUM、收入、客户佣金、毛利/净利/CIR 分散；公式与成本分摊不透明；收入按产品/客户/RM 对不上；成本（RM 时间、运营、法律、技术、资金）没有分摊；RM KPI 只看收入。
 
 > **基线锚点（公开层，产能侧）：** Accenture 2025（私行 RM 50–70 客户；affluent 200+）、GS PWM 1:25、Asian Private Banker 2025（AUM/RM ≈ US$473m）——"一个 RM 服务多少关系"可公开对照；收入-成本口径（分摊、转移定价、确认）需内部 Finance 校准，本节金额为演示。
 
 **改造后：**
 
-1. Revenue cockpit：收入/毛利/净利/成本收入比；
+1. PB Operating Dashboard：AUM/收入/客户佣金/毛利/净利/CIR + 公式；
 2. Client P&L：客户收入/直接成本/分摊成本/净利/钱包；
 3. Product P&L：顾问/托管/经纪/贷款/外汇/信托；
 4. RM scorecard：relationships/households/AUM/revenue/margin/failed trades/NPS，加 `support_ratio`、`segment_mix`、`service_intensity` 三个产能字段（workload index 校准）。
@@ -403,7 +403,7 @@ CIB 有 IPO/并购关系，PB 只在事后听到“某创始人上市了”；�
 | suitability 记录完整率 | 未测（演示假设） | 100%（首笔投资前） | Compliance | 每笔 |
 | 成年子女/配偶 consent 覆盖率 | 未测（演示假设；家长不能代成年子女同意） | 100% | Compliance | 季度 |
 
-#### 6.4 Revenue & Margin（J9 + J6）
+#### 6.4 PB Operating Dashboard & RM（J9 + J6）
 
 | 指标 | 基线 | 目标 | Owner | 频率 |
 |---|---|---|---|---|

@@ -50,6 +50,10 @@ for (const r of WB.revenue.rms) {
 
 /* ── Numeric & compliance integrity (added 2026-10-26 review) ── */
 const rev = WB.revenue.summary;
+assert(rev.aum > 0, "cockpit: AUM must be positive");
+assert(rev.clientCommission > 0 && rev.clientCommission < rev.revenue, "cockpit: client commission must sit inside revenue");
+assert.strictEqual(WB.revenue.revenueLines.reduce((a, l) => a + l.amount, 0), rev.revenue, "cockpit: revenue lines must reconcile to total revenue");
+assert.strictEqual(rev.clientCommission, WB.revenue.revenueLines.find(l => /client commission/i.test(l.line)).amount, "cockpit: client commission must match its revenue line");
 assert.strictEqual(rev.grossMargin, rev.revenue - rev.directCost, "cockpit: gross margin = revenue − direct cost");
 assert.strictEqual(rev.netMargin, rev.grossMargin - rev.fundingRisk - rev.costToServe, "cockpit: net margin = GM − funding/risk − cost-to-serve");
 assert(Math.abs(rev.costIncome - 100 * (1 - rev.netMargin / rev.revenue)) <= 1, "cockpit: cost/income must match the net-margin basis");

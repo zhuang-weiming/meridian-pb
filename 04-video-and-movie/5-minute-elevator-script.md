@@ -2,16 +2,17 @@
 
 > **用途：** 给只有一次转发机会的高管/董事会前阅读者。它不是 12 分钟版的“随机剪短”，而是**五个问题各保留一个最强锚点**的独立版本。
 >
-> 版本 **v3.1 · 2026-10-26** · 总长 **5:00** = 287 秒口播 + 3 秒停帧 + 10 秒缓冲 · **9 镜** · **681 词** · 均 **142 wpm**
+> 版本 **v3.1 · 2026-10-26** · 总长 **5:00** = 287 秒口播 + 3 秒停帧 + 10 秒缓冲 · **8 镜** · **643 词** · 均 **134 wpm**
 
 **旅程表：** 本片 demo 的旅程与 12 分钟版相同，见 [`../01-user-journey/00-journey-catalog.md`](../01-user-journey/00-journey-catalog.md) §1。
 
 **与 12 分钟版的关系：**
 
-- 共用同一批 take：S0、S4、S11、S8、S13a、S14a、S15 直接复用主版；S1' 从 S1 take 截取前 81 词；S7' 从 S7 take 截取 29 词。
+- 共用同一批 take：S4、S11、S8、S13a、S14a、S15 直接复用主版；S1' 从 S1 take 截取前 83 词；S7' 从 S7 take 截取 29 词。
 - 去掉的是论证细节：J2–J4 蓝图、估值/交接、授权矩阵、12 个月 cohort、RM 产能。**五个问题本身一个不少。**
-- 片头片尾与合规角标与主版完全一致。
+- 不设标题卡；合规角标与片尾 demo-data 说明与主版一致。
 
+> 不设独立标题卡或口头合规声明；合规由左下角常驻角标与 S15' 末句承载。
 > 口播用页名，不念 Workbench 页序号；每镜的 `页面 / 路由` 给出准确位置。
 > **镜号是素材编号，不是播放顺序**；S11'（onboarding）在 S7'（estate）之前。
 
@@ -21,46 +22,24 @@
 
 | # | 时间 | 镜 | 画面 | 词 | 秒 | wpm | 作用 |
 |---|---|---|---|---|---|---|---|
-| 01 | 0:00–0:13 | S0' | 标题卡 · 一句合规声明 | 29 | 13 | 134 | 开场：合规与标题 |
-| 02 | 0:13–0:48 | S1' | 五个运营问题（摘句） | 81 | 35 | 139 | 五个运营问题（摘句） |
-| 03 | 0:48–1:30 | S4' | IPO & Wealth Event Pipeline | 98 | 42 | 140 | IPO 财富事件管道 |
-| 04 | 1:30–2:09 | S11' | Family Onboarding | 93 | 39 | 143 | 家族 onboarding |
-| 05 | 2:09–2:21 | S7' | 遗产组合 · 时间、金额与结果 | 29 | 12 | 145 | 遗产组合（摘句） |
-| 06 | 2:21–3:04 | S8' | Estate Case Timeline | 109 | 43 | 152 | 单个遗产案件 |
-| 07 | 3:04–3:31 | S13a' | Revenue & Margin Cockpit | 64 | 27 | 142 | 收入与毛利 |
-| 08 | 3:31–4:13 | S14a' | Failure Detail | 98 | 42 | 140 | 失败交易 |
-| 09 | 4:13–4:50 | S15' | End card · 三个请求 | 80 | 37 (34+3) | 141 | 三个请求 |
-| — | 4:50–5:00 | buffer | 片尾留白 | — | 10 | — | 呼吸/转场 |
+| 01 | 0:00–0:48 | S1' | 五个运营问题（摘句） | 83 | 48 | 104 | 五个运营问题（摘句） |
+| 02 | 0:48–1:30 | S4' | IPO & Wealth Event Pipeline | 97 | 42 | 139 | IPO 财富事件管道 |
+| 03 | 1:30–2:09 | S11' | Family Onboarding | 91 | 39 | 140 | 家族 onboarding |
+| 04 | 2:09–2:21 | S7' | 遗产组合 · 时间、金额与结果 | 29 | 12 | 145 | 遗产组合（摘句） |
+| 05 | 2:21–3:04 | S8' | Estate Case Timeline | 102 | 43 | 142 | 单个遗产案件 |
+| 06 | 3:04–3:31 | S13a' | PB Operating Dashboard | 64 | 27 | 142 | PB 经营 dashboard |
+| 07 | 3:31–4:13 | S14a' | Failure Detail | 97 | 42 | 139 | 失败交易 |
+| 08 | 4:13–4:50 | S15' | End card · 三个请求 | 80 | 37 (34+3) | 141 | 三个请求 |
 
-**合计：** 9 镜 · 681 词 · 287 秒口播 + 3 秒停帧 + 10 秒缓冲 = **300 秒 / 5:00**。
+**合计：** 8 镜 · 643 词 · 287 秒口播 + 3 秒停帧 + 10 秒缓冲 = **300 秒 / 5:00**。
 
 ---
 
 ## 2. 逐镜脚本
 
-### S0' · 0:00–0:13 · 标题卡 · 一句合规声明
+### S1' · 0:00–0:48 · 五个运营问题（摘句）
 
-**时长 / 词数 / 语速**：13s · 29 词 · 134 wpm · 功能：开场：合规与标题
-
-- **页面 / 路由**：—（剪辑卡）
-- **画面**：黑场起。HSBC 红细线从左侧划入，标题 “Family Lifetime Core” 与副题 “A film about five operating problems” 淡入；右下角版本号。
-- **运镜**：完全静帧。第 3 秒标题轻微上移 4px；第 8 秒免责声明淡入；无缩放、无转场。
-- **屏幕动作**：无页面操作。
-- **屏幕标注**：左下角合规角标从第 1 帧起常驻；底部一行小字：Illustrative demo · public cases are not clients · bank figures are demo data。
-- **人物内心（导演层，不占口播）**：董事会成员：我要先知道哪些数字能信。
-- **转场**：硬切到 workbench 首页；本镜与 12 分钟版共用同一条 take。
-
-**英文口播（逐字）**
-
-> Before we start, one housekeeping sentence: every name on screen is either a public reference or a demo family, and all bank figures are demo data — not HSBC actuals.
-
-**中文对照**
-
-> 开始之前，先说明一句：屏幕上出现的名字，要么是公开参考，要么是演示家族；所有银行数字都是演示数据，不是汇丰的真实数据。
-
-### S1' · 0:13–0:48 · 五个运营问题（摘句）
-
-**时长 / 词数 / 语速**：35s · 81 词 · 139 wpm · 功能：五个运营问题（摘句）
+**时长 / 词数 / 语速**：48s · 83 词 · 104 wpm · 功能：五个运营问题（摘句）
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/overview`
 - **画面**：Workbench 首页五张模块卡；只保留五个问题与模块对应关系。
@@ -72,15 +51,15 @@
 
 **英文口播（逐字）**
 
-> Today I will not present an abstract architecture. I will present five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, whether client commission is actually Private Bank gross margin. Fifth, how a failed trade affects client trust and RM performance.
+> Five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, how the Private Bank is actually performing — AUM, revenue, client commission, gross margin, net margin and cost-to-income, with the formulas on one dashboard. Fifth, how a failed trade affects client trust and RM performance.
 
 **中文对照**
 
-> 今天我不讲一个抽象的架构，而是讲五个真实的经营问题：第一，CIB 做 IPO，PB 如何合规承接创始人和高管；第二，新客户、二代和配偶如何完成第一次投资；第三，一个客户身故一年以后，家族的钱到底走到了哪里；第四，客户佣金到底是不是私人银行的毛利；第五，一笔交易失败以后，客户信任和 RM 绩效如何被影响。
+> 五个真实的经营问题。第一，CIB 做 IPO，PB 如何合规承接创始人和高管；第二，新客户、二代和配偶如何完成第一次投资；第三，一个客户身故一年以后，家族的钱到底走到了哪里；第四，私人银行到底经营得怎么样——AUM、收入、客户佣金、毛利、净利、成本收入比，以及这些数字背后的公式，能不能放在一张 dashboard 上；第五，一笔交易失败以后，客户信任和 RM 绩效如何被影响。
 
 ### S4' · 0:48–1:30 · IPO & Wealth Event Pipeline
 
-**时长 / 词数 / 语速**：42s · 98 词 · 140 wpm · 功能：IPO 财富事件管道
+**时长 / 词数 / 语速**：42s · 97 词 · 139 wpm · 功能：IPO 财富事件管道
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/ipo-pipeline`
 - **画面**：财富事件管道：KPI 条 + 事件表（公司 / 交易所 / 阶段 / 预计时间 / CIB 覆盖 / 持股 / 估计财富 / PB 状态 / owner）。
@@ -100,7 +79,7 @@
 
 ### S11' · 1:30–2:09 · Family Onboarding
 
-**时长 / 词数 / 语速**：39s · 93 词 · 143 wpm · 功能：家族 onboarding
+**时长 / 词数 / 语速**：39s · 91 词 · 140 wpm · 功能：家族 onboarding
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/onboarding-family`
 - **画面**：家族图谱：主客户 / 配偶 / 成年子女 / 未成年子女 / 受托人 / 律师 / 家办；每人的 role、consent status、goals、entitlements；底部权限模型。
@@ -140,7 +119,7 @@
 
 ### S8' · 2:21–3:04 · Estate Case Timeline
 
-**时长 / 词数 / 语速**：43s · 109 词 · 152 wpm · 功能：单个遗产案件
+**时长 / 词数 / 语速**：43s · 102 词 · 142 wpm · 功能：单个遗产案件
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/estate-case`
 - **画面**：单个遗产案件时间线：T+0 死亡通知 / POA 自动终止；T+1 家属联系；T+7 葬礼与紧急费用；T+30 probate 申请；T+60 grant；T+90 estate account；T+365 结果复盘。
@@ -158,29 +137,29 @@
 
 > 这一页是单个案件的时间线。顺序非常重要：T+0 死亡通知，POA 自动终止；T+1 家属联系，executor 还没有 grant；T+7 葬礼和紧急费用；T+30 probate 申请；T+60 grant；T+90 estate account 和分配；T+365 结果复盘。银行不能把“家属同意”当成授权，也不能在 grant 之前把资产转给家属。这个页面把法律动作、银行动作和证据放在同一条时间线上。
 
-### S13a' · 3:04–3:31 · Revenue & Margin Cockpit
+### S13a' · 3:04–3:31 · PB Operating Dashboard
 
-**时长 / 词数 / 语速**：27s · 64 词 · 142 wpm · 功能：收入与毛利
+**时长 / 词数 / 语速**：27s · 64 词 · 142 wpm · 功能：PB 经营 dashboard
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/revenue-cockpit`
-- **画面**：收入与毛利驾驶舱：revenue 480m / GM 65% / NM 32.5% / CIR 67.5%；成本瀑布（direct cost / funding & risk / cost-to-serve）。
+- **画面**：PB 经营 dashboard：AUM 31.2bn / revenue 480m / client commission 52m / GM 312m 65% / NM 156m 32.5% / CIR 67.5%；formula 卡与 revenue lines。
 - **运镜**：KPI 条 2 秒；下摇到成本瀑布；推近 CIR 67.5%。
-- **屏幕动作**：hover 四个 KPI；下滚到成本瀑布；停在 direct cost 与 cost-to-serve 两段；不切换客户。
-- **屏幕标注**：KPI 右侧：demo book · 64 RMs；底部：client commission ≠ gross margin。
-- **人物内心（导演层，不占口播）**：CFO：客户佣金不是毛利；把成本摊开。
+- **屏幕动作**：hover AUM、revenue、client commission、GM、NM、CIR；下滚到 formula 卡；停在 revenue lines；不切换客户。
+- **屏幕标注**：KPI 右侧：demo book · 64 RMs；底部：AUM → revenue → client commission → gross margin → net margin；formulas on page。
+- **人物内心（导演层，不占口播）**：CFO：AUM 不是收入；客户佣金不是毛利；我要看到从 AUM 到收入、毛利、净利和 RM 产能的完整桥。
 - **转场**：硬切到 order-failure。
 
 **英文口播（逐字）**
 
-> This is the revenue and margin cockpit. Client commission is not gross margin. Gross margin must deduct direct cost-to-serve, funding cost and allocated cost. Revenue, gross margin, net margin and cost/income must be decomposable by client, product, RM and legal entity. The monthly trend must distinguish realised, accrued and forecast revenue. Before production, Finance, Treasury, Product Control and transfer pricing must sign off.
+> This is the Private Bank operating dashboard: AUM US$31.2bn, revenue US$480m, client commission US$52m, gross margin US$312m at 65%, net margin US$156m at 32.5%, cost/income 67.5%. The formulas are on the page: gross margin is revenue minus direct cost; net margin deducts funding, risk and allocated cost; cost/income is revenue minus net margin over revenue. Every number decomposes by client, product, RM and entity.
 
 **中文对照**
 
-> 这一页是收入与毛利驾驶舱。客户佣金不是毛利。毛利要扣除直接服务成本、资金成本、分摊成本。页面上的收入、毛利、净利、成本收入比要能按客户、产品、RM 和实体拆开。月度趋势要区分已实现、应计和预测收入。真实上线前，必须由财务、资金、产品控制和内部转移定价签字。
+> 这一页是私人银行经营 dashboard：AUM 312 亿美元、收入 4.8 亿美元、客户佣金 5,200 万美元、毛利 3.12 亿美元（65%）、净利 1.56 亿美元（32.5%）、成本收入比 67.5%。公式都在页面上：毛利等于收入减直接成本；净利再扣资金、风险和分摊成本；成本收入比等于收入减净利除以收入。每个数字都要能按客户、产品、RM 和实体拆开。
 
 ### S14a' · 3:31–4:13 · Failure Detail
 
-**时长 / 词数 / 语速**：42s · 98 词 · 140 wpm · 功能：失败交易
+**时长 / 词数 / 语速**：42s · 97 词 · 139 wpm · 功能：失败交易
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/order-failure`
 - **画面**：失败交易详情：ORD-1002、16:44 伦敦时间、市场已收盘、GBP 45k、失败原因、客户影响、recovery 五步。
@@ -222,13 +201,9 @@
 
 ## 3. 连续英文口播（提词器版）
 
-**[0:00] S0'**
+**[0:00] S1'**
 
-Before we start, one housekeeping sentence: every name on screen is either a public reference or a demo family, and all bank figures are demo data — not HSBC actuals.
-
-**[0:13] S1'**
-
-Today I will not present an abstract architecture. I will present five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, whether client commission is actually Private Bank gross margin. Fifth, how a failed trade affects client trust and RM performance.
+Five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family’s money actually goes twelve months after a death. Fourth, how the Private Bank is actually performing — AUM, revenue, client commission, gross margin, net margin and cost-to-income, with the formulas on one dashboard. Fifth, how a failed trade affects client trust and RM performance.
 
 **[0:48] S4'**
 
@@ -248,7 +223,7 @@ This is the timeline of one case. The sequence matters. At T+0 the death is noti
 
 **[3:04] S13a'**
 
-This is the revenue and margin cockpit. Client commission is not gross margin. Gross margin must deduct direct cost-to-serve, funding cost and allocated cost. Revenue, gross margin, net margin and cost/income must be decomposable by client, product, RM and legal entity. The monthly trend must distinguish realised, accrued and forecast revenue. Before production, Finance, Treasury, Product Control and transfer pricing must sign off.
+This is the Private Bank operating dashboard: AUM US$31.2bn, revenue US$480m, client commission US$52m, gross margin US$312m at 65%, net margin US$156m at 32.5%, cost/income 67.5%. The formulas are on the page: gross margin is revenue minus direct cost; net margin deducts funding, risk and allocated cost; cost/income is revenue minus net margin over revenue. Every number decomposes by client, product, RM and entity.
 
 **[3:31] S14a'**
 
@@ -264,8 +239,7 @@ Three asks, one decision each. First: approve the minimal usable definitions for
 
 | 镜 | 素材 | 处理 |
 |---|---|---|
-| S0' | 主版 S0 | 直接用 |
-| S1' | 主版 S1 | 只取前 80 词；在 “This workbench is not a marketing site” 前切断 |
+| S1' | 主版 S1 | 只取前 83 词；在 “This workbench is not a marketing site” 前切断 |
 | S4' | 主版 S4 | 直接用；结尾停在 consent pending |
 | S11' | 主版 S11 | 直接用；停在 pending self confirmation |
 | S7' | 主版 S7 | 只取 29 词；保留 8,279 days 与 15 days |

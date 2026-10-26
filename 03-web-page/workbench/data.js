@@ -138,7 +138,15 @@ const WB = {
   },
 
   revenue: {
-    summary: { revenue: 480000000, directCost: 168000000, grossMargin: 312000000, fundingRisk: 8000000, costToServe: 148000000, netMargin: 156000000, costIncome: 67.5, clients: 1840, rms: 64 },
+    summary: { aum: 31200000000, revenue: 480000000, clientCommission: 52000000, directCost: 168000000, grossMargin: 312000000, fundingRisk: 8000000, costToServe: 148000000, netMargin: 156000000, costIncome: 67.5, clients: 1840, rms: 64 },
+    revenueLines: [
+      { line: "Advisory / managed", amount: 224000000 },
+      { line: "Client commission", amount: 52000000 },
+      { line: "Lending / Lombard", amount: 76000000 },
+      { line: "FX / treasury", amount: 36000000 },
+      { line: "Custody", amount: 62000000 },
+      { line: "Trust / estate / family office", amount: 30000000 }
+    ],
     monthly: [
       { month: "2026-05", revenue: 36, grossMargin: 23.4, netMargin: 11.7 },
       { month: "2026-06", revenue: 38, grossMargin: 24.7, netMargin: 12.3 },
