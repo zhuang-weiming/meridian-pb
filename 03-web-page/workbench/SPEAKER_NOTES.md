@@ -78,11 +78,11 @@ Once the event and people are clear, we need a governed valuation.
 
 ### 中文台词
 
-这一页是 Pre-IPO 估值。估值不是给客户一个价格目标，而是给信贷、质押、信托和客户沟通一个可解释的区间。以 DeepSeek 为例：2026 年 7 月公开报道的投后约 US$49–56bn（约 490–560 亿美元；首轮融资约 ¥51bn / 510 亿元人民币）作 primary 输入，再加可比公司和 DCF；三种方法加权后，用同一套折扣栈（流动性 30%、少数股权 10%、集中度 10%）推到方法两端，得到 US$23.9–32.8bn（约 239–328 亿美元）；按 10–30% LTV 政策指引得出可贷参考值。控制权溢价不是折扣项，不予采用。最后提交独立估值委员会。每一个数字都要有估值日、方法、假设、审批人和证据。没有委员会批准，就不能作为可贷价值。
+这一页是 Pre-IPO 估值。估值不是给客户一个价格目标，而是给信贷、质押、信托和客户沟通一个可解释的区间。以 DeepSeek 为例：2026 年 7 月公开报道的投后约 US$49–56bn（约 490–560 亿美元；首轮融资约 ¥51bn / 510 亿元人民币）作 primary 输入，再加可比公司和 DCF；三种方法加权后，用同一套折扣栈（流动性 30%、少数股权 10%、集中度 10%）推到方法两端，得到 US$26.7–29.0bn（约 267–290 亿美元）；按 10–30% LTV 政策指引得出可贷参考值。控制权溢价不是折扣项，不予采用。最后提交独立估值委员会。每一个数字都要有估值日、方法、假设、审批人和证据。没有委员会批准，就不能作为可贷价值。
 
 ### English script
 
-This is pre-IPO valuation; a valuation is not a price target, it is an explainable range for credit, pledge, trust and client communication. For DeepSeek, the July 2026 reported post-money — roughly US$49–56bn — is the primary input, with comparable companies and DCF alongside; each method carries weight, inputs and a range. The same stack — marketability 30, minority 10, concentration 10 — is applied to both ends, giving US$23.9–32.8bn, and a 10–30% LTV guide turns it into indicative lendable value. Control premium is not a discount and is excluded. Every number carries valuation date, method, assumptions, approver and evidence — no committee approval, no lendable value.
+This is pre-IPO valuation; a valuation is not a price target, it is an explainable range for credit, pledge, trust and client communication. For DeepSeek, the July 2026 reported post-money — roughly US$49–56bn — is the primary input, with comparable companies and DCF alongside; each method carries weight, inputs and a range. The same stack — marketability 30, minority 10, concentration 10 — is applied to both ends, giving US$26.7–29.0bn, and a 10–30% LTV guide turns it into indicative lendable value. Control premium is not a discount and is excluded. Every number carries valuation date, method, assumptions, approver and evidence — no committee approval, no lendable value.
 
 ### On screen / 屏幕动作
 
@@ -122,11 +122,11 @@ From a wealth event, we move to the opposite end of the lifecycle: death and con
 
 ### 中文台词
 
-这一页是遗产案件组合。身故不是一个时点，而是一条很长的时间线。组合里每个案件至少有：死亡日期、已过天数、遗产价值、已分配金额、法律成本、当前状态、受益人。我们刻意把公开案例和演示案例放在一起，并且区分结局：Anita Mui 遗嘱信托是“闭环案例”——2003 年身故后信托按遗嘱执行了 23 年，2026 年 8 月母亲（102 岁）离世，信托终止、余款按遗嘱捐给妙境佛学会，一个信托防住了败家、也走完了全程；FOS 案例说明 grant 之后 15 天放款是可测的公开基准；Lo 家族信托（Tao Soh Ngun [2018] HKCFI 380）说明 letter of wishes 与受托人职责冲突的争议路径；He 家族是演示。这个页面的价值是让管理层看到“时间、金额、成本、结果”，而不是只看“案件是否关闭”。
+这一页是遗产案件组合。身故不是一个时点，而是一条很长的时间线。组合里每个案件至少有：死亡日期、已过天数、遗产价值、已分配金额、法律成本、当前状态、受益人。我们刻意把公开案例和演示案例放在一起，并且区分结局：Anita Mui 遗嘱信托是“闭环案例”——2003 年身故后信托按遗嘱执行了 23 年，2026 年 8 月母亲（102 岁）离世，信托终止、余款按遗嘱捐给妙境佛学会，一个信托防住了败家、也走完了全程；FOS 案例说明 grant 之后 15 天放款是可测的公开基准；Lo 家族信托（Tao Soh Ngun [2019] HKCFI 1268）说明 letter of wishes 与受托人职责冲突的争议路径；He 家族是演示。这个页面的价值是让管理层看到“时间、金额、成本、结果”，而不是只看“案件是否关闭”。
 
 ### English script
 
-This is the estate case portfolio. Death is not a point in time; it is a long timeline. Each case carries the date of death, days open, estate value, amount distributed, legal cost, current status and beneficiaries. We deliberately mix public cases and illustrative cases, and mark the endings. The Anita Mui testamentary trust is a closed case: the trust executed the will for twenty-three years after the 2003 death; in August 2026 the mother — aged 102 — passed away, the trust terminated per the will, and the residue went to the charity she named. The Financial Ombudsman case shows a measurable public benchmark: funds released fifteen days after the grant. The Lo Family Trust dispute (Tao Soh Ngun, [2018] HKCFI 380) shows how letters of wishes collide with trustee duties. The He family is illustrative. The value of this page is that management sees time, value, cost and outcome, not only whether the case is closed.
+This is the estate case portfolio. Death is not a point in time; it is a long timeline. Each case carries the date of death, days open, estate value, amount distributed, legal cost, current status and beneficiaries. We deliberately mix public cases and illustrative cases, and mark the endings. The Anita Mui testamentary trust is a closed case: the trust executed the will for twenty-three years after the 2003 death; in August 2026 the mother — aged 102 — passed away, the trust terminated per the will, and the residue went to the charity she named. The Financial Ombudsman case shows a measurable public benchmark: funds released fifteen days after the grant. The Lo Family Trust dispute (Tao Soh Ngun, [2019] HKCFI 1268) shows how letters of wishes collide with trustee duties. The He family is illustrative. The value of this page is that management sees time, value, cost and outcome, not only whether the case is closed.
 
 ### On screen / 屏幕动作
 

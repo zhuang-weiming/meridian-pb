@@ -345,7 +345,7 @@
 
 | # | 案件 | 引用 | HSBC 角色 | 核心事实 | 证明什么 | 系统含义 |
 |---|---|---|---|---|---|---|
-| 1 | **Tao Soh Ngun v HSBC International Trustee** | [2018] HKCFI 380；HCA 3246/2016；背景见 [2018] HKCFI 33 | 受托人 | 1988 信托；1988 letter of wishes vs 2016–17 多封信（买 Great Eagle 至 40%、排除家族成员、分配全部信托）；受托人同时是 KS 所设信托的受托人，被指冲突 | 控制权+意愿书版本+受托人冲突+家族分支 | `LetterOfWishes`/`ControlRight`/`ConflictRegister`/`TrusteeDecision` |
+| 1 | **Tao Soh Ngun v HSBC International Trustee** | [2019] HKCFI 1268（实体，2019-05-22）；程序见 [2018] HKCFI 380 / [2018] HKCFI 33；2020-12 上诉按同意令驳回（discontinued by consent） | 受托人 | 1988 信托；1988 letter of wishes vs 2016–17 多封信（买 Great Eagle 至 40%、排除家族成员、分配全部信托）；受托人同时是 KS 所设信托的受托人，被指冲突；2019 实体判决驳回原告全部请求 | 控制权+意愿书版本+受托人冲突+家族分支 | `LetterOfWishes`/`ControlRight`/`ConflictRegister`/`TrusteeDecision` |
 | 2 | **Tam Mei Kam v HSBC International Trustee** | [2010] HKCA 197；[2017] HKCU 348；2024/2026 公开报道 | 遗嘱执行人+受托人 | 梅艳芳 2003-12-30 去世；同日立遗嘱+设 Karen Trust；母亲每月 HK$70k、侄辈教育 HK$1.7m、剩余慈善；母亲挑战遗嘱/信托，20 年争议；2024 母亲去世，2026 葬礼/遗产再争 | 身故后授权、遗产现金流、家庭供养、信托 vs 遗产、长期管理 | `EstateCase`/`TrustCase`/`BenefitPayment`/`CourtOrder` |
 | 3 | **Kan Lai Kwan v Poon Lok To Otto** | [2014] HKCFA 66 | 受托人 | Jersey 信托持 84.63% Analogue（HK$1.56bn）；丈夫 settlor/protector/受益人，可罢免受托人；6+ 封意愿书；法院认定受托人“great deference”、把丈夫当“valued customer”；CFA 认定整个信托基金都是丈夫资源 | 控制权≠受益权；意愿书权重；受托人独立性/冲突；商业关系污染治理 | `ProtectorPower`/`LetterOfWishes`/`ConflictRegister`/`DecisionRecord` |
 | 4 | **HSBC v Tan Poh Lee** | FSD 175/2019 (IKJ)，Cayman | 受托人 | 2002 信托；设托人 2018 去世，此前中风 3 年；新加坡诉讼、马来西亚禁令、Cayman 信托；受托人向法院交出裁量权 | 跨境失能/身故；三地命令冲突；受托人 conflict；法院 blessing | `CrossBorderCase`/`OrderConflict`/`SurrenderDecision` |
@@ -377,6 +377,7 @@
   - 分配全部信托。
 - 受托人拒绝部分请求，理由是信托是全权信托、原告只是受益人之一、且受托人同时是 KS 信托的受托人，存在利益冲突；受托人提出重组，原告起诉。
 - 2018 判决处理 amendment/split trial：**驳回 amendment、允许 split trial**；实体争议未决。
+- 2019-05-22 实体判决（Wilson Chan J）驳回原告全部请求；2020-12 上诉按同意令驳回（discontinued by consent），受托人获讼费。
 
 **为什么重要**
 

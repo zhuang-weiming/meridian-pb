@@ -521,7 +521,7 @@ node check.js
 
 ### 3. 数据来源与边界
 
-- 公开案例（仅作结构参考，as of 2026-10-26）：DeepSeek 2026 融资轮、Mindray/李西廷、Lens/周群飞、Riverford EOT、Unruly、梅艳芳遗产信托（2026-08-30 闭环）、FOS DRN-4737924、Lo 家族信托 / Tao Soh Ngun [2018] HKCFI 380。
+- 公开案例（仅作结构参考，as of 2026-10-26）：DeepSeek 2026 融资轮、Mindray/李西廷、Lens/周群飞、Riverford EOT、Unruly、梅艳芳遗产信托（2026-08-30 闭环）、FOS DRN-4737924、Lo 家族信托 / Tao Soh Ngun [2019] HKCFI 1268。
 - 命名政策：公众人物只出现在"公开案例"叙述里；账户级记录（订单、onboarding、客户 P&L）一律使用虚构演示家族（He family、UK creator family、AI founder family、Ashworth family）。
 - 银行数字（收入、成本、订单、失败率、estate cohort）为演示数据，需内部财务/运营校准。
 - 不主张任何公开人物是 HSBC 客户；不使用非公开客户数据。

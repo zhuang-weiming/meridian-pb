@@ -56,7 +56,15 @@ assert(Math.abs(rev.costIncome - 100 * (1 - rev.netMargin / rev.revenue)) <= 1, 
 assert.strictEqual(WB.revenue.products.reduce((a, p) => a + p.revenue, 0), rev.revenue, "product P&L must reconcile to total revenue");
 assert.strictEqual(WB.revenue.products.reduce((a, p) => a + p.margin, 0), rev.grossMargin, "product margins must reconcile to gross margin");
 assert.strictEqual(WB.ipo.valuation.methods.reduce((a, m) => a + m.weight, 0), 100, "valuation method weights must sum to 100");
-assert.strictEqual(WB.ipo.valuation.range, "US$23.9bn – US$32.8bn", "valuation range must use one consistent discount stack");
+const val = WB.ipo.valuation;
+const factor = val.discounts.reduce((f, d) => f * (1 - parseFloat(d.value) / 100), 1);
+const weightedLow = val.methods.reduce((a, m) => a + m.low * m.weight / 100, 0);
+const weightedHigh = val.methods.reduce((a, m) => a + m.high * m.weight / 100, 0);
+const rangeLow = (weightedLow * factor).toFixed(1);
+const rangeHigh = (weightedHigh * factor).toFixed(1);
+assert(Math.abs(factor - 0.567) < 1e-9, "valuation discount stack must compound to 56.7%");
+assert.strictEqual(val.range, `US$${rangeLow}bn – US$${rangeHigh}bn`, "valuation range must be reproducible from method weights and discounts");
+assert.strictEqual(val.lendableHint, `US$${(+rangeLow * 0.1).toFixed(1)}bn – US$${(+rangeHigh * 0.3).toFixed(1)}bn (10–30% LTV guide; rule set in demo m4-valuation)`, "lendable guide must follow range and LTV");
 assert.strictEqual(WB.estate.cases[0].daysSinceDeath, 8279, "Mui estate: days 2003-12-30 → 2026-08-30");
 assert.strictEqual(WB.estate.cases[1].probReleaseDays, 15, "FOS case: probate 08-16 → release 08-31 = 15 days");
 assert(WB.estate.cases.some(c => /Closed — trust terminated/.test(c.status)), "Mui estate must be shown as a closed case");

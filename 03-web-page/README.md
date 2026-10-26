@@ -114,5 +114,5 @@ cd ../workbench && node check.js
 - 无后端；状态保存在 localStorage，可重置。
 - 金额、税率、课程、机构为演示；无实时行情、核心系统或 OMS。
 - X1/X2（失能/身故）当前以 `m3-cases` + `m3-family` 预演；完整独立页面不在本版范围。
-- 公开案例（DeepSeek、迈瑞、蓝思、Riverford、Unruly、梅艳芳遗产、FOS DRN-4737924、Lo 家族信托）只作结构参考，账户级记录全部为虚构家族。
+- 公开案例（DeepSeek、迈瑞、蓝思、Riverford、Unruly、梅艳芳遗产、FOS DRN-4737924、Lo 家族信托 / Tao Soh Ngun [2019] HKCFI 1268）只作结构参考，账户级记录全部为虚构家族。
 - 不构成法律、税务或投资建议。

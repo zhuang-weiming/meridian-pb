@@ -2,8 +2,10 @@
 
 > 这里放**可拍摄的成片脚本**，不是分镜计划。两版共用同一批录屏 take、同一套合规角标、同一套数据口径。
 >
-> - **12 分钟主版** → [`12-minute-master-script.md`](12-minute-master-script.md)（19 段 / 1,585 词 / 12:00）
-> - **5 分钟电梯版** → [`5-minute-elevator-script.md`](5-minute-elevator-script.md)（9 镜 / 676 词 / 5:00）
+> - **12 分钟主版** → [`12-minute-master-script.md`](12-minute-master-script.md)（19 段 / 1,566 词 / 12:00）
+> - **5 分钟电梯版** → [`5-minute-elevator-script.md`](5-minute-elevator-script.md)（9 镜 / 668 词 / 5:00）
+>
+> **词数口径：** 英文口播按空白分词，排除独立标点；`T+0`、`US$400–600m` 这类数字/技术串算一个 token。
 >
 > 原始 18–20 分钟中文 Demo 讲稿保留在 [`20-minute-demo-narration-cn.md`](20-minute-demo-narration-cn.md)，用于现场演示，不是成片口播。
 >
@@ -70,7 +72,7 @@ python3 -m http.server 8791
 |---|---|---|---|---|
 | S0 | 13s | 标题卡 | 剪辑 | 合规声明 |
 | S1 | 50s | `rm-workbench#/overview` | `?record=1` | 五个问题 |
-| S2a | 8s | J1–J10 静态卡 | 剪辑 | 4 客户 + 2 使能 P0 |
+| S2a | 8s | J1–J10 静态卡 | 剪辑 | 3 客户 + 1 横向 + 2 使能 P0 |
 | S2b | 40s | `client-journey#/m3-journeys` | `?wipe=1` | 三张蓝图 |
 | S3 | 43s | `client-journey#/m4-private-assets` | `?wipe=1` | 私股生命周期 |
 | S4 | 45s | `rm-workbench#/ipo-pipeline` | `?record=1` | IPO 管道 |
@@ -122,7 +124,7 @@ python3 -m http.server 8791
 
 - [ ] 每镜有独立 take；场记板可读；无系统提示音。
 - [ ] 口播与脚本逐字一致；没有即兴加词。
-- [ ] 数字与页面一致：8,279 天、15 天、97.4、5.5%、480m/65%/32.5%/67.5%、US$23.9–32.8bn。
+- [ ] 数字与页面一致：8,279 天、15 天、97.4、5.5%、480m/65%/32.5%/67.5%、US$26.7–29.0bn。
 - [ ] 公开案例只作结构参考；账户级记录为演示家族。
 - [ ] 英文硬字幕无断词；中文 SRT 与英文一致。
 - [ ] 响度 −16 LUFS；峰值 ≤ −1 dBTP；无爆音。

@@ -22,7 +22,7 @@ python3 -m http.server 8791
 
 ## Data
 
-- Public cases (structural references only, as of 2026-10-26): DeepSeek 2026 round, Mindray / Li Xiting, Lens Technology / Zhou Qunfei, Riverford EOT, Unruly, Mui estate (closed 2026-08-30), FOS DRN-4737924, Lo Family Trust / Tao Soh Ngun [2018] HKCFI 380.
+- Public cases (structural references only, as of 2026-10-26): DeepSeek 2026 round, Mindray / Li Xiting, Lens Technology / Zhou Qunfei, Riverford EOT, Unruly, Mui estate (closed 2026-08-30), FOS DRN-4737924, Lo Family Trust / Tao Soh Ngun [2019] HKCFI 1268.
 - **Naming policy:** public persons appear only in public-case narratives; account-level rows (orders, onboarding files, client P&L) use fictional demo families — He family, UK creator family, AI founder family, Ashworth family.
 - Bank figures are demo data, not HSBC actuals.
 - Every page has a `Data note` describing what must be sourced internally and what needs consent (21/21 pages; see `check.js`).

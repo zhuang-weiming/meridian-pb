@@ -1,4 +1,4 @@
-id,name,type,public_anchor,primary_journey,secondary_journey,public_data,data_to_collect_with_consent,consent_status,risk_note
+﻿id,name,type,public_anchor,primary_journey,secondary_journey,public_data,data_to_collect_with_consent,consent_status,risk_note
 F01,周群飞,Lens Technology founder,"蓝思科技 300433 / 06613；A+H 两个登记系统","S4 退出/流动性","S5 家办/治理","A/H 上市披露、持股、公司公告","家族目标、账户/持仓、跨境税务、信托/受益人、下一代计划","public design only; no client relationship","A/H 同一经济权益、窗口期/披露差异"
 F02,李西廷,Mindray founder,"迈瑞医疗 300750；NYSE 2006–2016 → 深交所 2018 → 港交所 H 股 2025 申请","S3 跨境","S4 退出/流动性","招股书/年报/交易所披露、四地证券制度","税务居民、账户/实体、历史成本、跨境持仓、信托","public design only; no client relationship","退市不等于消失；二十年历史"
 F03,张勇/舒萍,Haidilao founders,"海底捞 06862 / 颐海 01579 / 特海 09658；Apple Trust / Rose Trust；Sunrise Capital（新加坡 SFO）","S5 家办/治理","S2 下一代","上市公司披露、信托/家办公开信息","家族办公室运营、信托受益人、投资政策、下一代角色","public design only; no client relationship","家办是客户群，不是单一自然人"
@@ -14,7 +14,7 @@ F12,Guy Singh-Watson,Riverford founder,"Riverford Organic Farmers；1987 创办�
 F13,Sarah Wood,Unruly co-founder,"Unruly；2006 创办；2015 卖给 News Corp；£58m 首付 + 最高约 £56m 或有对价","S4 退出/流动性","S2 下一代","公开报道/交易披露","earn-out 条款、留任、股权瀑布、税","public design only; no client relationship","headline ≠ 到账；或有对价"
 F14,Jamie Vardy,Footballer,"莱斯特城 2012–2025；英格兰；美国俱乐部少数股东；媒体估计 £37m","S1 教育/复利","S2 下一代","公开报道/俱乐部披露","短收入窗口、形象权、非现金股权、家庭目标","public design only; no client relationship","十年赚完、五十年要花；金额为媒体估计"
 F15,Neame 家族,Shepherd Neame,"Shepherd Neame；1698 年；家族控制；Aquis: SHEP；市值约 £66.9m（2026-10）","S4 退出/流动性","S5 治理","上市公司披露/年报","控制权/薄市场/经营型物业/传承","public design only; no client relationship","控制权很重、流动性很轻"
-F16,梁文锋,DeepSeek founder,"DeepSeek/幻方量化；1985 生；未上市；富豪榜口径约 US$38–46bn（2026-10）","S4 退出/流动性","S2 下一代","公开报道/富豪榜/融资报道","股权结构、lock-up、质押、资本调用、税","public design only; no client relationship","纸面财富；榜单估计"
+F16,梁文锋,DeepSeek founder,"DeepSeek/幻方量化；1985 生；未上市；≈US$36bn（Bloomberg 2026-07）；富豪榜口径随轮次更新","S4 退出/流动性","S2 下一代","公开报道/富豪榜/融资报道","股权结构、lock-up、质押、资本调用、税","public design only; no client relationship","纸面财富；榜单估计"
 F17,Ali Abdaal,Creator,"1994 生于卡拉奇；英国成长；2024 移居香港；YouTube/课程/书/App","S3 跨境","S2 创作者","公开个人简介/公司/出版","UK/HK 税务居民、收入流、公司/版税、账户","public design only; no client relationship","创作者收入无国界；AUM 为设计假设"
 F18,Nadiya Hussain,Creator,"1984 生于 Luton；孟加拉裔；丈夫 Abdal；三个子女；版税/电视","S1 教育/复利","S2 创作者","公开访谈/出版/节目","家庭现金流、版税、教育金、监护、保险","public design only; no client relationship","个人 IP + 家庭现金流；无信托"
 F19,Alvin Leung,Chef/restaurateur,"1961 生于伦敦；加拿大成长；香港 Bo Innovation；多实体/个人担保/品牌","S4 退出/流动性","S5 治理","公开报道/公司/品牌","多实体、个人担保、品牌/IP、传承","public design only; no client relationship","餐饮多实体；个人担保"

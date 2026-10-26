@@ -35,17 +35,17 @@ const WB = {
     valuation: {
       company: "DeepSeek", date: "2026-10-31", latestRound: "≈¥51bn (~US$7.1bn) round, 2026-07; post-money ≈US$49–56bn (media)",
       methods: [
-        { method: "Latest round", weight: 50, input: "Post-money publication median ≈US$52bn", value: "US$52bn", note: "Primary evidence; verify preference/ratchet in deal docs" },
-        { method: "Comparable companies", weight: 30, input: "EV/Sales peer set (illustrative)", value: "US$45–52bn", note: "AI infra peers; growth/margin adjustment" },
-        { method: "DCF", weight: 20, input: "WACC 12%; terminal growth 4% (illustrative)", value: "US$38–48bn", note: "Scenario range; not a price target" }
+        { method: "Latest round", weight: 50, input: "Post-money publication median ≈US$52bn", value: "US$52bn", low: 52, high: 52, note: "Primary evidence; verify preference/ratchet in deal docs" },
+        { method: "Comparable companies", weight: 30, input: "EV/Sales peer set (illustrative)", value: "US$45–52bn", low: 45, high: 52, note: "AI infra peers; growth/margin adjustment" },
+        { method: "DCF", weight: 20, input: "WACC 12%; terminal growth 4% (illustrative)", value: "US$38–48bn", low: 38, high: 48, note: "Scenario range; not a price target" }
       ],
       discounts: [
         { item: "Lack of marketability", value: "30%", rationale: "Pre-IPO / LP-locked economics" },
         { item: "Minority interest", value: "10%", rationale: "No control at asset level" },
         { item: "Concentration", value: "10%", rationale: "Single-asset exposure" }
       ],
-      range: "US$23.9bn – US$32.8bn", rangeBasis: "Same 30% / 10% / 10% stack applied to the low and high end of the method range",
-      lendableHint: "US$2.4bn – US$9.8bn (10–30% LTV guide; rule set in demo m4-valuation)",
+      range: "US$26.7bn – US$29.0bn", rangeBasis: "Weighted method value range US$47.1–51.2bn (latest-round median US$52bn × 50%; comps US$45–52bn × 30%; DCF US$38–48bn × 20%) × 30% marketability × 10% minority × 10% concentration = US$26.7–29.0bn.",
+      lendableHint: "US$2.7bn – US$8.7bn (10–30% LTV guide; rule set in demo m4-valuation)",
       committee: "Private Asset Valuation Committee", status: "Pending approval",
       evidence: ["Cap table per public records (2026-04/07)", "Round documents / LP terms", "Comparable set", "DCF model", "Liquidity/marketability study"]
     },
@@ -70,7 +70,7 @@ const WB = {
     cases: [
       { id: "EST-001", deceased: "Anita Mui (estate, d. 2003-12-30; testamentary trust)", deathDate: "2003-12-30", daysSinceDeath: 8279, probReleaseDays: "—", estateValue: "Public reports: trust pool (legacy, property, royalties)", distributed: "Monthly allowance to mother, 2004–2026; residue per will", legalCost: "Multi-year litigation (public reporting)", status: "Closed — trust terminated 2026-08-30; residue to charity", beneficiaries: "Mother (allowance) / relatives / charity residue", source: "Public reporting (will and trust); trustee as publicly reported" },
       { id: "EST-002", deceased: "Mrs P (FOS DRN-4737924)", deathDate: "2023 (probate granted 2023-08-16)", daysSinceDeath: "—", probReleaseDays: 15, estateValue: "Undisclosed", distributed: "Funds released 2023-08-31 (15 days after grant)", legalCost: "Probate cost", status: "Closed", beneficiaries: "Estate beneficiaries", source: "FOS public decision" },
-      { id: "EST-003", deceased: "Lo Ying Shek (d. 2006) — Lo Family Trust dispute", deathDate: "2006", daysSinceDeath: 7603, probReleaseDays: "—", estateValue: "Trust incl. Great Eagle stake (public)", distributed: "Trust distributions per deed; letters of wishes disputed", legalCost: "Court / trustee costs", status: "Trust administration dispute (CFI 2018)", beneficiaries: "Widow (executrix Tao Soh Ngun) / children", source: "Tao Soh Ngun v HSBC International Trustee Ltd [2018] HKCFI 380" },
+      { id: "EST-003", deceased: "Lo Ying Shek (d. 2006) — Lo Family Trust dispute", deathDate: "2006", daysSinceDeath: 7603, probReleaseDays: "—", estateValue: "Trust incl. Great Eagle stake (public)", distributed: "Trust distributions per deed; letters of wishes disputed", legalCost: "Court / trustee costs", status: "Trust dispute (CFI 2019; appeals discontinued 2020)", beneficiaries: "Widow (executrix Tao Soh Ngun) / children", source: "Tao Soh Ngun v HSBC International Trustee Ltd [2019] HKCFI 1268; procedural [2018] HKCFI 380" },
       { id: "EST-004", deceased: "He family (illustrative)", deathDate: "2026-01-15", daysSinceDeath: 284, probReleaseDays: "—", estateValue: "US$30m (illustrative)", distributed: "US$8m / 27%", legalCost: "US$320k", status: "Probate / estate account", beneficiaries: "Spouse / children / mother", source: "Illustrative" }
     ],
     timeline: [

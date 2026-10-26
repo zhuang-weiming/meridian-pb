@@ -2,7 +2,7 @@
 
 > **这不是 plan，是 final take。** 每一镜的画面、运镜、屏幕动作、完整英文口播、中文对照、人物内心与转场都在这里写死；录制时不需要再翻别的文件。
 >
-> 版本 **v3.1 · 2026-10-26** · 总长 **12:00** · **19 段** · **1,585 词** · 均 **133 wpm** · 录制画幅 **1440×900**
+> 版本 **v3.1 · 2026-10-26** · 总长 **12:00** · **19 段** · **1,566 词** · 均 **131 wpm** · 录制画幅 **1440×900**
 
 **入口：** 客户旅程 `03-web-page/client-journey.html`；运营工作台 `03-web-page/rm-workbench.html`。运行方式见 [`../03-web-page/README.md`](../03-web-page/README.md)。
 
@@ -70,13 +70,13 @@
 
 | # | 时间 | 镜 | 画面 | 词 | 秒 | wpm | 功能 |
 |---|---|---|---|---|---|---|---|
-| 01 | 0:00–0:13 | S0 | 标题卡 · 一句合规声明 | 30 | 13 | 138 | 开场：合规与标题 |
+| 01 | 0:00–0:13 | S0 | 标题卡 · 一句合规声明 | 29 | 13 | 134 | 开场：合规与标题 |
 | 02 | 0:13–1:03 | S1 | 五个运营问题 | 115 | 50 | 138 | 五个运营问题 |
-| 03 | 1:03–1:11 | S2a | J1–J10 静态卡 · 十条旅程，六个 P0 | 10 | 8 | 75 | 旅程组合：4 客户 + 2 使能 P0 |
-| 04 | 1:11–1:51 | S2b | 三张蓝图 · 创始人 / 创作者 / 女性 | 71 | 40 | 106 | 三张客户蓝图 |
-| 05 | 1:51–2:34 | S3 | 私股生命周期 · 纸面价值到可动用价值 | 90 | 43 | 126 | 私股生命周期 |
-| 06 | 2:34–3:19 | S4 | IPO & Wealth Event Pipeline | 99 | 45 | 132 | IPO 财富事件管道 |
-| 07 | 3:19–4:06 | S5 | Pre-IPO Valuation | 107 | 47 | 137 | 估值治理 |
+| 03 | 1:03–1:11 | S2a | J1–J10 静态卡 · 十条旅程，六个 P0 | 11 | 8 | 82 | 旅程组合：3 客户 + 1 横向 + 2 使能 P0 |
+| 04 | 1:11–1:51 | S2b | 三张蓝图 · 创始人 / 创作者 / 女性 | 68 | 40 | 102 | 三张客户蓝图 |
+| 05 | 1:51–2:34 | S3 | 私股生命周期 · 纸面价值到可动用价值 | 88 | 43 | 123 | 私股生命周期 |
+| 06 | 2:34–3:19 | S4 | IPO & Wealth Event Pipeline | 97 | 45 | 129 | IPO 财富事件管道 |
+| 07 | 3:19–4:06 | S5 | Pre-IPO Valuation | 102 | 47 | 130 | 估值治理 |
 | 08 | 4:06–4:43 | S6 | CIB → PB Handoff | 84 | 37 | 136 | CIB → PB 交接 |
 | 09 | 4:43–5:23 | S11 | Family Onboarding | 91 | 40 | 136 | 家族 onboarding |
 | 10 | 5:23–6:01 | S12 | First Investment | 86 | 38 | 136 | 第一次投资 |
@@ -85,12 +85,12 @@
 | 13 | 7:01–7:47 | S9 | Authority & Probate | 106 | 46 | 138 | 授权与 probate |
 | 14 | 7:47–8:26 | S10 | 12-Month Outcomes | 89 | 39 | 137 | 12 个月结果 |
 | 15 | 8:26–8:54 | S13a | Revenue & Margin Cockpit | 63 | 28 | 135 | 收入与毛利 |
-| 16 | 8:54–9:55 | S13b | RM Scorecard | 144 | 61 | 142 | RM 产能 |
-| 17 | 9:55–10:39 | S14a | Failure Detail | 99 | 44 | 135 | 失败交易 |
+| 16 | 8:54–9:55 | S13b | RM Scorecard | 142 | 61 | 140 | RM 产能 |
+| 17 | 9:55–10:39 | S14a | Failure Detail | 97 | 44 | 132 | 失败交易 |
 | 18 | 10:39–11:18 | S14b | Order KPI & Trust | 87 | 39 | 134 | 订单 KPI 与信任 |
-| 19 | 11:18–12:00 | S15 | End card · 三个请求 | 83 | 42 (37+5) | 135 | 三个请求 |
+| 19 | 11:18–12:00 | S15 | End card · 三个请求 | 80 | 42 (37+5) | 130 | 三个请求 |
 
-**合计：** 19 段 · 1,585 词 · 715 秒口播 + 5 秒尾停 = **720 秒 / 12:00**。
+**合计：** 19 段 · 1,566 词 · 715 秒口播 + 5 秒尾停 = **720 秒 / 12:00**。
 
 ---
 
@@ -98,7 +98,7 @@
 
 ### S0 · 0:00–0:13 · 标题卡 · 一句合规声明
 
-**时长 / 词数 / 语速**：13s · 30 词 · 138 wpm · 功能：开场：合规与标题
+**时长 / 词数 / 语速**：13s · 29 词 · 134 wpm · 功能：开场：合规与标题
 
 - **页面 / 路由**：—（剪辑卡）
 - **画面**：黑场起。HSBC 红细线从左侧划入，标题 “Family Lifetime Core” 与副题 “A film about five operating problems” 淡入；右下角版本号。
@@ -138,27 +138,27 @@
 
 ### S2a · 1:03–1:11 · J1–J10 静态卡 · 十条旅程，六个 P0
 
-**时长 / 词数 / 语速**：8s · 10 词 · 75 wpm · 功能：旅程组合：4 客户 + 2 使能 P0
+**时长 / 词数 / 语速**：8s · 11 词 · 82 wpm · 功能：旅程组合：3 客户 + 1 横向 + 2 使能 P0
 
 - **页面 / 路由**：—（剪辑卡：J1–J10）
-- **画面**：全屏静态信息图：J1–J10 十条旅程，三组颜色区分客户旅程（J1–J7）、横向旅程（J8）、使能旅程（J9–J10）；4 条客户 P0 + 2 条使能 P0 用实心标记。
+- **画面**：全屏静态信息图：J1–J10 十条旅程，三组颜色区分客户旅程（J1–J7）、横向旅程（J8）、使能旅程（J9–J10）；3 条客户 P0 + 1 条横向 P0 + 2 条使能 P0 用实心标记。
 - **运镜**：固定 100%；第 2 秒 102% 轻微推近；三组依次亮起，每次 300ms。
 - **屏幕动作**：无交互；只用透明度与描边动画。
-- **屏幕标注**：顶部：10 journeys · 6 priority zero（4 client + 2 enabler）；底部：execution priority: J1 + J8 + J9。
+- **屏幕标注**：顶部：10 journeys · 6 priority zero（3 client + 1 horizontal + 2 enabler）；底部：execution priority: J1 + J8 + J9。
 - **人物内心（导演层，不占口播）**：Head of PB：我们不缺产品，缺的是一条客户真正走得通的路。
 - **转场**：卡面右滑退出 12 帧，露出 m3-journeys 页面。
 
 **英文口播（逐字）**
 
-> Four client journeys and two enablers are all priority zero.
+> Three client journeys, one horizontal journey, two enablers — all priority zero.
 
 **中文对照**
 
-> 四条客户旅程和两条使能旅程都是 P0 优先级。
+> 三条客户旅程、一条横向旅程、两条使能旅程，都是 P0 优先级。
 
 ### S2b · 1:11–1:51 · 三张蓝图 · 创始人 / 创作者 / 女性
 
-**时长 / 词数 / 语速**：40s · 71 词 · 106 wpm · 功能：三张客户蓝图
+**时长 / 词数 / 语速**：40s · 68 词 · 102 wpm · 功能：三张客户蓝图
 
 - **页面 / 路由**：`03-web-page/client-journey.html?wipe=1#/m3-journeys`
 - **画面**：三张蓝图标签（Founder / Creator / Women）、六问框架、五阶段、关键对象、指标、边界、案例与 J1 链接。
@@ -178,7 +178,7 @@
 
 ### S3 · 1:51–2:34 · 私股生命周期 · 纸面价值到可动用价值
 
-**时长 / 词数 / 语速**：43s · 90 词 · 126 wpm · 功能：私股生命周期
+**时长 / 词数 / 语速**：43s · 88 词 · 123 wpm · 功能：私股生命周期
 
 - **页面 / 路由**：`03-web-page/client-journey.html?wipe=1#/m4-private-assets`
 - **画面**：私股生命周期六个 tab：Asset Intake / Capital Calls / Earn-Outs / Obligation Calendar / Valuation Governance / Pledge & Credit。
@@ -198,7 +198,7 @@
 
 ### S4 · 2:34–3:19 · IPO & Wealth Event Pipeline
 
-**时长 / 词数 / 语速**：45s · 99 词 · 132 wpm · 功能：IPO 财富事件管道
+**时长 / 词数 / 语速**：45s · 97 词 · 129 wpm · 功能：IPO 财富事件管道
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/ipo-pipeline`
 - **画面**：财富事件管道：KPI 条 + 事件表（公司 / 交易所 / 阶段 / 预计时间 / CIB 覆盖 / 持股 / 估计财富 / PB 状态 / owner）。
@@ -218,11 +218,11 @@
 
 ### S5 · 3:19–4:06 · Pre-IPO Valuation
 
-**时长 / 词数 / 语速**：47s · 107 词 · 137 wpm · 功能：估值治理
+**时长 / 词数 / 语速**：47s · 102 词 · 130 wpm · 功能：估值治理
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/ipo-valuation`
 - **画面**：估值页：三种方法（公开轮 / 可比 / DCF）与权重、折扣表、区间、LTV 指引、委员会证据清单。
-- **运镜**：自上而下 2 秒 scroll；1.2 推进到折扣表；说到区间时框选 US$23.9–32.8bn；最后下摇到 committee approver。
+- **运镜**：自上而下 2 秒 scroll；1.2 推进到折扣表；说到区间时框选 US$26.7–29.0bn；最后下摇到 committee approver。
 - **屏幕动作**：hover 三种方法；停在折扣表三列（marketability 30 / minority 10 / concentration 10）；highlight “control premium excluded”；滚动到 committee。
 - **屏幕标注**：屏幕浮层：no committee approval → no lendable value；右侧：valuation date + evidence。
 - **人物内心（导演层，不占口播）**：客户：这个估值能解释吗？银行凭什么拿它给我贷款？
@@ -230,11 +230,11 @@
 
 **英文口播（逐字）**
 
-> This is pre-IPO valuation; a valuation is not a price target, it is an explainable range for credit, pledge, trust and client communication. For DeepSeek, the July 2026 reported post-money — roughly US$49–56bn — is the primary input, with comparable companies and DCF alongside; each method carries weight, inputs and a range. The same stack — marketability 30, minority 10, concentration 10 — is applied to both ends, giving US$23.9–32.8bn, and a 10–30% LTV guide turns it into indicative lendable value. Control premium is not a discount and is excluded. Every number carries valuation date, method, assumptions, approver and evidence — no committee approval, no lendable value.
+> This is pre-IPO valuation; a valuation is not a price target, it is an explainable range for credit, pledge, trust and client communication. For DeepSeek, the July 2026 reported post-money — roughly US$49–56bn — is the primary input, with comparable companies and DCF alongside; each method carries weight, inputs and a range. The same stack — marketability 30, minority 10, concentration 10 — is applied to both ends, giving US$26.7–29.0bn, and a 10–30% LTV guide turns it into indicative lendable value. Control premium is not a discount and is excluded. Every number carries valuation date, method, assumptions, approver and evidence — no committee approval, no lendable value.
 
 **中文对照**
 
-> 这一页是 Pre-IPO 估值。估值不是给客户一个价格目标，而是给信贷、质押、信托和客户沟通一个可解释的区间。以 DeepSeek 为例：2026 年 7 月公开报道的投后约 US$49–56bn（约 490–560 亿美元；首轮融资约 ¥51bn / 510 亿元人民币）作 primary 输入，再加可比公司和 DCF；三种方法加权后，用同一套折扣栈（流动性 30%、少数股权 10%、集中度 10%）推到方法两端，得到 US$23.9–32.8bn（约 239–328 亿美元）；按 10–30% LTV 政策指引得出可贷参考值。控制权溢价不是折扣项，不予采用。最后提交独立估值委员会。每一个数字都要有估值日、方法、假设、审批人和证据。没有委员会批准，就不能作为可贷价值。
+> 这一页是 Pre-IPO 估值。估值不是给客户一个价格目标，而是给信贷、质押、信托和客户沟通一个可解释的区间。以 DeepSeek 为例：2026 年 7 月公开报道的投后约 US$49–56bn（约 490–560 亿美元；首轮融资约 ¥51bn / 510 亿元人民币）作 primary 输入，再加可比公司和 DCF；三种方法加权后，用同一套折扣栈（流动性 30%、少数股权 10%、集中度 10%）推到方法两端，得到 US$26.7–29.0bn（约 267–290 亿美元）；按 10–30% LTV 政策指引得出可贷参考值。控制权溢价不是折扣项，不予采用。最后提交独立估值委员会。每一个数字都要有估值日、方法、假设、审批人和证据。没有委员会批准，就不能作为可贷价值。
 
 ### S6 · 4:06–4:43 · CIB → PB Handoff
 
@@ -398,7 +398,7 @@
 
 ### S13b · 8:54–9:55 · RM Scorecard
 
-**时长 / 词数 / 语速**：61s · 144 词 · 142 wpm · 功能：RM 产能
+**时长 / 词数 / 语速**：61s · 142 词 · 140 wpm · 功能：RM 产能
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/revenue-rm`
 - **画面**：RM 计分卡：relationships / households / AUM / support_ratio / segment_mix / service_intensity / workload index；James 行 51 / 0.7 / 97.4。
@@ -418,7 +418,7 @@
 
 ### S14a · 9:55–10:39 · Failure Detail
 
-**时长 / 词数 / 语速**：44s · 99 词 · 135 wpm · 功能：失败交易
+**时长 / 词数 / 语速**：44s · 97 词 · 132 wpm · 功能：失败交易
 
 - **页面 / 路由**：`03-web-page/rm-workbench.html?record=1#/order-failure`
 - **画面**：失败交易详情：ORD-1002、16:44 伦敦时间、市场已收盘、GBP 45k、失败原因、客户影响、recovery 五步。
@@ -458,7 +458,7 @@
 
 ### S15 · 11:18–12:00 · End card · 三个请求
 
-**时长 / 词数 / 语速**：37s 口播 + 5s 停帧 · 83 词 · 135 wpm · 功能：三个请求
+**时长 / 词数 / 语速**：37s 口播 + 5s 停帧 · 80 词 · 130 wpm · 功能：三个请求
 
 - **页面 / 路由**：—（剪辑卡：end card）
 - **画面**：深色 end card，三行 ask 依次出现；底部 HSBC Private Bank / Family Lifetime Core 标识；右下角合规角标保留。
@@ -492,7 +492,7 @@ Today I will not present an abstract architecture. I will present five operating
 
 **[1:03] S2a**
 
-Four client journeys and two enablers are all priority zero.
+Three client journeys, one horizontal journey, two enablers — all priority zero.
 
 **[1:11] S2b**
 
@@ -508,7 +508,7 @@ This is the wealth-event pipeline. We do not look only at IPOs. We include IPOs,
 
 **[3:19] S5**
 
-This is pre-IPO valuation; a valuation is not a price target, it is an explainable range for credit, pledge, trust and client communication. For DeepSeek, the July 2026 reported post-money — roughly US$49–56bn — is the primary input, with comparable companies and DCF alongside; each method carries weight, inputs and a range. The same stack — marketability 30, minority 10, concentration 10 — is applied to both ends, giving US$23.9–32.8bn, and a 10–30% LTV guide turns it into indicative lendable value. Control premium is not a discount and is excluded. Every number carries valuation date, method, assumptions, approver and evidence — no committee approval, no lendable value.
+This is pre-IPO valuation; a valuation is not a price target, it is an explainable range for credit, pledge, trust and client communication. For DeepSeek, the July 2026 reported post-money — roughly US$49–56bn — is the primary input, with comparable companies and DCF alongside; each method carries weight, inputs and a range. The same stack — marketability 30, minority 10, concentration 10 — is applied to both ends, giving US$26.7–29.0bn, and a 10–30% LTV guide turns it into indicative lendable value. Control premium is not a discount and is excluded. Every number carries valuation date, method, assumptions, approver and evidence — no committee approval, no lendable value.
 
 **[4:06] S6**
 
