@@ -7,6 +7,18 @@
 
 ## 0. 功能架构图（先看这张）
 
+> **目录导航（5 份文档）：**
+>
+> | 文档 | 回答什么 |
+> |---|---|
+> | **README.md** | 一主键 / 六层 / 十二域；系统版图；NFR；v1.3 对照 |
+> | [`01-capability-and-data-model.md`](01-capability-and-data-model.md) | C01–C12 + X1/X2 能力模型；实体/事件/证据/不变量 |
+> | [`02-avaloq-boundary-and-business-case.md`](02-avaloq-boundary-and-business-case.md) | Avaloq 强项/弱项；为什么替换、替换什么、迁移/闸门 |
+> | [`03-solution-map.md`](03-solution-map.md) | 能力→模块→页面；五个新思路验证；21 页 Workbench |
+> | [`04-rm-tax-guide.md`](04-rm-tax-guide.md) | RM 税务导航：能说/不能说、六问、伙伴转介 |
+>
+> 视频实际 demo 的旅程表在 [`../01-user-journey/00-journey-catalog.md`](../01-user-journey/00-journey-catalog.md)。
+
 ![Functional architecture](functional-architecture.svg)
 
 - 可缩放/可打印版本：[`functional-architecture.html`](functional-architecture.html)
@@ -181,9 +193,10 @@
 
 ## 8. 往下读
 
-- 能力模型：[`01-core-capability-model.md`](01-core-capability-model.md)
-- Avaloq 边界：[`02-avaloq-boundary.md`](02-avaloq-boundary.md)
-- 替换商业论证：[`05-avaloq-replacement-business-case.md`](05-avaloq-replacement-business-case.md)
-- 数据模型：[`03-data-model.md`](03-data-model.md)
-- 解决方案层（模块映射 / Workbench / RM 税务指引 / 五个新思路验证）：[`solution/README.md`](solution/README.md)
-- 旅程与页面映射：[`../01-user-journey/README.md`](../01-user-journey/README.md)、[`../01-user-journey/PAGE-MAP.md`](../01-user-journey/PAGE-MAP.md)
+- 能力模型 + 数据模型：[`01-capability-and-data-model.md`](01-capability-and-data-model.md)
+- Avaloq 边界 + 替换商业论证：[`02-avaloq-boundary-and-business-case.md`](02-avaloq-boundary-and-business-case.md)
+- 解决方案层（模块映射 / Workbench / 五个新思路验证）：[`03-solution-map.md`](03-solution-map.md)
+- RM 税务指引：[`04-rm-tax-guide.md`](04-rm-tax-guide.md)
+- **视频 demo 旅程总表**：[`../01-user-journey/00-journey-catalog.md`](../01-user-journey/00-journey-catalog.md)
+- 旅程、蓝图、场景：[`../01-user-journey/README.md`](../01-user-journey/README.md)
+- 34 客户路由 + 21 工作台页面：[`../01-user-journey/PAGE-MAP.md`](../01-user-journey/PAGE-MAP.md)

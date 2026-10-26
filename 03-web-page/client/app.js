@@ -128,7 +128,7 @@ const App = {
     return `<div class="topbar">
       <button class="icon-btn" data-action="toggle-nav" title="Collapse / expand navigation">☰</button>
       <div class="brand">
-        <div class="brand-mark">HSBC</div>
+        <img class="brand-logo" src="assets/hongkong-hsbc-logo-en.svg" alt="HSBC">
         <div><div class="brand-name">Private Bank</div><div class="brand-sub">Core system blueprint · 34 routes</div></div>
       </div>
       <div class="topbar-spacer"></div>
@@ -233,6 +233,9 @@ const App = {
   },
 
   render() {
+    // Re-rendering replaces the sidebar DOM, which would otherwise reset its
+    // internal scroll position to the top after every navigation click.
+    const sidebarScroll = document.querySelector(".sidebar")?.scrollTop || 0;
     if (this.state.page.startsWith("m4")) this.state.clientId = "C-88421";
     if (this.state.page.startsWith("m5") || this.state.page === "m3-hub") this.state.clientId = "C-7701";
     let page = PAGES.find(p => p.id === this.state.page);
@@ -248,6 +251,8 @@ const App = {
       </div>
     </div>`;
     document.getElementById("app").innerHTML = html;
+    const nextSidebar = document.querySelector(".sidebar");
+    if (nextSidebar) nextSidebar.scrollTop = sidebarScroll;
     this.afterRender();
 
   },

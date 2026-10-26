@@ -42,7 +42,7 @@ The Workbench is the **operating layer** of the existing journey portfolio, not 
 
 Full mapping and before/after steps:
 
-[`01-user-journey/07-operations-map/11-workbench-journeys.md`](../../01-user-journey/07-operations-map/11-workbench-journeys.md)
+[`01-user-journey/06-pilot-and-operations.md`](../../01-user-journey/06-pilot-and-operations.md)
 
 ## Speaker notes
 

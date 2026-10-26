@@ -22,7 +22,8 @@
 ```
 03-web-page/
 ├─ client-journey.html      # 客户 + 顾问：提案、压力测试、家族、私股、税务、门户
-├─ rm-workbench.html        # RM + COO：IPO→PB、身故、onboarding、毛利、失败交易
+├─ rm-workbench.html        # RM + COO：IPO→PB、onboarding、身故、毛利、失败交易
+├─ assets/                  # 两个入口共用：HSBC logo（SVG）
 ├─ client/                  # client-journey 的 JS / CSS / check（34 路由）
 └─ workbench/               # rm-workbench 的 JS / CSS / check / 台词本（21 页）
 ```
@@ -74,6 +75,8 @@ python3 -m http.server 8791
 
 页面与旅程、文档、影片镜头的完整对应见 [`../01-user-journey/PAGE-MAP.md`](../01-user-journey/PAGE-MAP.md)。
 
+视频电影实际 demo 的旅程（名称、痛点、persona、方案、IT 功能提升）见 [`../01-user-journey/00-journey-catalog.md`](../01-user-journey/00-journey-catalog.md)。
+
 ---
 
 ## 4. 运营工作台（21 页）
@@ -85,6 +88,8 @@ python3 -m http.server 8791
 | Family Onboarding | `onboarding-family` / `-suitability` / `-templates` / `-first` | 配偶/二代独立同意，不绕过适当性 |
 | Revenue & Margin | `revenue-cockpit` / `-client` / `-product` / `-rm` | 客户佣金不是毛利；RM 产能可解释 |
 | Order Trust | `order-monitor` / `-failure` / `-recovery` / `-kpi` | 失败交易按原因、客户影响、RM KPI 计量 |
+
+> 上表按**工作台导航顺序**排列；影片按“顺向 → 逆向”剪辑，所以 onboarding 镜头在 estate 之前，见 [`../04-video-and-movie/README.md`](../04-video-and-movie/README.md)。
 
 每页有 **Speaker notes**（中英双语台词 + 屏幕动作 + 转场）。离线版：[`workbench/SPEAKER_NOTES.md`](workbench/SPEAKER_NOTES.md)。
 
@@ -108,5 +113,6 @@ cd ../workbench && node check.js
 
 - 无后端；状态保存在 localStorage，可重置。
 - 金额、税率、课程、机构为演示；无实时行情、核心系统或 OMS。
+- X1/X2（失能/身故）当前以 `m3-cases` + `m3-family` 预演；完整独立页面不在本版范围。
 - 公开案例（DeepSeek、迈瑞、蓝思、Riverford、Unruly、梅艳芳遗产、FOS DRN-4737924、Lo 家族信托）只作结构参考，账户级记录全部为虚构家族。
 - 不构成法律、税务或投资建议。

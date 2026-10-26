@@ -1,4 +1,140 @@
-# 04 — 五个新思路的审阅、真实案例验证与数据要求
+# 03 — Solution Map：能力、页面、验证与 Workbench
+
+> 本文件把“模块/页面映射”“五个新思路验证”“21 页 Workbench”合并为一份，回答：**能力如何落到页面、运营步骤、字段与指标。**
+> 视频实际 demo 的旅程表见 [`../01-user-journey/00-journey-catalog.md`](../01-user-journey/00-journey-catalog.md)。
+> RM 税务指引是单独规格：[`04-rm-tax-guide.md`](04-rm-tax-guide.md)。
+
+## 视频 demo → 能力域 → 页面（先看这张）
+
+| 影片问题 | Demo journey | 能力域 | 主要页面 | 运营结果 |
+|---|---|---|---|---|
+| IPO / CIB→PB | J2 | C03/C08/C02/C10/X1 | `ipo-*`、`m4-*` | 事件→consent→估值→质押/退出→handoff |
+| 新客户/二代/配偶 | J1/J4/J7 | C01/C02/C03/C04/C06 | `onboarding-*`、`m3-family`、`m1-*` | 家庭图→独立 consent→适当性→首投→复盘 |
+| 身故与传承 | J8 | C09/C02/C03/X1/C12 | `estate-*`、`m4-trust` | 授权→probate→estate/trust→12 个月结果 |
+| 收入与 RM 产能 | J9（J6 为读者） | X2/C12/C05 | `revenue-*` | 收入→毛利→成本→RM 产能 |
+| 失败交易与信任 | J9/J8 | C07/X1/X2/C12 | `order-*` | 失败→原因→恢复→KPI |
+
+## 本文件结构
+
+| 节 | 回答什么 | 原文件（已合并） |
+|---|---|---|
+| A | 能力 → 模块 → 页面；缺口与优先级 | `solution/01-module-map.md` |
+| B | 五个新思路是否成立、案例、数据要求 | `solution/04-five-initiatives-validation.md` |
+| C | 21 页 Workbench 的五个模块与运营步骤 | `solution/05-workbench.md` |
+
+---
+
+## A. 模块 / 页面映射：现有 Demo 有什么、缺什么
+
+<!-- source: 02-functional-architecture/solution/01-module-map.md -->
+
+> 目的：不重写 34 条路由，先把 J1–J10 旅程组合需要的页面补上。
+> 现有客户旅程路由来自 [`../03-web-page/client/pages.js`](../03-web-page/client/pages.js)（入口 `client-journey.html`）；`m3-hub` 已包含 MIT/Athens/女性/慈善/搬迁。
+> 旅程组合见 [`../01-user-journey/00-journey-catalog.md`](../01-user-journey/00-journey-catalog.md)；S1–S5/X1–X5 是场景实例。
+
+---
+
+### 1. 能力 → 模块 → 页面
+
+| 能力 | 模块 | 现有页面 | 缺口 | 优先级 |
+|---|---|---|---|---|
+| **C01 家族/法律主体** | Family Cockpit | `m3-family` | 家族图/实体图/UBO/控制权/分支 | P0 |
+| **C02 角色/授权/同意** | Family Cockpit | `m3-family` 授权缺口 | Authority graph/consent/POA/LPA/deputy/conflict | P0 |
+| **C03 目标/事件/旅程** | Family Cockpit | `m3-family` goals | LifeEvent/Journey/Milestone/Review | P0 |
+| **C04 治理/下一代** | NextGen + Governance | `m3-hub` MIT/Athens/女性 | 学习记录/独立账户/首投/创业/家族宪章/ council | P1 |
+| **C05 家办** | Family Office | 无独立页 | SFO dashboard/consolidation/IPS/运营/CIB | P1 |
+| **C06 投资/顾问** | Proposal/Quant | `m1-*`, `m2-*` | 家族目标/下一代/家办视图 | P1 |
+| **C07 交易/托管/账本** | Avaloq | 无（后台） | 不需要新页面；API/数据 | 保留 |
+| **C08 流动性/私股** | Founder Desk | `m4-*`, `m3-financing` | IPO lifecycle/capital call/earn-out/obligation/insider | P1 |
+| **C09 信托/遗产/保险** | Trust/Estate | `m4-trust` 部分 | Trust/Estate/Probate/Will/Beneficiary/Letter/Insurance | P1 |
+| **C10 税务/跨境/监管** | Tax/Cross-border | `m5-*`, `m3-taxlegal` | TaxPack/责任矩阵/行外收入/CRS/FATCA/remediation | P1 |
+| **C11 慈善** | Philanthropy | `m3-hub` 慈善入口 | Foundation/Grant/Impact | P2 |
+| **C12 服务/生态/渠道** | Service Hub | `m3-hub`, `m3-cases` | Partner/SLA/Referral/Invitation tracking | P1 |
+| **X1 证据/AI** | Audit | `audit` | Decision/Evidence/Conflict/as-of | P0 |
+| **X2 商业衡量** | Dashboard | 无 | FamilyValue/WalletShare/NextGenActivation | P2 |
+
+---
+
+### 2. 需要新增的页面（最小集）
+
+| 页面 | 能力 | 内容 | 对 Ida 的作用 |
+|---|---|---|---|
+| **PB-F01 Family Map** | C01 | 家族图/分支/实体/信托/UBO/控制权 | “家族”成为一等对象 |
+| **PB-F02 Authority & Consent** | C02 | 角色/授权/范围/生效/失效/辖区/consent/冲突 | 压力旅程的底座 |
+| **PB-F03 Goals & Events** | C03 | 教育/创业/搬迁/退出/传承；事件/里程碑 | 阳光旅程 |
+| **PB-N01 NextGen Home** | C04 | MIT/Athens/学习/导师/独立账户/首投/创业 | “下一代”独立客户 |
+| **PB-N02 Family Governance** | C04 | 宪章/ council/会议/接班/冲突 | 家族治理 |
+| **PB-O01 Family Office Dashboard** | C05 | 合并/IPS/风险/成本/CIB/Access | 家办 operating model |
+| **PB-P01 Private Asset Lifecycle** | C08 | 估值/质押/义务/追索/退出/insider | Pre-IPO 生命周期 |
+| **PB-T01 Trust & Estate** | C09 | trust/estate/probate/will/beneficiary/letter | TFS 数字化 |
+| **PB-X01 Tax Data Pack** | C10 | 身份/实体/收入/成本/预扣/CRS/FATCA/顾问 | 替代“代客报税” |
+| **RM Tax Guide** | C10 | `m3-taxlegal` 第三 tab：能说/不能说、六问、数据包、场景卡、Approved Accountant Panel | RM 给事实/边界/转介，不给税务意见 |
+| **J2/J3/J4 Blueprints** | C01/C02/C03/C08/C12 | `m3-journeys`：创始人/创作者/女性一页 blueprint + 跳转 | 让旅程组合可演示/可评审 |
+| **Private Asset Lifecycle** | C08/C10/X1 | `m4-private-assets`：Asset Intake / Valuation Governance / Pledge & Credit / Capital Calls / Earn-Outs / Obligation Calendar | J2 的深挖页面；native English fields |
+| **Family Office Dashboard** | C05/C06/C09/C12 | `m3-family-office`：合并/IPS/服务/治理 | J6 的 P0 看板 |
+| **PB-E01 Evidence & Decisions** | X1 | 事件/证据/决策/冲突/审计/as-of | 信任证明 |
+| **PB-C01 Family Value** | X2 | 收入/钱包/下一代/留存/转介 | 长期回报 |
+
+> 现有 `m3-family` 可以升级为 PB-F01/02/03；`m3-hub` 升级为 PB-N01；`m4-trust` 扩展为 PB-T01；`m5-*` 改造为 PB-X01。
+
+---
+
+### 3. 现有页面的改造
+
+| 现有 | 改造 | 原因 |
+|---|---|---|
+| `m3-family` | 加 Family Map/Authority/Consent/Goals/Events | 家族不是一个人 |
+| `m3-hub` | 加 NextGen 学习记录/独立账户/首投/创业；活动后 30/90 天 | 课程不是终点 |
+| `m4-founder` | 加 IPO lifecycle/capital call/earn-out/insider window | 私股不是贷款 |
+| `m4-trust` | 加 Trust/Estate/Probate/Beneficiary/Letter | 信托/遗产分开 |
+| `m5-*` | 从“税务优化”改为“tax data pack + 责任矩阵 + 顾问” | 不越界/不夸张 |
+| `m3-cases` | 加 X1/X2/X3/X4/X5 case types/authority/evidence | 压力旅程 |
+| `client-portal` | 加 family/next-gen/FO 视图；角色/consent | 家族体验 |
+| `audit` | 加 Decision/Evidence/Conflict/as-of | 法院/监管级 |
+
+---
+
+### 4. 页面与旅程映射
+
+| 旅程 | 页面 |
+|---|---|
+| **S1 教育/复利（J1/J7）** | `m3-family` → `m1-*` → `m2-*` → `m4-trust` |
+| **S2 二代创业（J1/J3）** | `m3-hub` → `m3-family` → `m3-financing`/M4 |
+| **S3 跨境搬迁（J5）** | `m3-cases` → `m3-taxlegal` → `m3-family` |
+| **S4 退出（J2）** | `m4-*` → `m5-*` → `m3-family` |
+| **S5 家办（J1/J6）** | PB-O01 → `m2-*` → `m4-trust` → PB-N02 |
+| **X1 失能（J8）** | PB-F02 → PB-E01 → `m3-cases` |
+| **X2 身故（J8）** | PB-T01 → PB-E01 → `m3-cases` |
+| **X3 离婚/监狱/制裁（J8）** | PB-F01/02 → PB-E01 → `audit` |
+| **X4 税务补救（J8）** | PB-X01 → PB-E01 → `audit` |
+| **X5 欺诈（J8）** | `m3-cases` → `audit` → 风控页 |
+
+---
+
+### 5. 不做什么页面
+
+- 不做“通用 AI 聊天”首页；
+- 不做“生活方式商城”；
+- 不做“客户看不到价值”的活动页；
+- 不做“绕过授权/ probate/制裁”的快捷按钮；
+- 不做“收益承诺/税务隐身”的页面。
+
+---
+
+### 6. 交付顺序
+
+| 阶段 | 页面 |
+|---|---|
+| **P1** | PB-F01/02/03、PB-N01、PB-E01、`m3-family` 升级 |
+| **P2** | PB-O01、PB-P01、PB-T01、PB-X01 |
+| **P3** | X1–X5、PB-C01、`audit` 升级 |
+| **P4** | 规模化/多语言/多辖区 |
+
+---
+
+## B. 五个新思路的验证与数据要求
+
+<!-- source: 02-functional-architecture/solution/04-five-initiatives-validation.md -->
 
 > 目的：先判断这五个思路是否成立、哪些有真实案例支撑、需要什么数据才能证明，再决定页面怎么建。
 > 原则：公开案例只引用公开事实；不主张任何人是 HSBC 客户；银行数据为演示/待内部校准。
@@ -6,7 +142,7 @@
 
 ---
 
-## 一、总体判断
+### 一、总体判断
 
 | 思路 | 判断 | 优先级 | 最大风险 |
 |---|---|---|---|
@@ -18,16 +154,16 @@
 
 ---
 
-## 二、思路 1：CIB 辅导 IPO，PB 承接高管与创始人
+### 二、思路 1：CIB 辅导 IPO，PB 承接高管与创始人
 
-### 2.1 真实案例
+#### 2.1 真实案例
 
 - **梁文锋 / DeepSeek**：未上市，媒体与富豪榜估计数百亿美元；股权集中、锁定期、转让限制、控制权。IPO/融资事件会把“公司银行关系”瞬间变成“创始人个人财富事件”。
 - **周群飞 / 蓝思科技**：深圳与香港两地上市；同一经济权益、两个登记系统；创始人/高管在 A/H 两地都有持股、披露、窗口期、质押和税务问题。
 - **李西廷 / 迈瑞医疗**：纽约上市、退市、深圳上市、申请香港 H 股；四个证券制度、二十年历史；高管/创始人的财富跨制度、跨辖区。
 - **HSBC 自身**：HSBC Access 连接创新经济；HSBC Innovation Banking 覆盖全球创新 hub；HSBC 有 CIB、MSS、Private Bank、TFS。CIB 做 IPO/资本市场，PB 做个人/家族财富，天然可以协同。
 
-### 2.2 业务逻辑
+#### 2.2 业务逻辑
 
 IPO/资本市场事件会同时产生：
 
@@ -40,7 +176,7 @@ IPO/资本市场事件会同时产生：
 
 CIB 有企业关系、交易信息、资本市场能力；PB 有个人/家族关系、信托、投资、信贷。两者协同，可以把“一次性 IPO 收入”变成“长期家族关系”。
 
-### 2.3 合规边界
+#### 2.3 合规边界
 
 “把高管一窝端到 PB”不能按字面执行。正确表述是：
 
@@ -55,7 +191,7 @@ CIB 有企业关系、交易信息、资本市场能力；PB 有个人/家族关
 - 高管/创始人可拒绝、可只使用部分服务；
 - 跨境数据/税务/制裁逐案审查。
 
-### 2.4 需要的数据
+#### 2.4 需要的数据
 
 | 数据 | 用途 |
 |---|---|
@@ -67,7 +203,7 @@ CIB 有企业关系、交易信息、资本市场能力；PB 有个人/家族关
 | 估值方法/折扣/委员会 | Pre-IPO 估值 |
 | 交叉销售转化、收入、留存 | 证明协同有效 |
 
-### 2.5 需要的页面
+#### 2.5 需要的页面
 
 1. **IPO & Wealth Event Pipeline**：CIB 事件、公司、管理层、预计时间、PB 状态。
 2. **Company & Management Profile**：股权、期权、锁定期、跨境、家族结构。
@@ -76,15 +212,15 @@ CIB 有企业关系、交易信息、资本市场能力；PB 有个人/家族关
 
 ---
 
-## 三、思路 2：身故 1 年后，家族资金如何
+### 三、思路 2：身故 1 年后，家族资金如何
 
-### 3.1 真实案例
+#### 3.1 真实案例
 
 - **Tam Mei Kam / 梅艳芳遗产**：2003 年去世；遗嘱/信托争议持续 20 年；母亲每月生活费、侄辈教育金、剩余慈善；2024 年母亲去世后仍有葬礼/遗产争议。说明“身故不是时点，是多年现金流”。
 - **FOS DRN-4737924**：grant of probate 2023-08-16；executor 2023-08-21 登记；2023-08-31 放款；次日关户；HSBC 指引最长 15 个工作日，本案 10 天。说明“时间”可以测量。
 - **Tao Soh Ngun / Kan Lai Kwan**：信托/意愿书/控制权争议，说明“钱有没有到受益人”不等于“事情结束”。
 
-### 3.2 业务逻辑
+#### 3.2 业务逻辑
 
 大多数银行只记录“案件关闭”，不记录“家族 1 年后怎么样”。需要把 use case 变成结果数据：
 
@@ -93,7 +229,7 @@ CIB 有企业关系、交易信息、资本市场能力；PB 有个人/家族关
 - 6–12 个月：债务/税/分配/信托继续；
 - 12 个月后：受益人资金、家族关系、投诉、流失、二次服务。
 
-### 3.3 需要的数据
+#### 3.3 需要的数据
 
 | 数据 | 用途 |
 |---|---|
@@ -105,7 +241,7 @@ CIB 有企业关系、交易信息、资本市场能力；PB 有个人/家族关
 | 12 个月后的受益人账户/留存/投诉 | 结果 |
 | consent/隐私 | 合法追踪 |
 
-### 3.4 需要的页面
+#### 3.4 需要的页面
 
 1. **Estate Case Portfolio**：案件、天数、资产、分配、法律成本、状态。
 2. **Estate Case Timeline**：死亡→POA 终止→executor→probate→estate account→分配→关闭。
@@ -114,16 +250,16 @@ CIB 有企业关系、交易信息、资本市场能力；PB 有个人/家族关
 
 ---
 
-## 四、思路 3：产品组合模板 + 二代/妻子首次投资 + 更大权限
+### 四、思路 3：产品组合模板 + 二代/妻子首次投资 + 更大权限
 
-### 4.1 真实案例
+#### 4.1 真实案例
 
 - **Nadiya Hussain**：版税/电视/三个孩子/没有信托；教育金、监护、家庭现金流是核心。
 - **Ali Abdaal**：UK→HK、创作者收入、多条收入流、两套税制。
 - **HSBC 女性财富报告**：未来五年约 40% 全球可投资财富由女性控制（约 US$113tn）；女性更关注退休、子女教育、慈善；女性创业者少 6 个百分点有导师。
 - **HSBC MIT/Athens**：下一代 23–30 岁课程；课程后需要“第一次投资/独立账户/导师”，否则课程停在活动。
 
-### 4.2 业务逻辑
+#### 4.2 业务逻辑
 
 新客户/二代/配偶需要的不是“完整 UHNW 平台”，而是：
 
@@ -133,14 +269,14 @@ CIB 有企业关系、交易信息、资本市场能力；PB 有个人/家族关
 - 家族成员的 **角色/consent/权限**；
 - 课程/导师/反馈的 **闭环**。
 
-### 4.3 合规边界
+#### 4.3 合规边界
 
 - 模板不等于适当性；每个客户仍要做风险/知识/能力/期限评估；
 - 未成年人/监护人/授权要单独处理；
 - 配偶/子女的权限来自本人 consent/法律授权，不是“家长说了算”；
 - 不承诺收益；模板要披露费用/风险/历史不是未来。
 
-### 4.4 需要的数据
+#### 4.4 需要的数据
 
 | 数据 | 用途 |
 |---|---|
@@ -151,14 +287,14 @@ CIB 有企业关系、交易信息、资本市场能力；PB 有个人/家族关
 | 课程/导师/学习记录 | 下一代激活 |
 | 投诉/退出/NPS | 效果 |
 
-### 4.5 需要的页面
+#### 4.5 需要的页面
 
 1. **Family Onboarding**：人/角色/consent/目标。
 2. **Suitability & Risk**：风险/知识/能力/期限。
 3. **Portfolio Templates**：保本/收益/平衡/增长/流动性/ESG。
 4. **First Investment**：小额、模板、适当性、下单、确认、教育。
 
-### 4.6 RM 客户数量基准（为什么 35–51 是合理的）
+#### 4.6 RM 客户数量基准（为什么 35–51 是合理的）
 
 公开基准：
 
@@ -189,9 +325,9 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 
 ---
 
-## 五、思路 4：客户佣金 = PB 毛利；实时收入大屏
+### 五、思路 4：客户佣金 = PB 毛利；实时收入大屏
 
-### 5.1 业务逻辑
+#### 5.1 业务逻辑
 
 客户贡献的收入不只是“佣金”：
 
@@ -216,7 +352,7 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 - **成本**（RM 时间、ops、legal、tech、资金成本）；
 - **风险调整**（资本/信用/流动性）。
 
-### 5.2 需要的数据
+#### 5.2 需要的数据
 
 | 数据 | 用途 |
 |---|---|
@@ -227,7 +363,7 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 | 预算/预测 | 对比 |
 | 收入确认/应计 | 实时口径 |
 
-### 5.3 需要的页面
+#### 5.3 需要的页面
 
 1. **Revenue Cockpit**：收入、毛利、净利、成本收入比、趋势。
 2. **Client P&L**：客户收入/成本/毛利/钱包份额。
@@ -236,9 +372,9 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 
 ---
 
-## 六、思路 5：失败交易比例、RM KPI 与客户信任
+### 六、思路 5：失败交易比例、RM KPI 与客户信任
 
-### 6.1 业务逻辑
+#### 6.1 业务逻辑
 
 一笔订单从创建到结算，可能失败在：
 
@@ -256,7 +392,7 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 - **不可控失败**（市场/系统/对手方）；
 - **可恢复失败**（重试/改单/替代市场）。
 
-### 6.2 需要的数据
+#### 6.2 需要的数据
 
 | 数据 | 用途 |
 |---|---|
@@ -268,7 +404,7 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 | 成交/TCA | 质量 |
 | RM KPI | 激励 |
 
-### 6.3 需要的页面
+#### 6.3 需要的页面
 
 1. **Order Monitor**：实时订单、失败率、原因、市场/系统状态。
 2. **Failure Detail**：订单、原因、客户影响、RM、恢复。
@@ -277,7 +413,7 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 
 ---
 
-## 七、五个思路与原 J1–J10 的整合
+### 七、五个思路与原 J1–J10 的整合
 
 | 新思路 | 对应旅程 | 新增能力 |
 |---|---|---|
@@ -289,9 +425,9 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 
 ---
 
-## 八、数据采集清单（优先级）
+### 八、数据采集清单（优先级）
 
-### P0：先采
+#### P0：先采
 
 1. IPO/并购/老股 pipeline、管理层持股、锁定期、PB 关系；
 2. 身故案件时间线、资产/分配/费用、12 个月受益人结果；
@@ -299,14 +435,14 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 4. 订单状态、失败原因码、市场日历、系统 incident；
 5. 客户 consent/权限/适当性。
 
-### P1：再采
+#### P1：再采
 
 1. 课程/导师/下一代激活；
 2. 组合模板使用/首次投资转化；
 3. 客户投诉/NPS/留存；
 4. 跨境数据/税务/信托。
 
-### P2：长期
+#### P2：长期
 
 1. 家族钱包份额；
 2. 家办 AUA/服务渗透；
@@ -315,7 +451,7 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 
 ---
 
-## 九、结论
+### 九、结论
 
 这五个思路不是“五个孤立功能”，而是同一条主线：
 
@@ -331,10 +467,77 @@ Workbench 用一个“workload index”把它们合成可解释指标：
 
 ---
 
-## 十、来源
+### 十、来源
 
 - HSBC Access、HSBC Innovation Banking、HSBC TFS 80 年、HSBC 2025 年报、HSBC 女性财富报告、HSBC MIT/Athens。
 - Citi Private Capital Group、UBS GFO 2025、SCB The Great Repositioning。
 - Tam Mei Kam、Tao Soh Ngun、Kan Lai Kwan、Tan Poh Lee 判例；FOS DRN-4737924。
 - 公开人物：梁文锋、周群飞、李西廷、Guy Singh-Watson、Sarah Wood、Neame、Nadiya Hussain、Ali Abdaal。
 - Avaloq 源码审计：`DOC_STEX`、`DOC_SETTLE`、`BALSTRU_CALC#MV`、`TAX2_EVT`、`COLLAT_LOT_DISTR#CMPL`、`LIHI`。
+
+---
+
+## C. Operating Workbench：五个业务问题的 21 页
+
+<!-- source: 02-functional-architecture/solution/05-workbench.md -->
+
+> 目的：把“五个新思路”从观点变成可点击的业务步骤、字段、状态和指标。
+> 位置：[`../03-web-page/rm-workbench.html`](../03-web-page/rm-workbench.html)；与客户旅程入口 [`../03-web-page/client-journey.html`](../03-web-page/client-journey.html) 分开：一个讲客户故事，一个做运营流程。
+> 数据：公开案例只作结构参考；银行数字为演示；每页有 Data note。
+
+---
+
+### 1. 运行
+
+```bash
+cd meridian-pb
+python3 -m http.server 8791
+# http://localhost:8791/03-web-page/rm-workbench.html
+```
+
+校验：
+
+```bash
+cd 03-web-page/workbench
+node check.js
+# OK — 21 pages rendered, balanced div stacks, 21 bilingual speaker scripts, RM capacity fields valid, 5 client P&Ls reconciled, order/estate facts coherent.
+```
+
+每一页右上角有 **Speaker notes**，可打开中英文台词、屏幕动作和转场。离线版：[`../03-web-page/workbench/SPEAKER_NOTES.md`](../03-web-page/workbench/SPEAKER_NOTES.md)；源数据：[`../03-web-page/workbench/scripts.js`](../03-web-page/workbench/scripts.js)。
+
+---
+
+### 2. 五个模块
+
+| 模块 | 页面 | 证明什么 |
+|---|---|---|
+| **1 · IPO & PB** | IPO & Wealth Event Pipeline · Company & Management · Pre-IPO Valuation · CIB → PB Handoff | CIB/MSS 识别财富事件；PB 在 consent/wall/KYC 后承接 |
+| **2 · Estate & Continuity** | Estate Case Portfolio · Estate Case Timeline · Authority & Probate · 12-Month Outcomes | 身故是多年流程；授权、probate、资金和结果可测量 |
+| **3 · Family Onboarding** | Family Onboarding · Suitability & Risk · Portfolio Templates · First Investment | 二代/配偶低门槛 onboarding，但不绕过适当性 |
+| **4 · Revenue & Margin** | Revenue & Margin Cockpit · Client P&L · Product P&L · RM Scorecard | 客户佣金不是毛利；收入/成本/服务成本一起看 |
+| **5 · Order Trust** | Order Monitor · Failure Detail · Recovery Workflow · Order KPI & Trust | 失败交易按原因/客户影响/RM KPI 可测量 |
+
+---
+
+### 3. 数据来源与边界
+
+- 公开案例（仅作结构参考，as of 2026-10-26）：DeepSeek 2026 融资轮、Mindray/李西廷、Lens/周群飞、Riverford EOT、Unruly、梅艳芳遗产信托（2026-08-30 闭环）、FOS DRN-4737924、Lo 家族信托 / Tao Soh Ngun [2018] HKCFI 380。
+- 命名政策：公众人物只出现在"公开案例"叙述里；账户级记录（订单、onboarding、客户 P&L）一律使用虚构演示家族（He family、UK creator family、AI founder family、Ashworth family）。
+- 银行数字（收入、成本、订单、失败率、estate cohort）为演示数据，需内部财务/运营校准。
+- 不主张任何公开人物是 HSBC 客户；不使用非公开客户数据。
+- 每页 Data note 写清“哪些需要内部数据、哪些需要 consent、哪些只是演示”。
+
+---
+
+### 4. 与客户旅程入口的关系
+
+| | `client-journey.html` | `rm-workbench.html` |
+|---|---|---|
+| 目的 | 客户旅程叙事、页面原型 | 运营步骤、字段、状态、指标 |
+| 用户 | 客户/领导 | RM/COO/Finance/Operations/Compliance |
+| 内容 | 教育/复利/二代/退出/信托/税务 | IPO→PB、estate 12 个月、onboarding、毛利、失败交易 |
+| 数据 | 演示人物/金额 | 公开案例 + 演示银行数据 |
+
+两者共用同一套设计输入，不互相替代；都放在 [`03-web-page/`](../03-web-page/README.md)。
+
+---

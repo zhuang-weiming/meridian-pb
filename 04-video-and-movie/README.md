@@ -2,10 +2,12 @@
 
 > 这里放**可拍摄的成片脚本**，不是分镜计划。两版共用同一批录屏 take、同一套合规角标、同一套数据口径。
 >
-> - **12 分钟主版** → [`12-minute-master-script.md`](12-minute-master-script.md)（19 段 / 1,609 词 / 12:00）
-> - **5 分钟电梯版** → [`5-minute-elevator-script.md`](5-minute-elevator-script.md)（9 镜 / 686 词 / 5:00）
+> - **12 分钟主版** → [`12-minute-master-script.md`](12-minute-master-script.md)（19 段 / 1,585 词 / 12:00）
+> - **5 分钟电梯版** → [`5-minute-elevator-script.md`](5-minute-elevator-script.md)（9 镜 / 676 词 / 5:00）
 >
 > 原始 18–20 分钟中文 Demo 讲稿保留在 [`20-minute-demo-narration-cn.md`](20-minute-demo-narration-cn.md)，用于现场演示，不是成片口播。
+>
+> **视频 demo 的旅程总表**（名称、痛点、persona、解决方案、IT 功能提升、镜头/页面）：[`../01-user-journey/00-journey-catalog.md`](../01-user-journey/00-journey-catalog.md)。
 
 ---
 
@@ -15,12 +17,14 @@
 |---|---|---|
 | 观众 | CEO、董事会、ExCo、业务负责人 | 只有一次转发机会的高管/董事 |
 | 任务 | 让观众同意“旧核心回答不了五个经营问题”，并看到新核心的差异 | 用五个问题各一个最强锚点，换三个决定 |
-| 结构 | 开场 → 蓝图 → 私股 → 五个问题 → 三个请求 | 开场 → 五个问题（各一锚点）→ 三个请求 |
+| 结构 | 开场（五个问题 + 蓝图）→ 私股 → 五个问题（顺向 → 逆向）→ 三个请求 | 开场 → 五个问题（顺向 → 逆向，各一锚点）→ 三个请求 |
 | 是否独立 | 是 | 是；不是主版的随机剪短 |
-| 素材 | 19 段独立 take | 复用主版 9 段 take + 2 段摘句 |
+| 素材 | 19 段独立 take | 复用主版 9 段素材：7 段直用 + 2 段摘句 |
 | 结尾 | 三行 ask + 5 秒停帧 | 三行 ask + 3 秒停帧 + 10 秒缓冲 |
 
-**五个问题在两版中都不缺：** IPO/CIB→PB、身故与传承、家族 onboarding、收入与毛利、失败交易。5 分钟版删掉的是论证细节（蓝图、估值/交接、授权矩阵、12 个月 cohort、RM 产能），不是问题本身。
+**五个问题在两版中都不缺：** IPO/CIB→PB、家族 onboarding、身故与传承、收入与毛利、失败交易。5 分钟版删掉的是论证细节（蓝图、估值/交接、授权矩阵、12 个月 cohort、RM 产能），不是问题本身。
+
+**叙事顺序：** 先把顺向旅程讲完（IPO、家族 onboarding），再进入逆向旅程（身故与传承），最后看银行自身的经营与失败（收入、失败交易）。这样“身故”不会打断“新客户/二代/配偶”的进入路径；20 分钟现场版同序。
 
 ---
 
@@ -58,6 +62,8 @@ python3 -m http.server 8791
 
 ## 3. 镜头与素材清单
 
+> 下表按最终播放顺序排列；S 编号是素材/take 编号，不是播放序号。
+
 ### 12 分钟主版（19 段）
 
 | 段 | 时长 | 页面/素材 | 录制 | 备注 |
@@ -70,12 +76,12 @@ python3 -m http.server 8791
 | S4 | 45s | `rm-workbench#/ipo-pipeline` | `?record=1` | IPO 管道 |
 | S5 | 47s | `rm-workbench#/ipo-valuation` | `?record=1` | 估值治理 |
 | S6 | 37s | `rm-workbench#/ipo-handoff` | `?record=1` | CIB→PB 交接 |
+| S11 | 40s | `rm-workbench#/onboarding-family` | `?record=1` | 家族 onboarding |
+| S12 | 38s | `rm-workbench#/onboarding-first` | `?record=1` | 第一次投资 |
 | S7 | 15s | `rm-workbench#/estate-portfolio` | `?record=1` | 时间/金额/结果 |
 | S8 | 45s | `rm-workbench#/estate-case` | `?record=1` | 单个案件时间线 |
 | S9 | 46s | `rm-workbench#/estate-authority` | `?record=1` | 授权矩阵 |
 | S10 | 39s | `rm-workbench#/estate-outcomes` | `?record=1` | 12 个月 cohort |
-| S11 | 40s | `rm-workbench#/onboarding-family` | `?record=1` | 家族 onboarding |
-| S12 | 38s | `rm-workbench#/onboarding-first` | `?record=1` | 第一次投资 |
 | S13a | 28s | `rm-workbench#/revenue-cockpit` | `?record=1` | 收入与毛利 |
 | S13b | 61s | `rm-workbench#/revenue-rm` | `?record=1` | RM 产能 |
 | S14a | 44s | `rm-workbench#/order-failure` | `?record=1` | 失败交易 |
@@ -84,7 +90,7 @@ python3 -m http.server 8791
 
 ### 5 分钟电梯版（9 镜）
 
-直接复用：S0、S4、S8、S11、S13a、S14a、S15 的主版 take；S1' 从 S1 取前 80 词；S7' 从 S7 取 29 词。剪辑表见 5 分钟脚本 §4。
+直接复用：S0、S4、S11、S8、S13a、S14a、S15 的主版 take；S1' 从 S1 取前 80 词；S7' 从 S7 取 29 词。剪辑表见 5 分钟脚本 §4。
 
 ---
 

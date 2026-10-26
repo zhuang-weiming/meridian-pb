@@ -1,6 +1,6 @@
 # HSBC Private Bank · Client & Advisor Journey (EN)
 
-The **client and advisor journey** prototype: a clickable, editable, role-switchable front end covering 5 use cases across 34 routes (including the Family Cockpit / Case Workbench household layer, J2/J3/J4 journey blueprints, Private Asset Lifecycle plus client / vendor / audit portals), mapped to the 34-route client/advisor prototype.
+The **client and advisor journey** prototype: a clickable, editable, role-switchable front end covering 5 use cases across 34 routes, including the Family Cockpit / Case Workbench household layer, J2/J3/J4 journey blueprints, Private Asset Lifecycle plus client / vendor / audit portals.
 
 > All clients, amounts, institutions and tax rates are **demonstration data** and do not constitute investment, tax or legal advice.
 >
@@ -134,6 +134,7 @@ Top-bar `Role` selector (use ☰ in the left nav to collapse / expand):
 | File | Contents |
 |---|---|
 | `../client-journey.html` | Entry point (role-named) |
+| `../assets/hongkong-hsbc-logo-en.svg` | Shared HSBC logo (SVG), used by both entries |
 | `styles.css` | Design system (HSBC red / navy / data density) |
 | `data.js` | Demo data (clients, proposals, stress, backtest, financing, vendors, valuation, trust, tax) |
 | `ui.js` | Components and charts (table/field/donut/bars/lineChart/toast/drawer/modal) |

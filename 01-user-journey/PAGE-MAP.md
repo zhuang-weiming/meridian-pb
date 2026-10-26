@@ -12,28 +12,28 @@
 
 | # | 路由 | 页面 | 主旅程 | 也服务 | 依据文档 | 影片 |
 |---|---|---|---|---|---|---|
-| 1 | `m1-dashboard` | Proposal Inbox | J9 RM | J7 | [S1](05-scenarios/01-sunny-journeys.md) | — |
-| 2 | `m1-proposal` | Proposal Studio | J7 | J2 | [S1](05-scenarios/01-sunny-journeys.md) | — |
-| 3 | `m1-execution` | Execution Blueprint | J7 | J9 | [S1](05-scenarios/01-sunny-journeys.md) | — |
-| 4 | `m1-compliance` | Compliance Gate | J9 | J7 | [S1](05-scenarios/01-sunny-journeys.md) | — |
-| 5 | `m1-orders` | Orders & TCA | J9 | J7 | [S1](05-scenarios/01-sunny-journeys.md) | — |
-| 6 | `m2-allocation` | Allocation Studio | J7 | J2 | [S1](05-scenarios/01-sunny-journeys.md) | — |
-| 7 | `m2-stress` | Stress Test | J7 | J8 | [S1](05-scenarios/01-sunny-journeys.md) | — |
-| 8 | `m2-backtest` | Backtest Lab | J7 | — | [S1](05-scenarios/01-sunny-journeys.md) | — |
-| 9 | `m2-decision` | RM Decision Card | J9 | J7 | [S1](05-scenarios/01-sunny-journeys.md) | — |
-| 10 | `m3-financing` | Financing Cockpit | J2 | J8 | [J2](04-blueprints/05-j2-founder.md) · [J8](04-blueprints/10-j8-trust-continuity.md) | — |
-| 11 | `m3-taxlegal` | Tax / Legal Cockpit | J5 | J10 | [Portfolio](03-portfolio/00-journey-portfolio.md) · [RM tax guide](../02-functional-architecture/solution/03-rm-tax-guide.md) | — |
-| 12 | `m3-hub` | Services / Invitations | J1 | J3/J4/J6 | [J3](04-blueprints/06-j3-creator.md) · [J4](04-blueprints/07-j4-women.md) · [J6](04-blueprints/09-j6-family-office.md) | — |
-| 13 | `m3-journeys` | Journey blueprints | J2 | J3/J4 | [J2](04-blueprints/05-j2-founder.md) · [J3](04-blueprints/06-j3-creator.md) · [J4](04-blueprints/07-j4-women.md) | **S2b** |
-| 14 | `m3-family` | Family Cockpit | J1 | J4/J8 | [J8](04-blueprints/10-j8-trust-continuity.md) · [Portfolio](03-portfolio/00-journey-portfolio.md) | — |
-| 15 | `m3-cases` | Case Workbench | J8 | J9 | [J8](04-blueprints/10-j8-trust-continuity.md) | — |
-| 16 | `m3-family-office` | Family Office Dashboard | J6 | J1 | [J6](04-blueprints/09-j6-family-office.md) | — |
-| 17 | `m4-founder` | Founder 360 | J2 | J6 | [J2](04-blueprints/05-j2-founder.md) · [J2 cases](04-blueprints/08-j2-real-cases-and-peer-solutions.md) | — |
-| 18 | `m4-valuation` | Independent Valuation Committee | J2 | J8 | [J2 cases](04-blueprints/08-j2-real-cases-and-peer-solutions.md) | — |
-| 19 | `m4-pledge` | Pledge vs Sell | J2 | J8 | [J2 cases](04-blueprints/08-j2-real-cases-and-peer-solutions.md) | — |
-| 20 | `m4-trust` | Trust / Budget / Tax Ledger | J8 | J2 | [J8](04-blueprints/10-j8-trust-continuity.md) | — |
-| 21 | `m4-private-assets` | Private Asset Lifecycle | J2 | J8 | [J2 cases](04-blueprints/08-j2-real-cases-and-peer-solutions.md) | **S3** |
-| 22 | `m5-intake` | Tax Optimisation Case | J5 | J10 | [Portfolio](03-portfolio/00-journey-portfolio.md) · [RM tax guide](../02-functional-architecture/solution/03-rm-tax-guide.md) | — |
+| 1 | `m1-dashboard` | Proposal Inbox | J9 RM | J7 | [S1](05-scenarios.md) | — |
+| 2 | `m1-proposal` | Proposal Studio | J7 | J2 | [S1](05-scenarios.md) | — |
+| 3 | `m1-execution` | Execution Blueprint | J7 | J9 | [S1](05-scenarios.md) | — |
+| 4 | `m1-compliance` | Compliance Gate | J9 | J7 | [S1](05-scenarios.md) | — |
+| 5 | `m1-orders` | Orders & TCA | J9 | J7 | [S1](05-scenarios.md) | — |
+| 6 | `m2-allocation` | Allocation Studio | J7 | J2 | [S1](05-scenarios.md) | — |
+| 7 | `m2-stress` | Stress Test | J7 | J8 | [S1](05-scenarios.md) | — |
+| 8 | `m2-backtest` | Backtest Lab | J7 | — | [S1](05-scenarios.md) | — |
+| 9 | `m2-decision` | RM Decision Card | J9 | J7 | [S1](05-scenarios.md) | — |
+| 10 | `m3-financing` | Financing Cockpit | J2 | J8 | [J2](03-blueprints.md) · [J8](03-blueprints.md) | — |
+| 11 | `m3-taxlegal` | Tax / Legal Cockpit | J5 | J10 | [Portfolio](00-journey-catalog.md) · [RM tax guide](../02-functional-architecture/04-rm-tax-guide.md) | — |
+| 12 | `m3-hub` | Services / Invitations | J1 | J3/J4/J6 | [J3](03-blueprints.md) · [J4](03-blueprints.md) · [J6](03-blueprints.md) | — |
+| 13 | `m3-journeys` | Journey blueprints | J2 | J3/J4 | [J2](03-blueprints.md) · [J3](03-blueprints.md) · [J4](03-blueprints.md) | **S2b** |
+| 14 | `m3-family` | Family Cockpit | J1 | J4/J8 | [J8](03-blueprints.md) · [Portfolio](00-journey-catalog.md) | — |
+| 15 | `m3-cases` | Case Workbench | J8 | J9 | [J8](03-blueprints.md) | — |
+| 16 | `m3-family-office` | Family Office Dashboard | J6 | J1 | [J6](03-blueprints.md) | — |
+| 17 | `m4-founder` | Founder 360 | J2 | J6 | [J2](03-blueprints.md) · [J2 cases](04-j2-deep-dive.md) | — |
+| 18 | `m4-valuation` | Independent Valuation Committee | J2 | J8 | [J2 cases](04-j2-deep-dive.md) | — |
+| 19 | `m4-pledge` | Pledge vs Sell | J2 | J8 | [J2 cases](04-j2-deep-dive.md) | — |
+| 20 | `m4-trust` | Trust / Budget / Tax Ledger | J8 | J2 | [J8](03-blueprints.md) | — |
+| 21 | `m4-private-assets` | Private Asset Lifecycle | J2 | J8 | [J2 cases](04-j2-deep-dive.md) | **S3** |
+| 22 | `m5-intake` | Tax Optimisation Case | J5 | J10 | [Portfolio](00-journey-catalog.md) · [RM tax guide](../02-functional-architecture/04-rm-tax-guide.md) | — |
 | 23 | `m5-profile` | Tax Profile / Nexus | J5 | J10 | 同上 | — |
 | 24 | `m5-baseline` | Baseline Tax Map | J5 | J10 | 同上 | — |
 | 25 | `m5-levers` | Lever Library | J5 | J10 | 同上 | — |
@@ -43,9 +43,9 @@
 | 29 | `m5-advisor` | HSBC Internal Review / RM Decision | J5 | J10 | 同上 | — |
 | 30 | `m5-delivery` | Client Delivery / Implementation | J5 | J10 | 同上 | — |
 | 31 | `m5-review` | Annual Review | J5 | J10 | 同上 | — |
-| 32 | `client-portal` | Client Portal | J1 | J7 | [Portfolio](03-portfolio/00-journey-portfolio.md) | — |
-| 33 | `vendor-portal` | Vendor Bidding | J10 | — | [Portfolio](03-portfolio/00-journey-portfolio.md) | — |
-| 34 | `audit` | Audit & Evidence | J9 | J10 | [Portfolio](03-portfolio/00-journey-portfolio.md) | — |
+| 32 | `client-portal` | Client Portal | J1 | J7 | [Portfolio](00-journey-catalog.md) | — |
+| 33 | `vendor-portal` | Vendor Bidding | J10 | — | [Portfolio](00-journey-catalog.md) | — |
+| 34 | `audit` | Audit & Evidence | J9 | J10 | [Portfolio](00-journey-catalog.md) | — |
 
 ---
 
@@ -77,10 +77,12 @@
 | 20 | `order-recovery` | Recovery Workflow | J8/J9 | Order Trust | — |
 | 21 | `order-kpi` | Order KPI & Trust | J9 | Order Trust | **S14b** |
 
+> 本表按工作台页面顺序排列；“影片”列只标锚点。影片播放顺序见 04：S11–S12（onboarding）在 S7–S10（estate）之前。
+
 ---
 
 ## 3. 三条使用规则
 
-1. **先看旅程，再看页面。** 先读 [`03-portfolio/00-journey-portfolio.md`](03-portfolio/00-journey-portfolio.md)，确定你在看 J1–J10 的哪一条；再用本表找页面。
+1. **先看旅程，再看页面。** 先读 [`00-journey-catalog.md`](00-journey-catalog.md)，确定你在看 J1–J10 的哪一条；再用本表找页面。
 2. **文档是决策记录，不是页面说明书。** 页面字段会变；文档里的失败链、对象、指标、边界才是稳定内容。
-3. **影片只选锚点。** 12 分钟片只使用 15 个页面/场景锚点（见上表“影片”列），不追求覆盖全部 55 个路由；未入片的页面仍可在现场演示中使用。
+3. **影片只选锚点。** 12 分钟片只使用 16 个页面/场景锚点（14 个工作台页 + 2 个客户页，见两张表的“影片”列），不追求覆盖全部 55 个路由；未入片的页面仍可在现场演示中使用。

@@ -19,8 +19,8 @@ html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); fo
 a { color: inherit; text-decoration: none; }
 #app { display: grid; grid-template-columns: 260px minmax(0, 1fr); min-height: 100vh; }
 .sidebar { background: var(--nav); color: #dbe4f3; padding: 18px 14px 22px; display: flex; flex-direction: column; gap: 12px; position: sticky; top: 0; height: 100vh; overflow: auto; }
-.brand { display: flex; align-items: center; gap: 10px; padding: 4px 6px 10px; border-bottom: 1px solid rgba(255,255,255,.1); }
-.brand-mark { background: #fff; color: var(--red); font-weight: 800; letter-spacing: .08em; font-size: 10px; padding: 7px 6px; border-radius: 4px; }
+.brand { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 4px 6px 10px; border-bottom: 1px solid rgba(255,255,255,.1); }
+.brand-logo { display: block; width: 160px; height: auto; padding: 7px 9px; background: #fff; border-radius: 5px; }
 .brand-name { font-weight: 700; font-size: 14px; color: #fff; }
 .brand-sub { font-size: 10px; color: #9fb0cc; margin-top: 2px; letter-spacing: .04em; text-transform: uppercase; }
 .status { display: flex; align-items: center; gap: 7px; font-size: 10px; color: #9fb0cc; padding: 0 6px 8px; }
