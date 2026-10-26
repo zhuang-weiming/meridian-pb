@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1020" width="1440" height="1020" role="img" aria-label="HSBC Private Bank Family Lifetime Core functional architecture">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker>
+<style>text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif}</style>
+</defs>
+<rect x="0" y="0" width="1440" height="1020" rx="0" fill="#f8fafc" stroke="#f8fafc" stroke-width="0"/>
+<text x="40" y="44" font-size="11" fill="#64748b" font-weight="700" text-anchor="start" letter-spacing="2">HSBC PRIVATE BANK  ·  FAMILY LIFETIME CORE</text>
+<text x="40" y="78" font-size="28" fill="#0f172a" font-weight="750" text-anchor="start">Functional Architecture</text>
+<text x="40" y="103" font-size="11.5" fill="#475569" font-weight="400" text-anchor="start">One primary key, six layers, twelve capability domains. Family is the service view; Party / Entity / Trust / Estate are the legal subjects.</text>
+<text x="40" y="120" font-size="11.5" fill="#475569" font-weight="400" text-anchor="start">Authority is checked before any action; every decision is replayable and evidence-linked.</text>
+<rect x="1004" y="46" width="396" height="58" rx="10" fill="#fff1f3" stroke="#fecdd3" stroke-width="1"/>
+<text x="1020" y="68" font-size="9.5" fill="#9f1239" font-weight="750" text-anchor="start" letter-spacing="0.6">AVALOQ = CAPABILITY REFERENCE + MIGRATION SOURCE</text>
+<text x="1020" y="86" font-size="10.5" fill="#881337" font-weight="400" text-anchor="start">Self-built core. The Avaloq contract is not renewed.</text>
+<rect x="40" y="140" width="196" height="810" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<text x="56" y="168" font-size="9.5" fill="#64748b" font-weight="750" text-anchor="start" letter-spacing="1.2">SIX DESIGN PRINCIPLES</text>
+<circle cx="62" cy="198" r="9" fill="#f1f5f9" stroke="#cbd5e1"/>
+<text x="62" y="201.5" font-size="8.5" fill="#475569" font-weight="700" text-anchor="middle">01</text>
+<text x="78" y="197" font-size="10.2" fill="#0f172a" font-weight="600" text-anchor="start">Family as unit;</text>
+<text x="78" y="210" font-size="10.2" fill="#0f172a" font-weight="600" text-anchor="start">legal entity as subject</text>
+<circle cx="62" cy="250" r="9" fill="#f1f5f9" stroke="#cbd5e1"/>
+<text x="62" y="253.5" font-size="8.5" fill="#475569" font-weight="700" text-anchor="middle">02</text>
+<text x="78" y="249" font-size="10.2" fill="#0f172a" font-weight="600" text-anchor="start">Authority before</text>
+<text x="78" y="262" font-size="10.2" fill="#0f172a" font-weight="600" text-anchor="start">any action</text>
+<circle cx="62" cy="302" r="9" fill="#f1f5f9" stroke="#cbd5e1"/>
+<text x="62" y="305.5" font-size="8.5" fill="#475569" font-weight="700" text-anchor="middle">03</text>
+<text x="78" y="301" font-size="10.2" fill="#0f172a" font-weight="600" text-anchor="start">Event-native;</text>
+<text x="78" y="314" font-size="10.2" fill="#0f172a" font-weight="600" text-anchor="start">as-of by default</text>
+<circle cx="62" cy="354" r="9" fill="#f1f5f9" stroke="#cbd5e1"/>
+<text x="62" y="357.5" font-size="8.5" fill="#475569" font-weight="700" text-anchor="middle">04</text>
+<text x="78" y="353" font-size="10.2" fill="#0f172a" font-weight="600" text-anchor="start">Evidence by design;</text>
+<text x="78" y="366" font-size="10.2" fill="#0f172a" font-weight="600" text-anchor="start">no evidence, no decision</text>
+<circle cx="62" cy="406" r="9" fill="#f1f5f9" stroke="#cbd5e1"/>
+<text x="62" y="409.5" font-size="8.5" fill="#475569" font-weight="700" text-anchor="middle">05</text>
+<text x="78" y="405" font-size="10.2" fill="#0f172a" font-weight="600" text-anchor="start">Consent- and</text>
+<text x="78" y="418" font-size="10.2" fill="#0f172a" font-weight="600" text-anchor="start">jurisdiction-aware</text>
+<circle cx="62" cy="458" r="9" fill="#f1f5f9" stroke="#cbd5e1"/>
+<text x="62" y="461.5" font-size="8.5" fill="#475569" font-weight="700" text-anchor="middle">06</text>
+<text x="78" y="457" font-size="10.2" fill="#0f172a" font-weight="600" text-anchor="start">Buy / partner</text>
+<text x="78" y="470" font-size="10.2" fill="#0f172a" font-weight="600" text-anchor="start">before build</text>
+<line x1="56" y1="520" x2="220" y2="520" stroke="#e2e8f0"/>
+<text x="56" y="544" font-size="9.5" fill="#64748b" font-weight="750" text-anchor="start" letter-spacing="1.2">ONE PRIMARY KEY</text>
+<text x="56" y="564" font-size="10.2" fill="#0f172a" font-weight="400" text-anchor="start">Family  ×  Party</text><text x="56" y="579" font-size="10.2" fill="#0f172a" font-weight="400" text-anchor="start">Role  ×  Authority</text><text x="56" y="594" font-size="10.2" fill="#0f172a" font-weight="400" text-anchor="start">Event  ×  Evidence</text>
+<line x1="56" y1="620" x2="220" y2="620" stroke="#e2e8f0"/>
+<text x="56" y="644" font-size="9.5" fill="#64748b" font-weight="750" text-anchor="start" letter-spacing="1.2">AVALOQ BOUNDARY</text>
+<text x="56" y="664" font-size="10.0" fill="#334155" font-weight="400" text-anchor="start">Reference: ledger, trades,</text><text x="56" y="678" font-size="10.0" fill="#334155" font-weight="400" text-anchor="start">payments, GL, collateral,</text><text x="56" y="692" font-size="10.0" fill="#334155" font-weight="400" text-anchor="start">TAX2 events.</text><text x="56" y="706" font-size="10.0" fill="#334155" font-weight="400" text-anchor="start">Migration source only.</text><text x="56" y="720" font-size="10.0" fill="#334155" font-weight="400" text-anchor="start">No renewal.</text>
+<line x1="56" y1="750" x2="220" y2="750" stroke="#e2e8f0"/>
+<text x="56" y="774" font-size="9.5" fill="#64748b" font-weight="750" text-anchor="start" letter-spacing="1.2">NON-NEGOTIABLES</text>
+<text x="56" y="794" font-size="9.8" fill="#334155" font-weight="400" text-anchor="start">No authority → no action</text><text x="56" y="809" font-size="9.8" fill="#334155" font-weight="400" text-anchor="start">No consent → no disclosure</text><text x="56" y="824" font-size="9.8" fill="#334155" font-weight="400" text-anchor="start">No evidence → no decision</text>
+<text x="260" y="146" font-size="10" fill="#64748b" font-weight="750" text-anchor="start" letter-spacing="1.1">L3 · EXPERIENCE  (build + partner)</text>
+<rect x="260" y="158" width="273" height="64" rx="8" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1"/>
+<text x="274" y="182" font-size="11.8" fill="#12284c" font-weight="700" text-anchor="start">RM cockpit</text>
+<text x="274" y="200" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Pipeline, case queue, pre-trade, next action</text>
+<rect x="549" y="158" width="273" height="64" rx="8" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1"/>
+<text x="563" y="182" font-size="11.8" fill="#12284c" font-weight="700" text-anchor="start">Family portal</text>
+<text x="563" y="200" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Assets, goals, authority, documents</text>
+<rect x="838" y="158" width="273" height="64" rx="8" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1"/>
+<text x="852" y="182" font-size="11.8" fill="#12284c" font-weight="700" text-anchor="start">NextGen app</text>
+<text x="852" y="200" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Learning, first investment, independent consent</text>
+<rect x="1127" y="158" width="273" height="64" rx="8" fill="#eef2f7" stroke="#cbd5e1" stroke-width="1"/>
+<text x="1141" y="182" font-size="11.8" fill="#12284c" font-weight="700" text-anchor="start">Family office console</text>
+<text x="1141" y="200" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Consolidation, IPS, governance, banking + CIB</text>
+<line x1="830" y1="222" x2="830" y2="240" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="842" y="235" font-size="9" fill="#64748b" font-weight="400" text-anchor="start">event / decision / evidence</text>
+<rect x="260" y="244" width="1140" height="384" rx="12" fill="#fff7f8" stroke="#fecdd3" stroke-width="1"/>
+<text x="276" y="268" font-size="10.5" fill="#9f1239" font-weight="750" text-anchor="start" letter-spacing="0.9">L2 · LIFECYCLE CORE  —  new build, the differentiator</text>
+<rect x="276" y="282" width="268" height="88" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="276" y="282" width="4" height="88" rx="2" fill="#c8102e"/>
+<text x="290" y="300" font-size="9.2" fill="#c8102e" font-weight="750" text-anchor="start" letter-spacing="0.4">C01</text>
+<text x="316" y="300" font-size="10.8" fill="#0f172a" font-weight="700" text-anchor="start">Family &amp; legal entity</text>
+<text x="290" y="320" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">People, entities, trusts, estates,</text><text x="290" y="333" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">UBO, roles, as-of</text>
+<rect x="556" y="282" width="268" height="88" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="556" y="282" width="4" height="88" rx="2" fill="#c8102e"/>
+<text x="570" y="300" font-size="9.2" fill="#c8102e" font-weight="750" text-anchor="start" letter-spacing="0.4">C02</text>
+<text x="596" y="300" font-size="10.8" fill="#0f172a" font-weight="700" text-anchor="start">Roles, authority &amp; consent</text>
+<text x="570" y="320" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Who can act, for what, until when,</text><text x="570" y="333" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">in which jurisdiction</text>
+<rect x="836" y="282" width="268" height="88" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="836" y="282" width="4" height="88" rx="2" fill="#c8102e"/>
+<text x="850" y="300" font-size="9.2" fill="#c8102e" font-weight="750" text-anchor="start" letter-spacing="0.4">C03</text>
+<text x="876" y="300" font-size="10.8" fill="#0f172a" font-weight="700" text-anchor="start">Goals, events &amp; journeys</text>
+<text x="850" y="320" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Goals, life events, cases,</text><text x="850" y="333" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">milestones, SLA</text>
+<rect x="1116" y="282" width="268" height="88" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="1116" y="282" width="4" height="88" rx="2" fill="#c8102e"/>
+<text x="1130" y="300" font-size="9.2" fill="#c8102e" font-weight="750" text-anchor="start" letter-spacing="0.4">C04</text>
+<text x="1156" y="300" font-size="10.8" fill="#0f172a" font-weight="700" text-anchor="start">Governance &amp; NextGen</text>
+<text x="1130" y="320" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Charter, council, learning,</text><text x="1130" y="333" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">next-gen readiness</text>
+<rect x="276" y="382" width="268" height="88" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="276" y="382" width="4" height="88" rx="2" fill="#0f766e"/>
+<text x="290" y="400" font-size="9.2" fill="#0f766e" font-weight="750" text-anchor="start" letter-spacing="0.4">C05</text>
+<text x="316" y="400" font-size="10.8" fill="#0f172a" font-weight="700" text-anchor="start">Family office</text>
+<text x="290" y="420" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Consolidated view, IPS,</text><text x="290" y="433" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">banking + CIB + trust services</text>
+<rect x="556" y="382" width="268" height="88" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="556" y="382" width="4" height="88" rx="2" fill="#0f766e"/>
+<text x="570" y="400" font-size="9.2" fill="#0f766e" font-weight="750" text-anchor="start" letter-spacing="0.4">C06</text>
+<text x="596" y="400" font-size="10.8" fill="#0f172a" font-weight="700" text-anchor="start">Investment &amp; advisory</text>
+<text x="570" y="420" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">IPS, proposals, suitability,</text><text x="570" y="433" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">performance, attribution</text>
+<rect x="836" y="382" width="268" height="88" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="836" y="382" width="4" height="88" rx="2" fill="#0f766e"/>
+<text x="850" y="400" font-size="9.2" fill="#0f766e" font-weight="750" text-anchor="start" letter-spacing="0.4">C07</text>
+<text x="876" y="400" font-size="10.8" fill="#0f172a" font-weight="700" text-anchor="start">Trading, custody &amp; IBOR</text>
+<text x="850" y="420" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Orders, trades, positions,</text><text x="850" y="433" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">cash, GL, settlement</text>
+<rect x="1116" y="382" width="268" height="88" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="1116" y="382" width="4" height="88" rx="2" fill="#0f766e"/>
+<text x="1130" y="400" font-size="9.2" fill="#0f766e" font-weight="750" text-anchor="start" letter-spacing="0.4">C08</text>
+<text x="1156" y="400" font-size="10.8" fill="#0f172a" font-weight="700" text-anchor="start">Liquidity, credit &amp; private markets</text>
+<text x="1130" y="420" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Lombard, pledge, valuation,</text><text x="1130" y="433" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">capital calls, exit</text>
+<rect x="276" y="482" width="268" height="88" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="276" y="482" width="4" height="88" rx="2" fill="#b45309"/>
+<text x="290" y="500" font-size="9.2" fill="#b45309" font-weight="750" text-anchor="start" letter-spacing="0.4">C09</text>
+<text x="316" y="500" font-size="10.8" fill="#0f172a" font-weight="700" text-anchor="start">Trust, estate &amp; insurance</text>
+<text x="290" y="520" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Trust, will, probate,</text><text x="290" y="533" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">beneficiary, policy</text>
+<rect x="556" y="482" width="268" height="88" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="556" y="482" width="4" height="88" rx="2" fill="#b45309"/>
+<text x="570" y="500" font-size="9.2" fill="#b45309" font-weight="750" text-anchor="start" letter-spacing="0.4">C10</text>
+<text x="596" y="500" font-size="10.8" fill="#0f172a" font-weight="700" text-anchor="start">Tax, cross-border &amp; regulatory</text>
+<text x="570" y="520" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Tax profile &amp; packs, CRS/FATCA,</text><text x="570" y="533" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">sanctions, PEP, as-of</text>
+<rect x="836" y="482" width="268" height="88" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="836" y="482" width="4" height="88" rx="2" fill="#b45309"/>
+<text x="850" y="500" font-size="9.2" fill="#b45309" font-weight="750" text-anchor="start" letter-spacing="0.4">C11</text>
+<text x="876" y="500" font-size="10.8" fill="#0f172a" font-weight="700" text-anchor="start">Philanthropy &amp; impact</text>
+<text x="850" y="520" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Foundation, grants,</text><text x="850" y="533" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">impact reporting, governance</text>
+<rect x="1116" y="482" width="268" height="88" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<rect x="1116" y="482" width="4" height="88" rx="2" fill="#b45309"/>
+<text x="1130" y="500" font-size="9.2" fill="#b45309" font-weight="750" text-anchor="start" letter-spacing="0.4">C12</text>
+<text x="1156" y="500" font-size="10.8" fill="#0f172a" font-weight="700" text-anchor="start">Service, ecosystem &amp; channel</text>
+<text x="1130" y="520" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">Service requests, partners,</text><text x="1130" y="533" font-size="9.2" fill="#475569" font-weight="400" text-anchor="start">referrals, SLAs, cases</text>
+<rect x="276" y="574" width="780" height="40" rx="7" fill="#12284c" stroke="#12284c" stroke-width="1"/>
+<text x="292" y="591" font-size="9.4" fill="#ffffff" font-weight="750" text-anchor="start" letter-spacing="0.7">X1 · DATA, EVIDENCE &amp; AI</text>
+<text x="292" y="606" font-size="9.0" fill="#cbd5e1" font-weight="400" text-anchor="start">event ledger · evidence · decisions · audit · AI copilot (read-only, cited)</text>
+<rect x="1068" y="574" width="316" height="40" rx="7" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+<text x="1082" y="591" font-size="9.4" fill="#334155" font-weight="750" text-anchor="start" letter-spacing="0.5">X2 · COMMERCIAL &amp; MEASUREMENT</text>
+<text x="1082" y="606" font-size="9.0" fill="#475569" font-weight="400" text-anchor="start">family revenue · retention · wallet share · NPS</text>
+<line x1="830" y1="628" x2="830" y2="650" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="842" y="645" font-size="9" fill="#64748b" font-weight="400" text-anchor="start">authority &amp; event context</text>
+<rect x="260" y="654" width="1140" height="78" rx="10" fill="#eef6f4" stroke="#99f6e4" stroke-width="1"/>
+<text x="276" y="676" font-size="10.2" fill="#115e59" font-weight="750" text-anchor="start" letter-spacing="0.7">L1 · LEGAL ENTITY &amp; RELATIONSHIP GRAPH  —  new build</text>
+<rect x="276" y="686" width="48.68" height="26" rx="6" fill="#ffffff" stroke="#99f6e4" stroke-width="1"/>
+<text x="300.34" y="703" font-size="9.2" fill="#134e4a" font-weight="600" text-anchor="middle">Party</text>
+<rect x="331.68" y="686" width="54.016" height="26" rx="6" fill="#ffffff" stroke="#99f6e4" stroke-width="1"/>
+<text x="358.688" y="703" font-size="9.2" fill="#134e4a" font-weight="600" text-anchor="middle">Entity</text>
+<rect x="392.696" y="686" width="48.68" height="26" rx="6" fill="#ffffff" stroke="#99f6e4" stroke-width="1"/>
+<text x="417.036" y="703" font-size="9.2" fill="#134e4a" font-weight="600" text-anchor="middle">Trust</text>
+<rect x="448.37600000000003" y="686" width="54.016" height="26" rx="6" fill="#ffffff" stroke="#99f6e4" stroke-width="1"/>
+<text x="475.384" y="703" font-size="9.2" fill="#134e4a" font-weight="600" text-anchor="middle">Estate</text>
+<rect x="509.39200000000005" y="686" width="43.343999999999994" height="26" rx="6" fill="#ffffff" stroke="#99f6e4" stroke-width="1"/>
+<text x="531.0640000000001" y="703" font-size="9.2" fill="#134e4a" font-weight="600" text-anchor="middle">Fund</text>
+<rect x="559.7360000000001" y="686" width="91.368" height="26" rx="6" fill="#ffffff" stroke="#99f6e4" stroke-width="1"/>
+<text x="605.4200000000001" y="703" font-size="9.2" fill="#134e4a" font-weight="600" text-anchor="middle">Family Office</text>
+<rect x="658.104" y="686" width="43.343999999999994" height="26" rx="6" fill="#ffffff" stroke="#99f6e4" stroke-width="1"/>
+<text x="679.7760000000001" y="703" font-size="9.2" fill="#134e4a" font-weight="600" text-anchor="middle">Role</text>
+<rect x="708.4480000000001" y="686" width="86.032" height="26" rx="6" fill="#ffffff" stroke="#99f6e4" stroke-width="1"/>
+<text x="751.464" y="703" font-size="9.2" fill="#134e4a" font-weight="600" text-anchor="middle">Relationship</text>
+<rect x="801.4800000000001" y="686" width="38.007999999999996" height="26" rx="6" fill="#ffffff" stroke="#99f6e4" stroke-width="1"/>
+<text x="820.4840000000002" y="703" font-size="9.2" fill="#134e4a" font-weight="600" text-anchor="middle">UBO</text>
+<text x="276" y="722" font-size="8.8" fill="#0f766e" font-weight="400" text-anchor="start">Avaloq BP / REL fields are an input only — they do not define legal authority.</text>
+<line x1="830" y1="732" x2="830" y2="752" stroke="#94a3b8" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="842" y="747" font-size="9" fill="#64748b" font-weight="400" text-anchor="start">positions / cash / collateral</text>
+<rect x="260" y="756" width="1140" height="84" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+<text x="276" y="778" font-size="10.2" fill="#334155" font-weight="750" text-anchor="start" letter-spacing="0.7">L0 · LEDGER &amp; TRANSACTION  —  self-built, reference + rewrite</text>
+<rect x="276" y="788" width="70.024" height="26" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="311.012" y="805" font-size="9.2" fill="#334155" font-weight="600" text-anchor="middle">Positions</text>
+<rect x="353.024" y="788" width="54.016" height="26" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="380.032" y="805" font-size="9.2" fill="#334155" font-weight="600" text-anchor="middle">Trades</text>
+<rect x="414.04" y="788" width="64.68799999999999" height="26" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="446.384" y="805" font-size="9.2" fill="#334155" font-weight="600" text-anchor="middle">Payments</text>
+<rect x="485.728" y="788" width="32.672" height="26" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="502.064" y="805" font-size="9.2" fill="#334155" font-weight="600" text-anchor="middle">GL</text>
+<rect x="525.4" y="788" width="123.38399999999999" height="26" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="587.092" y="805" font-size="9.2" fill="#334155" font-weight="600" text-anchor="middle">Credit / collateral</text>
+<rect x="655.784" y="788" width="80.696" height="26" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="696.132" y="805" font-size="9.2" fill="#334155" font-weight="600" text-anchor="middle">TAX2 events</text>
+<text x="276" y="830" font-size="8.8" fill="#475569" font-weight="400" text-anchor="start">Avaloq: functional reference and migration source only. No renewal; no long-term dual core.</text>
+<rect x="260" y="852" width="1140" height="96" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+<text x="276" y="874" font-size="10.2" fill="#64748b" font-weight="750" text-anchor="start" letter-spacing="0.7">L4 · ECOSYSTEM  —  orchestrated, not built</text>
+<rect x="276" y="884" width="178" height="48" rx="7" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="288" y="904" font-size="10.2" fill="#0f172a" font-weight="700" text-anchor="start">Aladdin</text>
+<text x="288" y="919" font-size="8.8" fill="#64748b" font-weight="400" text-anchor="start">risk &amp; portfolio</text>
+<rect x="462" y="884" width="178" height="48" rx="7" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="474" y="904" font-size="10.2" fill="#0f172a" font-weight="700" text-anchor="start">Addepar</text>
+<text x="474" y="919" font-size="8.8" fill="#64748b" font-weight="400" text-anchor="start">aggregation</text>
+<rect x="648" y="884" width="178" height="48" rx="7" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="660" y="904" font-size="10.2" fill="#0f172a" font-weight="700" text-anchor="start">TFS / trustees</text>
+<text x="660" y="919" font-size="8.8" fill="#64748b" font-weight="400" text-anchor="start">trust admin</text>
+<rect x="834" y="884" width="178" height="48" rx="7" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="846" y="904" font-size="10.2" fill="#0f172a" font-weight="700" text-anchor="start">Tax &amp; legal</text>
+<text x="846" y="919" font-size="8.8" fill="#64748b" font-weight="400" text-anchor="start">opinion</text>
+<rect x="1020" y="884" width="178" height="48" rx="7" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="1032" y="904" font-size="10.2" fill="#0f172a" font-weight="700" text-anchor="start">Valuation</text>
+<text x="1032" y="919" font-size="8.8" fill="#64748b" font-weight="400" text-anchor="start">independent</text>
+<rect x="1206" y="884" width="178" height="48" rx="7" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+<text x="1218" y="904" font-size="10.2" fill="#0f172a" font-weight="700" text-anchor="start">CIB / MSS</text>
+<text x="1218" y="919" font-size="8.8" fill="#64748b" font-weight="400" text-anchor="start">deal flow</text>
+<text x="40" y="986" font-size="10.2" fill="#334155" font-weight="600" text-anchor="start">One primary key: Family × Party × Role × Authority × Event × Evidence.</text>
+<text x="40" y="1004" font-size="8.8" fill="#64748b" font-weight="400" text-anchor="start">Public cases are structural references only; account-level data in the prototypes is illustrative. Internal design input — not legal, tax or investment advice.</text>
+<text x="1400" y="1004" font-size="8.8" fill="#94a3b8" font-weight="400" text-anchor="end">v2.1 · 2026-10-26</text>
+</svg>

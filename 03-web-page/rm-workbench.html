@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HSBC PB · RM Operations Workbench</title>
+  <link rel="stylesheet" href="workbench/styles.css" />
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">HSBC</div>
+        <div><div class="brand-name">Private Bank</div><div class="brand-sub">Operating Workbench</div></div>
+      </div>
+      <div class="status"><span class="dot"></span> Public cases + demo data</div>
+      <nav id="nav"></nav>
+      <div class="sidebar-foot">
+        <a href="workbench/SPEAKER_NOTES.md">Bilingual speaker notes</a>
+        <a href="../02-functional-architecture/solution/04-five-initiatives-validation.md">Validation & data model</a>
+        <a href="../01-user-journey/07-operations-map/11-workbench-journeys.md">Workbench journeys</a>
+        <a href="../README.md">Project README</a>
+      </div>
+    </aside>
+    <main id="main"></main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <aside id="notes" class="notes-drawer" aria-hidden="true">
+    <div class="notes-head">
+      <div><div class="notes-kicker">Speaker notes</div><h2 id="notes-title">Speaker notes</h2></div>
+      <button class="btn" data-notes-close>Close</button>
+    </div>
+    <div id="notes-body" class="notes-body"></div>
+  </aside>
+  <script src="workbench/data.js"></script>
+  <script src="workbench/scripts.js"></script>
+  <script src="workbench/app.js"></script>
+</body>
+</html>

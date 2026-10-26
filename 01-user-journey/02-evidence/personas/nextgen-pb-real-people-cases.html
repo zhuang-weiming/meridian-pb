@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>下一代私行核心：17 组核心人物 + 4 个财富带案例的结构性场景（v3.5）</title>
+<style>
+:root{
+  --ink:#1a1a17; --ink2:#4a4840; --mut:#8a877d;
+  --bg:#faf9f5; --panel:#f2f0e9; --line:#d8d5cb;
+  --gold:#8a6d1f; --gold-bg:#f6efdc;
+  --red:#8f2f2a; --red-bg:#f7e8e6;
+  --green:#2f6b46; --green-bg:#e7f0e9;
+  --blue:#2d4a6b; --blue-bg:#e8eef4;
+  --grey:#77746a; --grey-bg:#eeece5;
+  --violet:#5b3f6b; --violet-bg:#efe9f3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Songti SC","Noto Serif SC",Georgia,serif;background:var(--bg);color:var(--ink);line-height:1.74;font-size:14.5px}
+.wrap{max-width:1100px;margin:0 auto;padding:48px 40px 80px}
+header{border-bottom:3px solid var(--ink);padding-bottom:20px;margin-bottom:26px}
+header h1{font-size:25px;font-weight:700;line-height:1.42}
+.sub{font-size:15px;color:var(--ink2);margin-top:8px}
+.meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--ink2)}
+h2{font-size:20px;margin:46px 0 6px;padding-left:12px;border-left:4px solid var(--ink)}
+h3{font-size:16px;margin:26px 0 4px;color:var(--ink)}
+h4{font-size:14px;margin:14px 0 4px;color:var(--ink2)}
+p{margin:9px 0}
+.lead{font-size:15.5px;margin:12px 0}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{background:var(--ink);color:var(--bg);text-align:left;padding:7px 9px;font-weight:600;font-size:12.5px}
+td{padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:var(--panel)}
+code{font-family:"SF Mono",Menlo,monospace;font-size:12px;background:var(--panel);padding:1px 5px;border-radius:3px}
+ul,ol{margin:8px 0 8px 22px}
+li{margin:4px 0}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:9px;margin:1px 2px;font-family:"PingFang SC","Helvetica Neue",sans-serif;white-space:nowrap}
+.t-same{background:var(--grey-bg);color:var(--grey)}
+.t-bey{background:var(--green-bg);color:var(--green)}
+.t-weak{background:var(--red-bg);color:var(--red)}
+.t-pub{background:var(--green-bg);color:var(--green)}
+.t-rep{background:var(--blue-bg);color:var(--blue)}
+.t-inf{background:var(--violet-bg);color:var(--violet)}
+.t-unk{background:var(--gold-bg);color:var(--gold)}
+.t-risk{background:var(--red-bg);color:var(--red)}
+.note{background:var(--panel);border-left:3px solid var(--gold);padding:11px 15px;margin:14px 0;font-size:13.5px;color:var(--ink2)}
+.warn{background:var(--red-bg);border-left:3px solid var(--red);padding:11px 15px;margin:14px 0;font-size:13.5px;color:var(--ink2)}
+.good{background:var(--green-bg);border-left:3px solid var(--green);padding:11px 15px;margin:14px 0;font-size:13.5px;color:var(--ink2)}
+.shadow{background:#eceae3;border:1px solid var(--line);border-radius:3px;padding:14px 16px;margin:14px 0}
+.story{font-size:14.5px;line-height:1.86}
+.story b{color:var(--ink)}
+.src{font-size:11.5px;color:var(--mut);margin-top:5px;line-height:1.6}
+.foot{margin-top:52px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--mut)}
+.verdict{font-size:15.5px;background:var(--ink);color:var(--bg);padding:15px 19px;margin:18px 0;line-height:1.72}
+.verdict b{color:#f0e6c8}
+.casehd{margin-top:52px;border-top:2px solid var(--ink);padding-top:18px}
+.casehd h2{margin-top:0;border-left:none;padding-left:0;font-size:21px}
+.casehd .who{font-size:13px;color:var(--ink2);margin-top:3px}
+.badge{display:inline-block;font-family:"PingFang SC","Helvetica Neue",sans-serif;font-size:10.5px;letter-spacing:.04em;padding:2px 8px;border:1px solid var(--ink);border-radius:2px;margin-right:8px;vertical-align:2px}
+.badge.real{background:var(--ink);color:var(--bg)}
+.badge.ref{background:transparent;color:var(--ink)}
+.factbox{border:1px solid var(--line);background:#fff;padding:13px 16px;margin:12px 0}
+.factbox h4{margin-top:0;color:var(--green);Font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-family:"PingFang SC",sans-serif}
+.factbox ul{margin:6px 0 4px 20px}
+.factbox li{font-size:13.2px;margin:3px 0}
+.fiction{border-left:3px solid var(--violet);background:var(--violet-bg);padding:12px 16px;margin:12px 0}
+.fiction h4{margin-top:0;color:var(--violet);font-size:12px;letter-spacing:.06em;font-family:"PingFang SC",sans-serif}
+.caveat{font-size:12px;color:var(--mut);border-top:1px dotted var(--line);padding-top:7px;margin-top:10px}
+.kv{display:grid;grid-template-columns:130px 1fr;gap:2px 12px;font-size:13px;margin:8px 0}
+.kv b{color:var(--ink2);font-weight:600}
+.num{font-family:"Helvetica Neue",sans-serif;font-weight:700;color:var(--red)}
+.quote{border-left:3px solid var(--ink);padding:4px 0 4px 14px;margin:12px 0;color:var(--ink2);font-size:13.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.two .shadow{margin:0}
+.dot{display:block;text-align:center;font-size:14px;line-height:1.2}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0}
+.tw table{margin:0}
+.toc{background:#fff;border:1px solid var(--line);padding:14px 18px;margin:18px 0 0;font-size:13px;columns:2;column-gap:28px}
+.toc a{color:var(--ink);text-decoration:none;display:block;padding:3px 0;border-bottom:1px dotted var(--line);break-inside:avoid}
+.toc a:hover{color:var(--gold)}
+.toc b{display:block;font-size:11px;color:var(--mut);letter-spacing:.08em;margin-bottom:6px;font-family:"PingFang SC",sans-serif;font-weight:600}
+@media(max-width:760px){.toc{columns:1}}
+@media(max-width:760px){.two{grid-template-columns:1fr}.wrap{padding:30px 20px 60px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+<h1>下一代私行核心：17 组核心人物 + 4 个财富带案例的结构性场景<br>——从真实人物反推「人·实体·资产·义务·时点」的对象模型</h1>
+<div class="sub">HSBC Global Private Banking · 下一代核心系统场景集 · v3.5（真实人物锚定版 · 增补 Pre-IPO / 匿名家庭 / 中段 / 财富带）</div>
+<div class="meta">
+  <span><b>日期</b> 2026-10-23</span>
+  <span><b>替代</b> v2.1《跨境私行案例集》</span>
+  <span><b>案例</b> 20 组公开人物 + 1 组匿名家庭 / 17 核心结构 + 4 财富带</span>
+  <span><b>辖区</b> CN·HK·SG·IN·UK·CH·AE·US·IT·LU·KY·BVI</span>
+  <span><b>性质</b> 内部设计输入，非营销材料</span>
+</div>
+</header>
+
+<div class="warn">
+<b>先说清楚这份文档是什么，以及不是什么。</b><br>
+<b>是：</b>用 20 组<b>公开可核验的真实人物与家族</b>、加 1 组匿名化家庭结构作为原型，反推下一代私行核心系统必须承载的对象与判定。<br>
+<b>不是：</b>不表示他们是汇丰客户；不表示他们与本行有任何业务关系；不涉及任何非公开的账户、金额、税务安排、信托条款或家庭内部信息；不构成对其税务合规的评价，也不构成税务、法律或投资建议。<br>
+<b>为什么仍然要写真实姓名：</b>因为合成画像最大的弱点是评审可以问「真有这样的人吗」，而真实人物最大的弱点是「你凭什么拿他做案例」——<b>后者可以用方法论回答，前者不能。</b>本文件用五条硬规则回答后者（其中一条是匿名结构例外），见 §0。
+</div>
+
+<div class="toc">
+<b>目录</b>
+<a href="#c0">§0 方法论：怎样用真实人物而不越界</a>
+<a href="#c1">§1 周群飞｜A+H：两个登记系统</a>
+<a href="#c2">§2 李西廷｜四个证券制度，二十年</a>
+<a href="#c3">§3 张勇·舒萍｜一个家族办公室，两个信托</a>
+<a href="#c4">§4 李嘉诚家族｜分家是三十年</a>
+<a href="#c5">§5 郑裕彤家族｜十个月，四种身份</a>
+<a href="#c6">§6 郭鹤年家族｜家族不是一棵树</a>
+<a href="#c7">§7 Poonawalla 家族｜一栋房子，三个制度</a>
+<a href="#c8">§8 Majid Al Futtaim 家族｜当政府成为董事会</a>
+<a href="#c9">§9 Mittal 家族｜离境的影子</a>
+<a href="#c10">§10 Premji 家族｜67% 已经不是他的了</a>
+<a href="#c11">§11 Murdoch 家族｜不可撤销的信托</a>
+<a href="#c12">§12 中段 A｜Guy Singh-Watson：没有市场价的退出</a>
+<a href="#c13">§13 中段 B｜Sarah Wood：£58m 首付与 £56m 或有对价</a>
+<a href="#c14">§14 中段 C｜Jamie Vardy：十年赚完，五十年要花</a>
+<a href="#c15">§15 中段 D｜Neame 家族：£67m 的家族企业</a>
+<a href="#c16">§16 Pre-IPO｜梁文锋：US$46bn 的纸面财富</a>
+<a href="#c17">§17 匿名家庭｜何氏家族：一位未被当作主客户的妻子</a>
+<a href="#c18">§18 Ali Abdaal｜UK→HK：创作者的收入没有国界</a>
+<a href="#c19">§19 Nadiya Hussain｜三个孩子、两份版税</a>
+<a href="#c20">§20 Alvin Leung｜香港餐饮集团：实体、担保、品牌</a>
+<a href="#c21">§21 Chan Hon Meng（Hawker Chan）｜一星与八个国家的加盟</a>
+<a href="#c22">§22 反推：12 个一等对象</a>
+<a href="#c23">§23 与 v2.1 的对照</a>
+<a href="#c24">§24 RM 的新工作</a>
+<a href="#c25">§25 验证动作</a>
+<a href="#c26">§26 结语</a>
+<a href="#src">来源清单</a>
+</div>
+
+<h2 id="c0">§0 方法论：怎样用真实人物而不越界</h2>
+
+<h3>0.1 旧版为什么拒绝真人，以及那个理由在哪一步成立</h3>
+<p class="lead">v2.1 明确拒绝使用真实人物，给了三条理由：名誉风险、保密义务、代表性。这三条在一种情况下完全成立——<b>把某个真人指称为「我们的客户」，并对其未公开的财务安排作出陈述。</b>但它们并不能推出「不能用真人」这个结论。它们推出的是另一条更窄的规则：</p>
+<div class="good"><b>可以用真实人物引证「结构」，不能用真实人物指称「关系」。</b><br>前者是公开事实的引用，后者是对私人事实的断言。这份文档只做前者。</div>
+
+<h3>0.2 五条硬规则</h3>
+<div class="tw"><table>
+<tr><th style="width:8%">规则</th><th style="width:30%">内容</th><th>在文中的表现形式</th></tr>
+<tr><td><b>R1</b></td><td><b>只用公开事实。</b>上市公告、招股书、港交所/深交所披露、法院文书、监管文件、公开报道。每条给出来源与日期。</td><td>每个案例开头的<span class="tag t-pub">公开事实</span>栏；文末来源清单。</td></tr>
+<tr><td><b>R2</b></td><td><b>不指称关系，不指称私人事实。</b>不主张任何人是本行客户；不主张任何未公开的账户、金额、税务安排、信托条款、家庭矛盾。</td><td>每个案例的「本案例不主张」一行；推演部分一律用「若 / 假设」。</td></tr>
+<tr><td><b>R3</b></td><td><b>不评价合规，只描述制度。</b>不判断当事人是否合规、是否避税、是否应当如何。只讨论「这类结构在法律上会触发什么」。</td><td>所有结论指向系统能力，不指向人物评价。</td></tr>
+<tr><td><b>R4</b></td><td><b>推演与事实分层。</b>公开事实用陈述句；设计推演用条件句，并单独着色。</td><td><span class="tag t-pub">公开</span> / <span class="tag t-rep">报道</span> / <span class="tag t-inf">推演</span> / <span class="tag t-unk">未知</span> 四级标签。</td></tr>
+<tr><td><b>R5</b></td><td><b>匿名结构例外。</b>对于无法公开识别的中段家庭、女性、未成年子女场景，允许使用<b>匿名化结构</b>（来源：旧 demo 原型、RM 访谈、公开判决的去标识化），但必须标注「匿名案例」，<b>不得伪装成公开人物</b>；事实层只到「结构」，不到「个人」。</td><td><b>§17 何氏家族</b>是唯一采用 R5 的案例；其余 20 组均使用公开人物。</td></tr>
+</table></div>
+
+<h3>0.3 合格性检验：换掉姓名，结论是否一个字都不用改</h3>
+<p class="story">这是本文件最重要的自检方法。<b>把「周群飞」换成任意一位 A+H 两地上市的实控人，如果关于系统的结论需要改动，说明写的不是结构，是八卦。</b>反过来，如果换掉姓名后结论仍然成立，说明这个案例真正在测试的是系统的表达能力，而不是某个人的特殊故事。</p>
+<div class="tw"><table>
+<tr><th style="width:22%">层级</th><th style="width:34%">性质</th><th style="width:16%">可否核验</th><th>如何处理</th></tr>
+<tr><td><b>结构层</b></td><td>上市地、持股方式、家族分支、信托/基金会、法院程序、公开的继任事件</td><td><b>可核验</b></td><td>逐条给源；这是案例成立的地基</td></tr>
+<tr><td><b>情节层</b></td><td>具体日期、金额、交易细节、家庭对话</td><td><b>不主张</b></td><td>只作为设计推演的假设，不作为事实</td></tr>
+<tr><td><b>触发层</b></td><td>税法、交易所规则、信托法、伊斯兰继承法、CRS/FATCA</td><td><b>可复算 / 可查条文</b></td><td>标注「须由税务/法律组确认后入规则库」</td></tr>
+</table></div>
+
+<h3>0.4 为什么真实人物比合成画像更适合做「下一代系统」的输入</h3>
+<div class="two">
+<div class="shadow"><b>合成画像的问题</b><br>它天然是「设计师已经想清楚的那部分」的投影。设计者想到什么，画像里就有什么；设计者没想到的，画像里也没有。<b>它会系统性地高估系统的完备性。</b></div>
+<div class="shadow"><b>真实人物的问题</b><br>它总有一部分是设计者不想看到的：堂侄掌管一端、女儿掌管另一端；政府任命的董事会；一个「不可撤销」却打到法院的信托。<b>它逼系统承认：例外不是异常，例外是常态。</b></div>
+</div>
+
+<h3>0.5 本文件的使用边界</h3>
+<ul>
+<li><b>不进任何客户营销物料、不在客户活动中使用、不写进任何「税务优化」话术。</b></li>
+<li><b>对外只输出「事实 + 到期日 + 责任方」三元组</b>，不输出建议。HSBC 私人银行明示不提供税务意见，这条是设计约束，不是口径问题。</li>
+<li><b>在世人物只引用已公开内容；未成年人一律匿名；家庭内部关系不做推断。</b></li>
+<li><b>正式引用前须经法务逐案预审</b>；公开报道类事实须在来源清单中标注为「报道」，不得升级为「已核实」。</li>
+<li><b>案例中的 RM、PA、家族办公室负责人、具体日期与交易指令均为虚构角色与推演情节</b>，仅用于承载场景；公开事实栏之外的情节不构成对任何人的陈述。</li>
+</ul>
+
+<h3>0.6 17 组核心 + 4 个财富带：覆盖矩阵</h3>
+<p>选择标准不是「有名」，而是<b>每一组必须命中一种其他组没有的结构</b>。如果两组的结构可以互相替换，删掉一组。</p>
+<div class="tw"><table>
+<tr><th style="width:5%">#</th><th style="width:15%">人物 / 家族</th><th style="width:15%">财富来源</th><th style="width:17%">辖区组合</th><th style="width:18%">家族形态</th><th>它唯一测试的东西</th></tr>
+<tr><td>1</td><td><b>周群飞</b></td><td>精密制造（A+H）</td><td>CN · HK</td><td>创始人 / 单一决策者</td><td>同一经济权益在两个登记系统、两套窗口期</td></tr>
+<tr><td>2</td><td><b>李西廷</b></td><td>医疗器械（NYSE→A→H）</td><td>CN · US · SG · HK</td><td>创始人 / 高龄</td><td>一个人被四个证券制度先后记录，历史仍有效</td></tr>
+<tr><td>3</td><td><b>张勇 · 舒萍</b></td><td>餐饮（HK+NASDAQ）</td><td>SG · HK · KY · BVI · CN</td><td>夫妻 + 两个信托 + 家族办公室</td><td>家族办公室作为客户主体；信托交易触发董事窗口</td></tr>
+<tr><td>4</td><td><b>李嘉诚家族</b></td><td>地产 / 基建 / 零售</td><td>HK · UK · CA · KY</td><td>两子分家 + 基金会 + 第三代</td><td>受益人类别、三权分离、分家是三十年过程</td></tr>
+<tr><td>5</td><td><b>郑裕彤家族</b></td><td>珠宝 / 地产</td><td>HK · CN</td><td>三代 + 职业经理人</td><td>十个月内四种授权身份；企行/私行/信托利益冲突</td></tr>
+<tr><td>6</td><td><b>郭鹤年家族</b></td><td>粮油 / 酒店 / 航运</td><td>MY · HK · SG · CN · ID</td><td>多支 + 堂侄分支 + 女儿接班</td><td>家族是图不是树；关键人不等于直系亲属</td></tr>
+<tr><td>7</td><td><b>Poonawalla 家族</b></td><td>疫苗 / 金融</td><td>IN · UK · NL</td><td>父子 + 家族控股</td><td>一栋房子、三个制度、三个申报主体</td></tr>
+<tr><td>8</td><td><b>Majid Al Futtaim 家族</b></td><td>零售 / 地产</td><td>AE · UK · SG</td><td>多支 + 继承争议 + 政府介入</td><td>授权矩阵与「争议状态」；伊斯兰继承</td></tr>
+<tr><td>9</td><td><b>Mittal 家族</b></td><td>钢铁</td><td>UK · IN · CH · LU</td><td>父子 + 家族控股</td><td>辖区迁移的十年影子期</td></tr>
+<tr><td>10</td><td><b>Premji 家族</b></td><td>IT / 慈善 endowment</td><td>IN · US</td><td>家族 + 基金会</td><td>经济权 / 投票权 / 处分权三权分离</td></tr>
+<tr><td>11</td><td><b>Murdoch 家族</b></td><td>媒体</td><td>US · UK · AU</td><td>四子女 + 不可撤销信托</td><td>契约版本、法院命令、受托人决议的效力排序</td></tr>
+<tr><td>12</td><td><b>Guy Singh-Watson</b></td><td>有机农业（EOT）</td><td>UK</td><td>创始人 + 员工信托</td><td>没有市场价的退出；卖方贷款与分期流动性</td></tr>
+<tr><td>13</td><td><b>Sarah Wood</b></td><td>广告科技（贸易出售）</td><td>UK · US</td><td>联合创始人</td><td>或有对价 + 留任锁定；headline ≠ 到账</td></tr>
+<tr><td>14</td><td><b>Jamie Vardy</b></td><td>职业足球</td><td>UK · IT · US</td><td>运动员 + 家庭</td><td>短收入窗口；形象权；非现金股权</td></tr>
+<tr><td>15</td><td><b>Neame 家族</b></td><td>酿酒 / pubs</td><td>UK</td><td>家族控制上市公司</td><td>控制权 vs 流通股；薄市场；经营型物业</td></tr>
+<tr><td>16</td><td><b>梁文锋</b></td><td>AI / 量化（未上市）</td><td>CN</td><td>创始人 / Pre-IPO</td><td>纸面财富 vs 可花费财富；私人股权质押</td></tr>
+<tr><td>17</td><td><b>何氏家族</b>（匿名）</td><td>制造 / 贸易 + 物业</td><td>HK · SG</td><td>四代六人</td><td>配偶/子女/长辈作为独立主体；主客户失能</td></tr>
+<tr><td><b>18</b></td><td><b>Ali Abdaal</b></td><td>创作者/教育科技</td><td>PK · UK · HK</td><td>个人 + 配偶</td><td>UK→HK 迁移后的税务与收入来源；数字优先的成本-to-serve</td></tr>
+<tr><td><b>19</b></td><td><b>Nadiya Hussain</b></td><td>媒体/出版/IP</td><td>UK · BD</td><td>夫妻 + 三子女</td><td>女性独立客户；版税/形象权；教育金与监护</td></tr>
+<tr><td><b>20</b></td><td><b>Alvin Leung</b></td><td>餐饮/品牌</td><td>UK · CA · HK</td><td>创始人 + 家族</td><td>香港中段餐饮：多实体、个人担保、品牌与传承（不是制造业）</td></tr>
+<tr><td><b>21</b></td><td><b>Chan Hon Meng（Hawker Chan）</b></td><td>餐饮特许经营/品牌授权</td><td>MY · SG</td><td>夫妻 + 子女</td><td>加盟/版税、薄利、品牌生命周期、SG/MY 跨境继承</td></tr>
+</table></div>
+<div class="note"><b>覆盖缺口（诚实列出）：</b>§12–§15 <b>部分补足</b>了 <b>US$5m–100m</b> 层（最低约 US$15m），但仍缺三类。<b>其一，</b><b>US$5m 以下的 PB 入门层</b>——§18–§21 用四个案例部分补足（真实人物 + 档位设计假设），但公开财富不可核验，仍不能当作统计样本；<b>其二，</b>中东非王室的大型家族办公室（王室的公开信息结构不同，不能与商业家族并列）；<b>其三，</b>拉美与非洲家族。这三类需要在正式项目中另行补采，不能由本文件假装覆盖。<b>此外，§12–§15 四组全部在英国</b>；亚洲中段（HK / SG / IN 的 US$5m–100m 企业主）没有同样可靠的公开结构，必须通过 RM 匿名访谈补采，否则「中段」会变成「英国中段」。<b>§16 补上了 Pre-IPO 创始人；§17 补上了「女性 / 家庭 / 子女 / 主客户失能」——后者采用 R5 匿名结构；§18–§21 用四个真实人物补 US$2–5m 与 US$5–10m 两条带，但档位为设计假设，不构成公开财富陈述。</b></div>
+<div class="warn"><b>还有一个必须说破的偏差：§1–§11 这 11 组的公开财富口径全部在 US$1bn 以上；§12–§15 四组部分补足了 US$5m–100m 层；§16 是 Pre-IPO 超高净值；§17 是匿名家庭。</b>即便如此，样本仍然偏向「结构能被公开核验」的那一端：<b>越靠近 PB 入门层，越难找到既有公开事实、又能支撑系统设计的真实人物。</b>用它做系统设计时，必须用 HSBC 内部客户分布数据做加权；否则会把「超高净值的例外」误当成「私行的常态」，重演 v2.1 已经警告过的错误——<b>拿最低工资的员工代表整个公司的薪酬结构。</b></div>
+
+<div class="casehd">
+<h2 id="c1"><span class="badge real">真实人物</span>§1 周群飞｜A+H：同一笔财富，两个登记系统</h2>
+<div class="who">蓝思科技创始人、董事长 · 1970 年生 · 中国香港永久居民 · 深交所 300433 / 港交所 06613</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>2015-03-18，蓝思科技在<b>深交所创业板</b>上市（300433）。</li>
+<li>2025-07-09，蓝思科技在<b>港交所主板</b>上市（06613.HK），发行价 <b>18.18 港元</b>，全球发售 <b>262,256,800 股 H 股</b>。</li>
+<li>公司为全球消费电子精密结构件的主要供应商之一；周群飞任董事长。</li>
+<li>公开简历载明其生于 1970 年，为中国香港永久居民。</li>
+</ul>
+<p class="caveat">来源：蓝思科技 H 股招股书（HKEXnews，2025-06-30）、港交所上市资料、21 世纪经济报道（2025-06-30）、长沙晚报（2025-07-11）、公司高管公开简历。<b>本案例不主张其为本行客户，不主张任何未公开的持股比例、质押、信托或税务安排。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年 11 月的一个周二上午，家族办公室负责人把两封邮件转给 RM：一封是 A 股大宗交易的意向，一封是 H 股配售的条款清单。两封都写着「本周内确认」。RM 打开系统，看到的是两条持仓、两个币种、两个窗口期——而客户问的是同一句话：<b>「我这周到底能不能动？」</b></p>
+
+<h3>1.1 结构：一个经济权益，两个法律登记</h3>
+<p class="story">A+H 不是「两家公司」，是<b>同一家公司的两类股份、两个登记系统、两套义务</b>。对银行来说，最危险的不是算错税，而是<b>把两个 ISIN 当成两个客户</b>：一个组合视图里出现两条持仓，合并计算时漏掉一致行动人，交易前检查只查了其中一边的窗口期。</p>
+
+<div class="fiction">
+<h4>设计推演 · 假设 2026 年 Q4 同时发生三件事</h4>
+<p class="story">（a）A 股侧一笔<b>大宗交易</b>，受 2024 年《上市公司股东减持股份管理暂行办法》约束；（b）H 股侧一笔<b>配售</b>，受港交所《上市规则》与 SFC 第 XV 部权益披露约束；（c）家族信托层面的<b>股权重组</b>，受 BVI/开曼公司法与信托契约约束。<b>三件事在同一个月发生，涉及同一个经济权益，而三个系统互不知道对方存在。</b></p>
+</div>
+
+<h3>1.2 两套规则的真实差异（不是「税率不同」这么简单）</h3>
+<div class="tw"><table>
+<tr><th style="width:16%">维度</th><th style="width:42%">A 股侧（中国结算）</th><th>H 股侧（HKSCC）</th></tr>
+<tr><td><b>权益披露</b></td><td>持股 5% 以上股东增减 5% 须公告；董监高每年转让不超过所持 25%</td><td>SFC 第 XV 部：5% 以上须披露；董事及主要股东权益须披露</td></tr>
+<tr><td><b>交易窗口</b></td><td>年报/半年报前 15 日、季报及业绩预告前 5 日（以现行《董监高持股变动管理规则》为准）</td><td>《Model Code》：年度业绩前 <b>60 日</b>、中期业绩前 <b>30 日</b></td></tr>
+<tr><td><b>减持约束</b></td><td>破发、破净、分红不达标不得通过二级市场减持；大宗交易 90 日内 2% 上限；协议转让 5% 门槛</td><td>控股股东 IPO 后 6 个月锁定期；其后受内幕消息与市场失当行为条例约束</td></tr>
+<tr><td><b>股息处理</b></td><td>差别化个人所得税，按持股期限分档（以现行口径为准）</td><td>非居民股东通常 10% 预提（视税收协定）；由 H 股公司代扣</td></tr>
+<tr><td><b>质押</b></td><td>须披露</td><td>可能构成须披露事件，但并非所有质押都自动触发</td></tr>
+<tr><td><b>「一天」的定义</b></td><td>交易日 + 结算日（T+1）</td><td>交易日 + 交收日（T+2）；窗口期按公告日倒算</td></tr>
+</table></div>
+<div class="note"><b>这张表的重点是最后一行。</b>两套系统连「哪一天算交易完成」都不同。当客户问「我下周三能不能卖」，正确答案不是一个日期，而是<b>两个日期 + 两个前置条件 + 一个一致行动人合并计算</b>。</div>
+
+<h3>1.3 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>分别问 A 股券商、H 股经纪、家族律师；三个答案互不引用；自己判断哪一天能动。<br><b>新：</b>一次询问，得到一张「未来 90 天可交易日历」，每一天标注两侧各自的限制与依据。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>PA 手工拼两张持仓表；RM 不知道窗口期，只能让客户「问律师」。<br><b>新：</b>RM 打开合并视图，看到「同一经济权益」而不是两条持仓；交易前预检由系统完成。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 跨沪深港的<b>单一经济权益视图</b>；② 每个交易日的<b>可执行性判定</b>（不是建议，是「可 / 不可 + 依据」）；③ 一致行动人合并后的持股比例；④ 两侧股息处理的差异说明。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>取消月度手工合并；<b>预检有留痕</b>——若日后监管问「为什么这笔交易在窗口期内执行」，能拿出当时的规则版本与输入。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td>同一客户在两个 booking centre 的钱包份额第一次可以合并计算；<b>跨境预检成为可交付产品</b>，而不是 RM 的个人经验。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>EconomicInterest</code>（跨 ISIN 的经济权益）；② <code>TradingWindow</code>（辖区 × 角色 × 事件 × 起止 × 依据）；③ <code>ConcertParty</code>（一致行动人图谱，而非一个字段）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>这个案例真正测试的，不是「A+H 支持不支持」，而是系统有没有一个高于证券代码的对象。</b>如果主键是 ISIN，A 股和 H 股永远是两个人；如果主键是「经济权益」，它们才是一个人。</div>
+<p class="src">规则依据：中国证监会《上市公司股东减持股份管理暂行办法》（2024-05-24 施行）及配套规则；《上市公司董事、监事和高级管理人员所持本公司股份及其变动管理规则》；港交所《上市规则》附录 C3《Model Code》；香港《证券及期货条例》第 XV 部。<b>具体日数与门槛须由合规组按现行版本确认后写入规则库。</b></p>
+
+<div class="casehd">
+<h2 id="c2"><span class="badge real">真实人物</span>§2 李西廷｜一个人，四个证券制度，二十年</h2>
+<div class="who">迈瑞医疗创始人、董事长 · 1951 年生 · 新加坡国籍 · NYSE（2006–2016）→ 深交所 300760（2018–）→ 港交所 H 股（2025 申请）</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>1991 年创办迈瑞；2006 年公司在<b>纽交所</b>上市，募资 2.7 亿美元，为中国首家在美上市的医疗器械企业。</li>
+<li>2016 年完成私有化并从纽交所退市；<b>2018-10-16</b> 在<b>深交所创业板</b>上市（300760）。</li>
+<li><b>2025-10-14</b> 董事会通过发行 H 股并在<b>港交所主板</b>上市的议案；<b>2025-11-10</b> 向港交所递交 H 股申请。</li>
+<li>公司 2025-10-14 公告所附简历载明：李西廷生于 <b>1951 年</b>，<b>新加坡国籍</b>，现任董事长。</li>
+<li>2025 年福布斯新加坡富豪榜：李西廷以约 <b>130 亿美元</b>位列第 5。</li>
+</ul>
+<p class="caveat">来源：迈瑞医疗 2025-10-14 第八届董事会第十四次会议决议公告、2025-11-10 递表公告、中国证券报（2025-11-20）、21 世纪经济报道（2025-10-15）。<b>本案例不主张其为本行客户，不主张任何未公开的家族信托、税务居民身份细节或接班安排。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年 12 月，H 股上市后的第一个年报季。投行尽调团队发来一份 2012 年的美国申报文件，问：「这份文件里的人，和现在这位董事长是同一个人吗？」PA 在邮箱里翻了两个小时，找到三份同名不同版本的文件，<b>但没有一份能说明它今天是否仍然有效。</b></p>
+
+<h3>2.1 结构：退市不等于消失</h3>
+<p class="story">一个人的资本市场身份，通常被系统记成<b>当前状态</b>：现在在 A 股，过去的事归档。但真实的制度不是这样。<b>2006–2016 年的美国申报文件仍然可以被 2026 年的香港招股书引用；2018 年 A 股上市时的承诺仍然约束 2026 年的 H 股发行；新加坡税务居民身份影响 H 股股息的预提口径。</b>四段历史同时有效，只是各自的有效范围不同。</p>
+<div class="tw"><table>
+<tr><th style="width:14%">阶段</th><th style="width:18%">登记 / 辖区</th><th style="width:30%">当时产生的义务</th><th>今天仍然有效吗</th></tr>
+<tr><td>2006–2016</td><td>NYSE（美国）</td><td>10-K/20-F、Section 16 申报、SOX 内控、退市时的私有化承诺</td><td><b>部分有效</b>：历史披露构成新发行文件的事实基础；未履行的承诺仍可能被追索</td></tr>
+<tr><td>2018–</td><td>深交所（中国）</td><td>实控人减持规则、质押披露、关联交易、同业竞争承诺</td><td><b>持续有效</b>，且随 H 股发行产生新的跨境衔接</td></tr>
+<tr><td>2025–</td><td>港交所（香港）</td><td>H 股上市规则、SFC 第 XV 部、Model Code、招股书陈述责任</td><td><b>申请中</b>：一旦上市即生效，且回溯引用 A 股与美股历史</td></tr>
+<tr><td>长期</td><td>新加坡（税务）</td><td>税务居民身份、CRS 自我证明、境外收入规则</td><td><b>持续有效</b>，与上市地无关，但与股息/利息预提直接相关</td></tr>
+</table></div>
+
+<div class="fiction">
+<h4>设计推演 · 假设 2026 年 H 股上市后的第一个年报季</h4>
+<p class="story">港交所要求披露「控股股东过去三年是否受任何监管处罚」；A 股口径的「控股股东」与 H 股口径的「控股股东」定义不同；美国历史上的 Section 16 申报记录又被投行拿来做尽调。三个问题同时到达 RM，而 RM 手上只有三份 PDF。</p>
+</div>
+
+<h3>2.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>向三个市场分别解释「我是谁」；每次都要重新提交一套历史文件。<br><b>新：</b>一次授权，银行侧持有可复用的「人—发行人—登记地—时间」事实包。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>在邮箱里翻 2015 年的文件；不确定哪份是最终版。<br><b>新：</b>系统按「发行人关系」归档，标明每份文件的有效期与适用范围。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 一份跨四个制度的<b>身份与义务年表</b>；② 每个结论标注「依据哪一年的哪一份文件」；③ 明确列出「未知项」——例如公开信息未披露的接班安排，系统标记为<b>未知</b>，而不是空白。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再用「我再去问」收尾；历史文件可检索、可引用、可审计。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>跨境客户最值钱的能力：把「他在四个制度里的历史」变成一份可复用的证据包。</b>这不是税务计算，是记忆。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>IssuerRelationship</code>（人 × 发行人 × 登记地 × 起止 × 角色）；② <code>UnknownState</code>（未知是一等状态，不是空值）；③ 文件级 <code>EffectiveScope</code>（这份文件在哪个辖区、哪一年、对什么问题有效）。</td></tr>
+</table></div>
+
+<div class="warn"><b>一条必须写进设计的边界：</b>公开信息未披露接班安排，系统<b>不得</b>推断「没有安排」，也不得据此生成任何建议。它只能记录「截至 2026-10-22，公开信息未见披露」。<b>「未知」和「没有」是两件事，而大多数系统把它们都存成了 null。</b></div>
+<p class="src">来源同上。美国 Section 16 适用于发行人的董事与高管；退市后申报义务终止，但历史申报仍是公开记录。H 股申请状态以港交所披露为准，本文不假定其已完成上市。</p>
+
+<div class="casehd">
+<h2 id="c3"><span class="badge real">真实人物</span>§3 张勇 · 舒萍｜一个家族办公室，两个信托，三家上市公司</h2>
+<div class="who">海底捞创始人夫妇 · 新加坡公民 · Apple Trust / Rose Trust（BVI）· Sunrise Capital Management（新加坡 SFO）· 海底捞 06862 / 颐海 01579 / 特海 09658 + NASDAQ: HDL</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>海底捞国际控股在<b>开曼</b>注册，<b>2018-09-26</b> 在港交所上市。上市前，张勇、舒萍夫妇持有的 <b>62.70%</b> 股份通过「<b>离岸家族信托 + BVI 公司</b>」持有。</li>
+<li>两个信托均为 BVI 全权信托：<b>Apple Trust</b> 持 47.84%，<b>Rose Trust</b> 持 14.85%；分别通过 <b>ZY NP Ltd.</b> 与 <b>SP NP Ltd.</b> 持有；受益人为张勇与舒萍。</li>
+<li>2018 年招股书披露两人国籍为<b>新加坡</b>。</li>
+<li>舒萍于 <b>2019-07-31</b> 在新加坡设立 <b>Sunrise Capital Management</b>，注册资本 100 万新元，唯一董事为 SHU PING，业务为家族办公室管理。</li>
+<li>特海国际（Super Hi）<b>2022-12</b> 以介绍方式在港交所上市；<b>2024-05-17</b> 在<b>纳斯达克</b>上市（HDL），舒萍任董事长。</li>
+<li>颐海国际 <b>2016</b> 在港交所上市。</li>
+</ul>
+<p class="caveat">来源：海底捞 2018 年招股书及公开报道（21 世纪经济报道 2020-03-12、财新 2020-03-05）、新加坡 ACRA 公开登记信息（经媒体报道）、特海国际港交所公告（2025-03-25）、NASDAQ 上市文件（2024-05）。<b>本案例不主张其为本行客户；信托条款、受益人安排、家族办公室的实际资产与税务安排均不在公开信息范围内，本文不作断言。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年 9 月，Apple Trust 的受托人发来会议纪要：拟减持 1%。同一天，舒萍作为纳斯达克上市公司董事长，收到董秘的窗口期提醒。<b>两封邮件躺在两个不同的邮箱里，中间隔着一个 BVI 受托人和一个新加坡家族办公室。</b></p>
+
+<h3>3.1 结构：客户不是一个自然人，是一个「客户群」</h3>
+<p class="story">在这组结构里，「客户」至少包括七个主体：<b>张勇、舒萍（自然人）；Apple Trust、Rose Trust（BVI 信托）；ZY NP、SP NP（BVI 公司）；海底捞国际（开曼上市主体）；Sunrise Capital Management（新加坡 SFO）。</b>它们各自有董事、股东、受益人、申报义务。银行如果只把张勇建为一个客户、把舒萍建为「配偶」，这七个主体在系统里就只剩两个。</p>
+
+<div class="tw"><table>
+<tr><th style="width:18%">主体</th><th style="width:14%">辖区</th><th style="width:24%">它自己是谁的客户</th><th>它产生的义务</th></tr>
+<tr><td>张勇 / 舒萍</td><td>SG（税务居民）</td><td>自然人客户</td><td>CRS、SG 税务申报、上市公司董事/股东披露</td></tr>
+<tr><td>Apple Trust / Rose Trust</td><td>BVI</td><td>信托客户（受托人视角）</td><td>信托契约、受益人分配、CRS 实际控制人穿透</td></tr>
+<tr><td>ZY NP / SP NP</td><td>BVI</td><td>控股公司客户</td><td>经济实质、受益所有人登记、年度申报</td></tr>
+<tr><td>海底捞国际</td><td>KY → HK</td><td>公司银行客户</td><td>上市规则、关联交易、董事交易窗口</td></tr>
+<tr><td>Sunrise Capital Mgmt</td><td>SG</td><td>家族办公室客户</td><td>13O/13U 持续条件、年度申报、本地投资要求</td></tr>
+</table></div>
+
+<h3>3.2 同一笔股票，四个「权益」定义</h3>
+<div class="tw"><table>
+<tr><th style="width:16%">制度</th><th style="width:24%">谁被视为「拥有」</th><th style="width:24%">触发点</th><th>后果</th></tr>
+<tr><td><b>HK SFC 第 XV 部</b></td><td>透过信托/BVI 的<b>视为权益</b>（deemed interest）</td><td>5% 以上；董事权益变动</td><td>具报、公告、停牌风险</td></tr>
+<tr><td><b>US Section 16</b></td><td>董事/高管本人 + 间接持有的受益权益</td><td>舒萍作为 NASDAQ 发行人董事长，任何持股变动</td><td>Form 4，通常 2 个营业日内</td></tr>
+<tr><td><b>SG MAS</b></td><td>上市公司主要股东；SFO 的受益所有人</td><td>5% 门槛；13O/13U 条件</td><td>披露；基金税务豁免的持续合规</td></tr>
+<tr><td><b>CN 外商投资</b></td><td>返程投资的实际控制人</td><td>新设/变更外商投资企业</td><td>信息报告；外汇登记</td></tr>
+</table></div>
+
+<div class="fiction">
+<h4>设计推演 · 一个最容易被漏掉的交叉点</h4>
+<p class="story">假设 2026 年某月，<b>Apple Trust 的受托人决定卖出 1% 的海底捞股份</b>。从信托角度看，这是受托人的投资决策；从上市规则角度看，这可能构成<b>董事（舒萍）的间接权益变动</b>，落入 Model Code 的交易限制与 Section 16 的 Form 4 申报。<b>信托在 BVI，董事在新加坡，发行人在开曼/香港/纳斯达克——三个地方的系统，没有一处会把「受托人卖出」和「董事窗口期」放在同一张表上。</b></p>
+</div>
+
+<h3>3.3 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>家族办公室、信托受托人、上市公司董秘、私行 RM 四方各自合规；家族成员在中间做「人肉对齐」。<br><b>新：</b>一个客户群视图，看到每个主体的义务、每个到期日、每个交易的连锁影响。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 只服务「张勇」；舒萍的董事长身份、SFO 的牌照条件、信托的分配，都不在 RM 的视野里。<br><b>新：</b>RM 看到客户群，但<b>按授权分级可见</b>；敏感信息（如信托分配）不默认对全部关系经理开放。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 家族办公室作为<b>独立客户主体</b>被服务，而不是「张勇的附属」；② 信托交易 → 董事窗口的<b>联动预警</b>；③ SFO 税务激励条件的<b>持续合规看板</b>，而不是一年一次的申报。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再需要同时扮演信托、税务、上市公司合规三个角色；每个结论有主体、有依据、有责任人。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>这是「家族办公室」这一层客户第一次可以被系统化服务。</b>它带来的不是一只产品，而是四个上市主体 + 两个信托 + 一个 SFO 的全部金融关系。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>ClientGroup</code>（跨自然人/信托/公司/SFO 的客户群，不是「家庭」标签）；② <code>BeneficialOwnership</code>（同一笔股票在四个制度下的四种「拥有」）；③ <code>OngoingCovenant</code>（SFO 的持续条件，不是一次性审批）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>这个案例说明：下一代私行的「客户」必须能是一个群，而不是一个人。</b>而且这个群里的每个成员，都要能被单独授权、单独披露、单独隔离——<b>「看见全部」和「有权看见全部」是两件事。</b></div>
+<p class="src">新加坡家族办公室税务激励（13O / 13U）的现行条件——基金规模、本地投资、本地商业支出、投资专业人士数量、年度申报——须以 MAS 最新指引为准；本文只引用「持续合规」这一结构特征，不引用具体门槛。信托与 BVI 公司的公开信息来自 2018 年招股书及公开报道；具体信托契约条款不在公开范围，本文不作断言。</p>
+
+<div class="casehd">
+<h2 id="c4"><span class="badge real">真实人物</span>§4 李嘉诚家族｜分家不是一天，是三十年</h2>
+<div class="who">长江和记 / 长江实业 / 李嘉诚基金会 · 2012 年分家 · 2018-05-10 退休 · 第三代已成年</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li><b>2012 年 7 月</b>，李嘉诚公开安排：长子<b>李泽钜</b>获家族信托的 <b>2/3</b> 权益；次子<b>李泽楷</b>获现金支持，用于其自身业务；李嘉诚保留 <b>1/3</b>，并表示将大部分捐予<b>李嘉诚基金会</b>。</li>
+<li>家族信托为<b>全权信托</b>；受托人公司的股权结构为李嘉诚 <b>1/3</b>、李泽钜 <b>2/3</b>。</li>
+<li>李嘉诚基金会 <b>1980 年</b>成立；李嘉诚曾称其为自己的「第三个儿子」。</li>
+<li><b>2018-05-10</b>，李嘉诚退休，李泽钜接任长江和记实业与长江实业集团主席。</li>
+</ul>
+<p class="caveat">来源：财新（2012-07-20）、界面新闻、人民日报（2014-06）、央视网（2012-07-24）、21 世纪经济报道（2019-03-27）。<b>本案例不主张其为本行客户；不主张任何未公开的信托契约条款、受益人名单或税务安排。信托的具体条款以公开报道为限，本文不做推断。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年春节，一位 24 岁的第三代第一次被带来见 RM。他没有账户、没有授权、没有持股，<b>但他是受益人类别中的一员。</b>RM 在系统里查不到他，只能从「李先生的孙子」开始做 KYC。</p>
+
+<h3>4.1 结构：三种权利，四个人，一个基金会</h3>
+<p class="story">这笔财富的复杂之处不在金额，而在<b>权利被拆成了三层</b>：<b>经济权</b>（信托受益权，归受益人）、<b>投票权</b>（受托人公司股权，归李泽钜 2/3）、<b>处分权</b>（信托契约下的保留权力与保护人机制）。<b>基金会不是「慈善捐款的收件人」，它是这个结构里的一个受益主体</b>——它拿走了李嘉诚保留的 1/3 中的大部分，却从来不作为「客户」出现在银行系统里。</p>
+
+<div class="tw"><table>
+<tr><th style="width:22%">主体</th><th style="width:20%">经济权</th><th style="width:20%">投票权</th><th>在银行系统里的形态</th></tr>
+<tr><td>李泽钜</td><td>信托受益人（2/3 体系）</td><td>受托人公司 2/3</td><td>客户 / 授权人 / 董事</td></tr>
+<tr><td>李泽楷</td><td>已获现金安排</td><td>—</td><td>独立客户（另一条关系线）</td></tr>
+<tr><td>李嘉诚</td><td>保留 1/3</td><td>受托人公司 1/3</td><td>客户（历史）/ 委托人</td></tr>
+<tr><td>李嘉诚基金会</td><td>受益于保留的 1/3</td><td>—</td><td><b>通常根本不存在</b></td></tr>
+<tr><td>第三代</td><td>受益人类别中的潜在成员</td><td>—</td><td><b>不存在，直到他们来签字</b></td></tr>
+</table></div>
+
+<div class="fiction">
+<h4>设计推演 · 2026 年，一位第三代第一次走进分行</h4>
+<p class="story">他要开一个账户。系统里查不到他——他不是受益人名单上的「指定受益人」，而是「受益人类别」中的一个潜在成员；他没有持股，没有董事职务，没有授权。RM 只能从零开始做 KYC。<b>而事实上，他从出生起就是这笔财富的潜在受益人。</b></p>
+</div>
+
+<h3>4.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>第三代第一次接触银行时，要重新解释「我是谁家的谁」；分家的历史只存在于长辈的记忆和几份公告里。<br><b>新：</b>一次家族授权，第三代可以在<b>被授权范围内</b>看到与自己有关的受益关系，而不看到其他人的。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 只知道「李泽钜是客户」；不知道基金会、受托人公司、受益人类别之间的关系。<br><b>新：</b>一张<b>三权矩阵</b>：谁有经济权、谁有投票权、谁能改契约；每个结论有依据文件。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 家族结构的<b>可视化图谱</b>（含基金会与未出生/未成年受益人）；② 每一笔分配的<b>权利来源</b>；③ 第三代在<b>不暴露其他成员隐私</b>的前提下被识别。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再靠「这是李先生的儿子」做 KYC；关系有对象、有层级、有授权范围。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>跨代关系的载体从「RM 的记忆」变成「系统的图谱」。</b>RM 离职，图谱还在；这是私行最难被复制的东西。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>BeneficiaryClass</code>（受益人类别，区别于指定受益人）；② <code>RightsMatrix</code>（经济权/投票权/处分权三列，不是「持股 %」一列）；③ <code>FoundationAsBeneficiary</code>（慈善主体作为受益主体，同时是独立客户）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>「分家」在系统里通常被记成一次股权转让事件。但真实的家族分家，是三十年的持续安排：1980 年设基金会，2012 年定分家，2018 年交接，2026 年第三代进入。</b>每一次都不是「覆盖上一次」，而是<b>在上一次之上追加一层</b>。系统如果只会存「当前股权结构」，就永远只能看到最后一张照片，看不到这部电影。</div>
+<p class="src">来源同上。信托的具体受益人安排、受托人公司的最新股权、基金会的资产规模，均以公开披露为限；本文不引用未公开数据。</p>
+
+<div class="casehd">
+<h2 id="c5"><span class="badge real">真实人物</span>§5 郑裕彤家族｜十个月，四种身份</h2>
+<div class="who">周大福 / 新世界发展 · 郑裕彤（1925–2016）· 郑家纯 · 郑志刚（2024-09 辞任 CEO，2025-07 全面退出）· 郑志雯</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>郑裕彤 <b>1925-08-26 – 2016-09-29</b>；周大福珠宝集团 <b>2011-12-15</b> 在港交所上市；新世界发展 <b>1972 年</b>在港上市。</li>
+<li>郑志刚 <b>2020 年 5 月</b>出任新世界发展执行副主席兼<b>行政总裁</b>。</li>
+<li><b>2024-09-26</b>：郑志刚辞任行政总裁，转任<b>非执行董事及非执行副主席</b>；马绍祥接任 CEO。</li>
+<li><b>2025-07-01</b>：郑志刚辞任<b>非执行董事及非执行副主席</b>，全面退出上市公司。</li>
+<li>新世界发展 2024 财年（至 2024-06-30）股东应占亏损约 <b>196.83 亿港元</b>，为近二十个财年首次亏损；净债务约 <b>1,246 亿港元</b>。</li>
+<li><b>2025-06-30</b>：完成约 <b>882 亿港元</b>现有境外无抵押债务的再融资。</li>
+</ul>
+<p class="caveat">来源：新世界发展港交所公告（2024-09-26、2025-01-23、2025-06-30）、路透社（2025-06-30）、每日经济新闻（2024-09-27、2025-07-01）、联合早报（2024-09-26）。<b>本案例只引用上市公司公开披露的治理与财务事件，不评价任何家庭成员的个人能力或责任；不主张其为本行客户，不主张本行参与其任何银团或融资。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2024 年 9 月 27 日，CEO 辞任公告后的第一个工作日。一笔需要「CEO 授权」的转账指令到达操作台。<b>系统里的授权人，还是昨天的名字。</b></p>
+
+<h3>5.1 结构：同一个家族，四种身份，十个月</h3>
+<div class="tw"><table>
+<tr><th style="width:18%">日期</th><th style="width:26%">身份</th><th style="width:26%">可行使的权力</th><th>银行系统需要的变化</th></tr>
+<tr><td>2024-09-25</td><td>执行董事、执行副主席、CEO</td><td>经营、签署、对外代表</td><td>授权人 / 担保人 / 关联方</td></tr>
+<tr><td>2024-09-26</td><td>非执行董事、非执行副主席</td><td>董事会表决；不再经营</td><td><b>授权降级</b>；交易权限须即时收回</td></tr>
+<tr><td>2025-06-30</td><td>仍为非执行董事（公告日）</td><td>董事会表决</td><td>关联方身份仍在</td></tr>
+<tr><td>2025-07-01</td><td><b>全面退出</b></td><td>无</td><td>关联方解除；但历史交易仍须可追溯</td></tr>
+</table></div>
+<div class="note"><b>这不是「人事变动」，是四次授权状态迁移。</b>大多数系统会在 HR/董事会变更后由 PA 手工改权限；中间的时间差，就是风险窗口。<b>十个月里任何一笔以「CEO 授权」执行的交易，如果发生在 2024-09-27，就是一条需要解释的记录。</b></div>
+
+<h3>5.2 同一家银行，四个视角，一个利益冲突</h3>
+<div class="fiction">
+<h4>设计推演 · 假设本行同时是四种角色</h4>
+<p class="story">（a）家族成员的<b>私人银行</b>；（b）新世界发展再融资<b>银团</b>中的一家；（c）集团债券的<b>持有人或做市商</b>；（d）以家族成员持有的新世界股票作抵押的<b>Lombard 贷款行</b>。<b>四个角色知道的信息不同，能做的事也不同。</b></p>
+</div>
+<div class="tw"><table>
+<tr><th style="width:18%">视角</th><th style="width:28%">它知道什么</th><th style="width:26%">它不能做什么</th><th>它必须做什么</th></tr>
+<tr><td><b>私行</b></td><td>家族成员的个人资产、负债、质押</td><td>不能使用银团里的未公开信息建议客户交易</td><td>识别集团集中度；在客户授权范围内提示风险</td></tr>
+<tr><td><b>企业银行 / 银团</b></td><td>集团现金流、债务到期、契约条款</td><td>不能把信息传给私行用于营销或催收</td><td>信息隔离；冲突登记；升级到集团风险</td></tr>
+<tr><td><b>市场 / 债券</b></td><td>债券价格、流动性、持仓</td><td>不能利用客户信息做自营</td><td>市场滥用监控；与客户交易的时间隔离</td></tr>
+<tr><td><b>Lombard</b></td><td>质押股票、保证金比例、追保线</td><td>不能因银团信息而单方面提前追保（除非契约允许）</td><td>按契约执行；压力测试；集中度上限</td></tr>
+</table></div>
+
+<h3>5.3 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>家族成员分别与不同团队打交道；没有人告诉他们「银行内部同时知道什么」。<br><b>新：</b>明确告知哪些信息在哪个法律实体内、哪些不能跨墙；质押与贷款的追保规则提前可见。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 看到集团出事，但不知道自己的客户是否会被追保；只能等风控通知。<br><b>新：</b>客户群视图里同时显示<b>企业敞口、私人敞口、质押集中度</b>，但敏感信息按墙隔离。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 一张「你在本行的全部关系」清单，按法律实体分列；② 质押贷款的<b>压力情景</b>（股价下跌 X% 时的追保金额）；③ 授权变更后的<b>即时生效</b>确认。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再在危机中「最后一个知道」；也不再因为越墙而违规。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>这是全能银行做私行的独特优势，也是最大风险。</b>优势是能看到别人看不到的集团全貌；风险是四个视角之间的信息一旦流动错误，就是监管事件。<b>下一代系统的核心不是「打通」，是「可控地打通」。</b></td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>AuthorityState</code>（授权状态机，含生效时点与历史）；② <code>ChineseWall</code>（信息隔离的规则化，不是口头约定）；③ <code>PledgeContagion</code>（质押 × 股价 × 集团敞口的联动压力测试）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>这个案例最容易被误读成「豪门八卦」。它其实是一个纯粹的架构问题：当同一家银行同时是客户的贷款行、银团行、债券持有人和私行时，「客户视图」和「信息隔离」必须在同一个系统里同时成立。</b>只做前者是违规，只做后者是瞎子。</div>
+<p class="src">来源同上。本文不主张本行参与新世界发展任何融资，也不主张任何家族成员在本行有质押贷款；上述四种角色为设计推演中的假设组合。</p>
+
+<div class="casehd">
+<h2 id="c6"><span class="badge real">真实人物</span>§6 郭鹤年家族｜家族不是一棵树</h2>
+<div class="who">嘉里集团 / 香格里拉 / 丰益国际 / 益海嘉里 · 郭鹤年（1923 年生）· 郭孔丞 · 郭孔演 · 郭孔丰 · 郭惠光（2025-08-01 任香格里拉 CEO）</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>郭鹤年 <b>1923 年</b>生于马来西亚，祖籍福建；嘉里集团、香格里拉酒店集团创办人。</li>
+<li><b>郭孔丞</b>（1954 年生，马来西亚国籍、香港永久居民）任嘉里集团董事长；曾任香格里拉（亚洲）主席，2016 年淡出。</li>
+<li><b>郭孔演</b>曾任香格里拉（亚洲）主席；<b>郭惠光</b>于 <b>2025-08-01</b> 起任香格里拉（亚洲）首席执行官，并保留主席职务。</li>
+<li><b>郭孔丰</b>（1947 年生，新加坡）掌管<b>丰益国际</b>与<b>益海嘉里</b>；益海嘉里金龙鱼（300999）于 <b>2020-10-15</b> 在深交所创业板上市。</li>
+<li>家族业务横跨<b>马来西亚、香港、新加坡、中国内地、印度尼西亚</b>；香格里拉（亚洲）与嘉里建设在港上市，丰益国际在新加坡上市。</li>
+</ul>
+<p class="caveat">来源：界面新闻、21 世纪经济报道（2025-07-30）、东方日报（2026-10-07）、香格里拉（亚洲）港交所公告（2025-07）、丰益国际与益海嘉里公开资料。<b>本案例不主张其为本行客户；不推断各房之间的家庭关系、持股比例或信托安排；「房」的划分仅按公开职务与公开报道，不按私人关系推断。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年 8 月，香格里拉（亚洲）的 CEO 任命生效。同一周，堂侄掌管的粮油平台宣布分红。两个消息在同一个家族的群里，<b>但银行的两个 RM 各自只知道一半。</b></p>
+
+<h3>6.1 结构：家族图谱是一个图，不是一棵树</h3>
+<p class="story">如果只看「直系亲属」，这个家族是：郭鹤年 → 长子郭孔丞、次子郭孔演、女儿郭惠光。<b>但真正掌管另一个千亿级平台的是堂侄郭孔丰。</b>他不是直系，不在「家庭成员」字段里，却在企业治理上是关键人。<b>银行系统里的「家庭关系」通常只存配偶、子女、父母——这张表装不下「堂侄」，更装不下「堂侄控制着家族另一半资产」。</b></p>
+<div class="tw"><table>
+<tr><th style="width:18%">分支</th><th style="width:18%">代表</th><th style="width:20%">主要平台</th><th style="width:16%">辖区</th><th>在系统中的典型状态</th></tr>
+<tr><td>长子一支</td><td>郭孔丞</td><td>嘉里集团</td><td>MY / HK</td><td>客户 / 董事</td></tr>
+<tr><td>次子一支</td><td>郭孔演</td><td>香格里拉（历史）</td><td>HK</td><td>客户 / 前董事</td></tr>
+<tr><td>女儿一支</td><td>郭惠光</td><td>香格里拉（亚洲）</td><td>HK</td><td>客户 / 主席兼 CEO</td></tr>
+<tr><td><b>堂侄一支</b></td><td><b>郭孔丰</b></td><td><b>丰益国际 / 益海嘉里</b></td><td><b>SG / CN</b></td><td><b>通常不在「家庭成员」里</b></td></tr>
+<tr><td>第三代</td><td>未公开</td><td>—</td><td>MY / HK / SG / UK</td><td><b>未知</b></td></tr>
+</table></div>
+
+<h3>6.2 三个「家族」定义，三个不同的人</h3>
+<div class="tw"><table>
+<tr><th style="width:20%">定义</th><th style="width:30%">包含谁</th><th>用在哪里</th></tr>
+<tr><td><b>血亲家族</b></td><td>郭鹤年及其直系后代</td><td>继承、信托受益人类别</td></tr>
+<tr><td><b>经济家族</b></td><td>血亲 + 堂侄一支 + 长期合伙人家族</td><td>集团授信、关联交易、一致行动人</td></tr>
+<tr><td><b>治理家族</b></td><td>在上市公司/控股公司担任董事或实控人的那些人</td><td>披露、窗口期、关联方名单</td></tr>
+</table></div>
+<div class="note"><b>系统必须能同时持有这三个定义，而不是选一个。</b>如果只存血亲，会漏掉郭孔丰；如果只存治理，会漏掉未成年的第四代；如果只存经济，会把远亲也算成受益人。</div>
+
+<h3>6.3 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>每个分支在不同辖区、不同银行、不同上市公司各自为政；家族层面没有一张完整的图。<br><b>新：</b>一个家族视图，按分支、按平台、按辖区展开；每个人只看到自己被授权的部分。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 服务其中一个分支，不知道另一个分支的 RM 在做什么；跨分支的关联交易靠人提醒。<br><b>新：</b>系统识别「同一经济家族」，在关联交易、集中度、声誉风险上自动关联。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 一张<b>跨四地、跨四支</b>的家族图谱；② 每个平台的关键人、董事身份、窗口期；③ 「谁不是家庭成员但必须被当作关键人」的清单。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再用「这是老板的亲戚」做判断；家族关系有边界、有类型、有依据。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>东南亚华人家族是 HSBC 最独特的客户群：他们同时存在于香港、新加坡、马来西亚和中国内地。</b>能画出这张图的银行，才有资格谈「家族办公室」。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>KinshipGraph</code>（图结构，支持堂表、姻亲、非血亲关键人）；② <code>FamilyDefinition</code>（血亲/经济/治理三套边界）；③ <code>RoleGraph</code>（人在每个实体里的角色，与亲属关系解耦）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>「家族」不是一个客户属性，是一个独立的对象域。</b>它有自己的边界、自己的版本、自己的授权规则。<b>把它做成「客户表里的一个 family_id」，就等于把一张网做成了几根绳子。</b></div>
+<p class="src">来源同上。郭孔丰与郭鹤年的亲属关系为公开报道所述（堂侄）；本文不推断任何未公开的持股、信托或继承安排。香格里拉（亚洲）2025-08-01 的首席执行官任命为港交所公告事项。</p>
+
+<div class="casehd">
+<h2 id="c7"><span class="badge real">真实人物</span>§7 Poonawalla 家族｜一栋房子，三个制度，三个申报主体</h2>
+<div class="who">Serum Institute of India · Cyrus Poonawalla（1941 年生）· Adar Poonawalla · 伦敦 Mayfair Aberconway House（2023 年，约 £138m）</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>Cyrus Poonawalla 于 <b>1966 年</b>创办 Serum Institute of India；公司为全球按剂数计最大的疫苗生产商之一。Adar Poonawalla 任首席执行官。</li>
+<li><b>2023 年</b>，Adar Poonawalla 以约 <b>£138m</b> 购入伦敦 Mayfair 的 <b>Aberconway House</b>（约 25,000 平方英尺），为当年伦敦最贵住宅交易之一。</li>
+<li>公开报道载明：买方为 <b>Serum Life Sciences</b>，即 Poonawalla 家族印度公司的<b>英国子公司</b>，而非个人直接持有。</li>
+<li>家族旗下 <b>Poonawalla Fincorp</b> 为印度上市非银行金融公司。</li>
+</ul>
+<p class="caveat">来源：Financial Times（2023）、NDTV（2023）、Indian Express（2023）、Mingtiandi（2023）。<b>本案例不主张其为本行客户；不主张该房产的实际使用方式、税务处理或融资安排；上述「公司持有」仅按公开报道陈述，具体交易结构以公开文件为限。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年 4 月，英国税务年度切换。一封 ATED 提醒发到英国公司秘书邮箱，一封 ODI 年度申报提醒发到印度 CFO 邮箱，一封物业账单发到家族办公室。<b>三封邮件，说的是同一栋房子。</b></p>
+
+<h3>7.1 结构：同一栋房子，四张资产负债表</h3>
+<div class="tw"><table>
+<tr><th style="width:16%">视角</th><th style="width:22%">这栋房子是什么</th><th style="width:26%">触发什么</th><th>责任人</th></tr>
+<tr><td><b>英国税</b></td><td>英国境内住宅资产</td><td>公司购买住宅：15% 印花税（较高门槛以上）；<b>ATED</b> 按价值分档年费；<b>IHT</b>：自 2017 年起，通过离岸/公司结构持有的英国住宅权益纳入遗产税范围</td><td>英国税务顾问 / 公司秘书</td></tr>
+<tr><td><b>英国公司法</b></td><td>英国子公司的固定资产</td><td>董事义务、关联交易、年报、受益所有人登记</td><td>英国董事 / 公司秘书</td></tr>
+<tr><td><b>印度外汇</b></td><td>印度居民的<b>境外直接投资（ODI）</b></td><td>ODI 登记、年度申报、资金汇出合规</td><td>印度 CA / 集团财务</td></tr>
+<tr><td><b>印度税</b></td><td>印度税务居民的全球资产</td><td>居民全球收入征税；境外资产申报；未来处置的资本利得</td><td>印度税务顾问</td></tr>
+</table></div>
+
+<div class="note"><b>最容易被忽略的是「谁在用」。</b>如果房子由公司持有、但供家族成员居住，英国税下可能构成<b>利益归属（benefit-in-kind）</b>，ATED 的某些减免（如出租业务）也可能不适用；如果房子用于招待客户或员工住宿，结论又不同。<b>同一栋房子，因为「使用方式」不同，四个制度的结论全部改变。</b></div>
+
+<h3>7.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>英国律师、印度 CA、公司秘书三方各自处理；家族不知道这栋房子在四个制度下同时产生义务。<br><b>新：</b>一张「资产—制度」矩阵，看到同一栋房子在英国税、英国公司法、印度外汇、印度税下的四种身份。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 只知道客户买了一套房；不知道它挂在公司名下、不知道 ATED、不知道 ODI 申报。<br><b>新：</b>RM 看到资产的实际持有人、使用方式、到期义务与责任人。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 一栋房子的<b>四张义务清单</b>；② 每个义务的<b>申报主体</b>（公司 / 个人 / 信托）；③ 「如果改为个人持有 / 出租 / 自住，结果如何」的对照。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再把「跨境房产」当成一个投资产品；它是一个跨境合规对象。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>这是「资产为中心」而不是「账户为中心」的最清晰例子。</b>房子不在任何证券账户里，但它产生四个制度的义务；如果系统只看得见账户，它就看不见这栋房子。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>AssetRegimeStack</code>（同一资产 × 多制度 × 多申报主体）；② <code>UsageFact</code>（自住/出租/招待/员工住宿——使用方式是一等事实）；③ <code>BenefitInKind</code>（公司资产被个人使用时的利益归属）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>私人银行最容易犯的错，是把「房产」当成「另类投资」。</b>对客户来说，它是家；对英国税局来说，它是英国境内住宅；对印度储备银行来说，它是一笔境外直接投资；对公司法来说，它是董事必须说明的关联交易。<b>四个事实，一个资产，四套语言。</b></div>
+<p class="src">英国：SDLT 公司购买住宅的 15% 税率、ATED 年费档位、2017 年起英国住宅权益纳入 IHT 的规则，均以 HMRC 现行指引为准；具体金额与减免须由英国税务组逐项确认。印度：FEMA 下的 ODI 规则与居民全球征税原则，以 RBI 与《所得税法》现行口径为准。<b>本文不计算具体税额，不构成税务意见。</b></p>
+
+<div class="casehd">
+<h2 id="c8"><span class="badge real">真实人物</span>§8 Majid Al Futtaim 家族｜当政府成为董事会</h2>
+<div class="who">Majid Al Futtaim Holding（Mall of the Emirates / Carrefour UAE）· 创始人 1934–2021 · 2025 年继承争议 · 迪拜政府任命新董事会</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>Majid Al Futtaim（<b>1934 – 2021-12-17</b>）创办 MAF Holding，旗下包括 Mall of the Emirates、家乐福海湾业务等。</li>
+<li><b>2025 年 6 月</b>，迪拜政府为解决创始人去世后的<b>家族继承争议</b>，在 <b>MAF Capital</b> 任命新董事会：<b>5 名政府代表 + 4 名家族代表</b>；并设立司法委员会处理争议。</li>
+<li>公开报道称，争议发生在创始人的不同支系之间；集团经营与股权结构均受影响。</li>
+</ul>
+<p class="caveat">来源：AGBI（2025-06）、Financial Times（2025）、Al Jazeera（2021-12-17）、Reuters 相关报道。<b>本案例不主张其为本行客户；不评价争议任何一方的对错；不推断未公开的遗嘱、信托或股权安排；不指称任何具体家庭成员。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2025 年 6 月，迪拜政府任命新董事会的公告发布。第二天，银行收到三封来自不同支系的指示，要求把同一笔资金转往不同的账户。<b>三封都签了字，三封都引用了「家族的决定」。</b></p>
+
+<h3>8.1 结构：当「谁有权指示」本身成为争议</h3>
+<p class="story">私人银行的默认假设是：<b>客户是一个能发出有效指示的人。</b>这个案例打破的正是这个假设。当创始人去世、继承份额未定、政府任命了新的董事会，<b>银行收到的每一封指示都可能是「有效」的，也可能是「无权」的</b>——而银行如果按错的那一封执行，就会成为争议的一部分。</p>
+<div class="tw"><table>
+<tr><th style="width:22%">可能的指示来源</th><th style="width:26%">它主张的权力</th><th style="width:26%">银行需要什么才能执行</th><th>风险</th></tr>
+<tr><td>某一支系的家族成员</td><td>作为继承人 / 受益人</td><td>继承证明、遗嘱认证、全体继承人同意</td><td>其他支系异议</td></tr>
+<tr><td>政府任命的董事会</td><td>作为公司治理机关</td><td>任命文件、董事会决议、章程授权</td><td>家族股东挑战</td></tr>
+<tr><td>法院 / 司法委员会</td><td>临时管理或保全</td><td>法院命令、管理人任命书</td><td>命令范围与期限</td></tr>
+<tr><td>遗嘱执行人 / 受托人</td><td>依据遗嘱或信托契约</td><td>遗嘱认证、信托契约、受托人决议</td><td>与继承法冲突</td></tr>
+</table></div>
+
+<h3>8.2 伊斯兰继承：不是「平均分」</h3>
+<p class="story">阿联酋的穆斯林继承适用<b>伊斯兰继承法（Sharia）</b>的固定份额规则：配偶、子女、父母各有法定份额，通常男性子女的份额为女性子女的两倍；配偶先取固定份额，剩余再按份额分配。<b>这与「一份遗嘱写清楚给谁多少」的普通法逻辑不同，也与「信托可以指定受益人」的逻辑不同。</b>如果资产通过控股公司持有，还会出现「公司股权继承」与「底层资产继承」两层问题。</p>
+<div class="note"><b>系统必须能表达「法定份额」与「实际控制」的分离。</b>一个继承人可能依法拥有 1/8 的遗产份额，但在公司治理上没有董事席位；另一个可能没有份额，却是政府任命的董事。<b>「受益」和「有权指示」是两条不同的线。</b></div>
+
+<h3>8.3 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>不同支系各自向银行发指示；银行逐封处理，家族不知道哪些已被执行。<br><b>新：</b>银行明确告知「当前只有 X 类指示可被执行」，并列出所需文件；争议期间所有指令进入双人复核。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 被夹在中间；既不能拒绝客户，也不能判断谁有权。<br><b>新：</b>系统给出<b>授权矩阵</b>与<b>争议状态</b>；RM 只需转述「目前可执行 / 不可执行 + 缺什么文件」。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 一张「谁有权、依据什么、到什么时候」的清单；② 争议期间的<b>资金冻结/双签</b>规则；③ 每笔被拒绝的指示都有书面理由。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再被迫在家族争议中「选边」；<b>拒绝也有依据，执行也有依据。</b></td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>中东私行最核心的能力不是收益率，是「在争议中仍然可被信任」。</b>能证明「我只按有效授权行事」的银行，才有资格服务海湾家族。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>AuthorityGraph</code>（谁在什么条件下可指示哪个实体/账户）；② <code>DisputeState</code>（争议是一等状态，触发冻结/双签/法律复核）；③ <code>SuccessionShare</code>（法定份额与实际控制分离）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>这个案例是整份文档里唯一一个「客户不是一个统一意志」的案例。</b>多数系统假设客户会给出一个清晰的指示；真实的高净值家族在继承期，会同时给出<b>四个互相矛盾的清晰指示</b>。<b>系统必须能处理「都很有道理，但只能执行一个」。</b></div>
+<p class="src">阿联酋：穆斯林继承适用 Sharia 固定份额；非穆斯林在阿布扎比/迪拜可通过特定民事个人身份法或 DIFC 遗嘱安排，<b>但不适用于本案的穆斯林家族</b>。具体份额、公司股权继承与法院程序须由阿联酋法律顾问确认。政府任命董事会的报道见 AGBI 与 FT；本文不引用未公开的争议细节。</p>
+
+<div class="casehd">
+<h2 id="c9"><span class="badge real">真实人物</span>§9 Mittal 家族｜离境的影子：十年之后仍在</h2>
+<div class="who">ArcelorMittal · Lakshmi Mittal（1950 年生）· 印度出生、伦敦三十年 · 2025 年据报迁往瑞士 · 子 Aditya Mittal 任 CEO</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>Lakshmi Mittal <b>1950 年</b>生于印度，1990 年代移居英国，长期为英国税务居民；ArcelorMittal 于 <b>2006 年</b>由 Mittal Steel 与 Arcelor 合并成立。</li>
+<li>英国自 <b>2025-04-06</b> 起废除<b>非居籍（non-dom）</b>制度，改为居籍无关的 <b>4 年 FIG</b> 制度；遗产税（IHT）改为<b>居留制</b>，并设有离境后的<b>10 年尾随</b>。</li>
+<li><b>2025 年 11 月</b>，Financial Times 等报道：Mittal 准备离开英国，将税务居民身份迁往<b>瑞士</b>，以回应非居籍制度废除。</li>
+<li>其子 <b>Aditya Mittal</b> 任 ArcelorMittal 首席执行官；女儿 Vanisha Mittal 亦在家族业务中。</li>
+</ul>
+<p class="caveat">来源：Financial Times（2025-11）、CNBC/Reuters 转述、HMRC 关于 FIG 与 IHT 居留制的指引。<b>「迁往瑞士」为公开报道，非本文核实的事实；本案例不主张其为本行客户，不主张任何具体的税务居民身份、家族信托或控股结构。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年 1 月，客户在瑞士签完开户文件。RM 把 UK 账户标记为「非居民」。<b>系统里，那个 10 年的英国遗产税尾随没有被创建。</b></p>
+
+<h3>9.1 结构：迁移不是一个日期，是一条影子</h3>
+<p class="story">系统通常把「税务居民变更」记成<b>一个字段的更新</b>：UK → CH，生效日 2026-01-01。真实的制度是：<b>人走了，义务还留着。</b>英国的 IHT 居留制带有<b>离境后 10 年尾随</b>；FIG 的 4 年减免不能带走；英国境内的房产、英国受托人、英国来源收入，各自还有独立的连接点。</p>
+<div class="tw"><table>
+<tr><th style="width:18%">连接点</th><th style="width:22%">迁移前</th><th style="width:22%">迁移后</th><th>影子期</th></tr>
+<tr><td><b>所得税</b></td><td>英国居民，全球征税</td><td>瑞士居民；英国来源收入仍征</td><td>FIG 4 年不可带走；离英后不能新主张</td></tr>
+<tr><td><b>遗产税</b></td><td>英国居留制</td><td>仍可能被英国 IHT 追及</td><td><b>离境后 10 年尾随</b></td></tr>
+<tr><td><b>英国房产</b></td><td>英国境内资产</td><td>仍是英国境内资产</td><td>不因持有人迁移而消失</td></tr>
+<tr><td><b>英国信托</b></td><td>英国受托人 / 英国法信托</td><td>受托人未变，信托仍受英国法</td><td>信托层面的义务继续</td></tr>
+<tr><td><b>银行关系</b></td><td>UK booking centre</td><td>CH booking centre</td><td>历史成本、未实现收益、质押、授权全部要迁移</td></tr>
+</table></div>
+
+<div class="fiction">
+<h4>设计推演 · 假设 2026 年完成迁移</h4>
+<p class="story">客户在瑞士开户，UK 账户转为「非居民账户」。系统把地址改了、税务居民改了，<b>但 UK 的 10 年 IHT 尾随没有被记录</b>。三年后客户身故，英国税局主张遗产税；银行拿不出「我们当时如何告知客户」的记录。<b>这不是税务计算错误，是状态模型缺了一条时间轴。</b></p>
+</div>
+
+<h3>9.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>分别通知英国律师、瑞士顾问、银行；三方各自改自己的记录；没有人给出「十年内还会发生什么」。<br><b>新：</b>一次迁移，得到一条<b>十年时间线</b>：哪一年英国仍可追及、哪一年 FIG 失效、哪些资产仍在英国。 </td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 以为「客户搬走了，关系就转走了」；不知道 UK 的义务还在。<br><b>新：</b>RM 看到「迁移中 / 影子期内」的状态，以及每个辖区的责任人。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 一张<b>迁移前 / 迁移中 / 迁移后</b>的义务对照；② 英国 10 年尾随的<b>到期日</b>；③ 哪些资产不能随人走（英国房产、英国信托）。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>迁移不再是一次「改地址」，而是一个有阶段、有尾巴、有证据的项目。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>HSBC 同时拥有 UK 与瑞士两个 booking centre，这是极少数能「接住」这类迁移的银行。</b>但接住的前提是：系统能承认「人走了，义务没走」。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>JurisdictionMigration</code>（迁移是流程，不是字段）；② <code>ShadowObligation</code>（离境后仍有效的义务，带到期日与依据）；③ <code>BookingTransfer</code>（成本、质押、授权、历史报表的整体迁移）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>「税务居民」不是一个枚举值，是一个带时间轴的状态。</b>把它做成一个下拉框，系统就永远回答不了「他去年是哪国人、明年还会被谁征税」。<b>而这个问题的答案，决定了一整代客户的去留。</b></div>
+<p class="src">英国：2025-04-06 起废除非居籍/汇款制，4 年 FIG 要求「抵达前连续 10 个税务年度非英国税务居民」；IHT 改为居留制，基本判据为事件发生前在英居住满 10 年，离境后有 10 年尾随。<b>具体适用以 HMRC 指引与税务组意见为准。</b>Mittal 迁移为 FT 报道，本文不将其作为已核实事实。</p>
+
+<div class="casehd">
+<h2 id="c10"><span class="badge real">真实人物</span>§10 Premji 家族｜67% 已经不是他的了</h2>
+<div class="who">Wipro · Azim Premji（1945 年生）· Azim Premji Foundation · 约 67% 经济权益已捐入基金会/信托 · 投票权仍由家族保留</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>Azim Premji 自 <b>2001 年</b>起持续将个人财富捐入 <b>Azim Premji Foundation</b>；<b>2019 年 3 月</b>再承诺捐出所持 Wipro 股份的 <b>34%</b>，使累计捐出的经济权益达到约 <b>67%</b>。</li>
+<li>公开报道当时对 endowment 的估值约 <b>US$21bn</b>；基金会官网后来披露的 endowment 规模约 <b>INR 2.4 lakh crore（约 US$29bn）</b>。</li>
+<li>公开报道明确：信托/基金会取得的是<b>财富份额</b>，<b>投票权仍由 Premji 保留</b>。</li>
+<li>Wipro 为印度上市 IT 服务公司；Premji 长期任董事长。</li>
+</ul>
+<p class="caveat">来源：Mint（2019-03）、Wikipedia（Azim Premji）、Azim Premji Foundation 官网「History and Timeline」、Harvard Business School 案例（Azim Premji Trust）。<b>本案例不主张其为本行客户；不主张任何未公开的信托契约、投票权安排或家族继承计划；「67%」与「投票权保留」均按公开报道陈述。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年 3 月，基金会年度理事会。家族办公室问：「这 67% 的 Wipro 股票，在我们家族的资产负债表上怎么记？」<b>银行给出的 AUM 报告里，它仍然在。</b></p>
+
+<h3>10.1 结构：一笔资产，三种权利，两个「客户」</h3>
+<p class="story">如果银行问「这位客户有多少钱」，答案取决于用哪个口径：<b>按受益权</b>，67% 已经不属于普雷姆吉家族，而属于基金会；<b>按控制权</b>，家族仍是 Wipro 的实控人；<b>按处分权</b>，这 67% 已被「不可撤销捐赠」锁定，不能再卖、不能再质押、不能再改受益人。<b>三个口径都正确，但没有一个能单独回答「他有多少钱」。</b></p>
+<div class="tw"><table>
+<tr><th style="width:18%">权利</th><th style="width:24%">归谁</th><th style="width:26%">能做什么</th><th>不能做什么</th></tr>
+<tr><td><b>经济权</b></td><td>基金会 / 信托</td><td>收取股息、享有增值</td><td>不能由家族取回</td></tr>
+<tr><td><b>投票权</b></td><td>普雷姆吉家族</td><td>选举董事、影响公司决策</td><td>不能出售给第三方（通常受章程/协议限制）</td></tr>
+<tr><td><b>处分权</b></td><td>受捐赠承诺与信托契约约束</td><td>在契约允许范围内调整</td><td><b>不能再卖、再质押、再指定受益人</b></td></tr>
+</table></div>
+
+<div class="note"><b>这是私人银行「AUM 口径」问题最尖锐的一个案例。</b>如果把 67% 算作客户资产，银行就高估了可投资资产；如果不算，银行就低估了客户的控制权与关系价值。<b>正确的做法不是选一个，而是同时维护「受益口径」与「控制口径」，并在每个产品、每个授信、每个披露里标明用的是哪一个。</b></div>
+
+<h3>10.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>基金会与家族被当成两个不相干的客户；家族不知道哪些资产已经不能动；银行不知道捐赠承诺的存在。<br><b>新：</b>一张「权利清单」：哪些资产是家族的、哪些是基金会的、哪些是「家族控制但不能受益」的。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 把 Wipro 持股全部算进客户 AUM；建议时可能提出一个已被捐赠承诺禁止的方案。<br><b>新：</b>建议生成前自动校验「处分权」；不可执行的方案在生成时就被拦下。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 家族与基金会的<b>双主体视图</b>；② 每一笔资产的「三权」归属；③ 捐赠承诺的<b>年度义务</b>与到期日。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再高估可投资资产；不再提出不能执行的方案；基金会的慈善支出有了系统载体。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>慈善资本是私行增长最快的板块之一，但它不是「少赚一点」的客户，而是「权利结构完全不同」的客户。</b>能同时服务家族与基金会的银行，才有资格谈传承。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>RightsMatrix</code>（经济/投票/处分，逐资产）；② <code>IrrevocablePledge</code>（不可撤销承诺作为长期约束，不是交易）；③ <code>DualAUM</code>（受益口径与控制口径并存，不合并成一个数）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>「他有多少钱」这个问题，在超高净值家族里往往没有单一答案。</b>系统如果坚持只给一个数字，就一定会错。<b>下一代私行的基本素养，是能同时说出两个数字，并解释它们为什么不同。</b></div>
+<p class="src">来源同上。印度慈善信托/基金会的税务与 FCRA（涉外捐赠）规则须由印度税务组确认；本文不计算任何税额，不构成税务意见。</p>
+
+<div class="casehd">
+<h2 id="c11"><span class="badge ref">行业参照</span>§11 Murdoch 家族｜「不可撤销」的信托，为什么会打到法院</h2>
+<div class="who">1999 年不可撤销家族信托 · 四名子女平等投票权 · 2023-12 申请修改 · 2024-12 内华达遗嘱认证专员驳回</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li><b>1999 年</b>，Murdoch 家族设立<b>不可撤销信托</b>，四名子女在信托中拥有<b>平等的投票权</b>；信托设立与默多克第二任妻子 Anna 的离婚安排有关。</li>
+<li><b>2023 年 12 月</b>，Rupert Murdoch 申请修改信托，以便将控制权集中于长子 Lachlan。</li>
+<li><b>2024 年 12 月</b>，内华达州遗嘱认证专员<b>驳回</b>该申请；公开报道称裁定理由涉及「恶意」与受益人利益。</li>
+<li>信托为<b>不可撤销</b>，但不可撤销不等于不可修改：在特定条件下，法院仍可依衡平法原则修改或调整。</li>
+</ul>
+<p class="caveat">来源：New York Times（2024-12-09）、Wikipedia「Succession of Rupert Murdoch」、University of Virginia School of Law（2024-12）、Saul LLP 分析。<b>本案例作为行业参照，不主张其为本行客户，不主张本行担任其受托人；不引用任何未公开的信托条款或和解结果。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2024 年 12 月，内华达的裁定公布。受托人问银行：「过去三年，我们按哪一版信托契约做的分配？」<b>系统里只有一份 1999 年的 PDF。</b></p>
+
+<h3>11.1 结构：四个来源，四种效力</h3>
+<p class="story">私人银行的信托系统通常只存一份「信托契约」。真实的信托运行中，至少有四种文件同时有效，而且效力顺序会变：</p>
+<div class="tw"><table>
+<tr><th style="width:20%">文件</th><th style="width:22%">由谁产生</th><th style="width:26%">效力</th><th>系统通常怎么处理</th></tr>
+<tr><td><b>信托契约</b></td><td>委托人 + 受托人</td><td>基础规则；可经补充契据修改</td><td>存一份 PDF</td></tr>
+<tr><td><b>受托人决议</b></td><td>受托人</td><td>在契约授权范围内有效</td><td>不存，或在邮件里</td></tr>
+<tr><td><b>法院命令</b></td><td>法院</td><td>可覆盖契约（在管辖范围内）</td><td>不存</td></tr>
+<tr><td><b>和解协议</b></td><td>全体/部分受益人</td><td>约束签署方；可能改变实际分配</td><td>不存</td></tr>
+</table></div>
+
+<h3>11.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户（受益人/受托人）要做</b></td><td><b>现在：</b>每次争议都要重新找律师、重新解释「现在有效的是哪一版」。<br><b>新：</b>一份<b>文件效力链</b>：哪一版、哪一天生效、被哪份文件修改、当前是否被法院命令暂停。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 不知道信托已经改过；按旧版回答受益人。<br><b>新：</b>系统按「生效日」给出当时的版本；历史回答可复现。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 信托的<b>版本时间线</b>；② 每个受益人的权利在不同版本下的变化；③ 法院命令/和解协议的适用范围。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再用一份过期契约回答客户；每次回答都有「依据版本 + 生效日」。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>信托业务的核心不是「管钱」，是「证明我按当时有效的文件执行」。</b>这是受托人最容易被起诉、也最难自证的地方。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>LegalInstrument</code>（契约/决议/命令/和解，统一建模）；② <code>EffectivityChain</code>（谁修改了谁、从哪天起、在哪个辖区）；③ <code>BeneficiaryRightAtDate</code>（按日期重放受益权）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>「不可撤销」是信托法里最容易被误解的词。</b>它约束的是委托人，不是法院；它保证信托不会被随意撤回，但不保证条款永远不会变。<b>系统如果只存一份「最终版」契约，就无法回答「2024 年 12 月那天，受益人到底有什么权利」——而这正是争议中唯一重要的问题。</b></div>
+<p class="src">美国：内华达州遗嘱认证程序；信托修改的衡平法原则（equitable deviation / decanting）各州不同，须由美国信托律师确认。<b>本文不评价法院裁定，不引用未公开证据。</b></p>
+
+<div class="note"><b>从这里开始，客户身价降到 US$5m–100m。</b>这四组不是「缩小版」的高净值案例，而是四种不同的流动性问题：<b>没有市场价</b>（Guy）、<b>没有到账</b>（Sarah）、<b>没有第二个十年</b>（Vardy）、<b>没有可卖的控制权</b>（Neame）。它们的共同点不是「钱少」，而是<b>银行常用的「市值 / 到账 / 可投资金额」三个词，在这里全部失效。</b></div>
+
+<div class="casehd">
+<h2 id="c12"><span class="badge real">真实人物</span>§12 中段客户 A｜Guy Singh-Watson：没有 IPO，也没有 PE，只有一笔五年期的卖方贷款</h2>
+<div class="who">Riverford Organic Farmers 创始人 · 1987 年创办 · 2018 / 2023 两阶段出售给员工信托 · 英国德文郡</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>1987 年，Guy Singh-Watson 在德文郡的家庭农场创办 <b>Riverford</b>，以有机蔬菜盒配送起家。</li>
+<li><b>2018 年</b>，他将约 <b>74%</b> 的股份出售给<b>员工所有权信托（EOT）</b>，保留约 26%；交易由 Triodos 银行融资。</li>
+<li><b>2023 年 5 月</b>，他以<b>近 £10m</b> 出售剩余约 <b>23%</b>，Riverford 成为 <b>100% 员工所有</b>。</li>
+<li>公司年营收约 <b>£100m</b> 量级，员工约 650–700 人。</li>
+<li>他公开写道：2018 年的定价约为会计师估值的<b>四分之一</b>——「价格是谈出来的，不是算出来的」。</li>
+</ul>
+<p class="caveat">来源：The Guardian（2023-05-19）、BBC（2023-05）、The News.coop、Wicked Leeks（Riverford 创始人自述）、Riverford 公开资料。<b>本案例不主张其为本行客户；不主张任何未公开的个人资产、家族信托或税务安排；2018 年首笔交易的金额在不同报道中有 £6m–10m 的口径差异，2018 年保留比例与 2023 年出售比例在不同报道中为 23%–26%，本文按公开报道分别引用，不引用具体首笔金额。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2022 年 3 月（最后一笔股权出售前一年），EOT 受托人发来一封邮件：公司想提前偿还 2018 年的卖方贷款，需要银行确认「还款后不会触发其他融资的交叉违约」。<b>Guy 已经不是多数股东，但仍持有约 26%；这笔贷款、他保留的少数股权、以及公司的现金流，仍然绑在同一张资产负债表上。</b></p>
+
+<h3>12.1 结构：一次没有市场价的出售</h3>
+<p class="story">这是一类在私人银行里被严重低估的客户：<b>卖掉了公司，但没有 IPO，也没有 PE；现金是分期的，买方是自己的员工，价格是谈出来的。</b>在他 2018–2023 年的结构里，银行系统看到的像是「一个突然多了 £10m 现金的客户」；实际上，他的财富分布在三种完全不同的资产上：<b>已收到的现金、未到期的卖方贷款、卖不掉的少数股权。</b></p>
+<div class="tw"><table>
+<tr><th style="width:20%">同一家公司的三个价格</th><th style="width:24%">怎么来的</th><th style="width:24%">谁能用</th><th>系统里通常有没有</th></tr>
+<tr><td><b>会计师估值</b></td><td>DCF / 可比公司 / 资产基础</td><td>税务、诉讼、继承</td><td>有，但只是一份 PDF</td></tr>
+<tr><td><b>谈判价</b></td><td>买卖双方对控制权、员工、土地、品牌的主观定价</td><td>本次交易</td><td><b>没有</b></td></tr>
+<tr><td><b>银行抵押价值</b></td><td>折价率、现金流覆盖、退出路径</td><td>Lombard / 授信</td><td>有，但和上面两个不对话</td></tr>
+</table></div>
+<div class="note"><b>EOT 的关键不是「卖给员工」这个情怀，而是它的现金流结构：</b>公司用未来利润偿还卖方贷款；卖方在几年内既是债权人，又可能是少数股东；如果公司经营恶化，<b>债和股同时贬值</b>。这与「卖出股票、钱到账、关系结束」是完全不同的风险形态。</div>
+
+<h3>12.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>银行只认「到账现金」；卖方贷款和少数股权不在任何组合视图里；每次谈授信都要重新解释 EOT。<br><b>新：</b>一张「现金 / 债权 / 股权」三分的资产负债表，每一格标注估值基础与流动性。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 不知道 EOT 是什么；把 £10m 当成可投资资产；不知道卖方贷款的到期日。<br><b>新：</b>RM 看到 EOT 结构、卖方贷款余额、剩余股权比例，以及三者的相关性。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 三种口径的估值并列，不合并成一个数；② 卖方贷款的还款日历与交叉违约条款；③ 「如果公司利润下降 X%，你的债权和股权各值多少」的压力测试。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再把「企业主」当成「高净值个人」；知道他的流动性是<b>分期释放</b>的，而不是一次性到账。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>英国中端企业主是 HSBC UK 最自然的私行客户来源。</b>EOT 在英国是真实增长的结构；能服务 EOT 的银行，才能接住这批「卖给自己员工」的创始人。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>UnlistedValuation</code>（三种估值基础并存）；② <code>VendorLoan</code>（卖方贷款作为资产，同时是信用敞口）；③ <code>StagedExit</code>（分期退出，含条件与到期日）；④ <code>SuccessionVehicle</code>（EOT / 家族信托 / PE / MBO 的并列建模）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>私人银行最容易犯的错，是把「企业主变现」理解成「一笔钱进来了」。</b>真实的变现是：<b>一部分现金、一部分债权、一部分卖不掉的股权，外加一份对员工和土地的长期承诺。</b>系统如果只看得见第一格，就会把后面三格全部算错。</div>
+<p class="src">来源同上。EOT 的税务处理（员工所有权信托的资本利得减免、受托人条件、卖方贷款利息）须由英国税务组确认；本文不计算税额，不构成税务意见。</p>
+
+<div class="casehd">
+<h2 id="c13"><span class="badge real">真实人物</span>§13 中段客户 B｜Sarah Wood：£58m 首付，£56m 或有对价，和一个不能马上离开的创始人</h2>
+<div class="who">Unruly 联合创始人 · 2006 年创办 · 2015 年出售给 News Corp · 英国 / 美国</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>Unruly 于 <b>2006 年</b>成立，做视频广告平台；Sarah Wood 为联合创始人兼联合 CEO。</li>
+<li><b>2015 年 9 月</b>，News Corp 宣布以 <b>£58m</b> 首付收购 Unruly，另有最高约 <b>£56m</b> 的或有对价（earn-out），总对价最高约 <b>£114m</b>。</li>
+<li>交易完成后，三位联合创始人留任；公司全球约 300 名员工。</li>
+<li>公开报道对该交易的描述是「首付 + 留任/业绩条件」的结构，而非一次性全现金。</li>
+</ul>
+<p class="caveat">来源：News Corp 官方新闻稿（2015-09-16）、The Guardian（2015-09-16）、Business Insider（2015-09）、Unruly 公开资料。<b>本案例不主张其为本行客户；不主张任何未公开的持股比例、个人所得或税务安排；£114m 为交易总对价上限，不等于创始人个人到账金额。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2017 年 9 月（earn-out 第一期结算），她收到一笔分期付款通知。<b>新闻标题写的是 £114m，到账的数字是另一个。</b>她开始考虑离开后的新事业，想留出一笔确定的钱，但不知道哪一部分是资本利得、哪一部分是雇佣所得；也不知道那笔「还没到账」的钱，能不能作为新公司的出资证明。</p>
+
+<h3>13.1 结构：headline 是 £114m，到账的不是</h3>
+<div class="tw"><table>
+<tr><th style="width:18%">交易层</th><th style="width:26%">它是什么</th><th style="width:26%">对客户的意义</th><th>系统通常怎么记</th></tr>
+<tr><td><b>首付 £58m</b></td><td>交割日支付，按股权结构分配</td><td>确定，但可能先还投资人的优先款</td><td>一笔进账</td></tr>
+<tr><td><b>或有对价 £56m</b></td><td>按业绩/里程碑/留任条件支付</td><td><b>不是现金，是条件性债权</b></td><td>通常完全看不见</td></tr>
+<tr><td><b>留任安排</b></td><td>创始人必须继续任职</td><td>人力资本被锁定；离职即失权</td><td>劳动合同，不进财富系统</td></tr>
+<tr><td><b>员工期权</b></td><td>期权池在交割时加速/替换</td><td>创始人的实际所得被稀释</td><td>只在公司账上</td></tr>
+</table></div>
+<div class="note"><b>科技创始人退出的核心矛盾：</b>新闻说的是「公司卖了多少钱」，客户关心的是「我什么时候拿到多少、要付出什么代价」。<b>这两个数字之间，隔着一个股权瀑布（waterfall）、一个留任合同和一个税务分类。</b></div>
+
+<h3>13.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>银行看到一笔进账，立刻推荐产品；她自己的财务顾问在解释 earn-out 的税务分类；两边说的不是同一件事。<br><b>新：</b>一张「交割 / 留任 / 退出后」三段现金流图，每一段标注确定性与税务性质。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 把 headline 当 AUM；不知道 earn-out 的存在；不知道她不能马上离开。<br><b>新：</b>RM 看到「已确定 / 有条件 / 未vested」三层资产，以及留任期限。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 三段现金流日历；② earn-out 的税务分类（资本利得 vs 雇佣所得）；③ 新公司的出资能力测算——<b>用已确定的部分，而不是 headline。</b></td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再把一个「有条件的 £114m」当成「可投资的 £114m」；建议不会建立在还没到账的钱上。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>科技创始人退出是 UK–US 走廊最密集的财富事件。</b>能读懂交易文件、而不是只看进账的银行，才有资格做这批人的第一站。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>ContingentConsideration</code>（或有对价：条件、里程碑、期限、概率）；② <code>DealWaterfall</code>（投资人优先款 / 创始人 / 员工期权的分配顺序）；③ <code>LockUp</code>（证券锁定 + 人力资本锁定）；④ <code>PostExit</code>（退出后的新事业、董事会、慈善）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>「公司卖了 £114m」和「创始人拿到了 £114m」之间，隔着一整个交易结构。</b>下一代私行如果只会读银行流水，就永远只能服务「钱已经到账」的那一半客户；<b>而另一半，才是交易发生的那一刻最需要银行的人。</b></div>
+<p class="src">来源同上。Earn-out 的税务处理（可能构成 employment-related securities）须由英国/美国税务组确认；本文不计算税额，不构成税务意见。</p>
+
+<div class="casehd">
+<h2 id="c14"><span class="badge real">真实人物</span>§14 中段客户 C｜Jamie Vardy：十年赚完，五十年要花</h2>
+<div class="who">职业足球运动员 · 1987 年生 · 莱斯特城 2012–2025 · 英格兰 · 美国俱乐部少数股东</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li><b>1987 年</b>生；从非联赛球队一路踢到 <b>Fleetwood Town</b>，<b>2012 年</b>加盟 <b>Leicester City</b>（转会费约 £1m）。</li>
+<li><b>2015-16</b> 随莱斯特城夺得英超冠军；入选英格兰国家队。</li>
+<li><b>2025 年</b>离开莱斯特城（公开报道）。</li>
+<li><b>2021 年</b>成为美国 Rochester Rhinos（后改名 <b>Rochester New York FC</b>）的<b>少数股东</b>；该俱乐部于 <b>2023 年 3 月</b>停止运营（公开报道）。</li>
+<li>公开估计净资产约 <b>£37m</b>（2026 年媒体报道）；职业生涯总收入估计约 <b>£67m</b>。</li>
+</ul>
+<p class="caveat">来源：Wikipedia、Sky Sports（2021-06）、The Athletic（2021-06）、USA Today / Pro Soccer Wire（2023-03）、Leicester Mercury（2026）。<b>本案例不主张其为本行客户；净资产与总收入均为媒体估计，不是核实数据；不评价其俱乐部投资的经营结果。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年 1 月，俱乐部清算方发来一封邮件：作为少数股东，他需要确认是否还有未缴的资本承诺。<b>这份股权从来没有出现在他的个人资产负债表上，却在俱乐部停止运营后，变成了一项需要处理的义务。</b></p>
+
+<h3>14.1 结构：一份只有十年窗口的资产负债表</h3>
+<div class="tw"><table>
+<tr><th style="width:18%">资产</th><th style="width:26%">它的真实形态</th><th style="width:26%">风险</th><th>系统通常怎么记</th></tr>
+<tr><td><b>人力资本</b></td><td>20–35 岁的高收入窗口；之后急剧下降</td><td>伤病、状态、联赛周期</td><td>工资单，不是资产</td></tr>
+<tr><td><b>形象权</b></td><td>个人公司持有的姓名/肖像/商标； endorsement 合同</td><td>合同到期、声誉事件、退役后贬值</td><td>几乎不记</td></tr>
+<tr><td><b>非现金股权</b></td><td>美国俱乐部少数股权；公开报道对其是否以现金出资有不同说法</td><td>无流动性、资本承诺、治理权缺失</td><td>不记，或记成「另类投资」</td></tr>
+<tr><td><b>跨境身份</b></td><td>英国 / 意大利 / 美国</td><td>税务居民、申报、双重征税</td><td>一个地址字段</td></tr>
+</table></div>
+<div class="note"><b>运动员的财富曲线和普通高净值客户相反：</b>多数人是「慢慢变富」，运动员是「十年内赚完，然后花五十年」。<b>所以他的核心问题不是「买什么」，而是「怎么把人力资本转成能撑五十年的资产」。</b></div>
+
+<h3>14.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>银行看工资单和存款；退役后的收入断崖没有人提前建模；美国俱乐部的义务没人提醒。<br><b>新：</b>一张 50 年现金流图，标出收入窗口的结束点、必须完成的转换、以及每一项跨境义务。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>把运动员当「高收入客户」，推荐的是产品，不是结构。<br><b>新：</b>先看收入窗口、形象权合同、非现金股权；再谈配置。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 50 年现金流压力测试；② 形象权合同与到期日清单；③ 美国俱乐部股权的资本承诺与治理权说明；④ 英国/意大利/美国的税务居民变更清单。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再把「今年赚得多」当成「一直有钱」；知道哪些资产是「孤儿资产」——没有市场、没有服务商、没有退出路径。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>体育与娱乐是 UK / UAE / Asia 之间最自然的跨境财富来源之一。</b>能处理非现金股权和短收入窗口的银行，才能接住这批客户。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>HumanCapital</code>（收入窗口作为可折旧资产）；② <code>ImageRights</code>（IP、合同、地域、退役后使用）；③ <code>NonCashConsideration</code>（非现金股权与资本承诺）；④ <code>OrphanAsset</code>（无市场、无服务商、无退出路径的资产）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>运动员不是「年轻有钱人」，是「一张到期日明确的资产负债表」。</b>私人银行如果只在他赚钱的十年里出现，就会在他最需要结构的后四十年里缺席。</div>
+<p class="src">来源同上。美国俱乐部少数股权的公司/合伙形式、资本承诺与跨境申报须由美国法律/税务顾问确认；本文不构成法律或税务意见。</p>
+
+<div class="casehd">
+<h2 id="c15"><span class="badge real">真实人物</span>§15 中段客户 D｜Neame 家族：一家 1698 年的家族企业，市值只有 £67m</h2>
+<div class="who">Shepherd Neame · 英国最古老酿酒商之一 · 家族控制 · Aquis Stock Exchange: SHEP · 市值约 £66.9m（2026-10）</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>Shepherd Neame 创立于 <b>1698 年</b>，是英国最古老的酿酒商之一，同时经营 pubs 与酒店。</li>
+<li>公司在 <b>Aquis Stock Exchange</b> 上市，代码 <b>SHEP</b>；<b>2026-10-09</b> 市值约 <b>£66.9m</b>。</li>
+<li>公司由 <b>Neame 家族控制</b>；<b>Jonathan Neame</b> 任首席执行官（公开资料）。</li>
+<li>旗下约 <b>300 家</b> pubs / 酒店（公开资料）。</li>
+</ul>
+<p class="caveat">来源：Aquis Stock Exchange（2026-10-09）、Shepherd Neame 投资者关系页与年度报告、公开研究资料。<b>本案例不主张其为本行客户；不主张任何家族成员的私下持股、信托或税务安排；「家族合计 US$50m–75m」为按公开市值与控制权做的示意估算，不是披露数据；最新股本结构以年报为准。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年 10 月，家族理事会在酒厂开会。议题是：下一代有人想退出，有人想继续。<b>公司市值 £67m，但市场上一天的成交量不到 1%。</b>「退出」在这里不是一个按钮，是一个会改变公司控制权的事件。</p>
+
+<h3>15.1 结构：控制权很重，流动性很轻</h3>
+<div class="tw"><table>
+<tr><th style="width:18%">维度</th><th style="width:28%">现实</th><th style="width:26%">对家族的意义</th><th>对银行的意义</th></tr>
+<tr><td><b>控制权</b></td><td>家族通过控股结构保持控制；公众股东是少数</td><td>可以决定董事会，但不能随意卖</td><td>关联交易、公司治理、冲突标记</td></tr>
+<tr><td><b>流动性</b></td><td>市值 £67m，日成交量极低</td><td>卖 10% 可能砸掉 20% 的价</td><td>薄市场估值、块状交易、质押折扣</td></tr>
+<tr><td><b>物业</b></td><td>约 300 家 pubs / 酒店，自有与租赁混合</td><td>资产价值与经营现金流纠缠</td><td>物业估值、租金、能源、利率</td></tr>
+<tr><td><b>传承</b></td><td>下一代有人进、有人退</td><td>股权与控制权不能简单平分</td><td>家族理事会、买卖协议、保险</td></tr>
+</table></div>
+<div class="note"><b>家族控制上市公司的核心矛盾：</b>家族把几乎全部财富放在一家市值只有 £67m 的公司里，<b>控制权很重，流动性很轻</b>。银行如果按市值给出一个「可投资金额」，就是在误导客户——那笔钱并不存在，除非家族愿意放弃控制权。</div>
+
+<h3>15.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>银行按市值报告财富；家族成员不知道自己的股份真正能卖多少钱；下一代退出没有路径。<br><b>新：</b>一张「控制权 / 现金流 / 物业」三分的家族资产负债表，以及退出/不退出两种情景。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 不知道怎么给家族企业估值；把上市公司股票当成普通流动股。<br><b>新：</b>RM 看到控制权溢价/折价、薄市场折扣、股息覆盖与再投资需求。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 家族流动性与控制权地图；② 退出/不退出两种情景下的税后所得；③ 下一代进入/退出的买卖协议框架；④ 物业与经营现金流的分离视图。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再把「市值 £67m」当成「可投资 £67m」；知道家族真正能动用的钱，可能只有很小一部分。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>英国家族企业是 HSBC UK 的核心客户群。</b>能同时看懂上市公司、家族控制与 pubs 物业的银行，才有资格谈「家族传承」。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>FamilyControlledListed</code>（控制权 vs 自由流通）；② <code>ThinMarket</code>（薄市场估值与块状交易折扣）；③ <code>OperatingProperty</code>（经营型物业的估值与现金流）；④ <code>FamilyCouncil</code>（家族治理、退出协议、代际进入）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>「家族企业值多少钱」和「家族能拿出多少钱」是两个完全不同的问题。</b>前者是估值，后者是流动性。<b>私人银行如果只会回答第一个，就会在客户需要第二个的时候失去他。</b></div>
+<p class="src">来源同上。家族控制结构、最新股本类别、关联交易与 IHT/BPR 适用须以最新年报与英国税务组意见为准；本文不计算税额。</p>
+
+<div class="casehd">
+<h2 id="c16"><span class="badge real">真实人物</span>§16 Pre-IPO 创始人｜梁文锋：US$46bn 的纸面财富，和一张不能刷的卡</h2>
+<div class="who">DeepSeek 创始人 · 1985 年生 · 幻方量化 / 深度求索 · 未上市 · 富豪榜口径约 US$38–46bn（Forbes 2026-10-22 / Bloomberg 2026-10-09）</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li><b>1985 年</b>生于广东吴川；毕业于浙江大学；<b>2015 年</b>联合创办量化基金<b>幻方量化</b>；<b>2023 年 7 月</b>创办 <b>DeepSeek（深度求索）</b>。</li>
+<li>DeepSeek <b>未上市</b>；<b>2026 年 6 月</b>完成首轮外部融资约 <b>US$7.4bn</b>、估值约 <b>US$50bn</b>（媒体另有更高估值报道）；多数投资人通过梁控制的有限合伙入股，<b>无投票权、5 年锁期</b>，国家 AI 产业基金直投则有投票权、无锁期；梁个人出资 US$3bn，稀释后持股约 <b>78%</b>（媒体估算）。<b>Forbes 实时净资产 2026-10-22 快照约 US$46.1bn；Bloomberg 2026-10-09 口径约 US$37.9bn</b>，几乎全部来自私人持股。</li>
+<li>幻方量化 2025 年管理资产约 <b>RMB 700 亿</b>（公开报道）。</li>
+<li><b>2025 年 1 月</b>，他参加总理座谈会（公开报道）。</li>
+</ul>
+<p class="caveat">来源：Forbes 实时富豪榜（2026-10-22）、Bloomberg Billionaires Index（2026-10-09）、Wikipedia「梁文锋」、36Kr（2026）、第一财经（2026）、新浪财经（2026-08）、东方财富（2026-09）。<b>本案例不主张其为本行客户；不主张任何未公开的持股比例、质押、融资条款、税务安排或家族信息；估值与净资产均为媒体/富豪榜估计，不是审计数据。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年 10 月，一家银行的私行团队带着 term sheet 来到杭州。方案是：以 <b>1% 的 DeepSeek 股权</b>作质押，给 <b>2 亿美元</b>的授信，外加一张能全球用的卡。梁文锋问了一个问题：<b>「如果我不卖股，这笔钱算我的收入吗？」</b>会议室里没有人能马上回答——因为这不是一个估值问题，是一个「纸面财富怎么变成可花费的钱」的问题。</p>
+
+<h3>16.1 结构：三种财富，三个完全不同的数字</h3>
+<div class="tw"><table>
+<tr><th style="width:18%">口径</th><th style="width:30%">定义</th><th style="width:24%">在这位客户身上</th><th>系统通常怎么记</th></tr>
+<tr><td><b>纸面财富</b></td><td>持股 × 最近一轮/可比公司估值</td><td>数百亿美元；随融资新闻每天变</td><td>一个「AUM」数字</td></tr>
+<tr><td><b>可质押财富</b></td><td>纸面财富 ×  haircut × LTV，再扣集中度/锁定期/管辖权折扣</td><td>可能只有纸面财富的 5%–15%</td><td>通常没有</td></tr>
+<tr><td><b>可花费财富</b></td><td>真正能用于消费、购房、慈善、家族支出的现金/授信</td><td>取决于银行敢不敢贷、客户敢不敢押</td><td>一个「现金余额」</td></tr>
+</table></div>
+<div class="note"><b>Pre-IPO 客户最反直觉的地方：他不是「还没有钱」，而是「有钱但没有流动性」。</b>他能上富豪榜，却不一定能轻松买一套房、给基金会捐一笔钱、或者给员工发一笔特别奖金。<b>私人银行真正要卖的，不是产品，是把「纸面」变成「可用」的结构。</b></div>
+
+<h3>16.2 三种用途：注册、花费、得到服务</h3>
+<div class="tw"><table>
+<tr><th style="width:16%">客户想做的事</th><th style="width:32%">银行可以做什么</th><th style="width:26%">边界</th><th>系统必须记录</th></tr>
+<tr><td><b>注册 / 建档</b></td><td>以私人股权作为财富证明，完成 KYC、适当性、关系准入；如适用，办理股权登记/托管</td><td>不能把估值当成市场价；不能把「纸面」写成「已实现」</td><td>估值来源、估值日、折扣、证据链</td></tr>
+<tr><td><b>花费</b></td><td>以股权质押授信、信用卡、按揭、循环额度；不卖股也能用钱</td><td>不能建议「卖股/避税」；不能承诺 IPO 时间</td><td>质押率、追保线、资金用途、集中度</td></tr>
+<tr><td><b>得到服务</b></td><td>家族办公室、慈善顾问、下一代教育、跨境安顿、税务/法律协调</td><td>银行不提供税务意见；只做事实、到期日、责任方</td><td>服务对象、授权、受益人、费用</td></tr>
+</table></div>
+<div class="verdict"><b>「用 Pre-IPO 股票换来银行服务」这句话，拆开是三个动作：先承认它是一种资产，再承认它不能按市价花，最后设计一个不卖股也能用的结构。</b>三者缺一，客户就会在「我是首富」和「我拿不出 100 万现金」之间被卡住。</div>
+
+<h3>16.3 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>被当成「超级富豪」接待，但每一笔真正用钱的动作都要回到「卖不卖股」；估值每天变，没人能告诉他「今天能押出多少」。<br><b>新：</b>一张「纸面 / 可质押 / 可花费」三层视图，以及一条不卖股的用钱路径。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 只能重复新闻里的估值；不知道怎么向估值委员会解释「这家公司没有可比公司」；也不敢承诺授信。<br><b>新：</b>RM 拿到估值区间、折扣逻辑、质押条款与追保情景，能说清「能做什么、不能做什么」。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 三层财富视图；② 估值区间与依据（最近一轮 / 可比公司 / 独立估值）；③ 质押授信的 LTV、成本、追保线；④ 不卖股也能覆盖消费、购房、慈善、员工流动性的方案。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再把「上富豪榜」当成「可投资资产」；每一次授信都有估值依据、集中度检查和追保预案。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>Pre-IPO 是私行最容易被错过的一段关系：客户在 IPO 前就需要银行，但大多数银行只在 IPO 后出现。</b>谁能在「没有市场价」的时候给出结构，谁就拿到 IPO 后的第一笔钱。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>PrivateShareValuation</code>（估值区间、方法、日期、证据）；② <code>PledgeOfUnlistedShares</code>（质押率、追保、管辖权、锁定期）；③ <code>PreIPOLockUp</code>（IPO 窗口、禁售、监管审批）；④ <code>UseOfProceeds</code>（消费/购房/慈善/员工流动性）；⑤ <code>ConcentrationLimit</code>（单一私人股权集中度）；⑥ <code>ValuationGovernance</code>（估值委员会、独立估值、复核频率）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>Pre-IPO 不是「还没有钱」，是「有钱但没有流动性」。</b>银行如果只服务 IPO 后的减持，就会错过客户最需要银行的那三年；<b>而那三年，恰恰是客户从「创始人」变成「家族」的三年。</b></div>
+<p class="src">来源同上。私人股权质押的估值、质押率、管辖权与监管审批须由估值委员会、信贷与法律组逐案确认；本文不计算具体额度，不构成投资、税务或法律意见。</p>
+
+<div class="casehd">
+<h2 id="c17"><span class="badge ref">匿名案例</span>§17 家庭｜何氏家族：一位从未被当作主客户的妻子，和五个未被服务的人</h2>
+<div class="who">何氏家族（化名，旧 demo H-7701 扩展）· 四代六人 · 香港 / 新加坡 · 家族企业 + 物业 + 信托 · 家族合计约 US$30m（示意）</div>
+</div>
+
+<div class="factbox">
+<h4>结构 · 旧 demo 原型扩展</h4>
+<ul>
+<li><b>何启明</b>，62 岁，家族企业创始人兼董事长，香港税务居民；主客户、账户持有人、决策人。</li>
+<li><b>陈雅仪</b>，59 岁，配偶；联名账户持有人，但<b>从未作为独立客户建档</b>；风险偏好、税务居民身份、意向均为空白。</li>
+<li><b>何俊轩</b>，28 岁，长子；成年，但独立账户与授权<b>待本人确认</b>。</li>
+<li><b>何语晴</b>，25 岁，次女；教育资金目标存在，但<b>本人授权与专户未设</b>。</li>
+<li><b>李淑贞</b>，86 岁，母亲；健康/养老事项已授权家庭，但<b>资产信息不在授权范围</b>。</li>
+<li><b>何一诺</b>，6 岁，孙女（何俊轩之女）；<b>未成年</b>；监护人授权；教育/信托受益；<b>尚未成为客户</b>。</li>
+<li>家族资产：家族企业股权 + 香港/新加坡物业 + 一个香港信托；家族合计约 <b>US$30m</b>（示意）。</li>
+</ul>
+<p class="caveat">本案例<b>不是公开人物</b>，而是对旧 demo H-7701 的匿名化扩展；姓名、年龄、金额均为示意，不对应任何真实个人。<b>不主张其为本行客户；不主张任何真实家庭的健康、信托或税务安排。</b>采用匿名结构的原因见 §0.2 R5。</p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年 11 月，何启明做完一次心脏手术后，第一次让妻子陈雅仪单独来银行。她坐在会议室里，面对一份<b>以丈夫为主语</b>的报告，问：<b>「如果他不在了，我每年能花多少？」</b>RM 翻开系统：主联系人是他，风险偏好是他的，授权是他的，连「家庭目标」的决策人也是他。<b>没有人能回答她的问题。</b></p>
+
+<h3>17.1 结构：六个人，五种角色，一个「主客户」</h3>
+<div class="tw"><table>
+<tr><th style="width:16%">成员</th><th style="width:14%">角色</th><th style="width:22%">在银行系统里</th><th style="width:22%">在家庭里</th><th>缺口</th></tr>
+<tr><td><b>何启明</b></td><td>创始人 / 主客户</td><td>客户、账户持有人、决策人</td><td>经济支柱、最终决策者</td><td>健康事件后，授权未切换</td></tr>
+<tr><td><b>陈雅仪</b></td><td>配偶</td><td><b>联名账户持有人，非独立客户</b></td><td>日常照护者、家庭 CFO</td><td>无独立风险偏好、无税务居民身份、无本人目标</td></tr>
+<tr><td><b>何俊轩</b></td><td>长子</td><td>家庭成员，非客户</td><td>准备进入企业</td><td>独立授权未确认</td></tr>
+<tr><td><b>何语晴</b></td><td>次女</td><td>家庭成员，非客户</td><td>教育目标受益人</td><td>本人授权与专户未设</td></tr>
+<tr><td><b>李淑贞</b></td><td>母亲</td><td>家庭成员，非客户</td><td>需要健康/养老照护</td><td>健康授权有，资产授权无</td></tr>
+<tr><td><b>何一诺</b></td><td>孙女</td><td>家庭成员，非客户</td><td>第四代，未成年</td><td>监护人授权未细化；教育/信托受益未记录</td></tr>
+</table></div>
+<div class="note"><b>这不是「家庭关系字段」能解决的问题。</b>系统里有六个人，但只有一个「客户」；有五个「受益人/被抚养人」，但没有一个「独立主体」；有一份「家庭授权」，但没有区分<b>信息共享、决策代理、监护、受益</b>四种权利。<b>当主联系人失能，银行面对的不是一个家庭，是五个从未被服务过的人。</b><br><br>旧 demo 的 <b>H-2002 王女士</b>（女性主客户 + 两名子女）与本案例同源；§17 选择了更难的版本——<b>女性不是从第一天就是主客户，而是在主联系人失能后被迫成为主客户。</b>前者测试「能否服务一位女性客户」，后者测试「能否在她最脆弱的那一天，把她切换成主语」。</div>
+
+<h3>17.2 六件事同时到期</h3>
+<div class="tw"><table>
+<tr><th style="width:22%">家庭目标</th><th style="width:16%">谁提出</th><th style="width:16%">谁受益</th><th style="width:18%">谁出资 / 谁决定</th><th>现在卡在哪</th></tr>
+<tr><td><b>2027 年 3 月税负流动性</b></td><td>何启明</td><td>全家</td><td>何启明 / 何启明</td><td>约 US$2m 缺口；依赖质押/减持</td></tr>
+<tr><td><b>何语晴教育资金</b></td><td>何启明</td><td>何语晴</td><td>何启明 / 何语晴本人</td><td>本人授权与专户未设</td></tr>
+<tr><td><b>何俊轩独立参与</b></td><td>何启明</td><td>何俊轩</td><td>何启明 / 何俊轩本人</td><td>本人同意与授权缺失；家长不得代决策</td></tr>
+<tr><td><b>李淑贞健康/养老</b></td><td>陈雅仪</td><td>李淑贞</td><td>家庭 / 陈雅仪</td><td>健康授权有；资产信息不在范围</td></tr>
+<tr><td><b>何一诺教育/监护</b></td><td>何俊轩</td><td>何一诺</td><td>何俊轩 / 何俊轩</td><td>监护授权未细化；教育专户未设</td></tr>
+<tr><td><b>家族治理与传承</b></td><td>何启明</td><td>全家</td><td>何启明 + 家族委员会</td><td>家族宪章与决策规则待定</td></tr>
+</table></div>
+
+<h3>17.3 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td><b>现在：</b>陈雅仪在丈夫的手术后第一次独自面对银行，却只能看「他的报告」；她不知道家里每年能花多少、哪些钱是她的、哪些事她能决定。<br><b>新：</b>一份<b>以她为主语</b>的家庭资产与现金流视图，加上「如果您什么都不做，未来 90 天会发生什么」。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td><b>现在：</b>RM 只有何启明的 profile；对陈雅仪的了解来自「配偶」字段；对两个成年子女的授权状态一无所知。<br><b>新：</b>系统给出五个人各自的<b>角色 / 授权 / 空白项</b>，RM 的任务从「猜」变成「补齐」。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 以陈雅仪为主语的家庭资产总览；② 五个人的授权与空白项清单；③ 税负/教育/养老/子女独立四条现金流时间线；④ <b>不必在第一次会面就被要求做决定</b>。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>不再用「何太太」称呼一位独立法律主体；知道哪些事需要本人同意、哪些可以由监护人代行、哪些必须等授权。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td><b>家族客户的钱，往往在「主联系人失能/身故」的那一刻才真正转移；而银行通常在那一天才第一次服务接收人。</b>提前把配偶、子女、长辈作为独立主体建档，是保住整个家族关系的最低成本。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>HouseholdRole</code>（客户/账户持有人/受益人/决策人/监护人，五种角色分开）；② <code>ConsentScope</code>（信息共享 / 决策代理 / 监护 / 受益，四种权利分开）；③ <code>MinorOrDependent</code>（未成年/受抚养人的监护与到期 transition）；④ <code>FamilyGoal</code>（提出人/受益人/出资方/决策人四元组）；⑤ <code>PrimaryClientSwitch</code>（主联系人失能/身故时的主语切换）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>家庭不是一个人，也不是一个「家庭 ID」。</b>它是六个法律主体、四种权利、四条现金流、两个辖区。<b>银行如果只服务「主客户」，就会在他最需要银行的那一天，面对五个从未被服务过的人。</b></div>
+<p class="src">本案例的结构来自旧 demo H-7701（何氏家族）与 v2.1 案例十（横向继承）的匿名化扩展；姓名、年龄、金额均为示意。旧 demo 文件：<code>/Users/weimingzhuang/Documents/source_code/meridian-pb/archive/2026-10_v1/demo-cn/data.js</code>（H-7701 / FG-7701 / CASE-7701）。<b>不构成对任何真实家庭的陈述。</b></p>
+
+<div class="note"><b>§18–§21 两条财富带：</b>§1–§17 的 17 组核心案例，公开财富口径大多在 US$1bn 以上；§12–§15 只部分补到 US$15m 左右，而且四组都在英国。§18–§21 补两个缺口：<b>HSBC 口径 US$2–5m 的 PB 入门层</b>，和 <b>US$5–10m 的亚洲中段</b>。四个都是真实人物，公开事实只写到“结构”，<b>财富档位是设计假设，不是公开事实，也不主张任何人是本行客户</b>。</div>
+
+<div class="note"><b>档位口径（重要）：</b>“US$2–5m / US$5–10m”指 <b>HSBC AUM（存款 + 投资）</b>，不是总财富；总可投资财富与钱包份额另列。四个案例的服务模型不同：18 数字优先，19 RM + 数字混合，20 RM + 餐饮/税务专家，21 RM + 家族办公室。这样安排，是为了把“档位差异”和“服务模型差异”分开，而不是用四个人代表两个数字。</div>
+
+<div class="tw"><table>
+<tr><th style="width:7%">编号</th><th style="width:10%">档位</th><th style="width:18%">人物</th><th style="width:17%">辖区 / booking</th><th style="width:14%">财富来源</th><th style="width:14%">HSBC AUM / 总财富（假设）</th><th>它唯一测试的东西</th></tr>
+<tr><td><b>18</b></td><td>US$2–5m</td><td>Ali Abdaal，32 岁</td><td>巴基斯坦出生 · 英国成长 · 香港居住 / HK</td><td>创作者/教育科技：YouTube、课程、书、App</td><td>US$2–5m（假设）/ 未公开</td><td>UK→HK 迁移后的税务与收入来源；数字优先能否把成本压到 50bps 以下</td></tr>
+<tr><td><b>19</b></td><td>US$2–5m</td><td>Nadiya Hussain，41 岁</td><td>英国 · 孟加拉裔 / UK</td><td>媒体/出版/IP：电视、书、品牌合作</td><td>US$2–5m（假设）/ 未公开</td><td>女性作为独立客户；版税/形象权；三个子女的教育与监护</td></tr>
+<tr><td><b>20</b></td><td>US$5–10m</td><td>Alvin Leung，65 岁</td><td>英国出生 · 加拿大成长 · 香港 / HK</td><td>餐饮集团/品牌：Bo Innovation 等</td><td>US$5–10m（假设）/ 未公开</td><td>香港中段餐饮集团：多实体、个人担保、品牌与传承；<b>不是制造业</b></td></tr>
+<tr><td><b>21</b></td><td>US$5–10m</td><td>Chan Hon Meng（Hawker Chan），约 59–60 岁（推算）</td><td>马来西亚出生 · 新加坡 / SG</td><td>餐饮特许经营/品牌授权</td><td>US$5–10m（假设）/ 未公开</td><td>加盟与版税、薄利、品牌生命周期、SG/MY 跨境继承</td></tr>
+</table></div>
+
+<div class="casehd">
+<h2 id="c18"><span class="badge real">真实人物</span>§18 Ali Abdaal｜UK→HK：创作者的收入没有国界</h2>
+<div class="who">医生转创作者、作家 · 1994 年生于巴基斯坦卡拉奇 · 英国成长 · 2024 年移居香港 · YouTube/课程/书/App</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>1994 年生于巴基斯坦卡拉奇，童年在莱索托，2003 年随母亲、兄弟和祖母移居英国；剑桥大学 Emmanuel College 学医，2018 年毕业。</li>
+<li>2018–2022 年在 NHS 任初级医生：Addenbrooke’s（剑桥）F1 2018-08–2019-08，West Suffolk F2 2019-08–2022-01；轮转心内、老年、普外、精神、妇产、卒中。2022 年初结束临床工作，转为全职内容与教育业务。</li>
+<li>2013 年在剑桥创办医学入学备考公司 6med；2017 年开始 YouTube；2020 年订阅达 100 万、业务年收入首次达 US$1m。</li>
+<li>2023 年 12 月出版《Feel-Good Productivity》（美国 Celadon Books / 英国 Cornerstone），纽约时报/星期日泰晤士报畅销书，35+ 种语言（其官网 2025 年口径：已售 25 万+ 册）；2024–2025 年联合创办 Sparkle Studios（公司 2024 年注册，其任职自 2025 年起；VoicePal 等 App）。</li>
+<li>2024 年结婚，并从伦敦移居香港；公开简介称其 YouTube 约 670 万、全网约 800 万关注者。</li>
+</ul>
+<p class="caveat">来源：aliabdaal.com/about（本人公开简介）、The Bookseller 作者访谈、Penguin Random House 作者页、LinkedIn 公开职业资料、官网书目页（25 万+ 册口径）。<b>本案例不主张其为 HSBC 客户，不主张任何未公开的账户、收入、税务或资产安排；HSBC AUM US$2–5m 档位为设计假设；不主张具体 AUM 或总财富。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年，Ali 在香港的公寓里打开银行 App。他刚把英国公司的一笔课程收入汇到香港，准备买第一套房；英国还有一本书的版税、一个 YouTube 广告账户、一个 App 公司的股权。妻子同在香港居住（居民身份未公开），父母仍在英国/巴基斯坦。他问的不是“买什么产品”，而是：<b>“我到底在哪交税？这笔钱能不能先不动？如果明年回英国，会不会被追？”</b></p>
+
+<h3>18.1 结构：一个人，三条收入，两个税制</h3>
+<div class="tw"><table>
+<tr><th style="width:22%">层</th><th style="width:38%">公开/假设结构</th><th>系统缺口</th></tr>
+<tr><td><b>身份</b></td><td>巴基斯坦出生、英国公民/居民、2024 年起香港居住；妻子同在香港居住（居民身份未公开）；父母在英国/巴基斯坦</td><td>税务居民是“状态”，不是“国籍”；UK→HK 的切换日期、停留天数、离境税/ Split-year 规则</td></tr>
+<tr><td><b>收入</b></td><td>YouTube 广告（平台在 US/IE）、课程（Ali Abdaal Ltd / 6med / Sparkle Studios，具体收款实体未公开）、书版税（UK/US 出版社）、Sparkle Studios 股权（UK）</td><td>同一笔收入在三个辖区、三种性质（劳务/版税/股权）下的税务处理</td></tr>
+<tr><td><b>资产</b></td><td>香港公寓（拟购，按揭）、英国公司股权、Sparkle Studios 股权、现金/投资</td><td>按揭 + 证券质押 + 跨境收入证明；首付来源与 AML</td></tr>
+<tr><td><b>家庭</b></td><td>已婚、无子女；父母在英国/巴基斯坦</td><td>配偶授权、父母养老/医疗的跨境支付；未来子女教育</td></tr>
+</table></div>
+
+<h3>18.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td>在香港买房；把英国公司收入合法、低成本地移到香港；知道 UK/HK 两边每年要申报什么；保留回英国的选择。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td>不再问“你的风险偏好”，而是先给出“UK/HK 双轨税务与现金流图”；把按揭、收入证明、公司股权、版税合同放在同一个案件里。</td></tr>
+<tr><td><b>客户得到</b></td><td>① UK/HK 身份切换时间线；② 三条收入的税务性质与申报责任；③ 购房首付/按揭/质押方案；④ “如果明年回英国”的情景。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>一份可解释的收入来源与税务居民证据链，而不是 12 个月的银行流水和邮件。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td>一个从数字渠道进来、但需要跨境税务与按揭的 $2–5m 客户；如果只能用 UHNW 的 18 模块全量服务，成本必然超过 50bps。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>TaxResidencyTimeline</code>（UK/HK，含 split-year/离境日）；② <code>IncomeStream</code>（广告/课程/版税/股权，带来源地与税务性质）；③ <code>MortgageApplication</code>（跨境收入 + 首付来源）；④ <code>DigitalConsent</code>（App 内的授权与证据）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>§18 的结论：</b>$2–5m 不需要 M02 家族治理、M06 私人股权的全量能力；它需要的是 <b>M12/M13 的“双轨身份” + M10 的按揭/质押 + X1 的数字体验</b>。如果系统为了服务他要启动 18 个模块，说明成本-to-serve 不成立——这是本轮最该被证伪的假设。</div>
+
+<div class="casehd">
+<h2 id="c19"><span class="badge real">真实人物</span>§19 Nadiya Hussain｜三个孩子、两份版税、一个没有信托的家</h2>
+<div class="who">英国烘焙师、作家、电视主持人 · 1984 年生于英国 Luton · 孟加拉裔 · 丈夫 Abdal（IT）· 三个子女</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>1984 年 12 月 25 日生于英国 Luton，英国孟加拉裔家庭，家中六个孩子之一（两个姐姐、一个妹妹、两个弟弟）；2005 年与 Abdal Hussain 结婚（宗教仪式在孟加拉举行，2018 年 12 月才在英国完成法定登记），三个孩子（两子 2006/2007，一女 2010）。</li>
+<li>参赛期间在 Open University 读 Childhood and Youth Studies；2015 年赢得第六季《The Great British Bake Off》，决赛观众超过 1,300 万。</li>
+<li>此后主持多档 BBC2 系列（平均每集约 190 万观众），出版《Nadiya’s Kitchen》《Time to Eat》《Nadiya Bakes》《Nadiya’s Everyday Baking》《Nadiya’s Simple Spices》《Cook Once, Eat Twice》《Rooza》《Nadiya’s Quick Comforts》等；2020 年获 MBE。</li>
+<li>与家人住在 Milton Keynes；公开报道称其父母为孟加拉裔；担任 Starlight、WaterAid 等慈善大使。</li>
+</ul>
+<p class="caveat">来源：BBC Food 作者页、Penguin Books 作者页、Nadiya 本人官网、Wikipedia 条目（2005 年宗教婚礼、2018 年 12 月英国法定登记）。另：2026 年初有报道称其 BBC 节目被砍、本人转向教育；场景中的新合约为推演假设，不代表真实合约状态。<b>本案例不主张其为 HSBC 客户，不主张任何未公开的账户、版税、税务或资产安排；HSBC AUM US$2–5m 档位为设计假设；不主张具体 AUM 或总财富。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年，Nadiya 的两个儿子已成年，女儿还在中学。她有一份新的出版合约在谈，版税分几年到账；亲属在孟加拉年纪大了，需要定期汇款；她和丈夫想给三个孩子各设一笔教育金，但不想马上做信托。她问 RM：<b>“这些钱哪些是我的、哪些是孩子的？如果我明天不在了，Abdal 知道怎么处理吗？”</b></p>
+
+<h3>19.1 结构：个人 IP + 家庭现金流，没有信托</h3>
+<div class="tw"><table>
+<tr><th style="width:22%">层</th><th style="width:38%">公开/假设结构</th><th>系统缺口</th></tr>
+<tr><td><b>收入</b></td><td>电视合约、出版版税、品牌合作、演讲；官网版权页显示 Nadiya Hussain Ltd（具体收款实体未公开）</td><td>版税是“未来现金流”，不是一次性收入；合约期限/最低保证金/分成比例</td></tr>
+<tr><td><b>资产</b></td><td>自住房、现金/投资、版权/形象权；无公开信托</td><td>版权/形象权的估值、归属、许可与继承；房产按揭</td></tr>
+<tr><td><b>家庭</b></td><td>丈夫 + 三个子女（两子已成年，女儿 16 岁）；2005 年宗教婚礼、2018 年 12 月英国法定登记；亲属在孟加拉（父母居住地未公开）</td><td>教育金四元组（提出人/受益人/出资方/决策人）；未成年监护；跨境赡养</td></tr>
+<tr><td><b>身份</b></td><td>英国居民/公民；孟加拉家庭纽带；无公开信托</td><td>英国税 + 孟加拉汇款/税务；未来子女留学（UK/US）</td></tr>
+</table></div>
+
+<h3>19.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td>把未来 5–10 年的版税/合约现金流变成可规划的教育金；给三个孩子各自建档；确保丈夫在紧急情况下能接手；继续支持孟加拉亲属。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td>把“Nadiya 的账户”拆成“她本人 / 三个孩子 / 父母”的独立主体；把合约、版税、房产、保险放在一个家庭视图里。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 以她为主语的家庭资产负债表；② 三笔教育金的资金来源与时间线；③ 版税/合约的现金流预测；④ 一份“如果她不在了”的授权与监护清单。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>知道哪些资产是她的、哪些是孩子的、哪些是丈夫的；不再用“配偶字段”代替独立客户。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td>一个 $2–5m、女性独立客户、媒体 IP 的家庭；如果只按“主客户 + 配偶”建档，会在她孩子成年/父母老去时失去关系。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>RoyaltyStream</code>（合约/版税/期限/分成）；② <code>EducationGoal</code>（四元组 + 到期）；③ <code>Guardianship</code>（未成年子女）；④ <code>CrossBorderSupport</code>（孟加拉赡养/汇款）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>§19 的结论：</b>$2–5m 的“女性独立客户”不是把配偶字段改成“女性”，而是把 <b>她本人、三个孩子、丈夫、父母</b> 分成不同主体，再把版税/合约现金流挂到目标上。M01/M02/M03 的轻量版 + M13/M14 足够；不需要家族宪章，也不能没有监护与教育金。</div>
+
+<div class="casehd">
+<h2 id="c20"><span class="badge real">真实人物</span>§20 Alvin Leung｜香港餐饮集团：多实体、个人担保、品牌与传承</h2>
+<div class="who">厨师/ restaurateur · 1961 年生于英国伦敦 · 加拿大成长 · 香港 Bo Innovation 创始人 · 工程学背景 · 电视评委</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>1961 年 1 月 1 日生于伦敦，在加拿大 Scarborough 成长；多伦多大学工程学背景，曾做工程师，自学烹饪。</li>
+<li>2003/2004 年在香港接手 Bo Innovation；2009 年获米其林二星，2010–2011 年曾回落一星，后重返二星并于 2014 年升至三星，2020 年失去第三星（现为二星）。</li>
+<li>旗下/关联餐厅：Bo Innovation（HK，2*）、aKin（Toronto，2024 年与 Eric Chong 合开，2025 年获一星）、R&D（Toronto，Bib Gourmand）；此前的 Bo London（1*，2014 年因漏水关闭）、Bo Shanghai（1*）。餐厅/项目遍及香港、多伦多、迪拜、吉隆坡、新加坡、深圳。</li>
+<li>以“Demon Chef”形象为人熟知；MasterChef Canada 评委，Wok the World / The Maverick Chef / Wok Stars / Seoul Extreme 等节目；2019 年出版《Alvin Leung: My Hong Kong》；曾任加拿大 Bocuse d’Or 队主席。</li>
+</ul>
+<p class="caveat">来源：Michelin Guide 人物专访（2017）、SCMP（2019）、Bo Innovation 官网、THEi 教职员页、Wikipedia。<b>本案例不主张其为 HSBC 客户，不主张任何未公开的账户、股权、担保、税务或资产安排；HSBC AUM US$5–10m 档位为设计假设；不主张具体 AUM 或总财富。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年，Alvin 想把香港的两家餐厅交给团队，自己只保留品牌和顾问角色；多伦多/迪拜/吉隆坡的授权店即将续约；一家香港公司的租约还有 4 年，个人做了担保；加拿大还有家人和旧账户。他问：<b>“如果我今天退休，哪些公司可以关、哪些品牌可以授权、哪些担保会追到我个人？”</b></p>
+
+<h3>20.1 结构：一个品牌，多个实体，个人担保在中间</h3>
+<div class="tw"><table>
+<tr><th style="width:22%">层</th><th style="width:38%">公开/假设结构</th><th>系统缺口</th></tr>
+<tr><td><b>实体</b></td><td>香港餐厅公司（逐店）、品牌/授权公司、海外加盟/合资、加拿大旧公司/账户</td><td>实体层级、股东、董事、授权、每家店的租约/牌照/员工</td></tr>
+<tr><td><b>品牌</b></td><td>“Bo Innovation / Demon Chef”品牌、食谱书、电视形象、授权店</td><td>品牌/商标/形象权的估值、许可、期限、地域、质量控制</td></tr>
+<tr><td><b>负债</b></td><td>租约、供应商、员工、个人担保、可能的股东借款</td><td>个人担保是“承诺”对象；到期/续约/触发条件；与个人资产隔离</td></tr>
+<tr><td><b>传承</b></td><td>65 岁，家族成员/团队接班；加拿大/香港两地</td><td>股权/品牌/担保的传承路径；没有信托时的继承与遗嘱</td></tr>
+</table></div>
+
+<h3>20.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td>退休/半退休；把品牌授权给团队/外部；关掉不赚钱的店；解除或隔离个人担保；把加拿大/香港的资产与继承理清。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td>把“Alvin 个人”与“每家餐厅公司”分开；把担保、租约、品牌授权、股权放在一张结构图里；给出“关/留/授权”的现金流与税务后果。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 实体/品牌/担保结构图；② 每家店的盈亏与租约到期；③ 品牌授权/出售的估值区间；④ 退休后的个人现金流与继承方案。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>知道哪笔债务会追到个人、哪份租约不能随便关、哪个品牌可以单独授权。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td>一个 $5–10m 的香港中段餐饮集团客户；不是“制造业”，但同样有实体、担保、跨境、传承——而且比 UHNW 更依赖 RM 的判断。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>PersonalGuarantee</code>（担保对象/金额/到期/触发）；② <code>BrandAsset</code>（商标/形象权/授权/地域）；③ <code>Lease</code>（租约/续约/退出）；④ <code>BusinessExitPlan</code>（关/卖/授权/传承）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>§20 的结论：</b>$5–10m 的香港中段客户，核心不是私人股权估值，而是 <b>实体 + 个人担保 + 品牌 + 租约</b>。M04/M05/M06/M10/M16 的组合足够；M02 只需要“继承/家族会议”的轻量版，不需要家族宪章全套。</div>
+
+<div class="casehd">
+<h2 id="c21"><span class="badge real">真实人物</span>§21 Chan Hon Meng（Hawker Chan）｜一星、一间 stall、八个国家的加盟</h2>
+<div class="who">新加坡小贩/餐饮品牌创始人 · 马来西亚出生 · 2009 年开档 · 2016 年获米其林一星 · 2016 年起与 Hersing 合作特许经营</div>
+</div>
+
+<div class="factbox">
+<h4>公开事实 · 可核验</h4>
+<ul>
+<li>马来西亚出生；少年时到新加坡，随后在港式餐厅随香港师傅当学徒（媒体多写 18 岁入行，品牌官方叙事为 15 岁离校赴新加坡）；在餐饮业工作 20 多年后，2009 年在新加坡牛车水大厦熟食中心开“了凡香港油鸡饭面”档口。</li>
+<li>2016 年获新加坡首版米其林指南一星，被称为“全球最便宜的米其林餐厅”（约 S$2.50）；2021 年 9 月原档口失去星标，仍继续营业；78 Smith Street 餐厅自 2018 年起多次获 Bib Gourmand（2018/2019/2021/2022/2023），品牌仍在米其林体系内。</li>
+<li>2016 年与新加坡 Hersing Culinary 合作开设 Hawker Chan 餐厅，Chan 获首家餐厅 50% 股权，初始投资约 S$1m；此后以特许经营扩展至 8 个国家、30+ 门店（澳大利亚、马来西亚、泰国、台湾、哈萨克斯坦等）。</li>
+<li>妻子与其他家庭成员继续经营原档口；2023 年报道称部分门店仍日销约 1,000 份；品牌采用加盟/授权，无中央厨房。</li>
+</ul>
+<p class="caveat">来源：CNBC（2017）、Taipei Times（2016）、Business Insider（2023）、CNN（2021）、Straits Times（2018）、Liao Fan Hawker Chan 官网 locations 页（2026）。<b>本案例不主张其为 HSBC 客户，不主张任何未公开的账户、股权、特许权使用费、税务或资产安排；HSBC AUM US$5–10m 档位为设计假设；不主张具体 AUM 或总财富。</b></p>
+</div>
+
+<p class="story"><b>场景 · 推演。</b>2026 年，Hawker Chan 的品牌在 8 个国家有 30 多家店。原档口仍由妻子和家人经营；加盟商有的赚钱、有的想退出；一家海外加盟商拖欠版税；他 60 多岁，想慢慢退下来，但不知道品牌值多少钱、该传给谁、如果加盟商出事自己要不要负责。他问：<b>“这个品牌是我的，还是公司的？如果我不做了，家里还能收多久的钱？”</b></p>
+
+<h3>21.1 结构：档口、品牌、加盟，三层不是一回事</h3>
+<div class="tw"><table>
+<tr><th style="width:22%">层</th><th style="width:38%">公开/假设结构</th><th>系统缺口</th></tr>
+<tr><td><b>档口</b></td><td>新加坡牛车水原档口，妻子/家人经营；薄利、现金/扫码、租约</td><td>个体户/家庭经营；现金流水；租约与牌照；家人薪酬</td></tr>
+<tr><td><b>品牌/加盟</b></td><td>Hawker Chan 品牌、商标、配方、加盟合同、海外主特许/合资；首家餐厅 50% 股权</td><td>版税/加盟费/最低保证金；品牌质量与地域；加盟商违约</td></tr>
+<tr><td><b>资产</b></td><td>房产、现金、品牌/股权；可能没有信托</td><td>品牌估值；股权/版税的继承；SG/MY 跨境</td></tr>
+<tr><td><b>家庭</b></td><td>妻子 + 子女；原档口由家人继续经营</td><td>家族成员的角色/薪酬/继承；谁接品牌、谁接档口</td></tr>
+</table></div>
+
+<h3>21.2 六问</h3>
+<div class="tw"><table>
+<tr><th style="width:14%">项</th><th>内容</th></tr>
+<tr><td><b>客户要做</b></td><td>把品牌从“我这个人”变成“可授权的资产”；收齐加盟版税；处理违约加盟商；把档口/品牌/房产分给家人；少交不必要的税。</td></tr>
+<tr><td><b>RM / PA 要做</b></td><td>把档口、品牌公司、加盟合同、股权、房产分成不同对象；把“版税现金流”做成可预测的年度收入；把家庭角色与继承写清楚。</td></tr>
+<tr><td><b>客户得到</b></td><td>① 品牌/加盟/档口的三年现金流；② 品牌估值与授权/出售选项；③ 违约加盟商的处理路径；④ 家庭继承与经营权安排。</td></tr>
+<tr><td><b>RM·PA 得到</b></td><td>知道哪些收入是版税、哪些是门店利润、哪些是家人薪酬；不再把“Hawker Chan”当成一个账户。</td></tr>
+<tr><td><b>HSBC 得到</b></td><td>一个 $5–10m、SG/MY 跨境、品牌/IP 驱动的客户；如果只会看“门店流水”，会低估品牌价值，也会漏掉加盟商风险。</td></tr>
+<tr><td><b>系统必须新增</b></td><td>① <code>FranchiseAgreement</code>（地域/期限/版税/最低保证金/违约）；② <code>BrandAsset</code>（商标/配方/形象）；③ <code>RoyaltyStream</code>（按加盟商/地域）；④ <code>FamilyBusinessRole</code>（档口/品牌/房产的经营者与继承人）。</td></tr>
+</table></div>
+
+<div class="verdict"><b>§21 的结论：</b>$5–10m 的亚洲中段，不是“缩小版 UHNW”，而是 <b>品牌/IP + 加盟合同 + 家庭经营</b>。M05/M06/M07/M10/M14/M16 足够；M02 只需“家庭角色/继承”的轻量版。品牌生命周期（得星/失星）说明：这类客户最怕的不是税，而是“品牌离了我还能不能收钱”。</div>
+
+<h3>21.3 §18–§21 × 12 个一等对象</h3>
+<p>四个案例不新增一等对象；它们把 §22 的 12 个对象压到不同的深度。<b>● 表示该案例会迫使系统处理这项能力。</b></p>
+<div class="tw"><table>
+<tr><th style="width:26%">一等对象</th><th>18 Ali</th><th>19 Nadiya</th><th>20 Alvin</th><th>21 Hawker</th></tr>
+<tr><td>1 自然人（多状态）</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+<tr><td>2 经济权益</td><td></td><td>●</td><td>●</td><td>●</td></tr>
+<tr><td>3 法律实体</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+<tr><td>4 家族图谱</td><td></td><td>●</td><td>●</td><td>●</td></tr>
+<tr><td>5 权利矩阵</td><td></td><td>●</td><td>●</td><td>●</td></tr>
+<tr><td>6 义务</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+<tr><td>7 授权</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+<tr><td>8 争议状态</td><td></td><td></td><td></td><td>●</td></tr>
+<tr><td>9 时点</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+<tr><td>10 承诺</td><td></td><td>●</td><td>●</td><td>●</td></tr>
+<tr><td>11 客户群</td><td></td><td>●</td><td>●</td><td>●</td></tr>
+<tr><td>12 资产—制度栈</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+</table></div>
+
+<div class="verdict"><b>四个案例对架构的三个结论：</b><br>
+<b>其一，$2–5m 不需要 T1 全量。</b>18/19 只需要 M01/M03/M12/M13/M14 的轻量版 + M10 的按揭/现金流；家族治理、私人股权、复杂信托不是这一档的入口。<br>
+<b>其二，$5–10m 的关键是“实体 + 担保 + 品牌”，不是“家族宪章”。</b>20/21 需要 M04/M05/M06/M07/M10/M14/M16；M02 只需继承/家庭角色，不需要全套治理。<br>
+<b>其三，成本-to-serve 必须写成硬约束。</b>18 目标 <50bps，19 <60bps，20/21 <80bps；如果系统用 18 模块全量服务这四类客户，档位越多，亏损越大。</div>
+
+<p class="src">四个案例的公开事实来自本人官网/公开访谈/主流媒体；财富档位、HSBC AUM、钱包份额、服务模型与费率均为<b>设计假设</b>，不是公开事实，也不构成对任何人的客户关系、税务或资产陈述。正式引用前须经法务逐案预审；如当事人或家属提出异议，应删除或匿名化。</p>
+
+<h2 id="c22">§22 从 17 组核心结构反推：下一代系统的 12 个一等对象</h2>
+<p class="lead">这 17 组核心案例（加上 §18–§21 的 4 个财富带案例）如果只提炼出一句话，是：<b>私人银行的核心对象不是「账户」，也不是「客户」，而是「一个家族在多个制度下的持续存在」。</b>下面 12 个对象，是这句话的可实现版本。每一个都至少被两个案例逼出来；没有一个是为了「功能清单好看」而设的。</p>
+
+<div class="tw"><table>
+<tr><th style="width:5%">#</th><th style="width:18%">一等对象</th><th style="width:30%">定义</th><th style="width:14%">来自案例</th><th>为什么现有模型表达不了</th></tr>
+<tr><td>1</td><td><b>自然人（多状态）</b></td><td>一个人同时拥有税务、移民、证券、制裁、行为能力五个维度的状态，每个维度有自己的时钟</td><td>1,2,3,9,17</td><td>现有模型是「客户表 + 税务居民字段」</td></tr>
+<tr><td>2</td><td><b>经济权益</b></td><td>跨 ISIN、跨 CSD、跨币种的同一经济利益</td><td>1,2,3,16</td><td>主键是证券代码，A/H 被当成两笔</td></tr>
+<tr><td>3</td><td><b>法律实体</b></td><td>公司/信托/基金会/SFO，带层级、分类（如 Passive NFE）、自身义务日历</td><td>3,4,8,10,16,17</td><td>实体只是「账户的附属」</td></tr>
+<tr><td>4</td><td><b>家族图谱</b></td><td>图结构：血亲、姻亲、堂表、非血亲关键人；三套边界（血亲/经济/治理）</td><td>4,5,6,17</td><td>「家庭成员」字段只有配偶子女</td></tr>
+<tr><td>5</td><td><b>权利矩阵</b></td><td>经济权 / 投票权 / 处分权，逐资产、逐主体</td><td>4,10,16,17</td><td>只有「持股 %」一列</td></tr>
+<tr><td>6</td><td><b>义务</b></td><td>来自监管、交易所、契约、法院、信托文件的义务；含触发条件、期限、责任方、证据</td><td>1,3,5,8,9,11,16,17</td><td>义务散落在日历、邮件、人的记忆里</td></tr>
+<tr><td>7</td><td><b>授权</b></td><td>谁在什么条件下可以指示哪个实体/账户；含代理、董事、受托人、法院任命</td><td>5,8,17</td><td>授权是账户上的一个签字人字段</td></tr>
+<tr><td>8</td><td><b>争议状态</b></td><td>继承/治理争议是一等状态，触发冻结、双签、法律复核</td><td>8,11</td><td>系统假设客户永远有统一意志</td></tr>
+<tr><td>9</td><td><b>时点</b></td><td>事实时间 vs 认知时间；规则版本；影子期；文件生效链</td><td>2,7,9,11,16</td><td>只存「当前状态」，覆盖历史</td></tr>
+<tr><td>10</td><td><b>承诺</b></td><td>不可撤销捐赠、禁售、锁定期、质押、回拨——长期约束，不是交易</td><td>1,3,7,10,16</td><td>没有「承诺」对象，只有「交易」</td></tr>
+<tr><td>11</td><td><b>客户群</b></td><td>跨自然人/信托/公司/SFO 的服务单元，带分级可见与利益冲突标记</td><td>3,5,6,17</td><td>客户是一个个人或一个公司</td></tr>
+<tr><td>12</td><td><b>资产—制度栈</b></td><td>同一资产在多个辖区/制度下的身份与义务（如一栋英国房子）</td><td>1,7,9,16,17</td><td>资产只记录「是什么」，不记录「在哪个制度里是什么」</td></tr>
+</table></div>
+
+<div class="note"><b>§16 与 §17 落在哪一行：</b>梁文锋的私人股权估值、质押与使用，落在「经济权益 / 资产—制度栈 / 承诺」三行；何氏家族的五种角色与四种权利，落在「家族图谱 / 权利矩阵 / 授权」三行。<b>细对象见两案各自的「系统必须新增」，不另立第 13 个一等对象。</b></div>
+
+<h3>22.1 案例 × 能力热力图</h3>
+<p>把对象翻译成可测试的能力，得到下表。<b>● 表示该案例会迫使系统处理这项能力，不代表该案例只测试这一项。</b>空白不代表「不需要」，只代表该案例没有把它逼到极限。</p>
+<div class="tw"><table>
+<tr><th style="width:14%">能力 \ 案例</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th></tr>
+<tr><td>多制度身份</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td></td><td></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td></td><td></td></tr>
+<tr><td>跨 ISIN 经济权益</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>实体与穿透</td><td></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>家族图谱</td><td></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>三权分离</td><td></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td></td><td></td><td></td><td></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>义务日历</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td></tr>
+<tr><td>授权矩阵</td><td></td><td></td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td></td><td></td><td><span class="dot">●</span></td></tr>
+<tr><td>争议状态</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><span class="dot">●</span></td><td></td><td></td><td><span class="dot">●</span></td></tr>
+<tr><td>时点与重放</td><td></td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td></tr>
+<tr><td>承诺/限制</td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td></td><td></td><td></td><td><span class="dot">●</span></td><td></td><td></td><td><span class="dot">●</span></td><td></td></tr>
+<tr><td>客户群与隔离</td><td></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>资产—制度栈</td><td><span class="dot">●</span></td><td></td><td></td><td></td><td></td><td></td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td></td><td></td></tr>
+</table></div>
+<p><b>中段组（§12–§15）与新增组（§16–§17）的能力分布分别列出</b>，避免把 17 列压进一张表。三张表的行是同一组 12 项能力，可以直接对照。</p>
+<div class="tw"><table>
+<tr><th style="width:22%">能力 \ 案例</th><th>12 Guy</th><th>13 Sarah</th><th>14 Vardy</th><th>15 Neame</th></tr>
+<tr><td>多制度身份</td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td></td></tr>
+<tr><td>跨 ISIN 经济权益</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>实体与穿透</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>家族图谱</td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>三权分离</td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>义务日历</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>授权矩阵</td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>争议状态</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>时点与重放</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>承诺/限制</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>客户群与隔离</td><td><span class="dot">●</span></td><td></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>资产—制度栈</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+</table></div>
+<div class="tw"><table>
+<tr><th style="width:28%">能力 \ 案例</th><th>16 梁文锋</th><th>17 何氏家族</th></tr>
+<tr><td>多制度身份</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>跨 ISIN 经济权益</td><td></td><td></td></tr>
+<tr><td>实体与穿透</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>家族图谱</td><td></td><td><span class="dot">●</span></td></tr>
+<tr><td>三权分离</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>义务日历</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>授权矩阵</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>争议状态</td><td></td><td></td></tr>
+<tr><td>时点与重放</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>承诺/限制</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+<tr><td>客户群与隔离</td><td></td><td><span class="dot">●</span></td></tr>
+<tr><td>资产—制度栈</td><td><span class="dot">●</span></td><td><span class="dot">●</span></td></tr>
+</table></div>
+<div class="note"><b>读法：</b>没有一列是满的，也没有一行是只出现一次的。<b>这说明这些能力不是「为某个案例定制的功能」，而是横切多个真实结构的对象。</b>如果某个能力只服务一个案例，它应该被删掉；如果某个案例不触发任何独有能力，它也应该被删掉。</div>
+
+<h3>22.2 为什么这些结构特别指向 HSBC</h3>
+<p class="lead">这 17 组人物不是随机选的。他们所在的辖区、财富形态与家族结构，恰好落在 HSBC 三个别人很难同时具备的位置上。<b>但「位置」不是「能力」——下面每一行，右边才是系统必须接住的东西。</b></p>
+<div class="tw"><table>
+<tr><th style="width:22%">HSBC 的结构性位置</th><th style="width:34%">具体含义</th><th>系统必须接住</th></tr>
+<tr><td><b>双主场 + 多 booking centre</b></td><td>英国与香港两个主场；香港、新加坡、瑞士、英国、海峡群岛、阿联酋、印度、中国内地均有私行/财富管理布局</td><td>同一客户群跨 booking centre 的合并视图、成本迁移、授权迁移、历史报表迁移</td></tr>
+<tr><td><b>全能银行：企行 + 私行 + 信托 + 保险</b></td><td>同一集团内同时是贷款行、银团行、债券持有人、受托人、保险人、私行</td><td><b>可控地打通</b>：集团敞口可见，但信息隔离可执行、冲突可标记（案例五）</td></tr>
+<tr><td><b>亚—湾—英走廊</b></td><td>大湾区、东南亚华人、印度 diaspora、海湾家族、伦敦/瑞士财富中心，是 HSBC 客户群的自然分布</td><td>家族图谱、多辖区身份、伊斯兰继承、BVI/开曼结构、CRS/FATCA 穿透（案例三、六、八）</td></tr>
+<tr><td><b>贸易银行的血统</b></td><td>1865 年生于香港与上海，客户从贸易商行起家；关系跨代、跨商会、跨侨汇网络</td><td>「家族操作系统」而不是「组合查看器」：关系、承诺、代际、声誉都是对象</td></tr>
+</table></div>
+
+<h4>人物 × booking centre：一张覆盖图</h4>
+<div class="tw"><table>
+<tr><th style="width:22%">人物 / 家族</th><th style="width:34%">最自然的 booking centre</th><th>HSBC 在这组结构里的角色</th></tr>
+<tr><td>周群飞</td><td>HK + CN</td><td>A/H 双登记、跨境预检、实控人义务</td></tr>
+<tr><td>李西廷</td><td>HK + SG + CN</td><td>四个证券制度的历史证据包、H 股发行衔接</td></tr>
+<tr><td>张勇 · 舒萍</td><td>SG + HK</td><td>家族办公室、两个 BVI 信托、NASDAQ 董事义务</td></tr>
+<tr><td>李嘉诚家族</td><td>HK + UK + CH</td><td>信托、基金会、三代受益人、跨代关系</td></tr>
+<tr><td>郑裕彤家族</td><td>HK</td><td>企行/私行/信托冲突、授权状态机、质押</td></tr>
+<tr><td>郭鹤年家族</td><td>HK + SG + MY</td><td>家族图谱、四地上市平台、堂侄分支</td></tr>
+<tr><td>Poonawalla 家族</td><td>UK + IN + CH</td><td>英国房产、印度 ODI、公司/个人使用</td></tr>
+<tr><td>Majid Al Futtaim 家族</td><td>AE + UK</td><td>伊斯兰继承、争议状态、政府任命董事会</td></tr>
+<tr><td>Mittal 家族</td><td>UK + CH</td><td>非居籍终局、十年影子期、booking centre 迁移</td></tr>
+<tr><td>Premji 家族</td><td>IN + UK</td><td>慈善 endowment、三权分离、双 AUM 口径</td></tr>
+<tr><td>Murdoch 家族</td><td>UK + US + CI</td><td>信托文件版本、法院命令、受托人证据</td></tr>
+<tr><td>Guy Singh-Watson</td><td>UK</td><td>EOT、卖方贷款、分期流动性、未上市估值</td></tr>
+<tr><td>Sarah Wood</td><td>UK + US</td><td>或有对价、股权瀑布、留任锁定</td></tr>
+<tr><td>Jamie Vardy</td><td>UK + IT + US</td><td>收入窗口、形象权、非现金股权</td></tr>
+<tr><td>Neame 家族</td><td>UK</td><td>家族控制上市公司、薄市场、经营型物业</td></tr>
+<tr><td>梁文锋</td><td>CN + HK</td><td>Pre-IPO 私人股权估值、质押、跨境</td></tr>
+<tr><td>何氏家族（匿名）</td><td>HK + SG</td><td>家庭图谱、授权、主客户失能、教育/养老</td></tr>
+</table></div>
+<div class="warn"><b>必须说清楚：这张图是「结构上最自然」的映射，不是「他们已经是或应该是 HSBC 客户」的断言。</b>它的用途是检验系统覆盖面：如果下一代系统只能在香港和新加坡工作，这张图上有四行会立刻失效；如果它不能处理信托与基金会，剩下七行会退化成普通组合视图。</div>
+
+<h3>22.3 三组判定：雷同、超越、落后</h3>
+<p>本节<b>不新增 Avaloq 证据</b>，只把 v2.1 的 A/B/C 判定按新对象重排。标签沿用原定义：<span class="tag t-same">雷同</span> 形态相同，必须迁移；<span class="tag t-bey">超越</span> 结构性差异，厂商不会因版本迭代追上；<span class="tag t-weak">落后</span> 必须承认，迁移期内始终存在。</p>
+<div class="tw"><table>
+<tr><th style="width:8%">组</th><th style="width:28%">条目</th><th style="width:30%">依据（沿用 v2.1）</th><th>新系统姿态</th></tr>
+<tr><td rowspan="5"><b>A</b><br>雷同</td><td>多辖区税务表与预提计算</td><td>DE 644 / FR 201 / UK 94 / US 45 / CH 9 / SG 5 张表，约 1,000 张</td><td><b>迁移，不宣称超越</b>；白盒化是技术债治理</td></tr>
+<tr><td>CRS / FATCA 自我证明与申报</td><td>已支持</td><td>持平；差别只在穿透粒度</td></tr>
+<tr><td>交易、结算、持仓会计、业绩</td><td>T4/T5 在 v2.1 已判定持平</td><td>持平；实时性另见 C 组</td></tr>
+<tr><td>费用引擎、Lombard 抵押品</td><td><code>FEEP_UTIL#</code>、<code>COLLAT_LOT_DISTR#</code> 等存在</td><td>白盒化与预警提前量是补债，不是超越</td></tr>
+<tr><td>家庭关系字段、实体层级、单一辖区配额</td><td>关系字段与实体模型已存在；FR 201 张表覆盖 PEA</td><td><b>必须承认它有</b>；差别落在 B 组的「状态」与「图」</td></tr>
+<tr><td rowspan="6"><b>B</b><br>超越</td><td>跨 ISIN 经济权益 + 一致行动人</td><td>案例 1/2/3</td><td>主键从「证券」上移到「经济权益」</td></tr>
+<tr><td>义务图：触发条件 + 期限 + 责任方 + 证据</td><td>案例 1/5/8/9/11</td><td>义务从日历/邮件变成一等对象</td></tr>
+<tr><td>授权矩阵 + 争议状态</td><td>案例 5/8/11</td><td>授权从「签字人字段」变成图与状态机</td></tr>
+<tr><td>三权分离 + 双 AUM 口径</td><td>案例 4/10</td><td>从「持股 %」变成经济/投票/处分三列</td></tr>
+<tr><td>家族图谱 + 迁移影子期 + 资产—制度栈</td><td>案例 4/5/6/7/9/16/17</td><td>家族是图；迁移带尾巴；资产有多重制度身份</td></tr>
+<tr><td>Pre-IPO 私人股权估值/质押 + 家庭五角色/四权利</td><td>案例 16/17</td><td>现有模型只认上市证券与单一主客户</td></tr>
+<tr><td rowspan="4"><b>C</b><br>落后</td><td>实时性与规模</td><td>Mosaic：200 万持仓端到端 &lt;5 分钟</td><td>作为工程目标追赶</td></tr>
+<tr><td>数字资产</td><td>Crypto Assets Platform 自 2022 生产运行</td><td>不自吹；如需则外购</td></tr>
+<tr><td>生态与集成</td><td>200+ fintech、7,500 REST API 端点</td><td>迁移期内始终存在</td></tr>
+<tr><td>40 年生产运行历史</td><td>170+ 客户 / 35 国 / US$5.1tn</td><td><b>正确性只能靠时间积累</b></td></tr>
+</table></div>
+<div class="verdict"><b>A 组是迁移工作量，B 组是差异化，C 组是必须承认的落后。三组不能互相抵消。</b>如果有人问「为什么功能清单上看不到优势」——因为优势不在功能清单上；如果有人问「那为什么不直接买」——因为 B 组那几条源于厂商的产品形态本身，170+ 家银行的复用需求决定了它不会为一个辖区建通用引擎，也不会把「家族」建成一个独立对象域。</div>
+
+<h2 id="c23">§23 与 v2.1 的对照：哪些结论被加强，哪些被推翻，哪些只能留在合成版</h2>
+<p class="lead">换成真实人物不是为了「更好看」，而是为了检验旧结论。<b>检验的结果是：大部分结论被加强，少数被推翻，还有四个案例无法用真人替代——这四类必须诚实保留为合成案例，或者承认覆盖缺口。</b></p>
+
+<div class="tw"><table>
+<tr><th style="width:14%">v2.1 合成案例</th><th style="width:14%">v3.0 对应</th><th style="width:28%">变化</th><th>判断</th></tr>
+<tr><td>一 陈永年（CN↔HK）</td><td>一 周群飞</td><td>从「两个 booking centre」升级为「两个登记系统、两个 ISIN、两套窗口期」；从「理财通额度」升级为「A+H 实控人义务」</td><td><span class="tag t-pub">加强</span> 旧版低估了同一经济权益的登记复杂度</td></tr>
+<tr><td>二 李慧明（CN→SG）</td><td>二 李西廷</td><td>从「一次迁移」升级为「四个证券制度、二十年历史」；从「税务居民切换」升级为「退市不等于消失」</td><td><span class="tag t-pub">加强</span> 真实人物的历史长度是合成画像给不出的</td></tr>
+<tr><td>三 Anil Kumar（UK→IN RNOR）</td><td>九 Mittal（UK→CH）</td><td>方向相反：从「回流印度」变为「离开英国」；从「日期差几周差一个 RNOR 年度」变为「离境后十年影子」</td><td><span class="tag t-rep">同级替换</span> <b>失去</b> RNOR 的「日期可计算性」；<b>得到</b> 更普遍的「迁移带尾巴」结构</td></tr>
+<tr><td>四 Weber（DE→US 资产）</td><td>七 Poonawalla（IN→UK 房产）</td><td>从「美国人持有美股」变为「印度家族通过英国公司持有英国房」；从「$60,000 门槛」变为「一资产四制度」</td><td><span class="tag t-pub">加强</span> 但<b>失去</b>「身价不影响结论」的普遍性案例</td></tr>
+<tr><td>五 Bertrand（FR PEA）</td><td><b>无</b></td><td>没有公开的真实人物 PEA 数据；且 PEA 是单一辖区配额，不是下一代系统的差异点</td><td><span class="tag t-unk">保留合成</span> 归入「单一辖区产品」，不进差异能力清单</td></tr>
+<tr><td>六 Patel（UK↔IN 信托）</td><td>五 郑裕彤 + 八 MAF</td><td>从「四个时钟」升级为「授权状态机 + 企行/私行冲突 + 继承争议」；从「信托保护终止日」变为「谁有权指示」</td><td><span class="tag t-pub">加强</span> 但<b>失去</b>英国 FIG/IHT 的技术细节，需在新九中补</td></tr>
+<tr><td>七 偶然的美国人</td><td><b>无</b></td><td>不能指称任何真实人物「可能持有美国国籍」——这是隐私与名誉风险，不是方法论能解决的</td><td><span class="tag t-risk">保留合成</span> 该场景只能匿名化处理</td></tr>
+<tr><td>八 四地家族</td><td>六 郭鹤年</td><td>从「四个人持有同一只美股」升级为「四支、四地、四个上市平台」；从「辖区不同」升级为「家族边界不同」</td><td><span class="tag t-pub">加强</span> 真实家族的「堂侄分支」是合成画像想不到的</td></tr>
+<tr><td>九 黄氏离岸结构</td><td>三 张勇·舒萍</td><td>从「虚构的 BVI/开曼四层」升级为「公开招股书披露的两个 BVI 信托 + 新加坡 SFO + 三家上市公司」</td><td><span class="tag t-pub">加强</span> 真实结构比虚构结构更复杂，也更可核验</td></tr>
+<tr><td>十 横向继承（配偶）</td><td>四 李嘉诚（部分）</td><td>从「配偶从未见 RM」变为「基金会 + 受益人类别 + 第三代」；<b>没有</b>真实、非敏感的「配偶继承」公开案例</td><td><span class="tag t-risk">弱化</span> <b>这是本版最大的损失</b>；须通过匿名 RM 访谈另行补采</td></tr>
+<tr><td>十一 女科学家 IPO</td><td>一 周群飞</td><td>从「虚构的女科学家」变为「真实的女性创始人、A+H 实控人」；从「交易文件限制」变为「交易所规则 + 减持规则 + 窗口期」</td><td><span class="tag t-pub">加强</span> 真实女性创始人的结构比虚构画像更硬</td></tr>
+<tr><td>十二 留学子女五格额度</td><td><b>无</b></td><td>未成年人不能作为真实案例；IRS 算例本身是官方的，但「某个具体孩子」不能公开</td><td><span class="tag t-risk">保留合成</span> 官方算例可保留，人物必须匿名</td></tr>
+<tr><td>十三 接班推迟（Kumar）</td><td>五 郑裕彤 + 六 郭鹤年</td><td>从「21% 的家庭没有计划」变为「真实的第三代退出」与「真实的女儿接班」；从「空值」变为「四种身份迁移」</td><td><span class="tag t-pub">加强</span> 真实的接班不是「有/无」，是「连续的状态变化」</td></tr>
+</table></div>
+
+<p class="story"><b>§12–§15 四组中段客户，补的是 v2.1 的「中段合成画像」空缺。</b>旧版的 Weber（US$9m）、Bertrand（US$22m）、张女士之子（US$18m）都在这个区间，但都是合成的；新版用 Guy Singh-Watson（约 US$15m–20m，量级估算）、Sarah Wood（约 US$15m–30m，量级估算）、Jamie Vardy（约 US$48m，媒体估计）、Neame 家族（约 US$50m–75m，示意估算）四组真实结构替代。<b>这不是新增了四种能力，而是证明同一批能力在低一个数量级的客户身上同样成立——而且痛点更具体：没有市场价、没有到账、没有流动性、没有控制权。</b></p>
+
+<p class="story"><b>旧 demo 的两条主线也在新版落地。</b>林哲（Pre-IPO 创始人）由 <b>§16 梁文锋</b>替代——真实、未上市、纸面财富；何氏家族（H-7701，四代六人）由 <b>§17</b> 扩展——但采用匿名结构，因为中段家庭的公开身份不可核验。<b>这两条正好补上领导关注的两类：创一代的 Pre-IPO 流动性，以及女性 / 家庭 / 子女 / 主客户失能。</b>旧 demo 里关于股票质押、花费、stress test、back test 的短故事，按本次要求暂不展开；它们的能力点已分别并入 §16（质押/花费）与 §22 的对象模型。</p>
+
+<div class="warn"><b>必须承认的三点损失。</b><br>
+<b>其一，横向继承的场景没有真实替代。</b>配偶身故后「从未被当作客户」的锐度，来自一个匿名访谈，不来自公开人物。用任何真实名人来演这个场景，都会变成对其家庭悲剧的消费。<b>这一类只能匿名补采。</b><br>
+<b>其二，US$5m 以下的入门层仍然缺席。</b>§12–§15 已经部分补足 US$5m–100m 层，但其中最低的一组（Riverford）也在 US$15m 量级；<b>US$5m–10m 的真实人物几乎无法公开识别</b>，只能通过 RM 匿名访谈补采。§1–§11 的 11 组全部在 US$1bn 以上，<b>上下两端的偏差同时存在</b>。这与 v2.1 的方向相同，只是原因不同。<br>
+<b>其三，税务技术细节的密度下降。</b>v2.1 的 RNOR 729 天、W-8BEN 三年、美国 $60,000 门槛，在真实人物案例中被「结构」取代；<b>这些细节仍然重要，应作为规则库的测试用例保留，而不是作为人物故事。</b></div>
+
+<h3>23.1 旧版 17 条差异能力，在新版中的位置</h3>
+<div class="tw"><table>
+<tr><th style="width:34%">v2.1 B 组能力（摘要）</th><th style="width:16%">新版对象</th><th>判断</th></tr>
+<tr><td>滚动窗口型居住身份状态机</td><td>9 时点 / 1 多状态</td><td>保留；但真实案例显示「影子期」比「窗口计算」更普遍</td></tr>
+<tr><td>双时钟分离（FEMA vs 所得税）</td><td>1 多状态</td><td>保留；Mittal 案例补充了「离境后仍被原辖区追及」</td></tr>
+<tr><td>事前 what-if</td><td>9 时点</td><td>保留；但不再是核心差异，真实客户更关心「现在能不能动」</td></tr>
+<tr><td>跨辖区规则联动与冲突裁定</td><td>6 义务 / 12 资产—制度栈</td><td>保留；周群飞案例把它具体化为「两个登记系统」</td></tr>
+<tr><td>凭证与时限状态机</td><td>6 义务 / 10 承诺</td><td>保留；W-8BEN 类细节转入规则库</td></tr>
+<tr><td>按税年版本化 + as-of 重放</td><td>9 时点</td><td>保留；Murdoch 案例增加「法律文件版本」维度</td></tr>
+<tr><td>事实时间 vs 认知时间</td><td>9 时点</td><td>保留；李西廷案例增加「历史申报仍有效」维度</td></tr>
+<tr><td>客户/RM 侧归因呈现</td><td>6 义务（证据）</td><td>保留；成为所有案例的横切要求</td></tr>
+<tr><td>变更不涉及代码发布</td><td>6 义务（规则数据化）</td><td>保留；属于工程形态，不是客户能力</td></tr>
+<tr><td>税务主张与福利资格联动</td><td>12 资产—制度栈</td><td>保留；但真实案例中优先级下降</td></tr>
+<tr><td>零税率辖区的义务日历</td><td>6 义务</td><td>保留；张勇案例的 BVI 信托使其更具体</td></tr>
+<tr><td>结构为一等对象 + 逐资产注入日</td><td>3 法律实体 / 6 义务</td><td>保留；并升级为「实体 + 义务 + 穿透」三件套</td></tr>
+<tr><td>配偶作为独立法律主体</td><td>4 家族图谱</td><td><b>弱化</b>；缺少真实案例，须匿名补采</td></tr>
+<tr><td>第三方义务作为建议前置校验</td><td>10 承诺</td><td><b>加强</b>；周群飞/张勇/Premji 三个案例都命中</td></tr>
+<tr><td>异质计数系统与「一天」的多重定义</td><td>1 多状态 / 9 时点</td><td>保留；但真实案例中不再是主角</td></tr>
+<tr><td>意向状态作为一等实体</td><td>6 义务 / 9 时点</td><td><b>被改写</b>：真实案例显示「已退出」「已辞任」「已推迟」都是状态，不是空值</td></tr>
+<tr><td>RM 职责边界由系统固化</td><td>7 授权 / 治理</td><td><b>加强</b>；MAF 与郑裕彤案例把它变成「授权矩阵」</td></tr>
+</table></div>
+
+<div class="verdict"><b>一句话总结这次替换：合成画像擅长测试「规则」，真实人物擅长测试「结构」。</b>规则可以算，结构只能被承认。<b>下一代系统真正的难点，不是把规则算对，而是承认结构存在。</b></div>
+
+<h2 id="c24">§24 RM 的新工作：从「人肉集成层」到「解释层」</h2>
+<p class="lead">v2.1 的判断是：RM 今天最大的角色是「人肉集成层」——系统之间有缝隙，RM 站在缝隙上。这个判断在真实案例里被加强了，但需要补一句：<b>RM 不只是搬运工，他还是唯一能判断「这个家族现在真正想要什么」的人。</b></p>
+
+<div class="tw"><table>
+<tr><th style="width:18%">工作</th><th style="width:38%">新系统负责</th><th>RM 负责</th></tr>
+<tr><td><b>事实与依据</b></td><td>公开事实、账户事实、文件版本、规则版本、到期日</td><td>确认「这与客户的情况是否相符」；发现系统没有的事实</td></tr>
+<tr><td><b>计算与判定</b></td><td>身份、窗口期、义务、授权、冲突</td><td>审阅结果；在边界模糊时升级到法律/税务组</td></tr>
+<tr><td><b>边界</b></td><td>输出被限制为「事实 + 到期日 + 责任方」</td><td>读给客户听；<b>不因为多说一个词而越界</b></td></tr>
+<tr><td><b>家庭</b></td><td><b>不参与</b></td><td><b>全部</b>：谁和谁不合、谁真正想要什么、谁在什么时候需要被保护</td></tr>
+<tr><td><b>优先级</b></td><td>列出全部义务</td><td>决定「先做哪一件」；系统不给建议，RM 给人话</td></tr>
+</table></div>
+
+<h3>24.1 RM 可以说的三句话</h3>
+<div class="shadow">
+<p class="story"><b>第一句（事实）：</b>「这是您的事实，依据在这——2025 年 7 月 9 日 H 股上市，A 股和 H 股是同一笔经济权益，但两边窗口期不同。」<br>
+<b>第二句（边界）：</b>「这个问题我不能回答，但我可以告诉您：责任人是谁、需要什么文件、最晚什么时候办。」<br>
+<b>第三句（时间线）：</b>「如果您什么都不做，未来 90 天会发生这三件事——这是清单，不是建议。」</p>
+</div>
+
+<h3>24.2 一个反直觉的结论</h3>
+<p class="story">真实人物案例让一件事变得很清楚：<b>客户最不满意的，不是「银行不知道答案」，而是「银行假装知道」。</b>在 MAF 的继承争议里，在郑裕彤家族的授权变更里，在 Murdoch 的信托诉讼里，客户真正需要的是一句准确的「我现在不能执行，因为 X」——而不是一句含糊的「我帮您问问」。<b>系统的价值，是让 RM 有能力说出这句准确的「不」。</b></p>
+
+<h2 id="c25">§25 验证动作：写进立项书之前必须完成的四组动作</h2>
+
+<h3>25.1 法务与合规预审（逐案）</h3>
+<ol>
+<li><b>公开事实逐条复核</b>：每条事实必须有来源 URL、发布日期、检索日期；报道类事实标注「报道」，不得升级为「已核实」。</li>
+<li><b>删除一切推断性表述</b>：特别是关于在世人物的税务动机、家庭关系、健康状况、继承计划的推断。</li>
+<li><b>确认不使用场景</b>：本文件不进营销物料、不在客户活动使用、不对外分发；内部编号管理。</li>
+<li><b>未成年人匿名</b>：任何涉及第三/第四代未成年人的描述，一律去标识化。</li>
+<li><b>争议案件特别审查</b>：MAF、Murdoch 两案只引用法院/政府公开文件与主流媒体报道，不引用社交媒体的二次解读。</li>
+<li><b>媒体估计的财富数字</b>（Vardy 的 £37m、Neame 家族的 US$50m–75m、Sarah Wood 的个人所得、梁文锋的 US$46.1bn）只能作为量级参考，<b>不得写成披露数据</b>；每处必须保留「媒体估计 / 富豪榜估计」标签。</li>
+<li><b>匿名案例（§17）</b>不得出现任何可识别真实家庭的信息；姓名、年龄、金额均标注为示意；引用前须通过隐私影响评估（PIA）。</li>
+</ol>
+
+<h3>25.2 向 Avaloq 书面索取的问题（在 v2.1 的 14 问之上新增 10 问）</h3>
+<div class="tw"><table>
+<tr><th style="width:8%">#</th><th style="width:46%">问题</th><th>如果答「支持」</th></tr>
+<tr><td>⑮</td><td>同一经济权益能否跨 CSD/ISIN 关联（A 股 / H 股 / ADR），并合并计算一致行动人？</td><td>案例一、二、三的差异能力降级</td></tr>
+<tr><td>⑯</td><td>义务能否以「触发条件 + 期限 + 责任方 + 证据」四元组建模，而不是日历条目？</td><td>案例五、八、九、十一的差异能力降级</td></tr>
+<tr><td>⑰</td><td>授权能否表达「争议状态」与「法院/政府任命」，并在争议期间自动双签/冻结？</td><td>案例八的差异能力降级</td></tr>
+<tr><td>⑱</td><td>同一资产能否同时维护「控制口径」与「受益口径」，并在每个产品/授信/披露中标明用哪一个？</td><td>案例十的差异能力降级</td></tr>
+<tr><td>⑲</td><td>辖区迁移能否带「影子期」（离境后仍有效的义务），并按日期重放？</td><td>案例九的差异能力降级</td></tr>
+<tr><td>⑳</td><td>集团敞口能否跨 corporate / private / trust / markets 合并，同时执行信息隔离与冲突标记？</td><td>案例五的差异能力降级</td></tr>
+<tr><td>㉑</td><td>未上市股权、卖方贷款、或有对价、非现金股权能否做<b>多口径估值</b>（会计师 / 谈判 / 抵押）并<b>按流动性分层</b>？</td><td>案例十二、十三、十四的差异能力降级</td></tr>
+<tr><td>㉒</td><td>人力资本、形象权、家族控制权能否作为<b>可建模的资产/权利</b>，而不是备注字段？</td><td>案例十四、十五的差异能力降级</td></tr>
+<tr><td>㉓</td><td>未上市私人股权能否做<b>多方法估值</b>（最近一轮 / 可比 / 独立估值），并支持质押、追保、IPO 窗口与锁定期管理？</td><td>案例十六的差异能力降级</td></tr>
+<tr><td>㉔</td><td>家庭中的<b>五种角色</b>（客户 / 账户持有人 / 受益人 / 决策人 / 监护人）与<b>四种权利</b>（信息共享 / 决策代理 / 监护 / 受益）能否分开建模，并支持主客户失能时的主语切换？</td><td>案例十七的差异能力降级</td></tr>
+</table></div>
+<div class="note"><b>这十问里，⑳ 最可能是「部分支持」。</b>大多数核心系统能合并敞口，但不能在同一个视图里执行「可见但不可用」的信息隔离。<b>如果 Avaloq 答「支持」，请要求演示：同一客户在银团与私行两个视角下，RM 看到的屏幕分别是什么。</b></div>
+
+<h3>25.3 数据与规则治理</h3>
+<ul>
+<li><b>事实库</b>：每个案例一个 <code>case_id</code>，每条事实一个 <code>source_id</code>，每条推演一个 <code>assumption_id</code>；三者不得混在同一张表。</li>
+<li><b>规则库</b>：税法、交易所规则、信托法、伊斯兰继承法，按「辖区 × 版本 × 生效日」存储；每条规则必须有 owner 与复核日。</li>
+<li><b>到期提醒</b>：所有规则每年至少复核一次；跨境规则在预算案/大选后 30 天内强制复核。</li>
+</ul>
+
+<h3>25.4 什么情况下这份文档应被推翻</h3>
+<ul>
+<li>如果 Avaloq 能演示 ⑮–㉔ 中的六项以上，本文的「差异能力」清单需要重写。</li>
+<li>如果 HSBC 内部客户数据显示 <b>US$5m 以下</b>层占比超过 60%，本文的人物组合必须整体下移；§12–§15 只是把中段补上，并没有覆盖入门层。</li>
+<li>如果法务认定任何一案不适合内部使用，该案应删除，而不是改名保留。</li>
+</ul>
+
+<h2 id="c26">§26 结语：真实人物不是为了故事，是为了让系统承认例外</h2>
+
+<p class="story">这 17 组核心人物（以及 §18–§21 的四个财富带案例）有一个共同点：<b>他们都不符合任何一张「标准客户画像」。</b>周群飞同时活在两个登记系统里；李西廷的历史分布在四个证券制度里；张勇和舒萍的客户身份是一个由信托、BVI、开曼、新加坡 SFO 组成的群；李嘉诚的分家持续了三十年；郑裕彤的第三代在十个月里换了四种身份；郭鹤年的家族图谱里有一个「堂侄」；Poonawalla 的一栋房子有四张资产负债表；Majid Al Futtaim 的董事会是政府任命的；Mittal 走了但英国还在追；Premji 的 67% 已经不是他的；Murdoch 的「不可撤销」信托打到了法院；Guy Singh-Watson 卖掉了公司却没有市场价；Sarah Wood 的 £114m 里有一半是条件；Jamie Vardy 的十年收入要撑五十年；Neame 家族的 £67m 市值里没有多少是能动的；梁文锋的 US$46bn 在账面上但不能直接花；何氏家族的妻子在丈夫手术后第一次成为主客户。<b>「中段」不是「简单」——它只是把问题从「结构有多复杂」换成了「流动性有多远」；「Pre-IPO」也不是「还没有钱」——它只是把问题从「有多少」换成了「能不能用」。</b></p>
+
+<p class="story">§18–§21 把同一条逻辑推到两条更低的财富带：Ali 的英国公司/香港居住/三条收入，Nadiya 的版税、三个孩子与没有信托，Alvin 的餐厅实体/个人担保/品牌，Hawker Chan 的加盟/版税/家庭档口。<b>它们不是「更小的 UHNW」，而是把「主体、时点、规则、证据」四个断层压到更低的资产规模上。</b>如果核心系统只能服务前者，它会在 US$2–10m 这一层失去规模。</p>
+
+<p class="story"><b>如果下一代私行核心只能服务「标准客户」，它就服务不了私人银行真正的那批客户。</b>因为私人银行的客户，恰恰是那些结构复杂到需要一家银行来记住的人。</p>
+
+<div class="verdict"><b>下一代私行核心不是「把账户管得更好」，而是让一个家族在多个制度下的存在变得可计算、可解释、可证明。</b><br>可计算：同一经济权益、同一义务、同一授权，只有一个事实版本。<br>可解释：每个数字都能回到规则、输入、版本、责任人。<br>可证明：监管问「你们当时怎么知道的、怎么处理的」，能拿出两条时间轴，而不是一封被转发的邮件。</div>
+
+<p class="story">最后一句，是对方法论本身的提醒：<b>一旦这些真实人物被写进营销材料，这套方法就失效了。</b>它不是「用名人讲故事」的技巧，而是「用公开结构检验系统」的纪律。前者会毁掉后者。</p>
+
+<h2 id="src">来源清单</h2>
+<div class="src">
+<b>案例一 · 周群飞</b>：蓝思科技 H 股招股书，HKEXnews，2025-06-30，https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0630/2025063000032_c.pdf；21 世纪经济报道，2025-06-30，https://www.21jingji.com/article/20250630/herald/2c641bfaa27e8587b059fa4d9a93d188.html；长沙晚报（湖南省地方金融管理局转载），2025-07-11，https://dfjrjgj.hunan.gov.cn/dfjrjgj/tslm_71665/jrzx/202507/t20250711_33737090.html；中国证监会《上市公司股东减持股份管理暂行办法》，2024-05-24。<br>
+<b>案例二 · 李西廷</b>：迈瑞医疗第八届董事会第十四次会议决议公告，2025-10-14，https://disc.static.szse.cn/disc/disk03/finalpage/2025-10-15/8bc0fce6-e9a3-4c6a-8c0a-542ae0bad033.PDF；中国证券报，2025-11-20，https://www.cs.com.cn/gppd/ggzx/202511/t20251120_6524233.html；21 世纪经济报道，2025-10-15，https://www.21jingji.com/article/20251015/herald/1c2419ac357828cf2ad7b35d933d0273.html。<br>
+<b>案例三 · 张勇·舒萍</b>：21 世纪经济报道，2020-03-12，https://m.21jingji.com/article/20200312/1e204096452c606f72c12bc700bb1fbd.html；财新，2020-03-05，https://finance.caixin.com/m/2020-03-05/101524537.html；特海国际港交所公告，2025-03-25，https://www.hkexnews.hk/listedco/listconews/sehk/2025/0325/2025032501180_c.pdf；腾讯新闻，2024-05-18，https://news.qq.com/rain/a/20240518A047KE00。<br>
+<b>案例四 · 李嘉诚家族</b>：财新，2012-07-20，https://china.caixin.com/m/2012-07-20/100413287.html；界面新闻，https://www.jiemian.com/article/1995519.html；人民日报，2014-06-02，http://paper.people.com.cn/zgjjzk/html/2014-06/02/content_1437015.htm；央视网，2012-07-24，http://jingji.cntv.cn/2012/07/24/ARTI1343093320764849.shtml。<br>
+<b>案例五 · 郑裕彤家族</b>：新世界发展港交所公告，2024-09-26，https://www1.hkexnews.hk/listedco/listconews/sehk/2024/0926/2024092600774_c.pdf；新世界发展公告，2025-01-23，https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0123/2025012300482_c.pdf；Reuters，2025-06-30，https://www.reuters.com/markets/asia/hong-kongs-new-world-development-gets-1124-billion-refinancing-2025-06-30/；每日经济新闻，2024-09-27，https://www.nbd.com.cn/articles/2024-09-27/3573194.html。<br>
+<b>案例六 · 郭鹤年家族</b>：21 世纪经济报道，2025-07-30，https://www.21jingji.com/article/20250730/herald/8cf3ffd6f63261738ee6fa0b6c8891a9.html；东方日报，2026-10-07，https://www.orientaldaily.com.my/news/business/2026/10/07/853224；维基百科「郭惠光」，https://zh.wikipedia.org/wiki/郭惠光；界面新闻，https://www.jiemian.com/article/1141257.html。<br>
+<b>案例七 · Poonawalla 家族</b>：Financial Times，2023，https://www.ft.com/content/235ad860-136e-46c2-bbbc-be0113a82f17；NDTV，2023，https://www.ndtv.com/india-news/vaccine-maker-adar-poonawalla-to-buy-mansion-in-londons-mayfair-it-costs-4659426；Indian Express，2023，https://indianexpress.com/article/business/serum-institute-ceo-adar-poonawalla-buys-london-mansion-9065573/。<br>
+<b>案例八 · Majid Al Futtaim 家族</b>：AGBI，2025-06，https://www.agbi.com/finance/2025/06/dubai-takes-control-of-majid-al-futtaim-amid-succession-dispute/；Financial Times，2025，https://www.ft.com/content/310bc8d3-188c-4ecf-8079-5915f6acf6ff；Al Jazeera，2021-12-17，https://www.aljazeera.com/news/2021/12/17/emirati-mall-supermarket-billionaire-majid-al-futtaim-dies。<br>
+<b>案例九 · Mittal 家族</b>：Financial Times，2025-11，https://www.ft.com/content/7fafdfe5-f25a-4cb9-a326-03aa54358fe8；Times of India，https://timesofindia.indiatimes.com/world/uk/non-dom-tax-why-billionaire-lakshmi-mittal-is-considering-leaving-the-uk/articleshow/119657421.cms；HMRC，FIG 与 IHT 居留制指引。<br>
+<b>案例十 · Premji 家族</b>：Mint，2019-03，https://www.livemint.com/companies/news/azim-premji-trusts-get-a-share-of-his-wealth-but-not-voting-rights-1552935688818.html；Azim Premji Foundation，https://azimpremjifoundation.org/who-we-are/history-and-timeline/；Wikipedia「Azim Premji」，https://en.wikipedia.org/wiki/Azim_Premji。<br>
+<b>案例十一 · Murdoch 家族</b>：New York Times，2024-12-09，https://www.nytimes.com/2024/12/09/business/media/rupert-lachlan-murdoch-family-trust.html；University of Virginia School of Law，2024-12，https://www.law.virginia.edu/news/202412/professor-explains-legal-background-behind-murdoch-trust-dispute；Wikipedia「Succession of Rupert Murdoch」，https://en.wikipedia.org/wiki/Succession_of_Rupert_Murdoch。<br>
+<b>案例十二 · Guy Singh-Watson</b>：The Guardian，2023-05-19，https://www.theguardian.com/business/2023/may/19/veg-box-riverford-staff-owned-founder-sells-stake-guy-singh-watson；BBC，2023-05，https://www.bbc.com/news/articles/c6pe64y414do；The News.coop，https://www.thenews.coop/riverford-organic-farm-moves-to-full-employee-ownership/；Wicked Leeks（创始人自述），https://wickedleeks.riverford.co.uk/opinion/riverford-is-now-100-per-cent-employee-owned/。<br>
+<b>案例十三 · Sarah Wood</b>：News Corp 官方新闻稿，2015-09-16，https://newscorp.com/2015/09/16/news-corp-to-acquire-social-video-ad-platform-unruly/；The Guardian，2015-09-16，https://www.theguardian.com/media/2015/sep/16/news-corp-acquires-ad-platform-unruly-media-for-58m；Business Insider，2015-09，https://www.businessinsider.com/unruly-co-ceo-sarah-wood-interview-2015-9。<br>
+<b>案例十四 · Jamie Vardy</b>：Wikipedia「Jamie Vardy」，https://en.wikipedia.org/wiki/Jamie_Vardy；Sky Sports，2021-06，https://www.skysports.com/football/news/12332950/jamie-vardy-leicester-city-striker-becomes-co-owner-of-new-york-state-based-football-club-rochester-rhinos；The Athletic，2021-06，https://www.nytimes.com/athletic/4209665/2021/06/15/jamie-vardy-becomes-co-owner-of-us-club-rochester-rhinos/；USA Today / Pro Soccer Wire，2023-03，https://prosoccerwire.usatoday.com/story/sports/mls/2023/03/10/jamie-vardy-owned-rochester-new-york-fc-goes-under/77430627007/；Leicester Mercury，2026，https://www.leicestermercury.co.uk/news/celebs-tv/jamie-vardys-eye-watering-net-10995218。<br>
+<b>案例十五 · Neame 家族</b>：Aquis Stock Exchange，SHEP，2026-10-09，https://www.aquis.eu/companies/SHEP；Shepherd Neame 投资者关系页，https://investors.shepherdneame.co.uk/；Shepherd Neame 2025 年度报告；公开研究资料（Firm Returns）。<br>
+<b>案例十六 · 梁文锋</b>：Forbes 实时富豪榜，2026-10-22，https://www.forbes.com/profile/liang-wenfeng/；Bloomberg Billionaires Index，2026-10-09（约 US$37.9bn），https://www.bloomberg.com/billionaires/profiles/wenfeng-liang；Wikipedia「梁文锋」，https://zh.wikipedia.org/wiki/梁文锋；36Kr，2026，https://36kr.com/p/4035009546000259；第一财经，2026，https://www.yicai.com/news/102468837.html；新浪财经，2026-08-14，https://finance.sina.cn/2026-08-14/detail-ininhtfn2550412.d.html；东方财富，2026-09-23，https://caifuhao.eastmoney.com/news/20260923191005281248020。<br>
+<b>案例十七 · 何氏家族</b>：旧 demo H-7701（何氏家族）原型扩展，<code>/Users/weimingzhuang/Documents/source_code/meridian-pb/archive/2026-10_v1/demo-cn/data.js</code>（households / persons / relationships / consents / familyGoals / cases）；v2.1 案例十（横向继承）的匿名化结构。<b>姓名、年龄、金额均为示意，不对应任何真实个人。</b><br>
+<b>案例 18 · Ali Abdaal</b>：aliabdaal.com/about（本人公开简介，2026），https://aliabdaal.com/about；The Bookseller 作者访谈，https://www.thebookseller.com/author-interviews/ali-abdaal-discusses-a-new-type-of-positive-productivity-in-his-new-book；Penguin Random House 作者页；Google Books/Celadon Books《Feel-Good Productivity》书目页（2023-12-26），https://books.google.com/books/about/Feel_Good_Productivity.html?id=ZnagEAAAQBAJ；LinkedIn 公开职业资料（6med、NHS 轮转、Sparkle Studios）。<br>
+<b>案例 19 · Nadiya Hussain</b>：BBC Food 作者页，https://www.bbc.co.uk/food/chefs/nadiya/a-z/a/1；Nadiya 本人官网，https://www.nadiyahussain.com/about-me；Penguin Books 作者页（含 1,300 万决赛观众、平均 190 万收视、MBE）；Wikipedia「Nadiya Hussain」，https://en.wikipedia.org/wiki/Nadiya_Hussain（六个孩子、2005 年结婚）。<br>
+<b>案例 20 · Alvin Leung</b>：Michelin Guide 人物专访，2017-09-17，https://guide.michelin.com/hk/en/article/people/chef-spotlight-alvin-leung-of-bo-innovation-on-the-journey-to-three-michelin-stars；SCMP，2022-07-17（失去第三星），https://www.scmp.com/magazines/post-magazine/food-drink/article/3185371/hong-kong-demon-chef-alvin-leung-food-art-life；SCMP，2019-03-10，https://www.scmp.com/magazines/post-magazine/food-drink/article/2189194/my-hong-kong-bo-innovation-chef-alvin-leung-gets；Bo Innovation 官网，https://www.boinnovation.com/about-2；THEi 教职员页，https://thei.edu.hk/academic-staff-department-of-hospitality-and-business-management/mr-leung-king-lon-alvin/；Wikipedia「Alvin Leung」，https://en.wikipedia.org/wiki/Alvin_Leung（1961 年、多伦多大学、Bo London/Bo Shanghai/aKin）。<br>
+<b>案例 21 · Chan Hon Meng</b>：CNBC，2017-10-24，https://www.cnbc.com/2017/10/24/michelin-star-singapore-chicken-rice-chef-chan-hon-meng-on-expansion.html；Taipei Times，2016-10-29，https://www.taipeitimes.com/News/biz/archives/2016/10/29/2003658118（50% 股权、S$1m 初始投资）；Business Insider，2023-07-06，https://www.businessinsider.com/hawker-chan-michelin-star-bib-gourmand-hawker-restaurant-singapore-2023-7；CNN，2021-09-03，https://edition.cnn.com/travel/article/hawker-chan-singapore-michelin-star-intl-hnk；Straits Times，2018-03-11；Intellect Worldwide，2022-08-18（无中央厨房、8 国加盟），https://www.intellect-worldwide.com/2022/08/18/are-hawker-stalls-profitable-and-franchisable。<br>
+<b>制度背景</b>：HMRC HS266、GOV.UK FIG 指引；IRS「Tax residency status examples」与 Form 706-NA 页面；MAS 13O/13U 指引；RBI/FEMA ODI 规则；OECD CRS Commentary；阿联酋个人身份法与 DIFC 遗嘱规则。<br>
+<b>未核实项</b>：所有具体税率、门槛、天数、罚则；Mittal 迁居的最终税务居民身份；MAF 争议的最终法律结果；Murdoch 信托的后续程序结果；Poonawalla 房产的实际使用与税务处理；Guy Singh-Watson 2018 年首笔交易的金额（报道口径 £6m–10m 不一）；Sarah Wood 的个人持股与所得；Jamie Vardy 的净资产（媒体估计 £37m）；Neame 家族的合计持股与财富（本文为示意估算）；梁文锋的 DeepSeek 估值与 Forbes/Bloomberg 净资产（媒体/富豪榜估计；2026-10 两个口径约 US$46.1bn / US$37.9bn，均非审计数据）；何氏家族的全部姓名、年龄、金额（匿名示意）；18–21 的 HSBC AUM、总财富、钱包份额、服务模型与费率（均为设计假设，不是公开财富数据）。<b>以上须由税务/法律组逐条确认后，方可写入规则库。</b>
+</div>
+
+<div class="foot">
+<b>版本</b> v3.5 · 2026-10-23 · 替代 v2.1《跨境私行案例集：CN·HK / CN·SG / IN·UK / 欧洲投美》<br><b>v3.5 变更</b> 公开事实校准：Ali 行医年份改为 2018–2022、书销量改官网口径（25 万+ 册）、Sparkle 年份改为 2024/2025；Alvin 书出版年改 2019，补 2010–2011 一星回落；Hawker Chan 年龄改约 59–60，补 78 Smith Street 的 Bib Gourmand 与学徒口径；梁文锋补 Bloomberg 口径与 2026-06 融资结构（LP/投票权/锁期/约 78%）；Nadiya 补 2018 年英国法定登记与 Nadiya Hussain Ltd；页头元数据同步为 20 组公开 + 1 匿名。<b>v3.4 变更</b> 四个财富带真实人物正式编为 §18–§21（Ali Abdaal、Nadiya Hussain、Alvin Leung、Chan Hon Meng），原 §18–§22 顺延为 §22–§26；补充公开事实（教育/职业/公司/餐厅/书籍/加盟）；<b>v3.3 变更</b> 新增两条财富带（US$2–5m / US$5–10m）与 0.6 覆盖矩阵四行；<b>v3.2 变更</b> 增补 §16 Pre-IPO 创始人（梁文锋）与 §17 匿名家庭（何氏家族，旧 demo H-7701 扩展）；新增 R5 匿名结构例外、Avaloq ㉓–㉔ 问；其余沿用 v3.1。<br>
+<b>性质</b> 内部设计输入，非营销材料，不构成税务、法律或投资建议。<br>
+<b>配套架构</b> <a href="../../../02-functional-architecture/README.md">Family Lifetime Core v2.1</a>（家族/授权/事件/证据；参考 Avaloq 能力，自研重写；不续订）<br>
+<b>一句话</b> 真实人物不是为了故事，是为了让系统承认：例外不是异常，例外是常态。
+</div>
+
+</div>
+</body>
+</html>

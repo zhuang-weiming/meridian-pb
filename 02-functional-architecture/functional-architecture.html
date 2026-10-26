@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HSBC PB — Functional Architecture (v2.1)</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px 24px 64px; background: #f1f5f9; color: #0f172a;
+         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "PingFang SC", "Microsoft YaHei", sans-serif; }
+  .wrap { max-width: 1480px; margin: 0 auto; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 24px; margin-bottom: 20px; }
+  h1 { font-size: 20px; margin: 0; letter-spacing: .01em; }
+  .sub { font-size: 12.5px; color: #64748b; }
+  .frame { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 10px; box-shadow: 0 8px 30px rgba(15,23,42,.06); }
+  img { display: block; width: 100%; height: auto; border-radius: 8px; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 18px; }
+  .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px 18px; }
+  .card h2 { font-size: 12px; margin: 0 0 8px; color: #64748b; letter-spacing: .08em; text-transform: uppercase; }
+  .card p, .card li { font-size: 12.5px; line-height: 1.65; color: #334155; margin: 0; }
+  .card ul { margin: 0; padding-left: 17px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; font-size: 11.5px; color: #475569; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; }
+  footer { margin-top: 22px; font-size: 11px; color: #94a3b8; }
+  a { color: #1d4ed8; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } body { padding: 20px 12px 48px; } }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .frame { border: 0; box-shadow: none; padding: 0; }
+    .grid, header .sub, footer { display: none; }
+    header { margin-bottom: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>HSBC Private Bank · Family Lifetime Core — Functional Architecture</h1>
+    <span class="sub">v2.1 · 2026-10-26 · 一主键 / 六层 / 十二能力域</span>
+  </header>
+
+  <div class="frame">
+    <img src="functional-architecture.svg" alt="Functional architecture diagram: experience, lifecycle core, legal entity graph, ledger, ecosystem">
+  </div>
+
+  <div class="legend">
+    <span><i class="dot" style="background:#c8102e"></i>L2 家族与授权</span>
+    <span><i class="dot" style="background:#0f766e"></i>L2 财富与流动性</span>
+    <span><i class="dot" style="background:#b45309"></i>L2 保护与服务</span>
+    <span><i class="dot" style="background:#12284c"></i>X1 数据 / 证据 / AI</span>
+    <span><i class="dot" style="background:#115e59"></i>L1 法律主体</span>
+    <span><i class="dot" style="background:#64748b"></i>L0 账本</span>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>How to read</h2>
+      <p>从上到下是“体验 → 生命周期 → 法律主体 → 账本”。左右不是技术分层，而是责任边界：谁能看见、谁能操作、谁留下证据。</p>
+    </div>
+    <div class="card">
+      <h2>Why this is not Avaloq</h2>
+      <p>Avaloq 的强项在 L0（交易、账本、支付、抵押、TAX2 事件）与单据/任务。L2 的家族、授权、事件、证据不是它的对象模型。我们参考并迁移，不续订。</p>
+    </div>
+    <div class="card">
+      <h2>One primary key</h2>
+      <p>不是 <code>client_id</code>，而是 <b>Family × Party × Role × Authority × Event × Evidence</b>。任何一个时点都能回答“谁有权、依据什么、到何时、在哪个辖区”。</p>
+    </div>
+  </div>
+
+  <footer>
+    源文件：<a href="functional-architecture.svg">functional-architecture.svg</a> ·
+    说明：<a href="README.md">README.md</a> ·
+    内部设计输入，不构成法律、税务或投资建议。
+  </footer>
+</div>
+</body>
+</html>

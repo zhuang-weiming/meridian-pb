@@ -1,223 +1,131 @@
-# HSBC Private Bank — 核心系统蓝图
-## 业务蓝图、页面规格与字段字典（v1.4）
+# HSBC Private Bank — Family Lifetime Core（v3.0）
 
-> 依据：`/Users/weimingzhuang/Documents/workspace/1.HSBC/Wealth/财富报告` 下的 18 份报告与演示材料（另 1 张图片）——汇丰私行 2026 投资展望、HSBC 2025 环球企业财富报告、BCG 2026 全球财富报告、彭博香港财富管理 2026 展望、中国银行 2026 私人银行白皮书、PWMA 2026 白皮书、麦肯锡中国金融业 CEO 季刊、清华五道口全球资产配置研究、工银企业家财富健康指数、科技创始人客群公私联动报告、千万级跨境客群双枢纽报告等；以及 `PB solution/` 下三份既有交付物与 `信托/` 下汇丰 TFS 培训材料。
+> 四个交付物，一条主线：**从“以账户为中心的私行核心”转向“以家族生命周期为中心的私行核心”；以 Avaloq 为能力参考与迁移来源，自研重写，不续订。**
 >
-> 定位：**HSBC Private Bank 核心系统蓝图** —— **业务架构 + 可开发到页面的需求规格**。不是行业综述，也不是产品宣传；每一页给到页面目标、角色、字段、动作、校验与异常。
->
-> **范围说明**：本蓝图覆盖核心系统中**超越 Avaloq 既有标准能力**的五个用例；Avaloq 标准功能将沿用同一套数据模型、权限矩阵与证据底座逐步纳入。本蓝图是核心系统的增量部分，不是它的替代品。
+> 性质：内部设计输入，不构成法律、税务或投资建议。
 
 ---
 
-## 0. 一句话结论
+## 0. 先看哪里
 
-把私人银行的四件事——**提案、下单、量化、顾问**——从"四个系统、四种口径、四道人工审批"，改造成**一条以客户事件为起点、以交易效率为目标函数、以合规规则为硬约束、以证据链为审计底稿**的工作流；AI 只做三件事：**生成候选、解释取舍、准备材料**，最终判断与签字永远在人。
-
-五个用例对应五个模块，共用一套数据与规则底座：
-
-| 模块 | 用例 | 核心问题 | 页面数 |
+| 交付物 | 目录 | 先读 | 回答什么 |
 |---|---|---|---|
-| **M1 Proposal Studio** | 提案 → 订单 | 同样达成一个投资目标，哪条路径**成本最低、税后最高、最快、冲击最小、最容易执行**？ | 11 |
-| **M2 Quant Lab** | 配置 / 压力测试 / 回测 | 这个组合在**什么情况下会疼**？疼多少？RM 该不该、以及如何交付给客户？ | 7 |
-| **M3 RM Copilot** | 融资 / 税务 / 法律 / 服务邀请 | RM 如何在**一次对话内**给出完整方案、找到对的人、并且不越牌照边界？ | 8 |
-| **M4 Founder Desk** | Pre-IPO 创始人（示例：林哲） | 股权尚未流动时如何**估值、托管、质押、变现、装信托、并让信托可消费**？ | 12 |
-| **M5 Tax Optimization** | UHNW 家族税务优化 | 同一笔交易，用哪个账户/实体/交易形式/时点/拆分，**合法税后结果最好且可辩护**？ | 10 |
+| **① User journey** | [`01-user-journey/`](01-user-journey/README.md) | [旅程组合](01-user-journey/03-portfolio/00-journey-portfolio.md) · [页面总映射](01-user-journey/PAGE-MAP.md) | 为谁、为什么、什么算好、先做哪条 |
+| **② Functional architecture** | [`02-functional-architecture/`](02-functional-architecture/README.md) | [功能架构图](02-functional-architecture/functional-architecture.html) · [能力模型](02-functional-architecture/01-core-capability-model.md) | 一主键 / 六层 / 十二域；Avaloq 边界与替换论证 |
+| **③ Web page** | [`03-web-page/`](03-web-page/README.md) | [客户旅程](http://localhost:8791/03-web-page/client-journey.html) · [运营工作台](http://localhost:8791/03-web-page/rm-workbench.html) | 客户看到什么；RM/COO 怎么运营、字段/状态/证据是什么 |
+| **④ Video and Movie** | [`04-video-and-movie/`](04-video-and-movie/README.md) | [12 分钟主版脚本](04-video-and-movie/12-minute-master-script.md) · [5 分钟版](04-video-and-movie/5-minute-elevator-script.md) | 19 镜/9 镜的完整口播、运镜、人物内心与制作规格 |
+
+旧版与中文 Demo 已归档：[`archive/2026-10_v1/`](archive/2026-10_v1/README.md)。
 
 ---
 
-## 1. 设计原则（九条，决定后面所有页面）
+## 1. 一句话
 
-1. **事件优先，而非资产规模优先。** 触发点是 IPO 受理、解禁、质押到期、税率变化、婚姻/继承事件，而不是季度 AUM 回顾。
-2. **模板驱动，而非自由文本。** 每一类交易都有 `template_id`，模板定义必填字段、成本项、税务处理、结算周期、适用法域与牌照；AI 只能在模板允许的自由度内组合。
-3. **效率可计算，而非感觉。** 所有方案必须过 **TES（Trading Efficiency Score，交易效率分）**：成本 25 + 税 20 + 时间 20 + 市场冲击 20 + 可执行性 15。
-4. **合规即代码，而非事后盖章。** 四维规则引擎（法域 × 牌照 × 客户类别 × 产品复杂度）在**生成阶段**约束输出，而不是生成后再筛。
-5. **人在环中，且可追责。** AI 输出标注"机器生成 / 待复核"；RM、投资顾问、合规官分别在自己的环节签字；签字即责任。
-6. **一次录入，多处复用。** 客户、产品、规则、成本、税务、持仓六类主数据只有一个来源；页面只做投影，不各自维护。
-7. **证据级留痕。** 每一个建议都能回答：基于什么数据、什么规则版本、谁改了什么、客户看到了什么、何时同意。
-8. **权限先于功能。** 角色 × 页面 × 字段 × 动作矩阵不过，页面不上线；私行的风险八成在信息越界，不在功能缺失。
-9. **税务透明，而非税务隐身。** 信托/公司持有不改变受益人的应税利益；每笔分配必须有来源层、申报人、抵扣与凭证。
+> **Avaloq 不续订。** 参考它的账本、交易、支付、抵押与 TAX2 事件能力，迁移历史；新核心自研，主键不是 `client_id`，而是 **Family × Party × Role × Authority × Event × Evidence**。
+
+**为什么不是“换一个供应商”：**
+
+- 旧核心能回答“账户里有什么”，回答不了“这个家族谁有权、依据什么、到何时、在哪个辖区、下一步谁做、证据在哪”。
+- 五个经营问题（IPO→PB、身故 12 个月、家族 onboarding、客户毛利、失败交易）都卡在同一个地方：**事件、授权、证据没有对象化**。
+- 新核心的差异化在 **L2 生命周期层**；L0 账本自研重写，不长期双核。
 
 ---
 
-## 2. 页面总图（48 页）
+## 2. 三分钟路线
 
-### M1 Proposal Studio — 从提案到订单
-| ID | 页面 | 一句话 |
-|---|---|---|
-| PB-100 | Proposal Inbox / Client 360 | 今天该为谁做提案？为什么是现在？ |
-| PB-110 | Objective & Constraints | 把"想稳健一点"翻译成可计算约束 |
-| PB-120 | Template Gallery | 选交易模板，不是选产品 |
-| PB-130 | AI Proposal Composer（提案层） | 一次生成三套方案与理由 |
-| PB-135 | Execution Blueprint（执行层） | 逐行蓝图：instrument/qty/venue/timing |
-| PB-140 | Efficiency Scorecard | 五维打分，看到取舍 |
-| PB-150 | Pre-trade Simulator | 下单前先看结果 |
-| PB-160 | Suitability & Compliance Gate | 四维校验，红黄绿 |
-| PB-170 | Client Pack & E-sign | 客户看到的那一版 |
-| PB-180 | Order Plan & Blotter | 母单拆子单，路由到执行 |
-| PB-190 | Post-trade & TCA | 实际成本 vs 预期，回写模板 |
-
-### M2 Quant Lab — 配置、压力与回测
-| ID | 页面 | 一句话 |
-|---|---|---|
-| PB-200 | Quant Home / Question Builder | 把业务问题变成可检验的假设 |
-| PB-210 | IPS & Policy Bands | 政策区间是硬约束，不是建议 |
-| PB-220 | Allocation Studio | 战略 + 战术 + 约束求解 |
-| PB-230 | Stress Test Lab | 历史、假设、反向压力 |
-| PB-240 | Backtest Lab | 含成本、含税、含样本外 |
-| PB-250 | Trade Impact Analyzer | 这笔交易把组合变成了什么 |
-| PB-260 | RM Decision Card & Delivery | RM 决定怎么讲、讲多少 |
-
-### M3 RM Copilot — 融资、税务、法律、服务
-| ID | 页面 | 一句话 |
-|---|---|---|
-| PB-300 | RM Home / Next Best Action | 今天最值得打的一个电话 |
-| PB-310 | Financing Cockpit | 缺多少、能借多少、怎么还 |
-| PB-320 | Facility Structuring | 条款、抵押、契约、压力 |
-| PB-330 | Tax Cockpit | 义务日历 + 情景 + 持牌转介 |
-| PB-340 | Legal Cockpit | 事项清单 + 文件包 + 转介 |
-| PB-350 | 服务 / 邀请 | 家族不同成员的服务邀请；无价格/评分/采购 |
-| PB-360 | 服务运营（后台） | 后台采购/RFP/合同；不在客户邀请页展示 |
-| PB-370 | Specialist Connect / Case Workspace | 把对的人拉进同一个案子 |
-
-### M4 Founder Desk — Pre-IPO 创始人全景
-| ID | 页面 | 一句话 |
-|---|---|---|
-| PB-400 | Founder Event Radar | 上市、解禁、质押、税率，谁先动 |
-| PB-410 | Pre-IPO Asset Intake | 把"纸面财富"变成可管理资产 |
-| PB-420 | Valuation & Haircut | 估值折扣与可贷价值 |
-| PB-425 | Independent Valuation Panel | 独立估值委员会：LTV 10%–30%、40% 触发 |
-| PB-430 | Custody & Pledge | 股权怎么托管、怎么设押 |
-| PB-440 | Monetization Planner | 卖、押、远期，三条路比税后 |
-| PB-445 | Pledge vs Sell | 同样拿 C 现金：税后终端财富、盈亏平衡、下行 |
-| PB-450 | Trust Structuring | 信托类型、当事人、保留权力 |
-| PB-460 | Trust Budget & Consumption | 让信托"能花"，且花得可审计 |
-| PB-465 | Distribution Tax Ledger | 分配来源层、申报人、抵扣、21 号公告映射 |
-| PB-470 | Monitoring & Reporting | 覆盖率、估值、分配、合规 |
-| PB-480 | Family Governance | 宪章、受益人、二代 |
-
-### M5 Tax Optimization — UHNW 家族税务优化
-| ID | 页面 | 一句话 |
-|---|---|---|
-| PB-500 | Tax Optimization Home / Case Intake | 这笔交易为什么现在要做税务优化？ |
-| PB-510 | Tax Profile & Nexus Map | 谁是纳税人、住哪、资产/实体/账户在哪 |
-| PB-520 | Baseline Tax Map | 不做优化时，每个事件交什么税 |
-| PB-530 | Lever Library | 十条杠杆：身份/簿记/实体/交易/工具/时点/拆分/条约/信托/融资 |
-| PB-540 | Booking & Entity Comparator | 香港/新加坡/开曼/卢森堡…账户与实体怎么选 |
-| PB-550 | Scenario Comparator | 基线 + 三套方案：税后现金、成本、风险、可辩护性 |
-| PB-560 | Substance & Anti-Avoidance Check | GAAR/PPT/CFC/实质/受益所有权/7 号/21 号/CRS |
-| PB-570 | HSBC Internal Review & RM Decision | HSBC 内部税务复核 + RM 决策（RM 审核后交付） |
-| PB-580 | Client Delivery & Implementation | 客户包、披露、开户/设实体/交易/申报 |
-| PB-590 | Annual Review & Monitoring | 法规变化、天数、申报、结构、下一年 |
-
-> M1 11 页 + M2 7 页 + M3 8 页 + M4 12 页 + M5 10 页 = **48 页**。每个页面的字段、动作、校验与异常，见对应模块文档。
-
-## 2.5 本版（v1.1）修订的六处
-
-1. **服务邀请模式**：Hub 不是"第三方入驻/上架/广告"，而是 **HSBC 作为甲方的服务与邀请平台**（采购是后台，不在客户邀请页展示）——HSBC 定义需求、发 RFP、审 vendor、评标、定标；vendor 是乙方；客户只收到邀请与评分，不看到招标过程。专业服务**禁止付费买排名**；生活方式可竞价，但 HSBC 仍按质量/合规评标，商业利益按属地披露。
-2. **提案双层**：提案层 = 三套方案（选哪条路）；执行层 = 逐行蓝图 PB-135（每一行怎么下单）。行级变更超阈值 → 回到提案层。
-3. **Pre-IPO LTV**：区间改为 **10%–30%**，由 **HSBC PB 的独立估值委员会（PB-425）** 决定，不由系统一刀切；**估值较发放日下跌 40% 即触发追保**，写入放款前置条件。
-4. **权限矩阵**：新增 `08_permission_matrix.md`，角色×页面×字段×动作，行级/字段级/SoD/越权测试；矩阵不过，功能不上线。
-5. **信托分配税务映射**：新增 `09_trust_tax_mapping.md` 与 PB-465，回答"这笔钱从哪一层出来、谁申报、与 21 号公告存续 20% 怎么对应"，并纠正"马斯克 1 美元工资/银行持有=免税"的误解。
-6. **服务付费**：所有品类由 HSBC 采购后免费提供给客户；vendor 只与 HSBC 签约；客户只看邀请、项目、交付方，不支付、不看价格/评分/比价。
-7. **质押 vs 卖出**：新增 `10_pledge_vs_sell.md` 与 PB-445，给出税后终端财富、盈亏平衡 `r*`、−40% 下行、决策矩阵；并明确"质押≠免税"。
-8. **税务优化（M5）**：新增 `11_tax_optimization.md` 与 10 个页面；面向 UHNW 家族，覆盖身份/簿记/实体/交易形式/时点/拆分/信托；RM 审核后交付，HSBC PB 内部税务团队复核，反避税红灯即停。
+1. **看一张图**：[Functional architecture](02-functional-architecture/functional-architecture.html)（一主键 / 六层 / 十二域）。
+2. **看一张表**：[PAGE-MAP](01-user-journey/PAGE-MAP.md)（34 条客户路由 + 21 页工作台 ↔ 旅程 ↔ 文档 ↔ 影片镜头）。
+3. **看两部片**：[12 分钟](04-video-and-movie/12-minute-master-script.md) / [5 分钟](04-video-and-movie/5-minute-elevator-script.md)（完整台词，不是分镜计划）。
 
 ---
 
-## 3. 文件索引
-
-> **目录说明（2026-10-23）**：下表的 00–12 号文档与 `RELEASE_CHECK.md` 已整体移至 [`03_webpage_design/`](03_webpage_design/)（旧一代蓝图/页面规格）；新一代文档为 [`01_personas/`](01_personas/)（21 个案例场景集 v3.5，需求依据）、[`02_architecture/`](02_architecture/)（需求驱动功能架构 v1.5，18 个模块 / Avaloq 平替边界）与 [`02_architecture/02.1_user_jounery/`](02_architecture/02.1_user_jounery/README.md)（7 条 Demo 用户旅程）。
-
-| 文件 | 内容 | 读者 |
-|---|---|---|
-| `00_architecture.md` | 总体架构、角色、状态机、系统版图、共享服务 | 业务负责人 / 架构师 |
-| `01_uc1_proposal_to_order.md` | 用例 1 全流程 + 11 页字段（提案层/执行层）+ 模板库 + TES 模型 | 产品 / 开发 / 交易台 |
-| `02_uc2_quant_lab.md` | 用例 2 全流程 + 7 页字段 + 压力/回测协议 | 量化 / 投顾 / 模型风险 |
-| `03_uc3_rm_copilot.md` | 用例 3 全流程 + 8 页字段 + 服务邀请 / 后台采购治理 | RM / 产品 / 采购 / 合规 |
-| `04_uc4_founder_case.md` | 用例 4 全流程 + 12 页字段 + 林哲示例推演 | 私行 / 信托 / 融资 |
-| `05_data_model.md` | 33 个核心实体、字段、事件、接口 | 数据 / 工程 |
-| `06_compliance_governance.md` | 四维规则、Chinese Wall、AI 治理、隐私 | 合规 / 法务 / 审计 |
-| `07_roadmap_kpi.md` | 0–36 月路线、依赖、团队、KPI、风险 | 管理层 |
-| `08_permission_matrix.md` | 角色×页面×字段×动作、行级/字段级、SoD、越权测试 | 合规 / 安全 / 架构 |
-| `09_trust_tax_mapping.md` | 信托分配应税映射、21 号公告、谁申报、马斯克式结构边界 | 信托 / 税务 / 合规 |
-| `10_pledge_vs_sell.md` | 质押 vs 卖出的税后比较、盈亏平衡、决策矩阵、RM 话术 | 私行 / 投行 / 税务 |
-| `11_tax_optimization.md` | 税务优化工作室：画像、杠杆、情景、反避税、HSBC 内部复核、10 页字段 | 税务 / 私行 / 合规 |
-| `12_product_summary.md` | 五模块端到端流程、页面清单、字段索引、上线顺序 | 管理层 / 产品 / 科技 |
-| **`demo/`** | 可点击前端 Demo：5 个 use case、29 条路由（26 关键页 + 门户/审计）、角色切换、实时 TES/押卖/LTV 计算 | 业务演示 / 产品 / 开发 |
-| `RELEASE_CHECK.md` | 发布前检查：命令、页面烟测、数字勾稽、剩余风险 | 发布 / QA |
-
----
-
-## 3.5 可点击 Demo（新增）
+## 3. 运行 Web 原型
 
 ```bash
-cd meridian-pb/demo
-python3 -m http.server 8766
-# http://localhost:8766/index.html
+cd /Users/weimingzhuang/Documents/source_code/meridian-pb
+python3 -m http.server 8791
 ```
 
-- 5 个 use case 的关键页面：M1 提案→订单、M2 量化、M3 副驾/服务邀请、M4 创始人、M5 税务优化（何启明 + HSBC 内部税务团队）。
-- 顶部可切换 **Client / RM / TH / IC / Compliance / Credit / Trustee / Vendor**，演示页面/字段权限。
-- 左上角 **☰** 可收起/展开导航，主区域自动加宽。
-- 实时计算：TES、质押 vs 卖出、LTV/覆盖率、信托预算。
-- 演示脚本与边界见 `demo/README.md`。
+- 客户 / 顾问旅程：<http://localhost:8791/03-web-page/client-journey.html>（34 路由，`?wipe=1` 清场）
+- RM / COO 运营工作台：<http://localhost:8791/03-web-page/rm-workbench.html>（21 页，`?record=1` 录屏模式）
+
+校验：
+
+```bash
+cd 03-web-page/client && node check.js && node render-check.js
+cd ../workbench && node check.js
+```
+
+当前基线：client 34 routes / 52 renders；workbench 21 pages / 21 组双语台词 / 5 个客户 P&L 对账。
 
 ---
 
-## 4. 四个必须先说清楚的边界
+## 4. 这一版解决了什么
 
-### 4.0 展业范围（本版）
-
-**香港 + 新加坡**。内地不作为销售/招揽市场；涉及中国税务居民的跨境税务、CRS、21 号公告与数据出境，仍按客户税务居民身份处理（不等于"内地展业"）。
-
-### 4.1 银行不做什么
-- **M3 不出税务/法律意见，只做场景识别、持牌转介、资金承接**；**M5 由 HSBC PB 内部税务团队在专业边界内做优化分析、情景与交付**，正式税务/法律意见由内部持牌团队或外部律师出具；法律架构文件由律师/受托人落地。
-- **AI 不碰 MNPI。** 投行项目、并购、再融资信息在接入前过 Chinese Wall 审查；AI 不生成、不引用、不暗示。
-- **AI 不直接向客户输出投资建议。** 输出物是"给持牌人员判断的材料"；客户看到的每一页都经 RM / 投顾复核并留痕。
-- **不做任何形式的收益承诺。** 所有情景、回测、压力结果都标注假设、样本期、局限；回测不是未来收益预测。
-- **不设计"税务隐身"。** 信托/公司持有不改变受益人的应税利益；实物受益、分配、存续收益都要有来源层、申报人与凭证（见 `09`）。
-- **不让权限靠人管。** 角色×页面×字段×动作矩阵不过，功能不上线（见 `08`）。
-
-### 4.2 本方案的"AI"具体指什么
-不是一个大模型对话框，而是**五个受限生成器 + 一个规则执行器**：
-
-| 组件 | 输入 | 输出 | 硬约束 |
-|---|---|---|---|
-| Proposal Composer | 目标、约束、模板、产品池 | 3 套方案 + 逐行执行蓝图 | 只能引用规则引擎放行的产品 |
-| Efficiency Explainer | TES 计算结果 | 取舍说明、风险提示 | 数字必须来自计算，不得生成 |
-| Quant Narrator | 压力/回测结果 | RM 决策卡 | 不得改变数字，不得外推 |
-| Copilot Retriever | 客户授权字段 + 公开信息 | 需求假设、下一步动作 | 不读 MNPI、不读未授权字段 |
-| Document Drafter | 模板 + 已确认事实 | 提案书/term sheet/信件草稿 | 空白字段不得编造，缺失即标红 |
-
-### 4.3 本方案的"交易模板"是什么
-不是 UI 模板，是**可执行的交易对象定义**：`template_id` 决定字段、成本项、税务处理、结算路径、适用法域、需要的审批。举例：
-
-- `EQ-CASH-01` 二级市场股票（含大宗/询价）
-- `FI-BOND-01` 单只债券（DTC/Euroclear/CMU）
-- `FI-LADDER-01` 债券阶梯（多腿）
-- `FD-UCITS-01` UCITS 基金申购/赎回
-- `SP-NOTE-01` 结构性票据（autocall / reverse convertible）
-- `FX-SPOT-01` / `FX-FWD-01` / `FX-NDF-01`
-- `PM-CAPCALL-01` 私募基金 capital call
-- `LOMBARD-01` 证券质押融资（SLB）
-- `TRUST-DIST-01` 信托分配（含实物/服务支付）
-
-每个模板的完整字段见 `01_uc1_proposal_to_order.md` 第 5 节。
+| 旧问题 | v3.0 的答案 |
+|---|---|
+| **视频只有“计划”，没有完整台词** | 12 分钟 19 镜、5 分钟 9 镜，每镜写死画面、运镜、屏幕动作、完整英文口播、中文对照、人物内心、转场；附提词器版与录制清单 |
+| **demo 和 workbench 为什么分开** | 合并到 `03-web-page/`：`client-journey.html`（客户/顾问）与 `rm-workbench.html`（RM/COO），两个角色、一个文件夹、一套口径 |
+| **journeys 文档和 HTML 对不上** | 重排为 User journey 四层（vision / evidence / portfolio / blueprints / scenarios / pilot / ops map），新增 `PAGE-MAP.md` 明确“不是一一对应” |
+| **功能架构图被删了** | 恢复并升级为矢量图：`functional-architecture.svg` + 可浏览/打印页；旧 7 层/18 模块图保留在 archive，并附能力对照 |
+| **中文 demo 两套路由漂移** | 中文版归档；英文 `client-journey.html` 为唯一维护版本 |
+| **roadmap 干扰当前判断** | 归档，不在主目录 |
 
 ---
 
-## 5. 阅读建议（给不同角色）
+## 5. 命名与证据政策
 
-- **管理层**：读本文件 + `00_architecture.md` 第 1–3 节 + `07_roadmap_kpi.md`。
-- **业务 / RM**：读 `01` 第 2–4 节、`02` 第 2–3 节、`03` 第 2–6 节、`04` 第 2–8 节。
-- **信托 / 税务**：读 `09`，再读 `04` 的 PB-465 与第 6 节。
-- **产品 / 开发**：读每份文档的"页面规格"与 `05_data_model.md`。
-- **合规 / 法务**：读 `06` + `08`，再回到各用例的"红线"小节。
-- **安全 / 架构**：读 `08`，把矩阵落到 IAM/ABAC 与日志。
-- **做演示**：用同目录的 `page-atlas.html`，可点击四个模块查看页面流与关键字段。
+- **公众人物**只在公开案例叙述层出现，只引用公开事实；**不表示是本行客户**。
+- **账户级记录全部虚构**：workbench 使用 He family / UK creator family / AI founder family / Ashworth family；demo 使用 Chen / He / Lin / Wang 四组家庭。
+- **公开案例复核周期**：季度；当前 as of **2026-10-26**。
+- **金额**：按当地货币展示；决策前提供目标货币折算；客户时间按 **Asia/Hong_Kong**。
+- **税务口径**：不“代客报税/替客户申报”；只做 tax data pack、预扣、CRS/FATCA、顾问责任矩阵。
+- **证据等级**：A 法院/监管；B 官方/年报/产品文档；C 媒体/访谈/行业报告；D 设计假设。
 
 ---
 
-## 6. 免责声明
+## 6. 目录树
 
-本文档为业务设计与技术方案参考，不构成投资、税务、法律或销售建议；不构成对任何机构、个人或产品的评价；不使用任何非公开信息。案例中的"林哲"为**假设性示例人物**，所有持股比例、估值、金额、税率适用均为演示假设，不代表真实情况。实际适用取决于持股主体、税收居民身份、双边税收协定、交易实质与主管机关判断，须由持牌专业机构出具书面意见。
+```text
+.
+├─ README.md
+├─ 01-user-journey/
+│  ├─ README.md
+│  ├─ PAGE-MAP.md
+│  ├─ 01-vision/
+│  ├─ 02-evidence/            ← personas 保留
+│  ├─ 03-portfolio/
+│  ├─ 04-blueprints/
+│  ├─ 05-scenarios/
+│  ├─ 06-pilot/
+│  └─ 07-operations-map/
+├─ 02-functional-architecture/
+│  ├─ README.md
+│  ├─ functional-architecture.svg / .html
+│  ├─ 01-core-capability-model.md
+│  ├─ 02-avaloq-boundary.md
+│  ├─ 03-data-model.md
+│  ├─ 05-avaloq-replacement-business-case.md
+│  └─ solution/
+├─ 03-web-page/
+│  ├─ README.md
+│  ├─ client-journey.html
+│  ├─ rm-workbench.html
+│  ├─ client/
+│  └─ workbench/
+├─ 04-video-and-movie/
+│  ├─ README.md
+│  ├─ 12-minute-master-script.md
+│  ├─ 5-minute-elevator-script.md
+│  └─ 20-minute-demo-narration-cn.md
+└─ archive/
+```
+
+---
+
+## 7. 边界
+
+- 无后端；状态在 localStorage；无实时行情/核心系统/OMS。
+- 银行数字（收入、成本、订单、失败率、estate cohort）为演示，需内部财务/运营校准；成本分摊、转移定价、收入确认需 Finance 签字。
+- 公开案例只作结构参考；判例与监管事实以原文为准。
+- 不构成法律、税务或投资建议；具体适用须当地律师/税务顾问确认。
