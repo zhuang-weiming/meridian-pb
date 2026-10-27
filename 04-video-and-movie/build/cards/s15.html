@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>End card</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1440px; height: 900px; overflow: hidden; }
+  body {
+    background: #0a1020;
+    color: #f8fafc;
+    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", sans-serif;
+    display: flex; flex-direction: column; justify-content: flex-start;
+    padding: 110px 120px 0; position: relative;
+  }
+  .kicker {
+    font-size: 20px; letter-spacing: 4px; text-transform: uppercase;
+    color: #9aa7bd; margin-bottom: 14px; opacity: 0; animation: fadein 1s ease .2s forwards;
+  }
+  .title { font-size: 44px; font-weight: 700; margin-bottom: 54px; opacity: 0; animation: fadein 1s ease .6s forwards; }
+  .title .red { color: #db0011; }
+  .ask {
+    display: flex; align-items: baseline; gap: 26px;
+    margin-bottom: 40px; opacity: 0; transform: translateY(14px);
+  }
+  .ask.show1 { animation: rise .9s ease 0.8s forwards; }
+  .ask.show2 { animation: rise .9s ease 8.0s forwards; }
+  .ask.show3 { animation: rise .9s ease 16.0s forwards; }
+  .num {
+    font-size: 54px; font-weight: 800; color: #db0011; line-height: 1;
+    min-width: 74px;
+  }
+  .ask h2 { font-size: 27px; font-weight: 600; line-height: 1.35; }
+  .ask h2 .sub { display: block; font-size: 17px; font-weight: 400; color: #b7c2d4; margin-top: 6px; }
+  .foot {
+    position: absolute; left: 120px; bottom: 110px;
+    font-size: 17px; color: #8fa0b8; opacity: 0; animation: fadein 1s ease 1.2s forwards;
+  }
+  .foot b { color: #e2e8f0; font-weight: 600; }
+  .rule { position: absolute; top: 0; left: 0; height: 5px; width: 100%;
+    background: linear-gradient(90deg, #db0011 60%, transparent 60%); }
+  @keyframes fadein { to { opacity: 1; } }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+  <div class="rule"></div>
+  <div class="kicker">Family Lifetime Core · 5-minute brief</div>
+  <div class="title">Three asks, <span class="red">one decision</span> each</div>
+
+  <div class="ask show1">
+    <div class="num">1</div>
+    <h2>Approve minimal usable definitions for the five data sets
+      <span class="sub">IPO pipeline · onboarding · estate cohort · revenue &amp; cost · order events — a named owner for each</span></h2>
+  </div>
+  <div class="ask show2">
+    <div class="num">2</div>
+    <h2>Ninety days, two pilots
+      <span class="sub">CIB-to-PB onboarding · twelve-month estate cohort</span></h2>
+  </div>
+  <div class="ask show3">
+    <div class="num">3</div>
+    <h2>Name the consent template owner
+      <span class="sub">every handoff begins with a recorded consent</span></h2>
+  </div>
+
+  <div class="foot"><b>HSBC Private Bank</b> · Family Lifetime Core</div>
+</body>
+</html>

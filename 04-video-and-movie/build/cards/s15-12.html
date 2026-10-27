@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>End card · 12-minute · white HSBC style</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1440px; height: 900px; overflow: hidden; }
+  body {
+    background: #ffffff; color: #121826;
+    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", sans-serif;
+    padding: 84px 110px 0; position: relative;
+  }
+  .rule { position: absolute; top: 0; left: 0; height: 6px; width: 100%;
+    background: linear-gradient(90deg, #db0011 60%, transparent 60%); }
+  .kicker { font-size: 18px; letter-spacing: 4px; text-transform: uppercase;
+    color: #7c8aa0; opacity: 0; animation: fadein .8s ease .3s forwards; }
+  h1 { font-size: 46px; font-weight: 750; margin: 12px 0 46px; opacity: 0; animation: fadein .8s ease .5s forwards; }
+  h1 .red { color: #db0011; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .box { background: #fff; border: 1.5px solid #dde3ec; border-radius: 12px;
+    padding: 22px 24px; min-height: 168px; box-shadow: 0 2px 12px rgba(16,24,40,.06);
+    opacity: 0; transform: translateY(14px); }
+  .box .no { font-size: 15px; font-weight: 800; color: #db0011; letter-spacing: .14em; }
+  .box h2 { font-size: 22px; font-weight: 700; margin: 8px 0 8px; }
+  .box p { font-size: 15px; color: #52627a; line-height: 1.45; }
+  /* five boxes appear with narration sentences 2..6 (synced after TTS) */
+  .b1 { animation: rise .8s ease 4.0s forwards; }
+  .b2 { animation: rise .8s ease 11.1s forwards; }
+  .b3 { animation: rise .8s ease 17.7s forwards; }
+  .b4 { animation: rise .8s ease 24.2s forwards; }
+  .b5 { animation: rise .8s ease 31.9s forwards; }
+  .foot { position: absolute; left: 110px; bottom: 185px; right: 110px;
+    display: flex; justify-content: space-between; align-items: center;
+    opacity: 0; animation: fadein .8s ease 38.2s forwards; }
+  .foot .tag { font-size: 19px; font-weight: 700; color: #121826; }
+  .foot .tag .red { color: #db0011; }
+  .foot .hex { width: 46px; height: 46px; }
+  @keyframes fadein { to { opacity: 1; } }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+  <div class="rule"></div>
+  <div class="kicker">Family Lifetime Core · operating workbench</div>
+  <h1>Five scenarios, <span class="red">one workbench</span></h1>
+
+  <div class="grid">
+    <div class="box b1">
+      <div class="no">01 · IPO &amp; PB</div>
+      <h2>IPO &amp; Wealth Events</h2>
+      <p>CIB event → consent-based handoff · valuation range · wall clearance</p>
+    </div>
+    <div class="box b2">
+      <div class="no">02 · Family Onboarding</div>
+      <h2>Family Onboarding</h2>
+      <p>Family graph · per-person consent · first investment</p>
+    </div>
+    <div class="box b3">
+      <div class="no">03 · Estate &amp; Continuity</div>
+      <h2>Estate &amp; Continuity</h2>
+      <p>Death → authority → twelve-month outcome, in one timeline</p>
+    </div>
+    <div class="box b4">
+      <div class="no">04 · Revenue &amp; Margin</div>
+      <h2>Revenue &amp; Margin</h2>
+      <p>AUM · client commission · margin · RM capacity · formulas on page</p>
+    </div>
+    <div class="box b5">
+      <div class="no">05 · Order Trust</div>
+      <h2>Failed-Trade Trust</h2>
+      <p>Attribution → recovery → knowledge → a better client conversation</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="tag">Five scenarios · five pages · <span class="red">one workbench</span></div>
+    <svg class="hex" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+      <path d="M24 2 L44 13 V35 L24 46 L4 35 V13 Z" fill="#db0011"/>
+      <path d="M24 10 L37 17.5 V30.5 L24 38 L11 30.5 V17.5 Z" fill="#fff"/>
+    </svg>
+  </div>
+</body>
+</html>

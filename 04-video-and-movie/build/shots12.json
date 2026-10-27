@@ -1,0 +1,645 @@
+{
+  "film": "12-minute-master",
+  "fps": 30,
+  "width": 1440,
+  "height": 900,
+  "deviceScaleFactor": 2,
+  "voice": "bm_george",
+  "ttsUrl": "http://localhost:8880/v1/audio/speech",
+  "ttsDir": "tts12",
+  "clipsDir": "clips12",
+  "outDir": "out12",
+  "badge": "Illustrative demo  ·  public cases are not clients  ·  figures are demo data",
+  "workbench": "../03-web-page/rm-workbench.html",
+  "clientJourney": "../03-web-page/client-journey.html",
+  "shots": [
+    {
+      "id": "S1",
+      "route": "#/overview",
+      "type": "page",
+      "topLabel": "five problems · one film",
+      "narration": "Five operating problems. First, how CIB originates an IPO and how Private Banking onboards founders and executives on a consent basis. Second, how a new client, a next-generation member or a spouse completes a first investment. Third, where the family's money actually goes twelve months after a death. Fourth, how the Private Bank is actually performing — AUM, revenue, client commission, gross margin, net margin and cost-to-income, with the formulas on one dashboard. Fifth, why a trade fails — client, market, RM, operations or IT — and how the RM turns that attribution into knowledge and a better client conversation. This workbench is not a marketing site. It decomposes each problem into business steps, fields, status, ownership and evidence. The public names are structural references only, not HSBC clients. All bank figures are demo data.",
+      "actions": [
+        {
+          "t": 1.0,
+          "do": "highlightCard",
+          "find": "IPO & PB"
+        },
+        {
+          "after": "on a consent basis.",
+          "do": "highlightCard",
+          "find": "Family Onboarding"
+        },
+        {
+          "after": "twelve months after a death.",
+          "do": "highlightCard",
+          "find": "Estate & Continuity"
+        },
+        {
+          "after": "formulas on one dashboard.",
+          "do": "highlightCard",
+          "find": "Revenue & Margin"
+        },
+        {
+          "after": "a better client conversation.",
+          "do": "highlightCard",
+          "find": "Order Trust"
+        },
+        {
+          "after": "not a marketing site.",
+          "do": "highlightText",
+          "find": "process-and-data prototype"
+        }
+      ],
+      "voice": "bm_george"
+    },
+    {
+      "id": "S2a",
+      "type": "card",
+      "card": "cards/s2a.html",
+      "voice": "bf_lily",
+      "topLabel": "",
+      "narration": "Three client journeys, one horizontal journey, two enablers — all priority zero.",
+      "actions": []
+    },
+    {
+      "id": "S2b",
+      "pageFile": "client",
+      "route": "#/m3-journeys",
+      "type": "page",
+      "voice": "bm_george",
+      "topLabel": "same six questions · different life events",
+      "narration": "Here are three blueprints on one page — founder, creator, and women. Every blueprint answers the same six questions: who, when they arrive, what they need, how the journey runs, what the system must hold, and what we must never do. The blueprint is the promise; part two — the workbench — shows the execution: fields, statuses and evidence. J1 family stays the flagship journey, with its own deep dive later.",
+      "actions": [
+        {
+          "t": 1.5,
+          "do": "clickText",
+          "find": "J2 Founder"
+        },
+        {
+          "after": "founder, creator, and women.",
+          "do": "clickText",
+          "find": "J3 Creator"
+        },
+        {
+          "after": "what we must never do.",
+          "do": "clickText",
+          "find": "J4 Women"
+        },
+        {
+          "after": "fields, statuses and evidence.",
+          "do": "scrollToText",
+          "find": "Five stages"
+        },
+        {
+          "after": "the flagship journey,",
+          "do": "highlightText",
+          "find": "flagship"
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "pageFile": "client",
+      "route": "#/m4-private-assets",
+      "type": "page",
+      "voice": "bf_lily",
+      "topLabel": "illustrative issuer · AI Terra Ltd",
+      "narration": "This is the private-asset lifecycle: one client, one view. For every instrument — jurisdiction, ownership, direct versus voting rights, lock-up and transfer restrictions. From one valuation date the system derives three numbers: paper value, pledgeable value, spendable value. The assets here are illustrative or public references: a pre-IPO AI company, an employee-ownership trust, and a listed family-controlled brewer. Amounts are demo; no client relationship is implied. The principle is simple: private assets need the same governance as cash — a valuation date, a discount stack, an owner, and a committee.",
+      "actions": [
+        {
+          "t": 1.2,
+          "do": "clickText",
+          "find": "Asset Intake"
+        },
+        {
+          "after": "one client, one view.",
+          "do": "clickText",
+          "find": "Capital Calls"
+        },
+        {
+          "after": "lock-up and transfer restrictions.",
+          "do": "clickText",
+          "find": "Earn-Outs"
+        },
+        {
+          "after": "pledgeable value, spendable value.",
+          "do": "clickText",
+          "find": "Obligation Calendar"
+        },
+        {
+          "after": "no client relationship is implied.",
+          "do": "clickText",
+          "find": "Valuation Governance"
+        },
+        {
+          "after": "an owner, and a committee.",
+          "do": "highlightRow",
+          "find": "Shepherd Neame"
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "route": "#/ipo-pipeline",
+      "type": "page",
+      "topLabel": "event ≠ lead · consent + wall before contact",
+      "narration": "This is the wealth-event pipeline. We do not look only at IPOs. We include IPOs, H-share listings, secondary sell-downs, M&A and employee ownership trusts in one pipeline. Each row carries the company, exchange, stage, expected timing, CIB coverage, founder and management holdings, estimated wealth, Private Banking status and owner. The point is not to obtain a list of names. The point is to put the event, client consent, Chinese Wall clearance and Private Banking readiness on one page. The public cases — DeepSeek, Mindray, Lens Technology, Riverford and Unruly — illustrate the structure only. They are not client relationships.",
+      "actions": [
+        {
+          "t": 2.0,
+          "do": "highlightRow",
+          "find": "DeepSeek"
+        },
+        {
+          "t": 2.6,
+          "do": "avatar",
+          "id": "liang",
+          "avatar": "liang",
+          "bubble": "what can HSBC do for me?",
+          "cap": "Liang Wenfeng · illustrative",
+          "x": 1080,
+          "y": 660,
+          "ms": 14000
+        },
+        {
+          "after": "Private Banking status and owner.",
+          "do": "highlightRow",
+          "find": "DeepSeek"
+        },
+        {
+          "after": "readiness on one page.",
+          "do": "highlightText",
+          "find": "Consent pending"
+        },
+        {
+          "after": "illustrate the structure only.",
+          "do": "highlightText",
+          "find": "Mindray"
+        }
+      ],
+      "voice": "bm_george"
+    },
+    {
+      "id": "S5",
+      "route": "#/ipo-valuation",
+      "type": "page",
+      "topLabel": "no committee approval → no lendable value",
+      "narration": "This is pre-IPO valuation; a valuation is not a price target, it is an explainable range for credit, pledge, trust and client communication. For DeepSeek, the July 2026 reported post-money — roughly US$49–56bn — is the primary input, with comparable companies and DCF alongside; each method carries weight, inputs and a range. The same stack — marketability 30, minority 10, concentration 10 — is applied to both ends, giving US$26.7–29.0bn, and a 10–30% LTV guide turns it into indicative lendable value. Control premium is not a discount and is excluded. Every number carries valuation date, method, assumptions, approver and evidence — no committee approval, no lendable value.",
+      "actions": [
+        {
+          "t": 2.0,
+          "do": "highlightText",
+          "find": "DCF"
+        },
+        {
+          "after": "is the primary input,",
+          "do": "avatar",
+          "id": "liang",
+          "avatar": "liang",
+          "bubble": "what can HSBC do for me?",
+          "cap": "Liang Wenfeng · illustrative",
+          "x": 1080,
+          "y": 660,
+          "ms": 12000
+        },
+        {
+          "after": "each method carries weight, inputs and a range.",
+          "do": "scrollToText",
+          "find": "Discounts"
+        },
+        {
+          "at": "The same stack",
+          "do": "highlightText",
+          "find": "Marketability"
+        },
+        {
+          "after": "is excluded.",
+          "do": "highlightText",
+          "find": "control premium"
+        },
+        {
+          "after": "no committee approval, no lendable value.",
+          "do": "scrollToText",
+          "find": "Committee evidence"
+        }
+      ],
+      "voice": "bf_lily"
+    },
+    {
+      "id": "S6",
+      "route": "#/ipo-handoff",
+      "type": "page",
+      "topLabel": "consent-based introduction — not a data transfer",
+      "narration": "This is the handoff from CIB to Private Banking. The key sentence is: this is a consent-based introduction, not a data transfer. CIB can identify the event, confirm the relationship and propose an introduction. Private Banking must independently complete KYC, suitability, tax and family-needs assessment. Every step on the page has an owner, status and evidence: CIB identification, client consent, Chinese Wall clearance, KYC, family discovery and valuation/credit readiness. Without consent and wall clearance, investment-banking deal information must not be passed to Private Banking.",
+      "actions": [
+        {
+          "t": 2.0,
+          "do": "highlightText",
+          "find": "consent-based"
+        },
+        {
+          "after": "not a data transfer.",
+          "do": "highlightRow",
+          "find": "CIB identifies wealth event"
+        },
+        {
+          "after": "family-needs assessment.",
+          "do": "highlightText",
+          "find": "Client consent"
+        },
+        {
+          "after": "valuation/credit readiness.",
+          "do": "highlightText",
+          "find": "Wall clearance"
+        },
+        {
+          "after": "passed to Private Banking.",
+          "do": "highlightText",
+          "find": "consent"
+        }
+      ],
+      "voice": "bm_george"
+    },
+    {
+      "id": "S11",
+      "route": "#/onboarding-family",
+      "type": "page",
+      "topLabel": "consent is per-person",
+      "narration": "This is family onboarding. A private-banking client is not a single client ID. It is a family graph: principal, spouse, adult children, minor children, trustees, lawyers and the family office. Each person has a role, consent status, goals and entitlements. Three points are critical. A parent cannot consent on behalf of an adult child. A minor's authority comes from guardianship or a trust. A spouse's authority comes from their own consent or a valid legal instrument. The permission model below is the hard system boundary that prevents \"the parent decides everything\".",
+      "actions": [
+        {
+          "t": 2.0,
+          "do": "highlightText",
+          "find": "Self + spouse"
+        },
+        {
+          "after": "It is a family graph:",
+          "do": "avatar",
+          "id": "wife",
+          "avatar": "wife",
+          "bubble": "my son is my pride",
+          "x": 1070,
+          "y": 130,
+          "ms": 9000
+        },
+        {
+          "after": "goals and entitlements.",
+          "do": "avatar",
+          "id": "son",
+          "avatar": "son",
+          "bubble": "education upgrade",
+          "x": 1070,
+          "y": 375,
+          "ms": 9000
+        },
+        {
+          "after": "guardianship or a trust.",
+          "do": "highlightText",
+          "find": "Guardian + trust"
+        },
+        {
+          "after": "guardianship or a trust.",
+          "lag": 0.6,
+          "do": "avatar",
+          "id": "elder",
+          "avatar": "elder",
+          "bubble": "my husband body check follow up",
+          "x": 1070,
+          "y": 615,
+          "ms": 10000
+        },
+        {
+          "after": "a valid legal instrument.",
+          "do": "scrollToText",
+          "find": "Legal instrument"
+        },
+        {
+          "after": "the parent decides everything",
+          "do": "scrollBottom"
+        }
+      ],
+      "voice": "bf_lily"
+    },
+    {
+      "id": "S12",
+      "route": "#/onboarding-first",
+      "type": "page",
+      "topLabel": "prove the flow before scale",
+      "narration": "This is the first investment. The objective is not to sell a product. It is to create a first experience the client understands, can tolerate and can review. The steps are: suitability passed, education completed, template selected, client confirmation, order execution and post-trade review. The amount can be small, but the process must be complete. After execution there must be a confirmation, a review, a next review date and feedback. For a next-generation member or a spouse, this experience determines whether they stay with the bank.",
+      "actions": [
+        {
+          "t": 2.0,
+          "do": "highlightText",
+          "find": "Suitability passed"
+        },
+        {
+          "after": "order execution and post-trade review.",
+          "do": "highlightText",
+          "find": "Template selected"
+        },
+        {
+          "after": "the process must be complete.",
+          "do": "highlightText",
+          "find": "Client confirmation"
+        },
+        {
+          "after": "next review date and feedback.",
+          "do": "highlightText",
+          "find": "Post-trade review"
+        },
+        {
+          "after": "stay with the bank.",
+          "do": "highlightText",
+          "find": "Confirm first investment"
+        }
+      ],
+      "voice": "bm_george"
+    },
+    {
+      "id": "S7",
+      "route": "#/estate-portfolio",
+      "type": "page",
+      "topLabel": "the same family, without the principal",
+      "narration": "The portfolio shows time, value and outcome in one table: one trust ran twenty-three years and closed on 30 August 2026; one benchmark paid fifteen days after the grant.",
+      "actions": [
+        {
+          "t": 1.5,
+          "do": "highlightRow",
+          "find": "Mui"
+        },
+        {
+          "at": "one benchmark paid fifteen days",
+          "do": "highlightRow",
+          "find": "FOS"
+        },
+        {
+          "after": "after the grant.",
+          "do": "highlightText",
+          "find": "15"
+        }
+      ],
+      "voice": "bf_lily"
+    },
+    {
+      "id": "S8",
+      "route": "#/estate-case",
+      "type": "page",
+      "topLabel": "family consensus ≠ authority",
+      "narration": "This is the timeline of one case. The sequence matters. At T+0 the death is notified and the power of attorney ends automatically. At T+1 the family makes contact, but the executor has not yet been granted probate. At T+7 funeral and urgent expenses arise. At T+30 probate is filed. At T+60 the grant is issued. At T+90 the estate account and distributions are handled. At T+365 the outcome is reviewed. The bank cannot treat family consensus as authority, and cannot transfer assets to the family before the grant. This page puts the legal action, bank action and evidence on one timeline.",
+      "actions": [
+        {
+          "t": 2.0,
+          "do": "highlightText",
+          "find": "T+0"
+        },
+        {
+          "after": "ends automatically.",
+          "do": "highlightText",
+          "find": "POA"
+        },
+        {
+          "after": "not yet been granted probate.",
+          "do": "highlightText",
+          "find": "Grant of probate"
+        },
+        {
+          "after": "the grant is issued.",
+          "do": "holdHighlight",
+          "find": "T+60",
+          "ms": 1500
+        },
+        {
+          "after": "the outcome is reviewed.",
+          "do": "highlightText",
+          "find": "T+365"
+        },
+        {
+          "after": "on one timeline.",
+          "do": "scrollBottom"
+        }
+      ],
+      "voice": "bm_george"
+    },
+    {
+      "id": "S9",
+      "route": "#/estate-authority",
+      "type": "page",
+      "topLabel": "four roles, four authorities · no authority → no action",
+      "narration": "This is authority and probate. We separate four roles. The executor administers the estate. The trustee administers the trust. The attorney's authority terminates on death. The beneficiary has a beneficial interest but no authority to instruct the bank. Each row states the instrument, scope, status, what the role can pay and what it cannot do. The right side contains the probate and estate checklist plus negative rules: do not continue a deceased client's power of attorney, do not treat trust assets as estate assets, do not disclose to unauthorized family members, do not promise a fixed release date and do not bypass probate or court orders.",
+      "actions": [
+        {
+          "t": 2.0,
+          "do": "highlightRow",
+          "find": "Executor"
+        },
+        {
+          "after": "administers the estate.",
+          "do": "highlightRow",
+          "find": "Trustee"
+        },
+        {
+          "after": "terminates on death.",
+          "do": "highlightRow",
+          "find": "Attorney"
+        },
+        {
+          "after": "instruct the bank.",
+          "do": "highlightRow",
+          "find": "Beneficiary"
+        },
+        {
+          "after": "what it cannot do.",
+          "do": "scrollToText",
+          "find": "Negative"
+        },
+        {
+          "after": "probate or court orders.",
+          "do": "highlightText",
+          "find": "POA active"
+        }
+      ],
+      "voice": "bf_lily"
+    },
+    {
+      "id": "S10",
+      "route": "#/estate-outcomes",
+      "type": "page",
+      "topLabel": "from opinion to cohort data",
+      "narration": "This is the twelve-month outcome. We do not only ask whether the case is closed. We ask how many days it took to make the first lawful payment, how much was distributed at twelve months, what legal cost was as a percentage of the estate, whether the family stayed, what the NPS was and where the cross-border gap sits. These metrics turn the bereavement experience from an opinion into cohort data. The next step is to connect real cases, beneficiary definitions and cross-border data, with a privacy impact assessment.",
+      "actions": [
+        {
+          "t": 2.0,
+          "do": "highlightRow",
+          "find": "2025 deaths"
+        },
+        {
+          "after": "the first lawful payment,",
+          "do": "highlightText",
+          "find": "First payment (days)"
+        },
+        {
+          "after": "into cohort data.",
+          "do": "highlightText",
+          "find": "Cross-border"
+        },
+        {
+          "after": "privacy impact assessment.",
+          "do": "scrollToText",
+          "find": "Retention"
+        }
+      ],
+      "voice": "bm_george"
+    },
+    {
+      "id": "S13a",
+      "route": "#/revenue-cockpit",
+      "type": "page",
+      "topLabel": "demo book · 64 RMs · formulas on page",
+      "narration": "This is the Private Bank operating dashboard: AUM US$31.2bn, revenue US$480m, client commission US$52m, gross margin US$312m at 65%, net margin US$156m at 32.5%, cost/income 67.5%. The formulas are on the page: gross margin is revenue minus direct cost; net margin deducts funding, risk and allocated cost; cost/income is revenue minus net margin over revenue. Every number decomposes by client, product, RM and entity.",
+      "actions": [
+        {
+          "t": 1.2,
+          "do": "highlightText",
+          "find": "31.2"
+        },
+        {
+          "after": "cost/income 67.5%.",
+          "do": "highlightText",
+          "find": "67.5"
+        },
+        {
+          "after": "funding, risk and allocated cost;",
+          "do": "scrollToText",
+          "find": "formula"
+        },
+        {
+          "after": "RM and entity.",
+          "do": "highlightText",
+          "find": "revenue"
+        }
+      ],
+      "voice": "bf_lily"
+    },
+    {
+      "id": "S13b",
+      "route": "#/revenue-rm",
+      "type": "page",
+      "topLabel": "51 relationships ≠ 51 individuals · workload 97.4 = overloaded",
+      "narration": "This is the RM-level view of the same operating dashboard. AUM and revenue sit next to relationships and capacity. One clarification: 51 is the number of client relationships, not 51 independent wealthy individuals. An RM may manage 35 to 51 relationships, corresponding to 15 to 25 households, with US$400–600m AUM. To turn a raw client count into an explainable capacity measure, we add three fields: support_ratio, the number of assistants or product specialists per RM; segment_mix, the UHNW, HNW and family-office share; and service_intensity, the annual meetings, trades, trust/estate cases and credit facilities per relationship. Public benchmarks: private-banking RMs typically serve 50–70 clients; Goldman Sachs PWM cites 1:25; Asian Private Banker reports average AUM per RM of about US$473m. Fifty-one relationships is at the upper end: on screen, the workload index is 97.4 — overloaded — driven mainly by a 0.7 support ratio. RM KPIs must include gross margin, failed trades, NPS and controllable risk, not revenue alone.",
+      "actions": [
+        {
+          "t": 2.0,
+          "do": "highlightRow",
+          "find": "James"
+        },
+        {
+          "after": "not 51 independent wealthy individuals.",
+          "do": "highlightText",
+          "find": "51"
+        },
+        {
+          "after": "US$400–600m AUM.",
+          "do": "scrollToText",
+          "find": "Support FTE"
+        },
+        {
+          "after": "credit facilities per relationship.",
+          "do": "highlightText",
+          "find": "97.4"
+        },
+        {
+          "after": "0.7 support ratio.",
+          "do": "highlightText",
+          "find": "Overloaded"
+        },
+        {
+          "after": "not revenue alone.",
+          "do": "scrollBottom"
+        }
+      ],
+      "voice": "bm_george"
+    },
+    {
+      "id": "S14a",
+      "route": "#/order-failure",
+      "type": "page",
+      "topLabel": "primary cause ≠ contributing cause · IT? no",
+      "narration": "This is failure detail. ORD-1002: the client is a fictional demo family — the UK creator family — the market is London, and the order was submitted at 16:44, after the close. The primary cause is market closed; the contributing cause is that the market-hours check was missed at order entry. It is not an IT failure. The page separates primary cause, contributing cause, owner and evidence. The RM explains what happened, why, who is affected, what happens next, and what to check next time. Recovery is to rebook at the next session and confirm with the client.",
+      "actions": [
+        {
+          "t": 2.0,
+          "do": "highlightRow",
+          "find": "ORD-1002"
+        },
+        {
+          "after": "after the close.",
+          "do": "highlightText",
+          "find": "16:44"
+        },
+        {
+          "after": "It is not an IT failure.",
+          "do": "highlightText",
+          "find": "Primary cause"
+        },
+        {
+          "after": "what to check next time.",
+          "do": "scrollToText",
+          "find": "Recovery"
+        },
+        {
+          "after": "confirm with the client.",
+          "do": "highlightText",
+          "find": "Client informed"
+        }
+      ],
+      "voice": "bf_lily"
+    },
+    {
+      "id": "S14b",
+      "route": "#/order-kpi",
+      "type": "page",
+      "topLabel": "cause → knowledge → next client conversation",
+      "narration": "This is failure attribution and learning. Every failed trade gets a primary cause, contributing cause, owner and evidence: client, market, liquidity, funding, RM process, operations, IT or system, counterparty, or compliance. IT failures are tagged separately, so they can be found and fixed; they are not counted against the RM. The RM turns the cause into a knowledge card: what happened, why, what to check next time, what to tell the client. Metrics: failed percentage, recovery time, repeat causes and trust. A clear explanation is how a failure becomes trust.",
+      "actions": [
+        {
+          "t": 2.0,
+          "do": "highlightText",
+          "find": "primary cause"
+        },
+        {
+          "after": "counterparty, or compliance.",
+          "do": "highlightText",
+          "find": "IT / system"
+        },
+        {
+          "after": "not counted against the RM.",
+          "do": "scrollToText",
+          "find": "knowledge card"
+        },
+        {
+          "after": "what to tell the client.",
+          "do": "highlightText",
+          "find": "Failed trade"
+        },
+        {
+          "after": "becomes trust.",
+          "do": "highlightText",
+          "find": "Trust score"
+        }
+      ],
+      "voice": "bm_george"
+    },
+    {
+      "id": "S15",
+      "type": "card",
+      "card": "cards/s15-12.html",
+      "topLabel": "",
+      "narration": "Five scenarios, one operating workbench. One: CIB originates the IPO, and Private Banking onboards the founder on a consent basis. Two: the family — the next generation and the spouse — complete onboarding and a first investment. Three: twelve months after a death, the estate cohort shows where the family's money actually went. Four: the operating dashboard — AUM, revenue, margin and RM capacity, with the formulas on the page. Five: a failed trade becomes attribution, recovery and a better client conversation. Five scenarios, five pages, one workbench.",
+      "actions": [],
+      "voice": "bf_lily"
+    }
+  ],
+  "outW": 2880,
+  "outH": 1800
+}

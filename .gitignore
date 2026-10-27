@@ -1,3 +1,16 @@
 .DS_Store
 .openchamber/
 archive/2026-10_v1/research/
+
+/04-video-and-movie/*.mp4
+/04-video-and-movie/build/node_modules/
+/04-video-and-movie/build/assets/
+/04-video-and-movie/build/clips/
+/04-video-and-movie/build/clips12/
+/04-video-and-movie/build/out/
+/04-video-and-movie/build/out12/
+/04-video-and-movie/build/tts/
+/04-video-and-movie/build/tts12/
+/04-video-and-movie/build/*.log
+/04-video-and-movie/build/vbftt73m
+/04-video-and-movie/build/vgwgg6xf

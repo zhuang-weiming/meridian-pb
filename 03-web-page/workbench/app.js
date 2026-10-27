@@ -92,7 +92,7 @@
           ${stat("PB-ready", "2", "Existing / onboarded", "green")}
           ${stat("Consent pending", "3", "Wall / client consent", "amber")}
         </div>
-        ${card("Wealth event pipeline", "Public cases are illustrative; stage/dates are demo.", table(["ID", "Company", "Exchange", "Stage", "Expected", "CIB coverage", "Founder / holders", "Estimated wealth", "PB status", "Owner"], WB.ipo.pipeline.map(x => [`<span class="mono">${x.id}</span>`, `<b>${x.company}</b><div class="tiny">${x.sector}</div>`, x.exchange, badge(x.stage, statusTone(x.stage)), x.expected, x.cib, `${x.founder}<div class="tiny">${x.holders}</div>`, x.wealth, badge(x.pb, statusTone(x.pb)), x.owner]), { compact: true }), `<a class="btn primary" href="#/ipo-company">Open DeepSeek company profile →</a>`)}
+        ${card("Wealth event pipeline", "Public cases are illustrative; stage/dates are demo.", table(["ID", "Company", "Exchange", "Stage", "Expected", "CIB coverage", "Founder / holders", "Estimated wealth", "PB status", "PB RM"], WB.ipo.pipeline.map(x => [`<span class="mono">${x.id}</span>`, `<b>${x.company}</b><div class="tiny">${x.sector}</div>`, x.exchange, badge(x.stage, statusTone(x.stage)), x.expected, x.cib, `${x.founder}<div class="tiny">${x.holders}</div>`, x.wealth, badge(x.pb, statusTone(x.pb)), x.owner]), { compact: true }), `<a class="btn primary" href="#/ipo-company">Open DeepSeek company profile →</a>`)}
         ${sourceNote("Pipeline and dates are illustrative. Real pipeline requires CIB/MSS deal data, client consent and Chinese Wall clearance.")}`
     },
 
