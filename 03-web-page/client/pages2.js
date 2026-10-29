@@ -420,7 +420,7 @@
     return UI.pageHead({
       crumb: `<b>M3</b> · RM Copilot · Journey blueprints`,
       title: "Journey Blueprints · J2 / J3 / J4",
-      sub: "One page: who, when, what they need, how it runs, what the system needs, and what we must not do. J1 Family is the flagship; J2/J3/J4 are P0/P1 growth journeys.",
+      sub: "One page: who, when, what they need, how it runs, what the system needs, and what we must not do. <b>J1 Family is the flagship</b>; J2/J3/J4 are P0/P1 growth journeys.",
       actions: `<button class="btn" data-action="go" data-page="m3-family">Family cockpit</button>
         <button class="btn primary" data-action="go" data-page="m4-founder">Founder 360</button>`
     }) + `
